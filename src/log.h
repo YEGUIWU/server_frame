@@ -12,8 +12,9 @@
  */
 #ifndef __YGW_LOG_H__
 #define __YGW_LOG_H__
-#include <stdarg.h>
-#include <stdint.h>
+#include <cstdarg>
+#include <cstdint>
+#include <ctime>
 
 #include <fstream>
 #include <list>
@@ -22,6 +23,85 @@
 #include <sstream>
 #include <string>
 #include <vector>
+
+
+/**
+ ** @brief 使用流式方式将日志级别level的日志写入到logger
+ **/
+#define YGW_LOG_LEVEL(logger, level) \
+    if(logger->GetLevel() <= level) \
+    ygw::log::LogEventWrap(ygw::log::LogEvent::ptr(new ygw::log::LogEvent(logger, level, \
+                    __FILE__, __LINE__, 0, ygw::util::GetThreadId(),\
+                    ygw::util::GetFiberId(), time(0), "Hello World"))).GetStringStream()
+
+/**
+ ** @brief 使用流式方式将日志级别debug的日志写入到logger
+ **/
+#define YGW_LOG_DEBUG(logger) YGW_LOG_LEVEL(logger, ygw::log::LogLevel::kDebug)
+
+/**
+ ** @brief 使用流式方式将日志级别info的日志写入到logger
+ **/
+#define YGW_LOG_INFO(logger) YGW_LOG_LEVEL(logger, ygw::log::LogLevel::kInfo)
+
+/**
+ ** @brief 使用流式方式将日志级别warn的日志写入到logger
+ **/
+#define YGW_LOG_WARN(logger) YGW_LOG_LEVEL(logger, ygw::log::LogLevel::kWarn)
+
+/**
+ *  * @brief 使用流式方式将日志级别error的日志写入到logger
+ *   */
+#define YGW_LOG_ERROR(logger) YGW_LOG_LEVEL(logger, ygw::log::LogLevel::kError)
+
+/**
+ ** @brief 使用流式方式将日志级别fatal的日志写入到logger
+ **/
+#define YGW_LOG_FATAL(logger) YGW_LOG_LEVEL(logger, ygw::log::LogLevel::kFatal)
+
+/**
+ ** @brief 使用格式化方式将日志级别level的日志写入到logger
+ **/
+#define YGW_LOG_FMT_LEVEL(logger, level, fmt, ...) \
+    if(logger->GetLevel() <= level) \
+    ygw::log::LogEventWrap(ygw::log::LogEvent::ptr(new ygw::log::LogEvent(logger, level, \
+                    __FILE__, __LINE__, 0, ygw::util::GetThreadId(),\
+                    ygw::util::GetFiberId(), time(0), "hello"))).GetEvent()->Format(fmt, __VA_ARGS__)
+
+/**
+ ** @brief 使用格式化方式将日志级别debug的日志写入到logger
+ **/
+#define YGW_LOG_FMT_DEBUG(logger, fmt, ...) YGW_LOG_FMT_LEVEL(logger, ygw::log::LogLevel::kDebug, fmt, __VA_ARGS__)
+
+/**
+ ** @brief 使用格式化方式将日志级别info的日志写入到logger
+ **/
+#define YGW_LOG_FMT_INFO(logger, fmt, ...)  YGW_LOG_FMT_LEVEL(logger, ygw::log::LogLevel::kInfo, fmt, __VA_ARGS__)
+
+/**
+ ** @brief 使用格式化方式将日志级别warn的日志写入到logger
+ **/
+#define YGW_LOG_FMT_WARN(logger, fmt, ...)  YGW_LOG_FMT_LEVEL(logger, ygw::log::LogLevel::kWarn, fmt, __VA_ARGS__)
+
+/**
+ ** @brief 使用格式化方式将日志级别error的日志写入到logger
+ **/
+#define YGW_LOG_FMT_ERROR(logger, fmt, ...) YGW_LOG_FMT_LEVEL(logger, ygw::log::LogLevel::kError, fmt, __VA_ARGS__)
+
+/**
+ ** @brief 使用格式化方式将日志级别fatal的日志写入到logger
+ **/
+#define YGW_LOG_FMT_FATAL(logger, fmt, ...) YGW_LOG_FMT_LEVEL(logger, ygw::log::LogLevel::kFatal, fmt, __VA_ARGS__)
+
+/**
+ ** @brief 获取主日志器
+ **/
+#define YGW_LOG_ROOT() ygw::log::LoggerMgr::GetInstance()->GetRoot()
+
+/**
+ ** @brief 获取name的日志器
+ **/
+#define YGW_LOG_NAME(name) ygw::log::LoggerMgr::GetInstance()->GetLogger(name)
 
 namespace ygw {
 
@@ -38,7 +118,7 @@ namespace ygw {
             /**
              ** @brief 日志级别枚举
              **/
-            enum class Level {
+            enum Level {
                 /// 未知级别
                 kUnknown = 0,
                 /// DEBUG 级别
@@ -346,6 +426,7 @@ namespace ygw {
         // 日志器
         class Logger : public std::enable_shared_from_this<Logger> 
         {
+            friend class LoggerManager;
         public:
             using ptr = std::shared_ptr<Logger> ;
             /**
@@ -489,6 +570,43 @@ namespace ygw {
             /// 上次重新打开时间
             uint64_t last_time_ = 0;
         };//
+
+        /**
+         ** @brief 日志器管理类
+         **/
+        class LoggerManager {
+        public:
+            /**
+             ** @brief 构造函数
+             **/
+            LoggerManager();
+
+            /**
+             ** @brief 获取日志器
+             ** @param[in] name 日志器名称
+             **/
+            Logger::ptr GetLogger(const std::string& name);
+
+            /**
+             ** @brief 初始化
+             **/
+            void Init();
+
+            /**
+             ** @brief 返回主日志器
+             **/
+            Logger::ptr GetRoot() const { return root_;}
+
+            /**
+             ** @brief 将所有的日志器配置转成YAML String
+             **/
+            //std::string toYamlString();
+        private:
+            /// 日志器容器
+            std::map<std::string, Logger::ptr> loggers_;
+            /// 主日志器
+            Logger::ptr root_;
+        };
 
         
 

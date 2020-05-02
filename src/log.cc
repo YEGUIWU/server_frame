@@ -1,4 +1,5 @@
 #include "log.h"
+#include <cstdio>
 #include <iostream>
 #include <functional>
 namespace ygw {
@@ -22,8 +23,10 @@ namespace ygw {
                 return "ERROR";
             case LogLevel::Level::kFatal:
                 return "FATAL";
+            case LogLevel::Level::kUnknown:
+                return "UNKNOWN";
             }
-            return "UNKNOW";
+            return "UNKNOWN";
         }
 
 
@@ -77,6 +80,7 @@ namespace ygw {
 
         void LogEvent::Format(const char* fmt, va_list al) 
         {
+#ifdef __GNUC__
             char* buf = nullptr;
             int len = vasprintf(&buf, fmt, al);
             if(len != -1) 
@@ -84,6 +88,14 @@ namespace ygw {
                 string_stream_ << std::string(buf, len);
                 free(buf);
             }
+#elif _MSC_VER
+            char buf[512];
+            int len = vsprintf_s(buf, sizeof(buf), fmt, al);
+            if (len != -1)
+            {
+                string_stream_ << std::string(buf, len);
+            }
+#endif 
         }
 
         LogEvent::LogEvent(std::shared_ptr<Logger> logger, LogLevel::Level level
@@ -229,7 +241,11 @@ namespace ygw {
             {
                 struct tm tm;
                 time_t time = event->GetTime();
+#ifdef _MSC_VER
+                localtime_s(&tm, &time);
+#elif __GNUC__
                 localtime_r(&time, &tm);
+#endif //
                 char buf[64];
                 strftime(buf, sizeof(buf), format_.c_str(), &tm);
                 os << buf;
@@ -384,6 +400,10 @@ namespace ygw {
 
         void Logger::AddAppender(LogAppender::ptr appender)
         {
+            if (!appender->GetFormatter()) 
+            {
+                appender->formatter_ = formatter_;
+            }
             appenders_.push_back(appender);
         }
 
@@ -576,52 +596,83 @@ namespace ygw {
                     vec.push_back(std::make_tuple("<<pattern_error>>", fmt, 0));
                 }
 
-                if (!nstr.empty())
-                {
-                    vec.push_back(std::make_tuple(nstr, "", 0));
-                }
+           }
+            if (!nstr.empty())
+            {
+                vec.push_back(std::make_tuple(nstr, "", 0));
+            }
 
-                static std::map<std::string, std::function<FormatItem::ptr(const std::string& str)> > s_format_items = {
+            static std::map<std::string, std::function<FormatItem::ptr(const std::string& str)> > s_format_items = {
 #define XX(str, C) \
-                    {#str, [](const std::string& fmt) { return FormatItem::ptr(new C(fmt));}}
+                {#str, [](const std::string& fmt) { return FormatItem::ptr(new C(fmt));}}
 
-                    XX(m, MessageFormatItem),           //m:消息
-                    XX(p, LevelFormatItem),             //p:日志级别
-                    XX(r, ElapseFormatItem),            //r:累计毫秒数
-                    XX(c, NameFormatItem),              //c:日志名称
-                    XX(t, ThreadIdFormatItem),          //t:线程id
-                    XX(n, NewLineFormatItem),           //n:换行
-                    XX(d, DateTimeFormatItem),          //d:时间
-                    XX(f, FilenameFormatItem),          //f:文件名
-                    XX(l, LineFormatItem),              //l:行号
-                    XX(T, TabFormatItem),               //T:Tab
-                    XX(F, FiberIdFormatItem),           //F:协程id
-                    XX(N, ThreadNameFormatItem),        //N:线程名称
+                XX(m, MessageFormatItem),           //m:消息
+                XX(p, LevelFormatItem),             //p:日志级别
+                XX(r, ElapseFormatItem),            //r:累计毫秒数
+                XX(c, NameFormatItem),              //c:日志名称
+                XX(t, ThreadIdFormatItem),          //t:线程id
+                XX(n, NewLineFormatItem),           //n:换行
+                XX(d, DateTimeFormatItem),          //d:时间
+                XX(f, FilenameFormatItem),          //f:文件名
+                XX(l, LineFormatItem),              //l:行号
+                XX(T, TabFormatItem),               //T:Tab
+                XX(F, FiberIdFormatItem),           //F:协程id
+                XX(N, ThreadNameFormatItem),        //N:线程名称
 #undef XX
-                };
+            };
 
-                for (auto& i : vec)
+            for (auto& i : vec)
+            {
+                if (std::get<2>(i) == 0)
                 {
-                    if (std::get<2>(i) == 0)
+                    items_.push_back(FormatItem::ptr(new StringFormatItem(std::get<0>(i))));
+                }
+                else 
+                {
+                    auto it = s_format_items.find(std::get<0>(i));
+                    if(it == s_format_items.end()) 
                     {
-                        items_.push_back(FormatItem::ptr(new StringFormatItem(std::get<0>(i))));
-                    }
+                        items_.push_back(FormatItem::ptr(new StringFormatItem("<<error_format %" + std::get<0>(i) + ">>")));
+                        is_error_ = true;
+                    } 
                     else 
                     {
-                        auto it = s_format_items.find(std::get<0>(i));
-                        if(it == s_format_items.end()) 
-                        {
-                            items_.push_back(FormatItem::ptr(new StringFormatItem("<<error_format %" + std::get<0>(i) + ">>")));
-                            is_error_ = true;
-                        } 
-                        else 
-                        {
-                            items_.push_back(it->second(std::get<1>(i)));
-                        }
+                        items_.push_back(it->second(std::get<1>(i)));
                     }
                 }
             }
+
         }
+
+        //----------------------------------------------------------------
+        //
+        LoggerManager::LoggerManager() 
+        {
+            root_.reset(new Logger);
+            root_->AddAppender(LogAppender::ptr(new StdoutLogAppender));
+
+            loggers_[root_->name_] = root_;
+
+            Init();
+        }
+
+        Logger::ptr LoggerManager::GetLogger(const std::string& name) 
+        {
+            auto it = loggers_.find(name);
+            if(it != loggers_.end()) 
+            {
+                return it->second;
+            }
+
+            Logger::ptr logger(new Logger(name));
+            logger->root_ = root_;
+            loggers_[name] = logger;
+            return logger;
+        }
+        void LoggerManager::Init() 
+        {
+        }
+
 
     } // namespace log 
 
