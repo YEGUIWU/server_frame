@@ -1,3 +1,17 @@
+/*
+ * ====================================================
+ * Copyright (c) 2020-2100
+ *     FileName: log.cc
+ *       Author: Ye Gui Wu
+ *        Email: yeguiwu@qq.com
+ *      Version: 1.0
+ *     Compiler: gcc
+ *  Create Date: 2020-05-02
+ *  Description: 
+ * ====================================================
+ */
+
+
 #include "log.h"
 #include <cstdio>
 #include <iostream>

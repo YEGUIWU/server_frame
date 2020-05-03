@@ -1,0 +1,12 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+g_float_value_config	test_config.cc	/^ygw::config::ConfigVar<float>::ptr g_float_value_config =$/;"	v
+g_int_value_config	test_config.cc	/^ygw::config::ConfigVar<int>::ptr g_int_value_config =$/;"	v
+main	test_config.cc	/^int main()$/;"	f
+main	test_log.cc	/^int main()$/;"	f
+print_yaml	test_config.cc	/^void print_yaml(const YAML::Node& node, int level)$/;"	f
+test_yaml	test_config.cc	/^void test_yaml()$/;"	f

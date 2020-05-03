@@ -1,6 +1,5 @@
 #include <iostream>
 #include "../src/log.h" 
-#include "../src/util.h"
 #include <iostream>
 //#include <ctime>
 int main()
@@ -18,5 +17,8 @@ int main()
     YGW_LOG_ERROR(logger) << "test error";
     YGW_LOG_FMT_ERROR(logger, "test fmt error %s", "aa");
     YGW_LOG_FMT_INFO(logger, "test fmt info %s", "aa");
+
+    auto l = ygw::log::LogManager::GetInstance()->GetLogger("xx");
+    YGW_LOG_INFO(l) << "xxx";
     return 0;
 }
