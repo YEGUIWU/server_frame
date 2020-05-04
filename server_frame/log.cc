@@ -12,10 +12,12 @@
  */
 
 
-#include "log.h"
+
 #include <cstdio>
 #include <iostream>
 #include <functional>
+#include "log.h"
+#include "config.h"
 namespace ygw {
 
     //------------------------------------------------
@@ -97,7 +99,7 @@ namespace ygw {
 #ifdef __GNUC__
             char* buf = nullptr;
             int len = vasprintf(&buf, fmt, al);
-            if(len != -1) 
+            if (len != -1) 
             {
                 string_stream_ << std::string(buf, len);
                 free(buf);
@@ -132,9 +134,9 @@ namespace ygw {
         void LogAppender::SetFormatter(LogFormatter::ptr val) 
         {
             //MutexType::Lock lock(m_mutex);
-            formatter_ = val;
-            if(formatter_) 
+            if (val) 
             {
+                formatter_ = val;
                 has_formatter_ = true;
             } 
             else 
@@ -244,7 +246,7 @@ namespace ygw {
             DateTimeFormatItem(const std::string& format = "%Y-%m-%d %H:%M:%S")
                 :format_(format) 
             {
-                if(format_.empty()) 
+                if (format_.empty()) 
                 {
                     format_ = "%Y-%m-%d %H:%M:%S";
                 }
@@ -273,7 +275,9 @@ namespace ygw {
         class FilenameFormatItem : public LogFormatter::FormatItem {
             public:
                 FilenameFormatItem(const std::string& str = "") {}
-                void Format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override {
+                void Format(std::ostream& os, Logger::ptr logger, 
+                        LogLevel::Level level, LogEvent::ptr event) override 
+                {
                     os << event->GetFile();
                 }
         };
@@ -283,7 +287,9 @@ namespace ygw {
         class LineFormatItem : public LogFormatter::FormatItem {
             public:
                 LineFormatItem(const std::string& str = "") {}
-                void Format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override {
+                void Format(std::ostream& os, Logger::ptr logger, 
+                        LogLevel::Level level, LogEvent::ptr event) override 
+                {
                     os << event->GetLine();
                 }
         };
@@ -293,7 +299,9 @@ namespace ygw {
         class NewLineFormatItem : public LogFormatter::FormatItem {
             public:
                 NewLineFormatItem(const std::string& str = "") {}
-                void Format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override {
+                void Format(std::ostream& os, Logger::ptr logger, 
+                        LogLevel::Level level, LogEvent::ptr event) override 
+                {
                     os << std::endl;
                 }
         };
@@ -319,7 +327,9 @@ namespace ygw {
         class TabFormatItem : public LogFormatter::FormatItem {
             public:
                 TabFormatItem(const std::string& str = "") {}
-                void Format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override {
+                void Format(std::ostream& os, Logger::ptr logger, 
+                        LogLevel::Level level, LogEvent::ptr event) override 
+                {
                     os << "\t";
                 }
             private:
@@ -343,14 +353,14 @@ namespace ygw {
             {
                 auto self = shared_from_this();
                 //MutexType::Lock lock(m_mutex);
-                if(!appenders_.empty()) 
+                if (!appenders_.empty()) 
                 {
-                    for(auto& i : appenders_) 
+                    for (auto& i : appenders_) 
                     {
                         i->Log(self, level, event);
                     }
                 } 
-                else if(root_) 
+                else if (root_) 
                 {
                     root_->Log(level, event);
                 }
@@ -382,9 +392,10 @@ namespace ygw {
             //MutexType::Lock lock(m_mutex);
             formatter_ = val;
 
-            for(auto& i : appenders_) {
+            for (auto& i : appenders_) 
+            {
                 //MutexType::Lock ll(i->m_mutex);
-                if(!i->has_formatter_) 
+                if (!i->has_formatter_) 
                 {
                     i->formatter_ = formatter_;
                 }
@@ -394,7 +405,7 @@ namespace ygw {
         void Logger::SetFormatter(const std::string& val) {
             std::cout << "---" << val << std::endl;
             ygw::log::LogFormatter::ptr new_val(new ygw::log::LogFormatter(val));
-            if(new_val->IsError()) 
+            if (new_val->IsError()) 
             {
                 std::cout << "Logger setFormatter name=" << name_
                     << " value=" << val << " invalid formatter"
@@ -403,6 +414,28 @@ namespace ygw {
             }
             //m_formatter = new_val;
             SetFormatter(new_val);
+        }
+
+        std::string Logger::ToYamlString() 
+        {
+            YAML::Node node;
+            node["name"] = name_;
+            if(level_ != LogLevel::Level::kUnknown) 
+            {
+                node["level"] = LogLevel::ToString(level_);
+            }
+            if(formatter_) 
+            {
+                node["formatter"] = formatter_->GetPattern();
+            }
+
+            for(auto& i : appenders_) 
+            {
+                node["appenders"].push_back(YAML::Load(i->ToYamlString()));
+            }
+            std::stringstream ss;
+            ss << node;
+            return ss.str();
         }
 
 
@@ -451,6 +484,23 @@ namespace ygw {
             }
         }
 
+        std::string StdoutLogAppender::ToYamlString() 
+        {
+            YAML::Node node;
+            node["type"] = "StdoutLogAppender";
+            if (level_ != LogLevel::Level::kUnknown) 
+            {
+                node["level"] = LogLevel::ToString(level_);
+            }
+            if (has_formatter_ && formatter_) 
+            {
+                node["formatter"] = formatter_->GetPattern();
+            }
+            std::stringstream ss;
+            ss << node;
+            return ss.str();
+        }
+
         //---------------------------------------------------------------------
         //FileLogAppender
         bool FileLogAppender::ReOpen()
@@ -471,20 +521,39 @@ namespace ygw {
         void FileLogAppender::Log(Logger::ptr logger, 
                 LogLevel::Level level, LogEvent::ptr event) 
         {
-            if(level >= level_) {
+            if (level >= level_) 
+            {
                 uint64_t now = event->GetTime();
-                if(now >= (last_time_ + 3)) 
+                if (now >= (last_time_ + 3)) 
                 {
                     ReOpen();
                     last_time_ = now;
                 }
                 //MutexType::Lock lock(m_mutex);
                 //if(!(m_filestream << m_formatter->format(logger, level, event))) {
-                if(!formatter_->Format(fileout_, logger, level, event)) 
+                if (!formatter_->Format(fileout_, logger, level, event)) 
                 {
                     std::cout << "error" << std::endl;
                 }
             }
+        }
+
+        std::string FileLogAppender::ToYamlString() 
+        {
+            YAML::Node node;
+            node["type"] = "FileLogAppender";
+            node["file"] = filename_;
+            if (level_ != LogLevel::Level::kUnknown) 
+            {
+                node["level"] = LogLevel::ToString(level_);
+            }
+            if (has_formatter_ && formatter_) 
+            {
+                node["formatter"] = formatter_->GetPattern();
+            }
+            std::stringstream ss;
+            ss << node;
+            return ss.str();
         }
 
 
@@ -500,7 +569,7 @@ namespace ygw {
                 LogLevel::Level level, LogEvent::ptr event) 
         {
             std::stringstream ss;
-            for(auto& i : items_) 
+            for (auto& i : items_) 
             {
                 i->Format(ss, logger, level, event);
             }
@@ -511,7 +580,7 @@ namespace ygw {
                 std::shared_ptr<Logger> logger, 
                 LogLevel::Level level, LogEvent::ptr event)
         {
-            for(auto& i : items_) 
+            for (auto& i : items_) 
             {
                 i->Format(ofs, logger, level, event);
             }
@@ -644,7 +713,7 @@ namespace ygw {
                 else 
                 {
                     auto it = s_format_items.find(std::get<0>(i));
-                    if(it == s_format_items.end()) 
+                    if (it == s_format_items.end()) 
                     {
                         items_.push_back(FormatItem::ptr(new StringFormatItem("<<error_format %" + std::get<0>(i) + ">>")));
                         is_error_ = true;
@@ -657,6 +726,149 @@ namespace ygw {
             }
 
         }
+        //----------------------------------------------------------------
+        //
+        class LogAppenderDefine {
+        public:
+
+            bool operator==(const LogAppenderDefine& oth) const 
+            {
+                return type_ == oth.type_
+                    && level_ == oth.level_
+                    && formatter_ == oth.formatter_
+                    && file_ == oth.file_;
+            }
+
+        public:
+            int type_ = 0; //1 File, 2 Stdout
+            LogLevel::Level level_ = LogLevel::Level::kUnknown;
+            std::string formatter_;
+            std::string file_;
+        };
+
+        class LogDefine {
+        public:
+            bool operator==(const LogDefine& oth) const 
+            {
+                return name_ == oth.name_
+                    && level_ == oth.level_
+                    && formatter_ == oth.formatter_
+                    && appenders_ == appenders_;
+            }
+
+            bool operator<(const LogDefine& oth) const 
+            {
+                return name_ < oth.name_;
+            }
+
+            bool IsValid() const 
+            {
+                return !name_.empty();
+            }
+        public:
+            std::string name_;
+            LogLevel::Level level_ = LogLevel::Level::kUnknown;
+            std::string formatter_;
+            std::vector<LogAppenderDefine> appenders_;
+        };
+
+
+        ygw::config::ConfigVar<std::set<LogDefine> >::ptr g_log_defines =
+            ygw::config::Config::Lookup("logs", std::set<LogDefine>(), "logs config");
+
+
+        class LogIniter 
+        {
+        public:
+            LogIniter() 
+            {
+                g_log_defines->AddListener([](
+                            const std::set<LogDefine>& old_value,
+                            const std::set<LogDefine>& new_value) {
+                        YGW_LOG_INFO(YGW_LOG_ROOT()) << "on_logger_conf_changed";
+                    for (auto& i : new_value) 
+                    {
+                        auto it = old_value.find(i);
+                        ygw::log::Logger::ptr logger;
+                        if(it == old_value.end()) 
+                        {//新增logger
+                            logger = YGW_LOG_NAME(i.name_);
+                        } 
+                        else 
+                        {
+                            if(!(i == *it)) 
+                            {//修改的logger
+                                logger = YGW_LOG_NAME(i.name_);
+                            } 
+                            else 
+                            {
+                                continue;
+                            }
+                        }
+                        logger->SetLevel(i.level_);
+                        //std::cout << "** " << i.name << " level=" << i.level
+                        //<< "  " << logger << std::endl;
+                        if (!i.formatter_.empty())
+                        {
+                            logger->SetFormatter(i.formatter_);
+                        }
+
+                        logger->ClearAppenders();
+                        for (auto& a : i.appenders_)
+                        {
+                            ygw::log::LogAppender::ptr ap;
+                            if (a.type_ == 1)
+                            {
+                                ap.reset(new FileLogAppender(a.file_));
+                            } 
+                            else if (a.type_ == 2)
+                            {
+                                //if (!ygw::log::EnvMgr::GetInstance()->has("d")) 
+                                if (true)
+                                {
+                                    ap.reset(new StdoutLogAppender);
+                                } 
+                                else 
+                                {
+                                    continue;
+                                }
+                            }
+                            ap->SetLevel(a.level_);
+                            if (!a.formatter_.empty())
+                            {
+                                LogFormatter::ptr fmt(new LogFormatter(a.formatter_));
+                                if (!fmt->IsError()) 
+                                {
+                                    ap->SetFormatter(fmt);
+                                } 
+                                else 
+                                {
+                                    std::cout << "log.name=" << i.name_ << " appender type="
+                                        << a.type_ << " formatter=" <<
+                                        a.formatter_ << " is invalid" << std::endl;
+                                }
+                            }
+                            logger->AddAppender(ap);
+                        }
+                    }
+
+                    for (auto& i : old_value) 
+                    {
+                        auto it = new_value.find(i);
+                        if (it == new_value.end()) 
+                        {
+                            //删除logger
+                            auto logger = YGW_LOG_NAME(i.name_);
+                            logger->SetLevel((LogLevel::Level)0);
+                            logger->ClearAppenders();
+                        }
+                    }
+                });
+            }
+        };
+
+
+        static LogIniter __log_init;
 
         //----------------------------------------------------------------
         //
@@ -683,13 +895,143 @@ namespace ygw {
             loggers_[name] = logger;
             return logger;
         }
+        std::string LoggerManager::ToYamlString() 
+        {
+            YAML::Node node;
+            for(auto& i : loggers_) 
+            {
+                node.push_back(YAML::Load(i.second->ToYamlString()));
+            }
+            std::stringstream ss;
+            ss << node;
+            return ss.str();
+        }
         void LoggerManager::Init() 
         {
+
         }
 
 
     } // namespace log 
 
+
+    namespace config {
+        template<>
+        class LexicalCast<std::string, log::LogDefine> {
+        public:
+            log::LogDefine operator()(const std::string& v)
+            {
+                YAML::Node n = YAML::Load(v);
+                log::LogDefine ld;
+                if (!n["name"].IsDefined())
+                {
+                    std::cout << "log config error: name is null, " << n
+                        << std::endl;
+                    throw std::logic_error("log config name is null");
+                }
+                ld.name_ = n["name"].as<std::string>();
+                ld.level_ = log::LogLevel::FromString(n["level"].IsDefined() ? n["level"].as<std::string>() : "");
+                if (n["formatter"].IsDefined())
+                {
+                    ld.formatter_ = n["formatter"].as<std::string>();
+                }
+
+                if (n["appenders"].IsDefined())
+                {
+                    //std::cout << "==" << ld.name << " = " << n["appenders"].size() << std::endl;
+                    for (std::size_t x = 0; x < n["appenders"].size(); ++x)
+                    {
+                        auto a = n["appenders"][x];
+                        if (!a["type"].IsDefined())
+                        {
+                            std::cout << "log config error: appender type is null, " << a
+                                << std::endl;
+                            continue;
+                        }
+                        std::string type = a["type"].as<std::string>();
+                        log::LogAppenderDefine lad;
+                        if (type == "FileLogAppender")
+                        {
+                            lad.type_ = 1;
+                            if (!a["file"].IsDefined())
+                            {
+                                std::cout << "log config error: fileappender file is null, " << a
+                                    << std::endl;
+                                continue;
+                            }
+                            lad.file_ = a["file"].as<std::string>();
+                            if (a["formatter"].IsDefined())
+                            {
+                                lad.formatter_ = a["formatter"].as<std::string>();
+                            }
+                        }
+                        else if (type == "StdoutLogAppender")
+                        {
+                            lad.type_ = 2;
+                            if (a["formatter"].IsDefined())
+                            {
+                                lad.formatter_ = a["formatter"].as<std::string>();
+                            }
+                        }
+                        else
+                        {
+                            std::cout << "log config error: appender type is invalid, " << a
+                                << std::endl;
+                            continue;
+                        }
+
+                        ld.appenders_.push_back(lad);
+                    }
+                }
+                return ld;
+            }
+        };
+
+        template<>
+        class LexicalCast<log::LogDefine, std::string> {
+        public:
+            std::string operator()(const log::LogDefine& i)
+            {
+                YAML::Node n;
+                n["name"] = i.name_;
+                if (i.level_ != log::LogLevel::Level::kUnknown)
+                {
+                    n["level"] = log::LogLevel::ToString(i.level_);
+                }
+                if (!i.formatter_.empty())
+                {
+                    n["formatter"] = i.formatter_;
+                }
+
+                for (auto& a : i.appenders_)
+                {
+                    YAML::Node na;
+                    if (a.type_ == 1)
+                    {
+                        na["type"] = "FileLogAppender";
+                        na["file"] = a.file_;
+                    }
+                    else if (a.type_ == 2)
+                    {
+                        na["type"] = "StdoutLogAppender";
+                    }
+                    if (a.level_ != log::LogLevel::Level::kUnknown)
+                    {
+                        na["level"] = log::LogLevel::ToString(a.level_);
+                    }
+                    if (!a.formatter_.empty())
+                    {
+                        na["formatter"] = a.formatter_;
+                    }
+
+                    n["appenders"].push_back(na);
+                }
+                std::stringstream ss;
+                ss << n;
+                return ss.str();
+            }
+        };
+    }
     //------------------------------------------------
 
 } // namespace ygw 

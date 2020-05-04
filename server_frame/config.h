@@ -356,6 +356,7 @@ namespace ygw {
         public:
             //typedef RWMutex RWMutexType;
             using ptr = std::shared_ptr<ConfigVar>;
+            //配置变更回调
             using on_change_cb = std::function<void (const T& old_value, const T& new_value)>; 
 
             /**
@@ -444,6 +445,9 @@ namespace ygw {
             std::string GetTypeName() const override { return util::TypeToName<T>();}
 
 
+            //----------------------------------------------------
+            //          on change call back
+            //----------------------------------------------------
             /**
              ** @brief 添加变化回调函数
              ** @return 返回该回调函数对应的唯一id,用于删除回调
@@ -487,6 +491,7 @@ namespace ygw {
             //RWMutexType mutex_;
             T val_;
             //变更回调函数组, uint64_t key,要求唯一，一般可以用hash
+            //用map的原因：function对象无法比较，难以删除
             std::map<uint64_t, on_change_cb> cbs_;
         };
        
@@ -518,12 +523,12 @@ namespace ygw {
                 if(it != GetDatas().end()) 
                 {
                     auto tmp = std::dynamic_pointer_cast<ConfigVar<T> >(it->second);
-                    if(tmp) 
+                    if(tmp) //能转换成功则正常返回
                     {
                         YGW_LOG_INFO(YGW_LOG_ROOT()) << "Lookup name=" << name << " exists";
                         return tmp;
                     } 
-                    else 
+                    else  //转换失败，返回nullptr
                     {
                         YGW_LOG_ERROR(YGW_LOG_ROOT()) << "Lookup name=" << name << " exists but type not "
                             << util::TypeToName<T>() << " real_type=" << it->second->GetTypeName()

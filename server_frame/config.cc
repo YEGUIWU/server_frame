@@ -14,6 +14,11 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#ifdef _MSC_VER
+#include <io.h>
+#include <fcntl.h>
+#endif
+
 #include <utility>
 
 #include "config.h"
@@ -99,8 +104,27 @@ namespace ygw {
             for(auto& i : files) 
             {
                 {
+#ifdef __GNUC__
                     struct stat st;
                     lstat(i.c_str(), &st);
+#elif _MSC_VER
+                    struct _stat st;
+                    int fd, result;
+
+                    _sopen_s(&fd,
+                            i.c_str(),
+                            _O_CREAT | _O_WRONLY | _O_TRUNC,
+                            _SH_DENYNO,
+                            _S_IREAD | _S_IWRITE);
+                    if (fd != -1)
+                    {
+                        result = _fstat(fd, &st);
+                    }
+                    else
+                    {
+
+                    }
+#endif 
 
                     if(!force && s_file2modifytime[i] == (uint64_t)st.st_mtime) 
                     {

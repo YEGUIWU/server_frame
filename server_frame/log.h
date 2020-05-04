@@ -360,7 +360,7 @@ namespace ygw {
             /**
              ** @brief 返回日志模板
              **/
-            const std::string getPattern() const { return pattern_; }
+            const std::string GetPattern() const { return pattern_; }
         private:
             /// 日志格式模板
             std::string pattern_;
@@ -391,7 +391,7 @@ namespace ygw {
             /**
              ** @brief 将日志输出目标的配置转成YAML String
              **/
-            //virtual std::string ToYamlString() = 0;
+            virtual std::string ToYamlString() = 0;
 
             /**
              ** @brief 更改日志格式器
@@ -525,7 +525,7 @@ namespace ygw {
             /**
              ** @brief 将日志器的配置转成YAML String
              **/
-            //std::string ToYamlString();
+            std::string ToYamlString();
 
         private:
             /// 日志名称
@@ -548,7 +548,7 @@ namespace ygw {
             using ptr = std::shared_ptr<StdoutLogAppender> ; 
             void Log(Logger::ptr logger, LogLevel::Level level, 
                     LogEvent::ptr event) override;
-            //std::string ToYamlString() override;
+            std::string ToYamlString() override;
         };
 
         //-------------------------------------------------
@@ -560,7 +560,7 @@ namespace ygw {
 
             void Log(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override;
 
-            //std::string ToYamlString() override;
+            std::string ToYamlString() override;
 
             //重新打开文件，成功：true，失败：false
             bool ReOpen();
@@ -602,7 +602,7 @@ namespace ygw {
             /**
              ** @brief 将所有的日志器配置转成YAML String
              **/
-            //std::string toYamlString();
+            std::string ToYamlString();
         private:
             /// 日志器容器
             std::map<std::string, Logger::ptr> loggers_;

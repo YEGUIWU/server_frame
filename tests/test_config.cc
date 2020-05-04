@@ -10,7 +10,9 @@
  *  Description: 
  * ====================================================
  */
+#include <log.h>
 #include <config.h>
+#include <iostream>
 ygw::config::ConfigVar<int>::ptr g_int_value_config =
 ygw::config::Config::Lookup("system.port", 8080, "system port");
 
@@ -70,7 +72,7 @@ void print_yaml(const YAML::Node& node, int level)
 
 void test_yaml()
 {
-    YAML::Node root = YAML::LoadFile("./bin/conf/log.yml");
+    YAML::Node root = YAML::LoadFile("./bin/conf/test.yml");
     print_yaml(root, 0);
     //YGW_LOG_INFO(YGW_LOG_ROOT()) << root;
     YGW_LOG_INFO(YGW_LOG_ROOT()) << root.Scalar();
@@ -106,7 +108,7 @@ void test_config()
     YY(g_int_umap_value_config, iumap, before)
     
 
-    YAML::Node root = YAML::LoadFile("./bin/conf/log.yml");
+    YAML::Node root = YAML::LoadFile("./bin/conf/test.yml");
     ygw::config::Config::LoadFromYaml(root);
 
     YGW_LOG_INFO(YGW_LOG_ROOT()) << "after: " << g_int_value_config->GetValue();
@@ -123,11 +125,128 @@ void test_config()
 }
 
 
+class Person {
+public:
+    Person() 
+    {
+
+    };
+
+
+    std::string ToString() const 
+    {
+        std::stringstream ss;
+        ss << "[Person name=" << name_
+            << " age=" << age_
+            << " sex=" << sex_
+            << "]";
+        return ss.str();
+    }
+
+    bool operator==(const Person& oth) const 
+    {
+        return name_ == oth.name_
+            && age_  == oth.age_
+            && sex_  == oth.sex_;
+    }
+//private:
+    std::string name_;
+    int age_ = 0;
+    bool sex_ = 0;
+};
+
+namespace ygw{
+    namespace config {
+    template<>
+    class LexicalCast<std::string, Person> {
+    public:
+        Person operator()(const std::string& v) {
+            YAML::Node node = YAML::Load(v);
+            Person p;
+            p.name_ = node["name"].as<std::string>();
+            p.age_ = node["age"].as<int>();
+            p.sex_ = node["sex"].as<bool>();
+            return p;
+        }
+    };
+
+    template<>
+    class LexicalCast<Person, std::string> {
+    public:
+        std::string operator()(const Person& p) {
+            YAML::Node node;
+            node["name"] = p.name_;
+            node["age"] = p.age_;
+            node["sex"] = p.sex_;
+            std::stringstream ss;
+            ss << node;
+            return ss.str();
+        }
+    };
+    }
+}
+
+ygw::config::ConfigVar<Person>::ptr g_person =
+ygw::config::Config::Lookup("class.person", Person(), "system person");
+
+ygw::config::ConfigVar<std::map<std::string, Person> >::ptr g_person_map =
+ygw::config::Config::Lookup("class.map", std::map<std::string, Person>(), "system person");
+
+ygw::config::ConfigVar<std::map<std::string, std::vector<Person> > >::ptr g_person_vec_map =
+ygw::config::Config::Lookup("class.vec_map", std::map<std::string, std::vector<Person> >(), "system person");
+
+void test_class()
+{
+        YGW_LOG_INFO(YGW_LOG_ROOT()) << "before: " << g_person->GetValue().ToString() << " - " << g_person->ToString();
+
+#define XX_PM(g_var, prefix) \
+        { \
+            auto m = g_person_map->GetValue(); \
+            for(auto& i : m) { \
+                YGW_LOG_INFO(YGW_LOG_ROOT()) <<  prefix << ": " << i.first << " - " << i.second.ToString(); \
+            } \
+            YGW_LOG_INFO(YGW_LOG_ROOT()) <<  prefix << ": size=" << m.size(); \
+        }
+
+        g_person->AddListener([](const Person& old_value, const Person& new_value){
+                YGW_LOG_INFO(YGW_LOG_ROOT()) << "old_value=" << old_value.ToString()
+                << " new_value=" << new_value.ToString();
+                });
+
+        XX_PM(g_person_map, "class.map before");
+        YGW_LOG_INFO(YGW_LOG_ROOT()) << "before: " << g_person_vec_map->ToString();
+
+        YAML::Node root = YAML::LoadFile("./bin/conf/test.yml");
+        ygw::config::Config::LoadFromYaml(root);
+
+        YGW_LOG_INFO(YGW_LOG_ROOT()) << "after: " << g_person->GetValue().ToString() << " - " << g_person->ToString();
+        XX_PM(g_person_map, "class.map after");
+        YGW_LOG_INFO(YGW_LOG_ROOT()) << "after: " << g_person_vec_map->ToString();
+#undef XX_PM
+}
+
+void test_log()
+{
+    static ygw::log::Logger::ptr system_log = YGW_LOG_NAME("system");
+    YGW_LOG_INFO(system_log) << "hello system" << std::endl;
+    std::cout << ygw::log::LogManager::GetInstance()->ToYamlString() << std::endl;
+    YAML::Node root = YAML::LoadFile("./bin/conf/log.yml");
+    ygw::config::Config::LoadFromYaml(root);
+    std::cout << "------------------" << std::endl;
+    std::cout << ygw::log::LogManager::GetInstance()->ToYamlString() << std::endl;
+    std::cout << "------------------" << std::endl;
+    std::cout << root << std::endl;
+    YGW_LOG_INFO(system_log) << "hello system" << std::endl;
+}
+
+
 int main()
 {
     //YGW_LOG_INFO(YGW_LOG_ROOT()) << g_int_value_config->GetValue();
     //YGW_LOG_INFO(YGW_LOG_ROOT()) << g_float_value_config->ToString();
     //test_yaml();
-    test_config();
+    //test_config();
+    //test_class();
+    test_log();
     return 0;
 }

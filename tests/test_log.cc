@@ -1,6 +1,5 @@
 #include <iostream>
-#include "../src/log.h" 
-#include <iostream>
+#include <server_frame/log.h>
 //#include <ctime>
 int main()
 {
