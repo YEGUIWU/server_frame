@@ -5,7 +5,7 @@ int main()
 {
     ygw::log::Logger::ptr logger(new ygw::log::Logger);
     logger->AddAppender(ygw::log::LogAppender::ptr(new ygw::log::StdoutLogAppender));
-    ygw::log::FileLogAppender::ptr file_appender(new ygw::log::FileLogAppender("./log.txt"));
+    ygw::log::FileLogAppender::ptr file_appender(new ygw::log::FileLogAppender("./tmp/test.log"));
     file_appender->SetLevel(ygw::log::LogLevel::kError);
     logger->AddAppender(file_appender);
 

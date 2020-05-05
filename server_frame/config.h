@@ -572,6 +572,11 @@ namespace ygw {
             static void LoadFromYaml(const YAML::Node& root);
 
             /**
+             ** @brief 加载filepath配置文件
+             **/
+            static void LoadFromYamlFile(const std::string& file_path);
+
+            /**
              ** @brief 加载path文件夹里面的配置文件
              **/
             static void LoadFromConfDir(const std::string& path, bool force = false);

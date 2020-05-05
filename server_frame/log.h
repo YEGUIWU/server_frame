@@ -26,6 +26,7 @@
 
 #include "util.h"
 #include "singleton.h"
+#include "mutex.h"
 
 /**
  ** @brief 使用流式方式将日志级别level的日志写入到logger
@@ -52,8 +53,8 @@
 #define YGW_LOG_WARN(logger) YGW_LOG_LEVEL(logger, ygw::log::LogLevel::kWarn)
 
 /**
- *  * @brief 使用流式方式将日志级别error的日志写入到logger
- *   */
+ ** @brief 使用流式方式将日志级别error的日志写入到logger
+ **/
 #define YGW_LOG_ERROR(logger) YGW_LOG_LEVEL(logger, ygw::log::LogLevel::kError)
 
 /**
@@ -377,6 +378,7 @@ namespace ygw {
             friend class Logger;
         public:
             using ptr = std::shared_ptr<LogAppender> ;
+            using MutexType = thread::Spinlock;
             //析构
             virtual ~LogAppender() {}
             /**
@@ -418,7 +420,7 @@ namespace ygw {
             /// 是否有自己的日志格式器
             bool has_formatter_ = false;
             /// Mutex
-            //MutexType m_mutex;
+            MutexType mutex_;
             /// 日志格式器
             LogFormatter::ptr formatter_;
         }; // class LogAppender
@@ -431,6 +433,7 @@ namespace ygw {
             friend class LoggerManager;
         public:
             using ptr = std::shared_ptr<Logger> ;
+            using MutexType = thread::Spinlock;
             /**
              ** @brief 构造函数
              ** @param[in] name 日志器名称
@@ -532,6 +535,8 @@ namespace ygw {
             std::string name_;                  
             /// 日志级别
             LogLevel::Level level_;                 
+            /// Mutex
+            MutexType mutex_;
             /// 日志目标集合
             std::list<LogAppender::ptr> appenders_;
             /// 日志格式器
@@ -578,6 +583,7 @@ namespace ygw {
          **/
         class LoggerManager {
         public:
+            using MutexType = thread::Spinlock;
             /**
              ** @brief 构造函数
              **/
@@ -604,6 +610,8 @@ namespace ygw {
              **/
             std::string ToYamlString();
         private:
+            /// Mutex
+            MutexType mutex_;
             /// 日志器容器
             std::map<std::string, Logger::ptr> loggers_;
             /// 主日志器

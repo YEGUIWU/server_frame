@@ -133,7 +133,7 @@ namespace ygw {
         //LogAppender
         void LogAppender::SetFormatter(LogFormatter::ptr val) 
         {
-            //MutexType::Lock lock(m_mutex);
+            MutexType::Lock lock(mutex_);
             if (val) 
             {
                 formatter_ = val;
@@ -147,7 +147,7 @@ namespace ygw {
 
         LogFormatter::ptr LogAppender::GetFormatter() 
         {
-            //MutexType::Lock lock(m_mutex);
+            MutexType::Lock lock(mutex_);
             return formatter_;
         }
 
@@ -352,7 +352,7 @@ namespace ygw {
             if (level >= level_)
             {
                 auto self = shared_from_this();
-                //MutexType::Lock lock(m_mutex);
+                MutexType::Lock lock(mutex_);
                 if (!appenders_.empty()) 
                 {
                     for (auto& i : appenders_) 
@@ -389,12 +389,12 @@ namespace ygw {
 
         void Logger::SetFormatter(LogFormatter::ptr val) 
         {
-            //MutexType::Lock lock(m_mutex);
+            MutexType::Lock lock(mutex_);
             formatter_ = val;
 
             for (auto& i : appenders_) 
             {
-                //MutexType::Lock ll(i->m_mutex);
+                MutexType::Lock ll(i->mutex_);
                 if (!i->has_formatter_) 
                 {
                     i->formatter_ = formatter_;
@@ -418,6 +418,7 @@ namespace ygw {
 
         std::string Logger::ToYamlString() 
         {
+            MutexType::Lock lock(mutex_);
             YAML::Node node;
             node["name"] = name_;
             if(level_ != LogLevel::Level::kUnknown) 
@@ -441,14 +442,16 @@ namespace ygw {
 
         LogFormatter::ptr Logger::GetFormatter() 
         {
-            //MutexType::Lock lock(m_mutex);
+            MutexType::Lock lock(mutex_);
             return formatter_;
         }
 
         void Logger::AddAppender(LogAppender::ptr appender)
         {
+            MutexType::Lock lock(mutex_);
             if (!appender->GetFormatter()) 
             {
+                MutexType::Lock ll(appender->mutex_);
                 appender->formatter_ = formatter_;
             }
             appenders_.push_back(appender);
@@ -456,6 +459,7 @@ namespace ygw {
 
         void Logger::DelAppender(LogAppender::ptr appender)
         {
+            MutexType::Lock lock(mutex_);
             for (auto ib = appenders_.begin(), ie = appenders_.end();
                     ib != ie; ++ib)
             {
@@ -469,6 +473,7 @@ namespace ygw {
 
         void Logger::ClearAppenders() 
         {
+            MutexType::Lock lock(mutex_);
             appenders_.clear();
         }
 
@@ -480,12 +485,14 @@ namespace ygw {
         {
             if (level >= level_)
             {
+                MutexType::Lock lock(mutex_);
                 formatter_->Format(std::cout, logger, level, event);
             }
         }
 
         std::string StdoutLogAppender::ToYamlString() 
         {
+            MutexType::Lock lock(mutex_);
             YAML::Node node;
             node["type"] = "StdoutLogAppender";
             if (level_ != LogLevel::Level::kUnknown) 
@@ -505,6 +512,7 @@ namespace ygw {
         //FileLogAppender
         bool FileLogAppender::ReOpen()
         {
+            MutexType::Lock lock(mutex_);
             if (fileout_)
             {
                 fileout_.close();
@@ -524,12 +532,12 @@ namespace ygw {
             if (level >= level_) 
             {
                 uint64_t now = event->GetTime();
-                if (now >= (last_time_ + 3)) 
-                {
-                    ReOpen();
+                if (now >= (last_time_ + 3)) //防止强制删除
+                {//每三秒重新打开一次
+                    ReOpen();//
                     last_time_ = now;
                 }
-                //MutexType::Lock lock(m_mutex);
+                MutexType::Lock lock(mutex_);
                 //if(!(m_filestream << m_formatter->format(logger, level, event))) {
                 if (!formatter_->Format(fileout_, logger, level, event)) 
                 {
@@ -541,6 +549,7 @@ namespace ygw {
         std::string FileLogAppender::ToYamlString() 
         {
             YAML::Node node;
+            MutexType::Lock lock(mutex_);
             node["type"] = "FileLogAppender";
             node["file"] = filename_;
             if (level_ != LogLevel::Level::kUnknown) 
@@ -884,6 +893,7 @@ namespace ygw {
 
         Logger::ptr LoggerManager::GetLogger(const std::string& name) 
         {
+            MutexType::Lock lock(mutex_);
             auto it = loggers_.find(name);
             if(it != loggers_.end()) 
             {
@@ -897,6 +907,7 @@ namespace ygw {
         }
         std::string LoggerManager::ToYamlString() 
         {
+            MutexType::Lock lock(mutex_);
             YAML::Node node;
             for(auto& i : loggers_) 
             {

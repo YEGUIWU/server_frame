@@ -93,6 +93,12 @@ namespace ygw {
 
         }
 
+
+        void Config::LoadFromYamlFile(const std::string& file_path)
+        {
+             LoadFromYaml(YAML::LoadFile(file_path));
+        }
+
         static std::map<std::string, uint64_t> s_file2modifytime;
 
         void Config::LoadFromConfDir(const std::string& path, bool force) 
