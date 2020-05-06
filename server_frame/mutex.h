@@ -84,7 +84,7 @@ namespace ygw {
              **/
             void lock() 
             {
-                if(!locked_) 
+                if (!locked_) 
                 {
                     mutex_.lock();
                     locked_ = true;
@@ -96,7 +96,7 @@ namespace ygw {
              **/
             void unlock() 
             {
-                if(locked_) 
+                if (locked_) 
                 {
                     mutex_.unlock();
                     locked_ = false;
@@ -139,7 +139,7 @@ namespace ygw {
              **/
             void lock() 
             {
-                if(!locked_) 
+                if (!locked_) 
                 {
                     mutex_.rdlock();
                     locked_ = true;
@@ -151,7 +151,7 @@ namespace ygw {
              **/
             void unlock() 
             {
-                if(locked_) 
+                if (locked_) 
                 {
                     mutex_.unlock();
                     locked_ = false;
@@ -194,7 +194,7 @@ namespace ygw {
              **/
             void lock() 
             {
-                if(!locked_) 
+                if (!locked_) 
                 {
                     mutex_.wrlock();
                     locked_ = true;
@@ -206,7 +206,7 @@ namespace ygw {
              **/
             void unlock() 
             {
-                if(locked_) 
+                if (locked_) 
                 {
                     mutex_.unlock();
                     locked_ = false;

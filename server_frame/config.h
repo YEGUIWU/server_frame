@@ -30,6 +30,7 @@
 
 #include "log.h"
 #include "util.h"
+#include "mutex.h"
 
 
 namespace ygw {
@@ -142,7 +143,7 @@ namespace ygw {
 		public:
 			std::string operator()(const std::vector<T>& v) {
 				YAML::Node node(YAML::NodeType::Sequence);
-				for(auto& i : v) {
+				for (auto& i : v) {
 					node.push_back(YAML::Load(LexicalCast<T, std::string>()(i)));
 				}
 				std::stringstream ss;
@@ -161,7 +162,7 @@ namespace ygw {
 				YAML::Node node = YAML::Load(v);
 				typename std::list<T> vec;
 				std::stringstream ss;
-				for(size_t i = 0; i < node.size(); ++i) {
+				for (size_t i = 0; i < node.size(); ++i) {
 					ss.str("");
 					ss << node[i];
 					vec.push_back(LexicalCast<std::string, T>()(ss.str()));
@@ -178,7 +179,7 @@ namespace ygw {
 		public:
 			std::string operator()(const std::list<T>& v) {
 				YAML::Node node(YAML::NodeType::Sequence);
-				for(auto& i : v) {
+				for (auto& i : v) {
 					node.push_back(YAML::Load(LexicalCast<T, std::string>()(i)));
 				}
 				std::stringstream ss;
@@ -197,7 +198,7 @@ namespace ygw {
 				YAML::Node node = YAML::Load(v);
 				typename std::set<T> vec;
 				std::stringstream ss;
-				for(size_t i = 0; i < node.size(); ++i) {
+				for (size_t i = 0; i < node.size(); ++i) {
 					ss.str("");
 					ss << node[i];
 					vec.insert(LexicalCast<std::string, T>()(ss.str()));
@@ -214,7 +215,7 @@ namespace ygw {
 		public:
 			std::string operator()(const std::set<T>& v) {
 				YAML::Node node(YAML::NodeType::Sequence);
-				for(auto& i : v) {
+				for (auto& i : v) {
 					node.push_back(YAML::Load(LexicalCast<T, std::string>()(i)));
 				}
 				std::stringstream ss;
@@ -233,7 +234,7 @@ namespace ygw {
 				YAML::Node node = YAML::Load(v);
 				typename std::unordered_set<T> vec;
 				std::stringstream ss;
-				for(size_t i = 0; i < node.size(); ++i) {
+				for (size_t i = 0; i < node.size(); ++i) {
 					ss.str("");
 					ss << node[i];
 					vec.insert(LexicalCast<std::string, T>()(ss.str()));
@@ -250,7 +251,7 @@ namespace ygw {
 		public:
 			std::string operator()(const std::unordered_set<T>& v) {
 				YAML::Node node(YAML::NodeType::Sequence);
-				for(auto& i : v) {
+				for (auto& i : v) {
 					node.push_back(YAML::Load(LexicalCast<T, std::string>()(i)));
 				}
 				std::stringstream ss;
@@ -269,7 +270,7 @@ namespace ygw {
 				YAML::Node node = YAML::Load(v);
 				typename std::map<std::string, T> vec;
 				std::stringstream ss;
-				for(auto it = node.begin();
+				for (auto it = node.begin();
 						it != node.end(); ++it) {
 					ss.str("");
 					ss << it->second;
@@ -289,7 +290,7 @@ namespace ygw {
 			std::string operator()(const std::map<std::string, T>& v) 
             {
 				YAML::Node node(YAML::NodeType::Map);
-				for(auto& i : v) {
+				for (auto& i : v) {
 					node[i.first] = YAML::Load(LexicalCast<T, std::string>()(i.second));
 				}
 				std::stringstream ss;
@@ -309,7 +310,7 @@ namespace ygw {
 				YAML::Node node = YAML::Load(v);
 				typename std::unordered_map<std::string, T> vec;
 				std::stringstream ss;
-				for(auto it = node.begin();
+				for (auto it = node.begin();
 						it != node.end(); ++it) {
 					ss.str("");
 					ss << it->second;
@@ -329,7 +330,7 @@ namespace ygw {
 			std::string operator()(const std::unordered_map<std::string, T>& v) 
             {
 				YAML::Node node(YAML::NodeType::Map);
-				for(auto& i : v) {
+				for (auto& i : v) {
 					node[i.first] = YAML::Load(LexicalCast<T, std::string>()(i.second));
 				}
 				std::stringstream ss;
@@ -354,7 +355,7 @@ namespace ygw {
         class ConfigVar : public ConfigVarBase 
         {
         public:
-            //typedef RWMutex RWMutexType;
+            using RWMutexType = thread::RWMutex;
             using ptr = std::shared_ptr<ConfigVar>;
             //配置变更回调
             using on_change_cb = std::function<void (const T& old_value, const T& new_value)>; 
@@ -381,6 +382,7 @@ namespace ygw {
             {
                 try 
                 {
+                    RWMutexType::ReadLock lock(mutex_);
                     return ToStr()(val_);
                 }
                 catch (std::exception& e) 
@@ -417,6 +419,7 @@ namespace ygw {
              **/
             const T GetValue() 
             {
+                RWMutexType::ReadLock lock(mutex_);
                 return val_;
             }
 
@@ -427,22 +430,24 @@ namespace ygw {
             void SetValue(const T& v) 
             {
                 {
-                    if(v == val_) 
+                    RWMutexType::ReadLock lock(mutex_);
+                    if (v == val_) 
                     {
                         return;
                     }
-                    for(auto& i : cbs_) 
+                    for (auto& i : cbs_) 
                     {
                         i.second(val_, v);
                     }
                 }
+                RWMutexType::ReadLock lock(mutex_);
                 val_ = v;
             }
 
             /**
              ** @brief 返回参数值的类型名称(typeinfo)
              **/
-            std::string GetTypeName() const override { return util::TypeToName<T>();}
+            std::string GetTypeName() const override { return util::TypeToName<T>(); }
 
 
             //----------------------------------------------------
@@ -455,6 +460,7 @@ namespace ygw {
             uint64_t AddListener(on_change_cb cb) 
             {
                 static uint64_t s_fun_id = 0;
+                RWMutexType::ReadLock lock(mutex_);
                 ++s_fun_id;
                 cbs_[s_fun_id] = cb;
                 return s_fun_id;
@@ -466,6 +472,7 @@ namespace ygw {
              **/
             void DelListener(uint64_t key) 
             {
+                RWMutexType::ReadLock lock(mutex_);
                 cbs_.erase(key);
             }
 
@@ -476,6 +483,7 @@ namespace ygw {
              **/
             on_change_cb GetListener(uint64_t key) 
             {
+                RWMutexType::ReadLock lock(mutex_);
                 auto it = cbs_.find(key);
                 return it == cbs_.end() ? nullptr : it->second;
             }
@@ -485,10 +493,13 @@ namespace ygw {
              **/
             void ClearListener() 
             {
+                RWMutexType::ReadLock lock(mutex_);
                 cbs_.clear();
             }
         private:
-            //RWMutexType mutex_;
+            /// mutex
+            RWMutexType mutex_;
+            /// value
             T val_;
             //变更回调函数组, uint64_t key,要求唯一，一般可以用hash
             //用map的原因：function对象无法比较，难以删除
@@ -503,7 +514,8 @@ namespace ygw {
         class Config {
         public:
             using ConfigVarMap = std::unordered_map<std::string, ConfigVarBase::ptr>;
-            //typedef RWMutex RWMutexType;
+            //
+            using RWMutexType = thread::RWMutex;
 
             /**
              ** @brief 获取/创建对应参数名的配置参数
@@ -519,11 +531,12 @@ namespace ygw {
             static typename ConfigVar<T>::ptr Lookup(const std::string& name,
                    const T& default_value, const std::string& description = "") 
             {
+                RWMutexType::WriteLock lock(GetMutex());
                 auto it = GetDatas().find(name);
-                if(it != GetDatas().end()) 
+                if (it != GetDatas().end()) 
                 {
                     auto tmp = std::dynamic_pointer_cast<ConfigVar<T> >(it->second);
-                    if(tmp) //能转换成功则正常返回
+                    if (tmp) //能转换成功则正常返回
                     {
                         YGW_LOG_INFO(YGW_LOG_ROOT()) << "Lookup name=" << name << " exists";
                         return tmp;
@@ -537,7 +550,7 @@ namespace ygw {
                     }
                 }
 
-                if(name.find_first_not_of("abcdefghikjlmnopqrstuvwxyz._012345678")
+                if (name.find_first_not_of("abcdefghikjlmnopqrstuvwxyz._012345678")
                         != std::string::npos) 
                 {
                     YGW_LOG_ERROR(YGW_LOG_ROOT()) << "Lookup name invalid " << name;
@@ -557,9 +570,9 @@ namespace ygw {
             template<class T>
             static typename ConfigVar<T>::ptr Lookup(const std::string& name) 
             {
-                //RWMutexType::ReadLock lock(GetMutex());
+                RWMutexType::ReadLock lock(GetMutex());
                 auto it = GetDatas().find(name);
-                if(it == GetDatas().end()) 
+                if (it == GetDatas().end()) 
                 {
                     return nullptr;
                 }
@@ -606,11 +619,11 @@ namespace ygw {
             /**
              ** @brief 配置项的RWMutex
              **/
-            //static RWMutexType& GetMutex() 
-            //{
-            //    static RWMutexType s_mutex;
-            //    return s_mutex;
-            //}
+            static RWMutexType& GetMutex() 
+            {
+                static RWMutexType s_mutex;
+                return s_mutex;
+            }
         };
     } // namespace config
 

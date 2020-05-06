@@ -35,7 +35,7 @@ namespace ygw {
 
         void Semaphore::Wait() 
         {
-            if(sem_wait(&semaphore_)) 
+            if (sem_wait(&semaphore_)) 
             {
                 throw std::logic_error("sem_wait error");
             }
@@ -43,7 +43,7 @@ namespace ygw {
 
         void Semaphore::Notify() 
         {
-            if(sem_post(&semaphore_)) 
+            if (sem_post(&semaphore_)) 
             {
                 throw std::logic_error("sem_post error");
             }

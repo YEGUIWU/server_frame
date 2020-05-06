@@ -85,7 +85,7 @@ namespace ygw {
             if (is_init_)
             {
                 int rt = pthread_join(thread_, nullptr);
-                if(rt) 
+                if (rt) 
                 {
                     YGW_LOG_ERROR(g_logger) << "pthread_join thread fail, rt=" << rt
                         << " name=" << name_;

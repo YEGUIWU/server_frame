@@ -1,0 +1,60 @@
+logs:
+    - name: root
+      level: info
+      appenders:
+          - type: FileLogAppender
+            file: ./tmp/root.log
+          - type: StdoutLogAppender
+    - name: system
+      level: info
+      appenders:
+          - type: FileLogAppender
+            file: ./tmp/system.log
+          - type: StdoutLogAppender
+system:
+    port: 9900
+    value: 15 
+    int_vec:
+        - 10
+        - 20
+        - 30
+    int_lst: [11, 22, 33, 44]
+    int_set: [321, 321, 123]
+    int_uset: [123, 321]
+    int_map:
+        a: 11
+        b: 22
+    int_umap:
+        a: 11
+        b: 22
+
+class:
+    person:
+        name: guiwu
+        age: 20
+        sex: true
+    map:
+        zhitao:
+            name: zhitao
+            age: 20
+            sex: false
+        guiwu:
+            name: guiwu
+            age: 20
+            sex: true
+    vec_map:
+        k1:
+            - name: m1
+              age: 33
+              sex: true
+            - name: m2
+              age: 44
+              sex: false
+        k2: 
+            - name: m1
+              age: 33
+              sex: true
+            - name: m2
+              age: 44
+              sex: false
+              

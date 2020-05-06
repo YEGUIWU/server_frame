@@ -10,8 +10,8 @@
  *  Description: 
  * ====================================================
  */
-#include <log.h>
-#include <config.h>
+#include <server_frame/log.h>
+#include <server_frame/config.h>
 #include <iostream>
 ygw::config::ConfigVar<int>::ptr g_int_value_config =
 ygw::config::Config::Lookup("system.port", 8080, "system port");
@@ -240,6 +240,8 @@ void test_log()
 }
 
 
+
+
 int main()
 {
     //YGW_LOG_INFO(YGW_LOG_ROOT()) << g_int_value_config->GetValue();
@@ -248,5 +250,13 @@ int main()
     //test_config();
     //test_class();
     test_log();
+
+
+    ygw::config::Config::Visit([](ygw::config::ConfigVarBase::ptr var) {
+        YGW_LOG_INFO(YGW_LOG_ROOT()) << "name = " << var->GetName()
+        << " description = " << var->GetDescription()
+        << " typename = " << var->GetTypeName()
+        << " value = " << var->ToString();
+    });
     return 0;
 }

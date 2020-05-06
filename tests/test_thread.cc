@@ -1,5 +1,5 @@
-#include <thread.h>
-#include <config.h>
+#include <server_frame/thread.h>
+#include <server_frame/config.h>
 #include <vector>
 #include <string>
 #include <iostream>
@@ -60,5 +60,6 @@ int main()
 
     YGW_LOG_INFO(g_logger) << "thread test end";
     YGW_LOG_INFO(g_logger) << "count = " << g_count;
+
     return 0;
 }

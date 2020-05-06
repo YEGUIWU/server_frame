@@ -31,6 +31,7 @@ namespace ygw {
 
         ConfigVarBase::ptr Config::LookupBase(const std::string& name) 
         {
+            RWMutexType::ReadLock lock(GetMutex());
             auto it = GetDatas().find(name);
             return it == GetDatas().end() ? nullptr : it->second;
         }
@@ -39,7 +40,7 @@ namespace ygw {
                 const YAML::Node& node,
                 std::list<std::pair<std::string, const YAML::Node> >* output) 
         {
-            if(prefix.find_first_not_of("abcdefghikjlmnopqrstuvwxyz._012345678")
+            if (prefix.find_first_not_of("abcdefghikjlmnopqrstuvwxyz._012345678")
                     != std::string::npos) //非法
             {
                 YGW_LOG_ERROR(g_logger) << "Config invalid name: " << prefix << " : " << node;
@@ -47,9 +48,9 @@ namespace ygw {
             }
 
             output->push_back(std::make_pair(prefix, node));
-            if(node.IsMap()) 
+            if (node.IsMap()) 
             {
-                for(auto ib = node.begin(), ie = node.end();
+                for (auto ib = node.begin(), ie = node.end();
                         ib != ie; ++ib) 
                 {//递归添加
                     ListAllMember(prefix.empty() ? ib->first.Scalar()
@@ -65,10 +66,10 @@ namespace ygw {
 
             //遍历列表
             std::string key;
-            for(auto& i : all_nodes) 
+            for (auto& i : all_nodes) 
             {
                 key = i.first;
-                if(key.empty()) 
+                if (key.empty()) 
                 {
                     continue;
                 }
@@ -76,9 +77,9 @@ namespace ygw {
                 std::transform(key.begin(), key.end(), key.begin(), ::tolower);
                 ConfigVarBase::ptr var = LookupBase(key);
 
-                if(var) 
+                if (var) 
                 {
-                    if(i.second.IsScalar()) 
+                    if (i.second.IsScalar()) 
                     {
                         var->FromString(i.second.Scalar());
                     } 
@@ -100,6 +101,7 @@ namespace ygw {
         }
 
         static std::map<std::string, uint64_t> s_file2modifytime;
+        static ygw::thread::Mutex s_mutex;
 
         void Config::LoadFromConfDir(const std::string& path, bool force) 
         {
@@ -107,7 +109,7 @@ namespace ygw {
             std::vector<std::string> files;
             //FSUtil::ListAllFile(files, absoulte_path, ".yml");
 
-            for(auto& i : files) 
+            for (auto& i : files) 
             {
                 {
 #ifdef __GNUC__
@@ -131,8 +133,9 @@ namespace ygw {
 
                     }
 #endif 
-
-                    if(!force && s_file2modifytime[i] == (uint64_t)st.st_mtime) 
+                    
+                    ygw::thread::Mutex::Lock lock(s_mutex);
+                    if (!force && s_file2modifytime[i] == (uint64_t)st.st_mtime) 
                     {
                         continue;
                     }
@@ -156,8 +159,9 @@ namespace ygw {
 
         void Config::Visit(std::function<void(ConfigVarBase::ptr)> cb) 
         {
+            RWMutexType::ReadLock lock(GetMutex()); 
             ConfigVarMap& m = GetDatas();
-            for(auto ib = m.begin(), ie = m.end();
+            for (auto ib = m.begin(), ie = m.end();
                     ib != ie; ++ib) 
             {
                 cb(ib->second);

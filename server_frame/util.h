@@ -12,6 +12,10 @@
  */
 #ifndef __YGW_UTIL_H__
 #define __YGW_UTIL_H__
+#include <cxxabi.h>
+
+#include <string>
+#include <vector>
 
 namespace ygw {
 
@@ -27,9 +31,13 @@ namespace ygw {
         template<class T>
         const char* TypeToName() 
         {
-            static const char* s_name = "Hello";
-            return s_name;
+            static const char* s_name = abi::__cxa_demangle(typeid(T).name(), nullptr, nullptr, nullptr);
+                return s_name;
         }
+
+        void Backtrace(std::vector<std::string>& bt, int size, int offset = 1);
+
+        std::string BacktraceToString(int size, int offset = 2, const std::string& prefix="");
 
 
     } // namespace util 

@@ -26,16 +26,16 @@
 
 #include "util.h"
 #include "singleton.h"
-#include "mutex.h"
+#include "thread.h"
 
 /**
  ** @brief 使用流式方式将日志级别level的日志写入到logger
  **/
 #define YGW_LOG_LEVEL(logger, level) \
-    if(logger->GetLevel() <= level) \
+    if (logger->GetLevel() <= level) \
     ygw::log::LogEventWrap(ygw::log::LogEvent::ptr(new ygw::log::LogEvent(logger, level, \
                     __FILE__, __LINE__, 0, ygw::util::GetThreadId(),\
-                    ygw::util::GetFiberId(), time(0), "Hello World"))).GetStringStream()
+                    ygw::util::GetFiberId(), time(0), ygw::thread::Thread::GetThisName()))).GetStringStream()
 
 /**
  ** @brief 使用流式方式将日志级别debug的日志写入到logger

@@ -48,7 +48,7 @@ namespace ygw {
 
         LogLevel::Level LogLevel::FromString(const std::string& str) {
 #define XX(level, v) \
-            if(str == #v) { \
+            if (str == #v) { \
                 return LogLevel::Level::level; \
             }
             XX(kDebug, debug);
@@ -421,16 +421,16 @@ namespace ygw {
             MutexType::Lock lock(mutex_);
             YAML::Node node;
             node["name"] = name_;
-            if(level_ != LogLevel::Level::kUnknown) 
+            if (level_ != LogLevel::Level::kUnknown) 
             {
                 node["level"] = LogLevel::ToString(level_);
             }
-            if(formatter_) 
+            if (formatter_) 
             {
                 node["formatter"] = formatter_->GetPattern();
             }
 
-            for(auto& i : appenders_) 
+            for (auto& i : appenders_) 
             {
                 node["appenders"].push_back(YAML::Load(i->ToYamlString()));
             }
@@ -538,7 +538,7 @@ namespace ygw {
                     last_time_ = now;
                 }
                 MutexType::Lock lock(mutex_);
-                //if(!(m_filestream << m_formatter->format(logger, level, event))) {
+                //if (!(m_filestream << m_formatter->format(logger, level, event))) {
                 if (!formatter_->Format(fileout_, logger, level, event)) 
                 {
                     std::cout << "error" << std::endl;
@@ -799,13 +799,13 @@ namespace ygw {
                     {
                         auto it = old_value.find(i);
                         ygw::log::Logger::ptr logger;
-                        if(it == old_value.end()) 
+                        if (it == old_value.end()) 
                         {//新增logger
                             logger = YGW_LOG_NAME(i.name_);
                         } 
                         else 
                         {
-                            if(!(i == *it)) 
+                            if (!(i == *it)) 
                             {//修改的logger
                                 logger = YGW_LOG_NAME(i.name_);
                             } 
@@ -895,7 +895,7 @@ namespace ygw {
         {
             MutexType::Lock lock(mutex_);
             auto it = loggers_.find(name);
-            if(it != loggers_.end()) 
+            if (it != loggers_.end()) 
             {
                 return it->second;
             }
@@ -909,7 +909,7 @@ namespace ygw {
         {
             MutexType::Lock lock(mutex_);
             YAML::Node node;
-            for(auto& i : loggers_) 
+            for (auto& i : loggers_) 
             {
                 node.push_back(YAML::Load(i.second->ToYamlString()));
             }
