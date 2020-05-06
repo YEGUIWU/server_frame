@@ -1,8 +1,0 @@
-/mnt/c/Users/Administrator/ubuntu/server_frame/build/CMakeFiles/rebuild_cache.dir
-/mnt/c/Users/Administrator/ubuntu/server_frame/build/CMakeFiles/edit_cache.dir
-/mnt/c/Users/Administrator/ubuntu/server_frame/build/CMakeFiles/test_log.dir
-/mnt/c/Users/Administrator/ubuntu/server_frame/build/CMakeFiles/server_frame.dir
-/mnt/c/Users/Administrator/ubuntu/server_frame/build/CMakeFiles/test_thread.dir
-/mnt/c/Users/Administrator/ubuntu/server_frame/build/CMakeFiles/test_util.dir
-/mnt/c/Users/Administrator/ubuntu/server_frame/build/CMakeFiles/test_config.dir
-/mnt/c/Users/Administrator/ubuntu/server_frame/build/CMakeFiles/test_fiber.dir
