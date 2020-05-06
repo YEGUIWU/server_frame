@@ -37,7 +37,7 @@ namespace ygw {
 
         void Backtrace(std::vector<std::string>& bt, int size, int offset = 1);
 
-        std::string BacktraceToString(int size, int offset = 2, const std::string& prefix="");
+        std::string BacktraceToString(int size = 64, int offset = 2, const std::string& prefix="");
 
 
     } // namespace util 

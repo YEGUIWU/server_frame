@@ -12,9 +12,8 @@ void run_in_fiber()
     ygw::thread::Fiber::YieldToHold();
 }
 
-int main()
+void test_fiber()
 {
-    ygw::thread::Thread::SetName("main");
     YGW_LOG_INFO(g_logger) << "main begin - 1";
     {
         ygw::thread::Fiber::GetThis();
@@ -27,5 +26,21 @@ int main()
         fiber->SwapIn();
     }
     YGW_LOG_INFO(g_logger) << "main after end - 2";
+
+}
+
+int main()
+{
+    ygw::thread::Thread::SetName("main");
+    std::vector<ygw::thread::Thread::ptr> ths;
+    for (int i = 0; i < 3; ++i)
+    {
+        ths.push_back(ygw::thread::Thread::ptr(
+                    new ygw::thread::Thread(&test_fiber, "name_" + std::to_string(i))));
+    }
+    for (auto &i : ths)
+    {
+        i->Join();
+    }
     return 0;
 }

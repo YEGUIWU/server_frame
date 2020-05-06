@@ -25,6 +25,8 @@ namespace ygw {
 
     namespace thread {
 
+        //------------------------------------------------
+        //static var
         static log::Logger::ptr g_logger = YGW_LOG_NAME("system");
 
         static std::atomic<uint64_t> s_fiber_id {0};
@@ -38,6 +40,8 @@ namespace ygw {
                     128 * 1024, 
                     "fiber stack size");
 
+        //-----------------------------------------------
+        // class StackAllocator
         class StackAllocator {
         public:
             static void * Alloc(size_t size)
@@ -51,6 +55,10 @@ namespace ygw {
             }
         };
         
+
+        //-----------------------------------------------
+        //              class Fiber methods
+        //-----------------------------------------------
         Fiber::Fiber()
         {
             state_ = State::kExec;
@@ -72,7 +80,9 @@ namespace ygw {
             stack_size_ = stack_size ? stack_size : g_fiber_stack_size->GetValue();
 
             stack_ = StackAllocator::Alloc(stack_size_);
+
             YGW_MSG_ASSERT(!getcontext(&context_), "getcontext");
+
             context_.uc_link = nullptr;
             context_.uc_stack.ss_sp = stack_;
             context_.uc_stack.ss_size = stack_size_;
@@ -85,6 +95,7 @@ namespace ygw {
             {
                 makecontext(&context_, &Fiber::CallerMainFunc, 0);
             }
+
             YGW_LOG_DEBUG(g_logger) << "Fiber::Fiber id = " << id_;
         }
         Fiber::~Fiber()

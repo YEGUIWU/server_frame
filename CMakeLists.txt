@@ -10,7 +10,7 @@ set(CMAKE_C_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -fPIC -ggdb -std=c11 -Wall -Wno-
 
 include_directories(.)
 # include_directories(include) # 包含目录
-include_directories(server_frame) # 包含目录
+# include_directories(server_frame) # 包含目录
 
 set (LIB_SRC
     server_frame/log.cc
@@ -18,6 +18,7 @@ set (LIB_SRC
     server_frame/config.cc
     server_frame/thread.cc
     server_frame/mutex.cc
+    server_frame/fiber.cc
     )
 
 add_library(server_frame SHARED ${LIB_SRC})
@@ -34,6 +35,8 @@ set(LIBS
 ygw_add_executable(test_log "tests/test_log.cc" server_frame "${LIBS}")
 ygw_add_executable(test_config "tests/test_config.cc" server_frame "${LIBS}")
 ygw_add_executable(test_thread "tests/test_thread.cc" server_frame "${LIBS}")
+ygw_add_executable(test_util "tests/test_util.cc" server_frame "${LIBS}")
+ygw_add_executable(test_fiber "tests/test_fiber.cc" server_frame "${LIBS}")
 # add_executable(tests tests/test_config.cc)
 # add_definitions(tests src)
 # force_redefine_file_macro_for_sources(tests)
