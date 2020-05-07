@@ -12,8 +12,9 @@
  */
 #ifndef __YGW_FIBER_H__
 #define __YGW_FIBER_H__
-
+#ifdef __GNUC__
 #include <ucontext.h>
+#endif // __GNUC__
 
 #include <functional>
 #include <memory>

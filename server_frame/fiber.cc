@@ -41,6 +41,19 @@ namespace ygw {
                     128 * 1024, 
                     "fiber stack size");
 
+        static inline bool SetContext(ucontext_t* pcontext, ucontext_t *uc_link, void *stack, size_t size)
+        {
+            if (!pcontext)
+            {
+                return false;
+            }
+            pcontext->uc_link = uc_link;
+            pcontext->uc_stack.ss_sp = stack;
+            pcontext->uc_stack.ss_size = size;
+
+            return true;
+        }
+
         //-----------------------------------------------
         // class StackAllocator
         class StackAllocator {
@@ -97,9 +110,10 @@ namespace ygw {
 
             YGW_MSG_ASSERT(!getcontext(&context_), "getcontext");
 
-            context_.uc_link = nullptr;
-            context_.uc_stack.ss_sp = stack_;
-            context_.uc_stack.ss_size = stack_size_;
+            SetContext(&context_, nullptr, stack_, stack_size_);
+            //context_.uc_link = nullptr;
+            //context_.uc_stack.ss_sp = stack_;
+            //context_.uc_stack.ss_size = stack_size_;
             
             if (!use_caller)
             {
@@ -148,9 +162,11 @@ namespace ygw {
             YGW_MSG_ASSERT(!getcontext(&context_), "getcontext");
            
             //设置栈
-            context_.uc_link = nullptr;
-            context_.uc_stack.ss_sp = stack_;
-            context_.uc_stack.ss_size = stack_size_;
+
+            SetContext(&context_, nullptr, stack_, stack_size_);
+            //context_.uc_link = nullptr;
+            //context_.uc_stack.ss_sp = stack_;
+            //context_.uc_stack.ss_size = stack_size_;
 
             //设置协程回调
             makecontext(&context_, &Fiber::MainFunc, 0);

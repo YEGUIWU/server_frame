@@ -12,7 +12,9 @@
  */
 #ifndef __YGW_UTIL_H__
 #define __YGW_UTIL_H__
+#ifdef __GNUC__
 #include <cxxabi.h>
+#endif 
 
 #include <string>
 #include <vector>
@@ -28,14 +30,19 @@ namespace ygw {
 
         int GetFiberId();
 
+
         template<class T>
-        const char* TypeToName() 
+        inline const char* TypeToName() 
         {
+#ifdef _MSC_VER
+            return typeid(T).name();
+#elif __GNUC__
             static const char* s_name = abi::__cxa_demangle(typeid(T).name(), nullptr, nullptr, nullptr);
-                return s_name;
+            return s_name;
+#endif //
         }
 
-        void Backtrace(std::vector<std::string>& bt, int size, int offset = 1);
+        bool Backtrace(std::vector<std::string>* bt, int size, int offset = 1);
 
         std::string BacktraceToString(int size = 64, int offset = 2, const std::string& prefix="");
 

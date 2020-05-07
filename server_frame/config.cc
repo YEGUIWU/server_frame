@@ -12,12 +12,15 @@
  */
 #include <sys/stat.h>
 #include <sys/types.h>
+
+#ifdef __GNU__
 #include <unistd.h>
+#endif //__GNU__
 
 #ifdef _MSC_VER
 #include <io.h>
 #include <fcntl.h>
-#endif
+#endif// _MSC_VER
 
 #include <utility>
 

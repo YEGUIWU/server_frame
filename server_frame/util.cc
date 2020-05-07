@@ -10,10 +10,13 @@
  *  Description: 
  * ====================================================
  */
+#ifdef _MSC_VER
+#include <Windows.h>
+#elif __GNUC__
 #include <unistd.h>
 #include <sys/syscall.h>   /* For SYS_xxx definitions */
-
 #include <execinfo.h>
+#endif //_MSC_VER
 
 #include "util.h"
 #include "log.h"
@@ -28,12 +31,16 @@ namespace ygw {
 
         int GetThreadId()
         {
-            return syscall(SYS_gettid);            
+#ifdef _MSC_VER
+            return ::GetCurrentThreadId();
+#elif __GNUC__
+            return syscall(SYS_gettid);
+#endif //  
         }
 
         int GetFiberId()
         {
-            return ygw::thread::Fiber::GetFiberId();
+            return static_cast<int>(ygw::thread::Fiber::GetFiberId());
         }
 
         
