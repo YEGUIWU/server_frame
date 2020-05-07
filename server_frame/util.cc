@@ -40,7 +40,7 @@ namespace ygw {
 
         int GetFiberId()
         {
-            return static_cast<int>(ygw::thread::Fiber::GetFiberId());
+            return static_cast<int>(ygw::scheduler::Fiber::GetFiberId());
         }
 
         

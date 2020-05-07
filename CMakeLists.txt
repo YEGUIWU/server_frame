@@ -20,6 +20,7 @@ set (LIB_SRC
     server_frame/mutex.cc
     server_frame/fiber.cc
     server_frame/scheduler.cc
+    server_frame/iomanager.cc
     )
 
 add_library(server_frame SHARED ${LIB_SRC})
@@ -39,6 +40,7 @@ ygw_add_executable(test_thread "tests/test_thread.cc" server_frame "${LIBS}")
 ygw_add_executable(test_util "tests/test_util.cc" server_frame "${LIBS}")
 ygw_add_executable(test_fiber "tests/test_fiber.cc" server_frame "${LIBS}")
 ygw_add_executable(test_scheduler "tests/test_scheduler.cc" server_frame "${LIBS}")
+ygw_add_executable(test_iomanager "tests/test_iomanager.cc" server_frame "${LIBS}")
 # add_executable(tests tests/test_config.cc)
 # add_definitions(tests src)
 # force_redefine_file_macro_for_sources(tests)

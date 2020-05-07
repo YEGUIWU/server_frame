@@ -23,7 +23,7 @@
 
 namespace ygw {
 
-    namespace thread {
+    namespace scheduler {
 
 
         /**
@@ -35,7 +35,7 @@ namespace ygw {
         {
         public:
             using ptr = std::shared_ptr<Scheduler>;
-            using MutexType = Mutex;
+            using MutexType = thread::Mutex;
 
             
             /**
@@ -250,7 +250,7 @@ namespace ygw {
             /// Mutex
             MutexType mutex_;
             /// 线程池
-            std::vector<Thread::ptr> threads_;
+            std::vector<thread::Thread::ptr> threads_;
             /// 待执行的协程队列
             std::list<FiberAndThread> fibers_;
             /// use_caller为true时有效, 调度协程

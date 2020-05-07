@@ -19,7 +19,7 @@
 
 namespace ygw {
     
-    namespace thread {
+    namespace scheduler {
 
         static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");
 
@@ -40,7 +40,7 @@ namespace ygw {
                 t_scheduler = this;
 
                 root_fiber_.reset(new Fiber(std::bind(&Scheduler::Run, this), 0, true));
-                Thread::SetName(name_);
+                thread::Thread::SetName(name_);
 
                 t_scheduler_fiber = root_fiber_.get();
                 root_thread_ = util::GetThreadId();
@@ -85,7 +85,7 @@ namespace ygw {
             threads_.resize(thread_count_);
             for(size_t i = 0; i < thread_count_; ++i) 
             {
-                threads_[i].reset(new Thread(std::bind(&Scheduler::Run, this)
+                threads_[i].reset(new thread::Thread(std::bind(&Scheduler::Run, this)
                             , name_ + "_" + std::to_string(i)));
                 thread_ids_.push_back(threads_[i]->GetId());
             }
@@ -159,7 +159,7 @@ namespace ygw {
             }
 
             //
-            std::vector<Thread::ptr> threads;
+            std::vector<thread::Thread::ptr> threads;
             {
                 MutexType::Lock lock(mutex_);
                 threads.swap(threads_);
@@ -169,7 +169,7 @@ namespace ygw {
             //{
             //    i->Join();
             //}
-            std::for_each(threads.begin(), threads.end(), std::mem_fn(&Thread::Join));
+            std::for_each(threads.begin(), threads.end(), std::mem_fn(&thread::Thread::Join));
             //if (exit_on_this_fiber) {
             //}
         }

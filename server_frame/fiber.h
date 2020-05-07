@@ -21,7 +21,7 @@
 
 namespace ygw {
     
-    namespace thread {
+    namespace scheduler {
         
         class Scheduler;
 

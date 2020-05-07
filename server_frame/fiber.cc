@@ -24,7 +24,7 @@ namespace ygw {
 
     //---------------------------------------------------
 
-    namespace thread {
+    namespace scheduler {
 
         //------------------------------------------------
         //static var

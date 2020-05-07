@@ -17,6 +17,16 @@
 #include <assert.h>
 #include "util.h"
 
+#if defined __GNUC__ || defined __llvm__
+/// LIKCLY 宏的封装, 告诉编译器优化,条件大概率成立
+#   define YGW_LIKELY(x)       __builtin_expect(!!(x), 1)
+/// LIKCLY 宏的封装, 告诉编译器优化,条件大概率不成立
+#   define YGW_UNLIKELY(x)     __builtin_expect(!!(x), 0)
+#else
+#   define YGW_LIKELY(x)      (x)
+#   define YGW_UNLIKELY(x)      (x)
+#endif
+
 #define YGW_ASSERT(x) \
     if (!(x)) { \
         YGW_LOG_ERROR(YGW_LOG_ROOT()) << "ASSERTION: " #x \
