@@ -15,9 +15,10 @@
 
 #include <atomic>
 
-#include "fiber.h"
 #include "config.h"  // 里面有log.h util.h
+#include "fiber.h"
 #include "macro.h"
+#include "scheduler.h"
 
 namespace ygw {
 
@@ -59,6 +60,19 @@ namespace ygw {
         //-----------------------------------------------
         //              class Fiber methods
         //-----------------------------------------------
+
+        //----------------------//
+        //static member function// 
+        //----------------------//
+        uint64_t Fiber::GetFiberId()
+        {
+            return t_fiber ? t_fiber->GetId() : 0;
+        }
+
+
+        //---------------//
+        //member function// 
+        //---------------//
         Fiber::Fiber()
         {
             state_ = State::kExec;
@@ -104,7 +118,7 @@ namespace ygw {
             if (stack_)
             {
                 YGW_ASSERT(state_ == State::kTerm 
-                        || state_ == State::kExept
+                        || state_ == State::kExcept
                         || state_ == State::kInit);
                 StackAllocator::Dealloc(stack_, stack_size_);                
             }
@@ -126,7 +140,7 @@ namespace ygw {
         {
             YGW_ASSERT(stack_);
             YGW_ASSERT(state_ == State::kTerm 
-                    || state_ == State::kExept
+                    || state_ == State::kExcept
                     || state_ == State::kInit);
             cb_ = cb;
             
@@ -151,10 +165,10 @@ namespace ygw {
             SetThis(this);
             YGW_ASSERT(state_ != State::kExec);
             state_ = State::kExec;
-            YGW_MSG_ASSERT(!swapcontext(&t_thread_fiber->context_, &context_),
-                    "swapcontext");
-            //YGW_MSG_ASSERT(!swapcontext(&Scheduler::GetMainFiber()->context_, &context_), 
+            //YGW_MSG_ASSERT(!swapcontext(&t_thread_fiber->context_, &context_),
             //        "swapcontext");
+            YGW_MSG_ASSERT(!swapcontext(&Scheduler::GetMainFiber()->context_, &context_), 
+                    "swapcontext");
 
         }
 
@@ -163,10 +177,10 @@ namespace ygw {
         {
             //SetThis(Scheduler::GetMainFiber());
             SetThis(t_thread_fiber.get());
-            //YGW_MSG_ASSERT(swapcontext(&context_, &Scheduler::GetMainFiber()->context_), 
-            //        "swapcontext");
-            YGW_MSG_ASSERT(!swapcontext(&context_, &t_thread_fiber->context_), 
+            YGW_MSG_ASSERT(!swapcontext(&context_, &Scheduler::GetMainFiber()->context_), 
                     "swapcontext");
+            //YGW_MSG_ASSERT(!swapcontext(&context_, &t_thread_fiber->context_), 
+            //        "swapcontext");
         }
 
         void Fiber::Call()
@@ -238,7 +252,7 @@ namespace ygw {
             }
             catch (std::exception& e) 
             {
-                cur->state_ = State::kExept;
+                cur->state_ = State::kExcept;
                 YGW_LOG_ERROR(g_logger) << "Fiber Execpt: " << e.what()
                     << " ifber_id = " << cur->GetId()
                     << std::endl
@@ -246,7 +260,7 @@ namespace ygw {
             }
             catch (...)
             {
-                cur->state_ = State::kExept;
+                cur->state_ = State::kExcept;
                 YGW_LOG_ERROR(g_logger) << "Fiber Execpt"
                     << " fiber_id = " << cur->GetId()
                     << std::endl
@@ -259,16 +273,40 @@ namespace ygw {
             YGW_MSG_ASSERT(false, "never reach fiber_id = " + std::to_string(raw_ptr->GetId()));
         }
 
-        void Fiber::CallerMainFunc()
+        void Fiber::CallerMainFunc() 
         {
+            Fiber::ptr cur = GetThis();
+            YGW_ASSERT(cur);
+            try 
+            {
+                cur->cb_();
+                cur->cb_ = nullptr;
+                cur->state_ = State::kTerm;
+            } 
+            catch (std::exception& ex) 
+            {
+                cur->state_ = State::kExcept;
+                YGW_LOG_ERROR(g_logger) << "Fiber Except: " << ex.what()
+                    << " fiber_id=" << cur->GetId()
+                    << std::endl
+                    << util::BacktraceToString();
+            } 
+            catch (...) 
+            {
+                cur->state_ = State::kExcept;
+                YGW_LOG_ERROR(g_logger) << "Fiber Except"
+                    << " fiber_id=" << cur->GetId()
+                    << std::endl
+                    << util::BacktraceToString();
+            }
+
+            auto raw_ptr = cur.get();
+            cur.reset();
+            raw_ptr->Back();
+            YGW_MSG_ASSERT(false, "never reach fiber_id=" + std::to_string(raw_ptr->GetId()));
 
         }
 
-
-        uint64_t Fiber::GetFiberId()
-        {
-            return t_fiber ? t_fiber->GetId() : 0;
-        }
 
     } // namespace thread  
 

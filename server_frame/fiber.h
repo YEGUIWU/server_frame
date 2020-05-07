@@ -22,8 +22,10 @@ namespace ygw {
     
     namespace thread {
         
-        class Fiber : public std::enable_shared_from_this<Fiber> {
+        class Scheduler;
 
+        class Fiber : public std::enable_shared_from_this<Fiber> {
+        friend class Scheduler; 
         public:
             using ptr = std::shared_ptr<Fiber>;
             
@@ -42,7 +44,7 @@ namespace ygw {
                 /// 可执行状态
                 kReady,
                 /// 异常状态
-                kExept 
+                kExcept 
             };
         private:
             /**
