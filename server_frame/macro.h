@@ -7,7 +7,7 @@
  *      Version: 1.0
  *     Compiler: gcc
  *  Create Date: 2020-05-05
- *  Description: 
+ *  Description: 常用宏的封装
  * ====================================================
  */
 #ifndef __YGW_MACRO_H__

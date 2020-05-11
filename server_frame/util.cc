@@ -13,9 +13,10 @@
 #ifdef _MSC_VER
 #include <Windows.h>
 #elif __GNUC__
-#include <unistd.h>
-#include <sys/syscall.h>   /* For SYS_xxx definitions */
 #include <execinfo.h>
+#include <sys/syscall.h>   /* For SYS_xxx definitions */
+#include <sys/time.h>
+#include <unistd.h>
 #endif //_MSC_VER
 
 #include "util.h"
@@ -80,6 +81,22 @@ namespace ygw {
             }
             return ss.str();
         }
+
+
+        uint64_t GetCurrentMS() 
+        {
+            struct timeval tv;
+            gettimeofday(&tv, NULL);
+            return tv.tv_sec * 1000ul  + tv.tv_usec / 1000;
+        }
+
+        uint64_t GetCurrentUS() 
+        {
+            struct timeval tv;
+            gettimeofday(&tv, NULL);
+            return tv.tv_sec * 1000 * 1000ul  + tv.tv_usec;
+        }
+
     } // namespace util
 
     //----------------------------------------------------

@@ -7,6 +7,9 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <cerrno>
+#include <iostream>
+#include <memory>
+
 ygw::log::Logger::ptr g_logger = YGW_LOG_ROOT();
 
 
@@ -46,6 +49,24 @@ void test_fiber()
     }
 
 }
+static ygw::timer::Timer::ptr s_timer;
+void test_timer()
+{
+    ygw::scheduler::IOManager iom(2);
+    s_timer = iom.AddTimer(1000, [](){
+        static int i = 0;
+        YGW_LOG_INFO(g_logger) << "Hello Timer";
+        //std::cout << "Hello Timer" << std::endl;
+        if (++i == 3)
+        {
+            s_timer->Reset(2000, true);
+        }
+        else if (i == 5)
+        {
+            s_timer->Cancel();
+        }
+    }, true);
+}
 
 void test1()
 {
@@ -55,8 +76,8 @@ void test1()
 
 int main()
 {
-    test1();
-
+    //test1();
+    test_timer();
 
     return 0;
 }

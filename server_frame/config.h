@@ -7,7 +7,7 @@
  *      Version: 1.0
  *     Compiler: gcc
  *  Create Date: 2020-05-02
- *  Description: 
+ *  Description: 配置模块
  * ====================================================
  */
 #ifndef __YGW_CONFIG_H__

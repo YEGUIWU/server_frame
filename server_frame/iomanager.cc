@@ -29,11 +29,14 @@ namespace ygw {
 
     namespace scheduler {
 
+        //system 日志器
         static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");
 
+        //声明epoll_wait的操作枚举
         enum EpollCtlOp {
         };
-        /*
+       
+        //将epoll_wait的枚举转string并输出到标准输出流
         static std::ostream& operator<< (std::ostream& os, const EpollCtlOp& op) 
         {
             switch((int)op) 
@@ -50,6 +53,7 @@ namespace ygw {
 #undef XX
         }
 
+        //将epoll_event的枚举转string并输出到标准输出流
         static std::ostream& operator<< (std::ostream& os, EPOLL_EVENTS events) 
         {
             if (!events) 
@@ -81,9 +85,10 @@ namespace ygw {
 #undef XX
             return os;
         }
-        */
 
-    
+   
+       
+        //获取上下文
         IOManager::FdContext::EventContext& 
         IOManager::FdContext::GetContext(IOManager::Event event) 
         {
@@ -99,6 +104,7 @@ namespace ygw {
             throw std::invalid_argument("GetContext invalid event");
         }
 
+        //重置上下文
         void IOManager::FdContext::ResetContext(EventContext& ctx) 
         {
             ctx.scheduler = nullptr;
@@ -106,6 +112,7 @@ namespace ygw {
             ctx.cb = nullptr;
         }
 
+        //触发事件
         void IOManager::FdContext::TriggerEvent(IOManager::Event event) 
         {
             //----- use for debug -----//
@@ -134,7 +141,7 @@ namespace ygw {
 
 
         //----------------------------------------------------------
-        // class Scheduler method
+        // class IOManager method
         IOManager::IOManager(size_t threads, bool use_caller, const std::string& name)
             :Scheduler(threads, use_caller, name) 
         {
@@ -405,22 +412,23 @@ namespace ygw {
         //--------//
         //Stopping// 
         //--------//
-        /*
-        bool IOManager::Stopping(uint64_t& timeout) 
+        
+        bool IOManager::Stopping(uint64_t* timeout) 
         {
-            timeout = getNextTimer();
-            return timeout == ~0ull
+            YGW_MSG_ASSERT(timeout, "Stopping get a nullptr");   
+            *timeout = GetNextTimer();
+            return *timeout == ~0ull
                 && pending_event_count_ == 0
                 && Scheduler::Stopping();
         }
-        */
+       
 
 
         bool IOManager::Stopping() 
         {
-            //uint64_t timeout = 0;
-            //return Stopping(timeout);
-            return Scheduler::Stopping() && pending_event_count_ == 0;
+            uint64_t timeout = 0;
+            return Stopping(&timeout);
+            //return Scheduler::Stopping() && pending_event_count_ == 0;
         }
 
         void IOManager::Idle() 
@@ -435,8 +443,8 @@ namespace ygw {
             while (true) 
             {
                 uint64_t next_timeout = 0;
-                //if (YGW_UNLIKELY(Stopping(next_timeout))) 
-                if (Stopping()) 
+                //if (Stopping()) 
+                if (YGW_UNLIKELY(Stopping(&next_timeout))) 
                 {
                     YGW_LOG_INFO(g_logger) << "name=" << GetName()
                         << " idle stopping exit";
@@ -468,7 +476,7 @@ namespace ygw {
                 } while (true);
 
                 std::vector<std::function<void()> > cbs;
-                //ListExpiredCb(cbs);
+                ListExpiredCb(cbs);
                 if (!cbs.empty()) 
                 {
                     //YGW_LOG_DEBUG(g_logger) << "on timer cbs.size=" << cbs.size();
@@ -552,10 +560,10 @@ namespace ygw {
         }
 
          
-       //void IOManager::OnTimerInsertedAtFront() 
-       //{
-       //    Tickle();
-       //}
+       void IOManager::OnTimerInsertedAtFront() 
+       {
+           Tickle();
+       }
                 
 
     } // namespace scheduler

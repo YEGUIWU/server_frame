@@ -7,13 +7,14 @@
  *      Version: 1.0
  *     Compiler: gcc
  *  Create Date: 2020-05-07
- *  Description: 
+ *  Description: 基于Epoll的IO协程调度器
  * ====================================================
  */
 #ifndef __YGW_IOMANAGER_H__
 #define __YGW_IOMANAGER_H__
 
 #include "scheduler.h"
+#include "timer.h"
 
 namespace ygw {
 
@@ -26,7 +27,7 @@ namespace ygw {
         /**
          ** @brief 基于Epoll的IO协程调度器
          **/
-        class IOManager : public Scheduler //, public TimerManager 
+        class IOManager : public Scheduler , public timer::TimerManager 
         {
         public:
             using ptr = std::shared_ptr<IOManager>;
@@ -152,7 +153,7 @@ namespace ygw {
 
             void Idle() override;
 
-            //void OnTimerInsertedAtFront() override;
+            void OnTimerInsertedAtFront() override;
 
             /**
              ** @brief 重置socket句柄上下文的容器大小
@@ -165,7 +166,7 @@ namespace ygw {
              ** @param[out] timeout 最近要出发的定时器事件间隔
              ** @return 返回是否可以停止
              **/
-            //bool Stopping(uint64_t& timeout);
+            bool Stopping(uint64_t* timeout);
         private:
             /// epoll 文件句柄
             int epfd_ = 0;

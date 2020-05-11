@@ -21,6 +21,7 @@ set (LIB_SRC
     server_frame/fiber.cc
     server_frame/scheduler.cc
     server_frame/iomanager.cc
+    server_frame/timer.cc
     )
 
 add_library(server_frame SHARED ${LIB_SRC})

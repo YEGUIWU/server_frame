@@ -14,7 +14,6 @@
 #include "scheduler.h"
 #include "log.h"
 #include "macro.h"
-#include "hook.h"
 #include <algorithm>
 
 namespace ygw {

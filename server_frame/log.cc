@@ -346,7 +346,8 @@ namespace ygw {
             new LogFormatter("%d{%Y-%m-%d %H:%M:%S}%T%t%T%N%T%F%T[%p]%T[%c]%T%f:%l%T%m%n"));
         }
 
-
+        //-----------------------------------------------------------
+        // 
         void Logger::Log(LogLevel::Level level, LogEvent::ptr event)
         {
             if (level >= level_)
@@ -386,7 +387,8 @@ namespace ygw {
         {
             Log(LogLevel::Level::kFatal, event);
         }
-
+        //-----------------------------------------------------------
+        //
         void Logger::SetFormatter(LogFormatter::ptr val) 
         {
             MutexType::Lock lock(mutex_);

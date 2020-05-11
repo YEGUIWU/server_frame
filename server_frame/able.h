@@ -7,7 +7,7 @@
  *      Version: 1.0
  *     Compiler: gcc
  *  Create Date: 2020-05-04
- *  Description: 
+ *  Description: able接口封装
  * ====================================================
  */
 

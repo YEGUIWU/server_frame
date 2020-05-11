@@ -7,7 +7,7 @@
  *      Version: 1.0
  *     Compiler: gcc
  *  Create Date: 2020-05-04
- *  Description: 
+ *  Description: 常用互斥量、信号量封装
  * ====================================================
  */
 #ifndef __YGW_MUTEX_H__

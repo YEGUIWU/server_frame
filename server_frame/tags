@@ -6,66 +6,79 @@
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 AddAppender	log.cc	/^        void Logger::AddAppender(LogAppender::ptr appender)$/;"	f	class:ygw::log::Logger	signature:(LogAppender::ptr appender)
 AddAppender	log.h	/^            void AddAppender(LogAppender::ptr appender);$/;"	p	class:ygw::log::Logger	access:public	signature:(LogAppender::ptr appender)
+AddConditionTimer	timer.cc	/^        Timer::ptr TimerManager::AddConditionTimer(uint64_t ms, std::function<void()> cb$/;"	f	class:ygw::timer::TimerManager	signature:(uint64_t ms, std::function<void()> cb ,std::weak_ptr<void> weak_cond ,bool recurring)
+AddConditionTimer	timer.h	/^            Timer::ptr AddConditionTimer(uint64_t ms, std::function<void()> cb$/;"	p	class:ygw::timer::TimerManager	access:public	signature:(uint64_t ms, std::function<void()> cb ,std::weak_ptr<void> weak_cond ,bool recurring = false)
+AddEvent	iomanager.cc	/^        int IOManager::AddEvent(int fd, Event event, std::function<void()> cb) $/;"	f	class:ygw::scheduler::IOManager	signature:(int fd, Event event, std::function<void()> cb)
+AddEvent	iomanager.h	/^            int AddEvent(int fd, Event event, std::function<void()> cb = nullptr);$/;"	p	class:ygw::scheduler::IOManager	access:public	signature:(int fd, Event event, std::function<void()> cb = nullptr)
 AddListener	config.h	/^            uint64_t AddListener(on_change_cb cb) $/;"	f	class:ygw::config::ConfigVar	access:public	signature:(on_change_cb cb)
-Alloc	barkup/fiber.cc	/^    static void* Alloc(size_t size) {$/;"	f	class:ygw::thread::MallocStackAllocator	access:public	signature:(size_t size)
-Alloc	fiber.cc	/^            static void * Alloc(size_t size)$/;"	f	class:ygw::thread::StackAllocator	access:public	signature:(size_t size)
-Back	fiber.cc	/^        void Fiber::Back()$/;"	f	class:ygw::thread::Fiber	signature:()
-Back	fiber.h	/^            void Back();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
+AddTimer	timer.cc	/^        Timer::ptr TimerManager::AddTimer(uint64_t ms, std::function<void()> cb$/;"	f	class:ygw::timer::TimerManager	signature:(uint64_t ms, std::function<void()> cb ,bool recurring)
+AddTimer	timer.cc	/^        void TimerManager::AddTimer(Timer::ptr val, RWMutexType::WriteLock& lock) $/;"	f	class:ygw::timer::TimerManager	signature:(Timer::ptr val, RWMutexType::WriteLock& lock)
+AddTimer	timer.h	/^            Timer::ptr AddTimer(uint64_t ms, std::function<void()> cb$/;"	p	class:ygw::timer::TimerManager	access:public	signature:(uint64_t ms, std::function<void()> cb ,bool recurring = false)
+AddTimer	timer.h	/^            void AddTimer(Timer::ptr val, RWMutexType::WriteLock& lock);$/;"	p	class:ygw::timer::TimerManager	access:protected	signature:(Timer::ptr val, RWMutexType::WriteLock& lock)
+Alloc	fiber.cc	/^            static void * Alloc(size_t size)$/;"	f	class:ygw::scheduler::StackAllocator	access:public	signature:(size_t size)
+Back	fiber.cc	/^        void Fiber::Back()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+Back	fiber.h	/^            void Back();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
 Backtrace	util.cc	/^        bool Backtrace(std::vector<std::string>* bt, int size, int offset)$/;"	f	namespace:ygw::util	signature:(std::vector<std::string>* bt, int size, int offset)
-Backtrace	util.h	/^        void Backtrace(std::vector<std::string>& bt, int size, int offset = 1);$/;"	p	namespace:ygw::util	signature:(std::vector<std::string>& bt, int size, int offset = 1)
+Backtrace	util.h	/^        void Backtrace(std::vector<std::string>& bt, int size = 64, int skip = 1);$/;"	p	namespace:ygw::util	signature:(std::vector<std::string>& bt, int size = 64, int skip = 1)
 BacktraceToString	util.cc	/^        std::string BacktraceToString(int size, int offset, const std::string& prefix)$/;"	f	namespace:ygw::util	signature:(int size, int offset, const std::string& prefix)
-BacktraceToString	util.h	/^        std::string BacktraceToString(int size = 64, int offset = 2, const std::string& prefix="");$/;"	p	namespace:ygw::util	signature:(int size = 64, int offset = 2, const std::string& prefix=�)
+BacktraceToString	util.h	/^        std::string BacktraceToString(int size = 64, int skip = 2, const std::string& prefix = "");$/;"	p	namespace:ygw::util	signature:(int size = 64, int skip = 2, const std::string& prefix = �)
 CASLock	mutex.cc	/^        CASLock::CASLock()$/;"	f	class:ygw::thread::CASLock	signature:()
 CASLock	mutex.h	/^        class CASLock : able::Noncopyable {$/;"	c	namespace:ygw::thread	inherits:able::Noncopyable
-Call	fiber.cc	/^        void Fiber::Call()$/;"	f	class:ygw::thread::Fiber	signature:()
-Call	fiber.h	/^            void Call();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-CallerMainFunc	barkup/fiber.cc	/^void Fiber::CallerMainFunc() {$/;"	f	class:ygw::thread::Fiber	signature:()
-CallerMainFunc	barkup/fiber.h	/^    static void CallerMainFunc();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-CallerMainFunc	fiber.cc	/^        void Fiber::CallerMainFunc() $/;"	f	class:ygw::thread::Fiber	signature:()
-CallerMainFunc	fiber.h	/^            static void CallerMainFunc();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
+Call	fiber.cc	/^        void Fiber::Call()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+Call	fiber.h	/^            void Call();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+CallerMainFunc	fiber.cc	/^        void Fiber::CallerMainFunc() $/;"	f	class:ygw::scheduler::Fiber	signature:()
+CallerMainFunc	fiber.h	/^            static void CallerMainFunc();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+Cancel	timer.cc	/^        bool Timer::Cancel() $/;"	f	class:ygw::timer::Timer	signature:()
+CancelAll	iomanager.cc	/^        bool IOManager::CancelAll(int fd) $/;"	f	class:ygw::scheduler::IOManager	signature:(int fd)
+CancelAll	iomanager.h	/^            bool CancelAll(int fd);$/;"	p	class:ygw::scheduler::IOManager	access:public	signature:(int fd)
+CancelEvent	iomanager.cc	/^        bool IOManager::CancelEvent(int fd, Event event) $/;"	f	class:ygw::scheduler::IOManager	signature:(int fd, Event event)
+CancelEvent	iomanager.h	/^            bool CancelEvent(int fd, Event event);$/;"	p	class:ygw::scheduler::IOManager	access:public	signature:(int fd, Event event)
 ClearAppenders	log.cc	/^        void Logger::ClearAppenders() $/;"	f	class:ygw::log::Logger	signature:()
 ClearAppenders	log.h	/^            void ClearAppenders();$/;"	p	class:ygw::log::Logger	access:public	signature:()
 ClearListener	config.h	/^            void ClearListener() $/;"	f	class:ygw::config::ConfigVar	access:public	signature:()
+Comparator	timer.h	/^            class Comparator $/;"	c	class:ygw::timer::Timer	access:private
 Config	config.h	/^        class Config {$/;"	c	namespace:ygw::config
 ConfigVar	config.h	/^            ConfigVar(const std::string& name$/;"	f	class:ygw::config::ConfigVar	access:public	signature:(const std::string& name ,const T& default_value ,const std::string& description = �)
 ConfigVar	config.h	/^        class ConfigVar : public ConfigVarBase $/;"	c	namespace:ygw::config	inherits:ConfigVarBase
 ConfigVarBase	config.h	/^            ConfigVarBase(const std::string& name, $/;"	f	class:ygw::config::ConfigVarBase	access:public	signature:(const std::string& name, const std::string& description = �)
 ConfigVarBase	config.h	/^        class ConfigVarBase {$/;"	c	namespace:ygw::config
+ContextResize	iomanager.cc	/^        void IOManager::ContextResize(size_t size) $/;"	f	class:ygw::scheduler::IOManager	signature:(size_t size)
+ContextResize	iomanager.h	/^            void ContextResize(size_t size);$/;"	p	class:ygw::scheduler::IOManager	access:protected	signature:(size_t size)
 DateTimeFormatItem	log.cc	/^            DateTimeFormatItem(const std::string& format = "%Y-%m-%d %H:%M:%S")$/;"	f	class:ygw::log::DateTimeFormatItem	access:public	signature:(const std::string& format = �)
 DateTimeFormatItem	log.cc	/^        class DateTimeFormatItem : public LogFormatter::FormatItem $/;"	c	namespace:ygw::log	file:	inherits:LogFormatter::FormatItem
-Dealloc	barkup/fiber.cc	/^    static void Dealloc(void* vp, size_t size) {$/;"	f	class:ygw::thread::MallocStackAllocator	access:public	signature:(void* vp, size_t size)
-Dealloc	fiber.cc	/^            static void Dealloc(void* vp, size_t size)$/;"	f	class:ygw::thread::StackAllocator	access:public	signature:(void* vp, size_t size)
+Dealloc	fiber.cc	/^            static void Dealloc(void* vp, size_t size)$/;"	f	class:ygw::scheduler::StackAllocator	access:public	signature:(void* vp, size_t size)
 Debug	log.cc	/^        void Logger::Debug(LogEvent::ptr event)$/;"	f	class:ygw::log::Logger	signature:(LogEvent::ptr event)
 Debug	log.h	/^            void Debug(LogEvent::ptr event);$/;"	p	class:ygw::log::Logger	access:public	signature:(LogEvent::ptr event)
 DelAppender	log.cc	/^        void Logger::DelAppender(LogAppender::ptr appender)$/;"	f	class:ygw::log::Logger	signature:(LogAppender::ptr appender)
 DelAppender	log.h	/^            void DelAppender(LogAppender::ptr appender);$/;"	p	class:ygw::log::Logger	access:public	signature:(LogAppender::ptr appender)
+DelEvent	iomanager.cc	/^        bool IOManager::DelEvent(int fd, Event event) $/;"	f	class:ygw::scheduler::IOManager	signature:(int fd, Event event)
+DelEvent	iomanager.h	/^            bool DelEvent(int fd, Event event);$/;"	p	class:ygw::scheduler::IOManager	access:public	signature:(int fd, Event event)
 DelListener	config.h	/^            void DelListener(uint64_t key) $/;"	f	class:ygw::config::ConfigVar	access:public	signature:(uint64_t key)
-Dump	scheduler.cc	/^        std::ostream& Scheduler::Dump(std::ostream& os)$/;"	f	class:ygw::thread::Scheduler	signature:(std::ostream& os)
-Dump	scheduler.h	/^            std::ostream& Dump(std::ostream& os);$/;"	p	class:ygw::thread::Scheduler	access:public	signature:(std::ostream& os)
-EXCEPT	barkup/fiber.h	/^        EXCEPT$/;"	e	enum:ygw::thread::Fiber::State
-EXEC	barkup/fiber.h	/^        EXEC,$/;"	e	enum:ygw::thread::Fiber::State
+DetectClockRollover	timer.cc	/^        bool TimerManager::DetectClockRollover(uint64_t now_ms) $/;"	f	class:ygw::timer::TimerManager	signature:(uint64_t now_ms)
+DetectClockRollover	timer.h	/^            bool DetectClockRollover(uint64_t now_ms);$/;"	p	class:ygw::timer::TimerManager	access:private	signature:(uint64_t now_ms)
+Dump	scheduler.cc	/^        std::ostream& Scheduler::Dump(std::ostream& os)$/;"	f	class:ygw::scheduler::Scheduler	signature:(std::ostream& os)
+Dump	scheduler.h	/^            std::ostream& Dump(std::ostream& os);$/;"	p	class:ygw::scheduler::Scheduler	access:public	signature:(std::ostream& os)
 ElapseFormatItem	log.cc	/^            ElapseFormatItem(const std::string& str = "") {}$/;"	f	class:ygw::log::ElapseFormatItem	access:public	signature:(const std::string& str = �)
 ElapseFormatItem	log.cc	/^        class ElapseFormatItem : public LogFormatter::FormatItem $/;"	c	namespace:ygw::log	file:	inherits:LogFormatter::FormatItem
+EpollCtlOp	iomanager.cc	/^        enum EpollCtlOp {$/;"	g	namespace:ygw::scheduler	file:
 Error	log.cc	/^        void Logger::Error(LogEvent::ptr event)$/;"	f	class:ygw::log::Logger	signature:(LogEvent::ptr event)
 Error	log.h	/^            void Error(LogEvent::ptr event);$/;"	p	class:ygw::log::Logger	access:public	signature:(LogEvent::ptr event)
+Event	iomanager.h	/^            enum Event {$/;"	g	class:ygw::scheduler::IOManager	access:public
+EventContext	iomanager.h	/^                struct EventContext $/;"	s	class:ygw::scheduler::IOManager::FdContext	access:public
 Fatal	log.cc	/^        void Logger::Fatal(LogEvent::ptr event)$/;"	f	class:ygw::log::Logger	signature:(LogEvent::ptr event)
 Fatal	log.h	/^            void Fatal(LogEvent::ptr event);$/;"	p	class:ygw::log::Logger	access:public	signature:(LogEvent::ptr event)
-Fiber	barkup/fiber.cc	/^Fiber::Fiber() {$/;"	f	class:ygw::thread::Fiber	signature:()
-Fiber	barkup/fiber.cc	/^Fiber::Fiber(std::function<void()> cb, size_t stacksize, bool use_caller)$/;"	f	class:ygw::thread::Fiber	signature:(std::function<void()> cb, size_t stacksize, bool use_caller)
-Fiber	barkup/fiber.h	/^    Fiber();$/;"	p	class:ygw::thread::Fiber	access:private	signature:()
-Fiber	barkup/fiber.h	/^    Fiber(std::function<void()> cb, size_t stacksize = 0, bool use_caller = false);$/;"	p	class:ygw::thread::Fiber	access:public	signature:(std::function<void()> cb, size_t stacksize = 0, bool use_caller = false)
-Fiber	barkup/fiber.h	/^class Fiber : public std::enable_shared_from_this<Fiber> {$/;"	c	namespace:ygw::thread	inherits:std::enable_shared_from_this
-Fiber	fiber.cc	/^        Fiber::Fiber()$/;"	f	class:ygw::thread::Fiber	signature:()
-Fiber	fiber.cc	/^        Fiber::Fiber(std::function<void()> cb, size_t stack_size, bool use_caller)$/;"	f	class:ygw::thread::Fiber	signature:(std::function<void()> cb, size_t stack_size, bool use_caller)
-Fiber	fiber.h	/^            Fiber();$/;"	p	class:ygw::thread::Fiber	access:private	signature:()
-Fiber	fiber.h	/^            Fiber(std::function<void()> cb, size_t stacksize = 0, bool use_caller = false);$/;"	p	class:ygw::thread::Fiber	access:public	signature:(std::function<void()> cb, size_t stacksize = 0, bool use_caller = false)
-Fiber	fiber.h	/^        class Fiber : public std::enable_shared_from_this<Fiber> {$/;"	c	namespace:ygw::thread	inherits:std::enable_shared_from_this
-FiberAndThread	scheduler.h	/^                FiberAndThread()$/;"	f	class:ygw::thread::Scheduler::FiberAndThread	access:public	signature:()
-FiberAndThread	scheduler.h	/^                FiberAndThread(Fiber::ptr *f, int th_id)$/;"	f	class:ygw::thread::Scheduler::FiberAndThread	access:public	signature:(Fiber::ptr *f, int th_id)
-FiberAndThread	scheduler.h	/^                FiberAndThread(Fiber::ptr f, int th_id)$/;"	f	class:ygw::thread::Scheduler::FiberAndThread	access:public	signature:(Fiber::ptr f, int th_id)
-FiberAndThread	scheduler.h	/^                FiberAndThread(std::function<void()> *f, int th_id)$/;"	f	class:ygw::thread::Scheduler::FiberAndThread	access:public	signature:(std::function<void()> *f, int th_id)
-FiberAndThread	scheduler.h	/^                FiberAndThread(std::function<void()> f, int th_id)$/;"	f	class:ygw::thread::Scheduler::FiberAndThread	access:public	signature:(std::function<void()> f, int th_id)
-FiberAndThread	scheduler.h	/^            class FiberAndThread {$/;"	c	class:ygw::thread::Scheduler	access:private
+FdContext	iomanager.h	/^            class FdContext $/;"	c	class:ygw::scheduler::IOManager	access:private
+Fiber	fiber.cc	/^        Fiber::Fiber()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+Fiber	fiber.cc	/^        Fiber::Fiber(std::function<void()> cb, size_t stack_size, bool use_caller)$/;"	f	class:ygw::scheduler::Fiber	signature:(std::function<void()> cb, size_t stack_size, bool use_caller)
+Fiber	fiber.h	/^            Fiber();$/;"	p	class:ygw::scheduler::Fiber	access:private	signature:()
+Fiber	fiber.h	/^            Fiber(std::function<void()> cb, size_t stacksize = 0, bool use_caller = false);$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:(std::function<void()> cb, size_t stacksize = 0, bool use_caller = false)
+Fiber	fiber.h	/^        class Fiber : public std::enable_shared_from_this<Fiber> {$/;"	c	namespace:ygw::scheduler	inherits:std::enable_shared_from_this
+FiberAndThread	scheduler.h	/^                FiberAndThread()$/;"	f	class:ygw::scheduler::Scheduler::FiberAndThread	access:public	signature:()
+FiberAndThread	scheduler.h	/^                FiberAndThread(Fiber::ptr *f, int th_id)$/;"	f	class:ygw::scheduler::Scheduler::FiberAndThread	access:public	signature:(Fiber::ptr *f, int th_id)
+FiberAndThread	scheduler.h	/^                FiberAndThread(Fiber::ptr f, int th_id)$/;"	f	class:ygw::scheduler::Scheduler::FiberAndThread	access:public	signature:(Fiber::ptr f, int th_id)
+FiberAndThread	scheduler.h	/^                FiberAndThread(std::function<void()> *f, int th_id)$/;"	f	class:ygw::scheduler::Scheduler::FiberAndThread	access:public	signature:(std::function<void()> *f, int th_id)
+FiberAndThread	scheduler.h	/^                FiberAndThread(std::function<void()> f, int th_id)$/;"	f	class:ygw::scheduler::Scheduler::FiberAndThread	access:public	signature:(std::function<void()> f, int th_id)
+FiberAndThread	scheduler.h	/^            class FiberAndThread {$/;"	c	class:ygw::scheduler::Scheduler	access:private
 FiberIdFormatItem	log.cc	/^            FiberIdFormatItem(const std::string& str = "") {}$/;"	f	class:ygw::log::FiberIdFormatItem	access:public	signature:(const std::string& str = �)
 FiberIdFormatItem	log.cc	/^        class FiberIdFormatItem : public LogFormatter::FormatItem {$/;"	c	namespace:ygw::log	file:	inherits:LogFormatter::FormatItem
 FileLogAppender	log.cc	/^        FileLogAppender::FileLogAppender(const std::string& filename)$/;"	f	class:ygw::log::FileLogAppender	signature:(const std::string& filename)
@@ -86,14 +99,18 @@ FromString	config.h	/^            virtual bool FromString(const std::string& val
 FromString	log.cc	/^        LogLevel::Level LogLevel::FromString(const std::string& str) {$/;"	f	class:ygw::log::LogLevel	signature:(const std::string& str)
 FromString	log.h	/^            static LogLevel::Level FromString(const std::string& str);$/;"	p	class:ygw::log::LogLevel	access:public	signature:(const std::string& str)
 GetContent	log.h	/^            std::string GetContent() const { return string_stream_.str();}$/;"	f	class:ygw::log::LogEvent	access:public	signature:() const
+GetContext	iomanager.cc	/^        IOManager::FdContext::GetContext(IOManager::Event event) $/;"	f	class:ygw::scheduler::IOManager::FdContext	signature:(IOManager::Event event)
+GetContext	iomanager.h	/^                EventContext& GetContext(Event event);$/;"	p	class:ygw::scheduler::IOManager::FdContext	access:public	signature:(Event event)
+GetCurrentMS	util.cc	/^        uint64_t GetCurrentMS() $/;"	f	namespace:ygw::util	signature:()
+GetCurrentMS	util.h	/^        uint64_t GetCurrentMS();$/;"	p	namespace:ygw::util	signature:()
+GetCurrentUS	util.cc	/^        uint64_t GetCurrentUS() $/;"	f	namespace:ygw::util	signature:()
+GetCurrentUS	util.h	/^        uint64_t GetCurrentUS();$/;"	p	namespace:ygw::util	signature:()
 GetDatas	config.h	/^            static ConfigVarMap& GetDatas() $/;"	f	class:ygw::config::Config	access:private	signature:()
 GetDescription	config.h	/^            const std::string& GetDescription() const { return description_; }$/;"	f	class:ygw::config::ConfigVarBase	access:public	signature:() const
 GetElapse	log.h	/^            uint32_t GetElapse() const { return elapse_;}$/;"	f	class:ygw::log::LogEvent	access:public	signature:() const
 GetEvent	log.h	/^            LogEvent::ptr GetEvent() const { return event_;}$/;"	f	class:ygw::log::LogEventWrap	access:public	signature:() const
-GetFiberId	barkup/fiber.cc	/^uint64_t Fiber::GetFiberId() {$/;"	f	class:ygw::thread::Fiber	signature:()
-GetFiberId	barkup/fiber.h	/^    static uint64_t GetFiberId();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-GetFiberId	fiber.cc	/^        uint64_t Fiber::GetFiberId()$/;"	f	class:ygw::thread::Fiber	signature:()
-GetFiberId	fiber.h	/^            static uint64_t GetFiberId();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
+GetFiberId	fiber.cc	/^        uint64_t Fiber::GetFiberId()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+GetFiberId	fiber.h	/^            static uint64_t GetFiberId();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
 GetFiberId	log.h	/^            uint32_t GetFiberId() const { return fiber_id_;}$/;"	f	class:ygw::log::LogEvent	access:public	signature:() const
 GetFiberId	util.cc	/^        int GetFiberId()$/;"	f	namespace:ygw::util	signature:()
 GetFiberId	util.h	/^        int GetFiberId();$/;"	p	namespace:ygw::util	signature:()
@@ -103,7 +120,7 @@ GetFormatter	log.cc	/^        LogFormatter::ptr Logger::GetFormatter() $/;"	f	cl
 GetFormatter	log.h	/^            LogFormatter::ptr GetFormatter();$/;"	p	class:ygw::log::LogAppender	access:public	signature:()
 GetFormatter	log.h	/^            LogFormatter::ptr GetFormatter();$/;"	p	class:ygw::log::Logger	access:public	signature:()
 GetId	a.cc	/^    int GetId() const $/;"	f	class:Thread	access:public	signature:() const
-GetId	fiber.h	/^            uint64_t GetId() const { return id_; }$/;"	f	class:ygw::thread::Fiber	access:public	signature:() const
+GetId	fiber.h	/^            uint64_t GetId() const { return id_; }$/;"	f	class:ygw::scheduler::Fiber	access:public	signature:() const
 GetId	thread.h	/^            pid_t GetId() const { return id_; }$/;"	f	class:ygw::thread::Thread	access:public	signature:() const
 GetInstance	singleton.h	/^            static T* GetInstance()$/;"	f	class:ygw::mode::Singleton	access:public	signature:()
 GetInstance	singleton.h	/^            static std::shared_ptr<T> GetInstance() $/;"	f	class:ygw::mode::SingletonPtr	access:public	signature:()
@@ -115,25 +132,27 @@ GetListener	config.h	/^            on_change_cb GetListener(uint64_t key) $/;"	f
 GetLogger	log.cc	/^        Logger::ptr LoggerManager::GetLogger(const std::string& name) $/;"	f	class:ygw::log::LoggerManager	signature:(const std::string& name)
 GetLogger	log.h	/^            Logger::ptr GetLogger(const std::string& name);$/;"	p	class:ygw::log::LoggerManager	access:public	signature:(const std::string& name)
 GetLogger	log.h	/^            std::shared_ptr<Logger> GetLogger() const { return logger_;}$/;"	f	class:ygw::log::LogEvent	access:public	signature:() const
-GetMainFiber	scheduler.cc	/^        Fiber* Scheduler::GetMainFiber() $/;"	f	class:ygw::thread::Scheduler	signature:()
-GetMainFiber	scheduler.h	/^            static Fiber* GetMainFiber();$/;"	p	class:ygw::thread::Scheduler	access:public	signature:()
+GetMainFiber	scheduler.cc	/^        Fiber* Scheduler::GetMainFiber() $/;"	f	class:ygw::scheduler::Scheduler	signature:()
+GetMainFiber	scheduler.h	/^            static Fiber* GetMainFiber();$/;"	p	class:ygw::scheduler::Scheduler	access:public	signature:()
 GetMutex	config.h	/^            static RWMutexType& GetMutex() $/;"	f	class:ygw::config::Config	access:private	signature:()
 GetName	config.h	/^            const std::string& GetName() const { return name_; }$/;"	f	class:ygw::config::ConfigVarBase	access:public	signature:() const
 GetName	log.h	/^            const std::string& GetName() const { return name_;}$/;"	f	class:ygw::log::Logger	access:public	signature:() const
-GetName	scheduler.h	/^            const std::string& GetName() const { return name_;}$/;"	f	class:ygw::thread::Scheduler	access:public	signature:() const
+GetName	scheduler.h	/^            const std::string& GetName() const { return name_;}$/;"	f	class:ygw::scheduler::Scheduler	access:public	signature:() const
 GetName	thread.h	/^            const std::string& GetName() const { return name_; }$/;"	f	class:ygw::thread::Thread	access:public	signature:() const
+GetNextTimer	timer.cc	/^        uint64_t TimerManager::GetNextTimer() $/;"	f	class:ygw::timer::TimerManager	signature:()
+GetNextTimer	timer.h	/^            uint64_t GetNextTimer();$/;"	p	class:ygw::timer::TimerManager	access:public	signature:()
 GetPattern	log.h	/^            const std::string GetPattern() const { return pattern_; }$/;"	f	class:ygw::log::LogFormatter	access:public	signature:() const
 GetRoot	log.h	/^            Logger::ptr GetRoot() const { return root_;}$/;"	f	class:ygw::log::LoggerManager	access:public	signature:() const
-GetState	fiber.h	/^            State GetState() const { return state_; }$/;"	f	class:ygw::thread::Fiber	access:public	signature:() const
+GetState	fiber.h	/^            State GetState() const { return state_; }$/;"	f	class:ygw::scheduler::Fiber	access:public	signature:() const
 GetStringStream	log.cc	/^        std::stringstream& LogEventWrap::GetStringStream() $/;"	f	class:ygw::log::LogEventWrap	signature:()
 GetStringStream	log.h	/^            std::stringstream& GetStringStream() { return string_stream_;}$/;"	f	class:ygw::log::LogEvent	access:public	signature:()
 GetStringStream	log.h	/^            std::stringstream& GetStringStream();$/;"	p	class:ygw::log::LogEventWrap	access:public	signature:()
-GetThis	barkup/fiber.cc	/^Fiber::ptr Fiber::GetThis() {$/;"	f	class:ygw::thread::Fiber	signature:()
-GetThis	barkup/fiber.h	/^    static Fiber::ptr GetThis();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-GetThis	fiber.cc	/^        Fiber::ptr Fiber::GetThis()$/;"	f	class:ygw::thread::Fiber	signature:()
-GetThis	fiber.h	/^            static Fiber::ptr GetThis();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-GetThis	scheduler.cc	/^        Scheduler* Scheduler::GetThis() $/;"	f	class:ygw::thread::Scheduler	signature:()
-GetThis	scheduler.h	/^            static Scheduler* GetThis();$/;"	p	class:ygw::thread::Scheduler	access:public	signature:()
+GetThis	fiber.cc	/^        Fiber::ptr Fiber::GetThis()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+GetThis	fiber.h	/^            static Fiber::ptr GetThis();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+GetThis	iomanager.cc	/^        IOManager* IOManager::GetThis() $/;"	f	class:ygw::scheduler::IOManager	signature:()
+GetThis	iomanager.h	/^            static IOManager* GetThis();$/;"	p	class:ygw::scheduler::IOManager	access:public	signature:()
+GetThis	scheduler.cc	/^        Scheduler* Scheduler::GetThis() $/;"	f	class:ygw::scheduler::Scheduler	signature:()
+GetThis	scheduler.h	/^            static Scheduler* GetThis();$/;"	p	class:ygw::scheduler::Scheduler	access:public	signature:()
 GetThisName	thread.cc	/^        const std::string& Thread::GetThisName() $/;"	f	class:ygw::thread::Thread	signature:()
 GetThisName	thread.h	/^            static const std::string& GetThisName();$/;"	p	class:ygw::thread::Thread	access:public	signature:()
 GetThisPtr	thread.cc	/^        Thread* Thread::GetThisPtr() $/;"	f	class:ygw::thread::Thread	signature:()
@@ -145,11 +164,15 @@ GetThreadName	log.h	/^            const std::string& GetThreadName() const { ret
 GetTime	log.h	/^            uint64_t GetTime() const { return time_;}$/;"	f	class:ygw::log::LogEvent	access:public	signature:() const
 GetTypeName	config.h	/^            virtual std::string GetTypeName() const = 0;$/;"	p	class:ygw::config::ConfigVarBase	access:public	signature:() const
 GetValue	config.h	/^            const T GetValue() $/;"	f	class:ygw::config::ConfigVar	access:public	signature:()
-HOLD	barkup/fiber.h	/^        HOLD,$/;"	e	enum:ygw::thread::Fiber::State
-HasIdleThreads	scheduler.h	/^            bool HasIdleThreads() { return idle_thread_count_ > 0;}$/;"	f	class:ygw::thread::Scheduler	access:protected	signature:()
-INIT	barkup/fiber.h	/^        INIT,$/;"	e	enum:ygw::thread::Fiber::State
-Idle	scheduler.cc	/^        void Scheduler::Idle()$/;"	f	class:ygw::thread::Scheduler	signature:()
-Idle	scheduler.h	/^            virtual void Idle();$/;"	p	class:ygw::thread::Scheduler	access:protected	signature:()
+HasIdleThreads	scheduler.h	/^            bool HasIdleThreads() { return idle_thread_count_ > 0;}$/;"	f	class:ygw::scheduler::Scheduler	access:protected	signature:()
+HasTimer	timer.cc	/^        bool TimerManager::HasTimer() $/;"	f	class:ygw::timer::TimerManager	signature:()
+HasTimer	timer.h	/^            bool HasTimer();$/;"	p	class:ygw::timer::TimerManager	access:public	signature:()
+IOManager	iomanager.cc	/^        IOManager::IOManager(size_t threads, bool use_caller, const std::string& name)$/;"	f	class:ygw::scheduler::IOManager	signature:(size_t threads, bool use_caller, const std::string& name)
+IOManager	iomanager.h	/^            IOManager(size_t threads = 1, bool use_caller = true, const std::string& name = "");$/;"	p	class:ygw::scheduler::IOManager	access:public	signature:(size_t threads = 1, bool use_caller = true, const std::string& name = �)
+IOManager	iomanager.h	/^        class IOManager : public Scheduler , public timer::TimerManager $/;"	c	namespace:ygw::scheduler	inherits:Scheduler,timer::TimerManager
+Idle	iomanager.cc	/^        void IOManager::Idle() $/;"	f	class:ygw::scheduler::IOManager	signature:()
+Idle	scheduler.cc	/^        void Scheduler::Idle()$/;"	f	class:ygw::scheduler::Scheduler	signature:()
+Idle	scheduler.h	/^            virtual void Idle();$/;"	p	class:ygw::scheduler::Scheduler	access:protected	signature:()
 Info	log.cc	/^        void Logger::Info(LogEvent::ptr event)$/;"	f	class:ygw::log::Logger	signature:(LogEvent::ptr event)
 Info	log.h	/^            void Info(LogEvent::ptr event);$/;"	p	class:ygw::log::Logger	access:public	signature:(LogEvent::ptr event)
 Init	log.cc	/^        void LogFormatter::Init()$/;"	f	class:ygw::log::LogFormatter	signature:()
@@ -181,6 +204,8 @@ LexicalCast	log.cc	/^        class LexicalCast<std::string, log::LogDefine> {$/;
 LineFormatItem	log.cc	/^                LineFormatItem(const std::string& str = "") {}$/;"	f	class:ygw::log::LineFormatItem	access:public	signature:(const std::string& str = �)
 LineFormatItem	log.cc	/^        class LineFormatItem : public LogFormatter::FormatItem {$/;"	c	namespace:ygw::log	file:	inherits:LogFormatter::FormatItem
 ListAllMember	config.cc	/^        static void ListAllMember(const std::string& prefix,$/;"	f	namespace:ygw::config	signature:(const std::string& prefix, const YAML::Node& node, std::list<std::pair<std::string, const YAML::Node> >* output)
+ListExpiredCb	timer.cc	/^        void TimerManager::ListExpiredCb(std::vector<std::function<void()> >& cbs) $/;"	f	class:ygw::timer::TimerManager	signature:(std::vector<std::function<void()> >& cbs)
+ListExpiredCb	timer.h	/^            void ListExpiredCb(std::vector<std::function<void()> >& cbs);$/;"	p	class:ygw::timer::TimerManager	access:public	signature:(std::vector<std::function<void()> >& cbs)
 LoadFromConfDir	config.cc	/^        void Config::LoadFromConfDir(const std::string& path, bool force) $/;"	f	class:ygw::config::Config	signature:(const std::string& path, bool force)
 LoadFromConfDir	config.h	/^            static void LoadFromConfDir(const std::string& path, bool force = false);$/;"	p	class:ygw::config::Config	access:public	signature:(const std::string& path, bool force = false)
 LoadFromYaml	config.cc	/^        void Config::LoadFromYaml(const YAML::Node& root) $/;"	f	class:ygw::config::Config	signature:(const YAML::Node& root)
@@ -213,11 +238,8 @@ Lookup	config.h	/^            static typename ConfigVar<T>::ptr Lookup(const std
 Lookup	config.h	/^            static typename ConfigVar<T>::ptr Lookup(const std::string& name,$/;"	f	class:ygw::config::Config	access:public	signature:(const std::string& name, const T& default_value, const std::string& description = �)
 LookupBase	config.cc	/^        ConfigVarBase::ptr Config::LookupBase(const std::string& name) $/;"	f	class:ygw::config::Config	signature:(const std::string& name)
 LookupBase	config.h	/^            static ConfigVarBase::ptr LookupBase(const std::string& name);$/;"	p	class:ygw::config::Config	access:public	signature:(const std::string& name)
-MainFunc	barkup/fiber.cc	/^void Fiber::MainFunc() {$/;"	f	class:ygw::thread::Fiber	signature:()
-MainFunc	barkup/fiber.h	/^    static void MainFunc();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-MainFunc	fiber.cc	/^        void Fiber::MainFunc()$/;"	f	class:ygw::thread::Fiber	signature:()
-MainFunc	fiber.h	/^            static void MainFunc();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-MallocStackAllocator	barkup/fiber.cc	/^class MallocStackAllocator {$/;"	c	namespace:ygw::thread	file:
+MainFunc	fiber.cc	/^        void Fiber::MainFunc()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+MainFunc	fiber.h	/^            static void MainFunc();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
 MessageFormatItem	log.cc	/^            MessageFormatItem(const std::string& str = "") {}$/;"	f	class:ygw::log::MessageFormatItem	access:public	signature:(const std::string& str = �)
 MessageFormatItem	log.cc	/^        class MessageFormatItem : public LogFormatter::FormatItem $/;"	c	namespace:ygw::log	file:	inherits:LogFormatter::FormatItem
 Mutex	mutex.cc	/^        Mutex::Mutex()$/;"	f	class:ygw::thread::Mutex	signature:()
@@ -235,7 +257,9 @@ NullMutex	mutex.h	/^        NullMutex() {}$/;"	f	class:ygw::thread::NullMutex	ac
 NullMutex	mutex.h	/^        class NullMutex : able::Noncopyable{$/;"	c	namespace:ygw::thread	inherits:able::Noncopyable
 NullRWMutex	mutex.h	/^            NullRWMutex() {}$/;"	f	class:ygw::thread::NullRWMutex	access:public	signature:()
 NullRWMutex	mutex.h	/^        class NullRWMutex : able::Noncopyable {$/;"	c	namespace:ygw::thread	inherits:able::Noncopyable
-READY	barkup/fiber.h	/^        READY,$/;"	e	enum:ygw::thread::Fiber::State
+OnTimer	timer.cc	/^        static void OnTimer(std::weak_ptr<void> weak_cond, std::function<void()> cb) $/;"	f	namespace:ygw::timer	signature:(std::weak_ptr<void> weak_cond, std::function<void()> cb)
+OnTimerInsertedAtFront	iomanager.cc	/^       void IOManager::OnTimerInsertedAtFront() $/;"	f	class:ygw::scheduler::IOManager	signature:()
+OnTimerInsertedAtFront	timer.h	/^            virtual void OnTimerInsertedAtFront() = 0;$/;"	p	class:ygw::timer::TimerManager	access:protected	signature:()
 RWMutex	mutex.cc	/^        RWMutex::RWMutex() $/;"	f	class:ygw::thread::RWMutex	signature:()
 RWMutex	mutex.h	/^            RWMutex();$/;"	p	class:ygw::thread::RWMutex	access:public	signature:()
 RWMutex	mutex.h	/^        class RWMutex : able::Noncopyable{$/;"	c	namespace:ygw::thread	inherits:able::Noncopyable
@@ -244,26 +268,33 @@ ReOpen	log.h	/^            bool ReOpen();$/;"	p	class:ygw::log::FileLogAppender	
 ReadLock	mutex.h	/^            typedef ReadScopedLockImpl<RWMutex> ReadLock;$/;"	t	class:ygw::thread::RWMutex	access:public
 ReadScopedLockImpl	mutex.h	/^            ReadScopedLockImpl(T& mutex)$/;"	f	struct:ygw::thread::ReadScopedLockImpl	access:public	signature:(T& mutex)
 ReadScopedLockImpl	mutex.h	/^        struct ReadScopedLockImpl {$/;"	s	namespace:ygw::thread
-Reset	fiber.cc	/^        void Fiber::Reset(std::function<void()> cb)$/;"	f	class:ygw::thread::Fiber	signature:(std::function<void()> cb)
-Reset	fiber.h	/^            void Reset(std::function<void()> cb);$/;"	p	class:ygw::thread::Fiber	access:public	signature:(std::function<void()> cb)
-Reset	scheduler.h	/^                void Reset() $/;"	f	class:ygw::thread::Scheduler::FiberAndThread	access:public	signature:()
-Run	scheduler.cc	/^        void Scheduler::Run() $/;"	f	class:ygw::thread::Scheduler	signature:()
-Run	scheduler.h	/^            void Run();$/;"	p	class:ygw::thread::Scheduler	access:protected	signature:()
+Refresh	timer.cc	/^        bool Timer::Refresh() $/;"	f	class:ygw::timer::Timer	signature:()
+Refresh	timer.h	/^            bool Refresh();$/;"	p	class:ygw::timer::Timer	access:public	signature:()
+Reset	fiber.cc	/^        void Fiber::Reset(std::function<void()> cb)$/;"	f	class:ygw::scheduler::Fiber	signature:(std::function<void()> cb)
+Reset	fiber.h	/^            void Reset(std::function<void()> cb);$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:(std::function<void()> cb)
+Reset	scheduler.h	/^                void Reset() $/;"	f	class:ygw::scheduler::Scheduler::FiberAndThread	access:public	signature:()
+Reset	timer.cc	/^        bool Timer::Reset(uint64_t ms, bool from_now) $/;"	f	class:ygw::timer::Timer	signature:(uint64_t ms, bool from_now)
+Reset	timer.h	/^            bool Reset(uint64_t ms, bool from_now);$/;"	p	class:ygw::timer::Timer	access:public	signature:(uint64_t ms, bool from_now)
+ResetContext	iomanager.cc	/^        void IOManager::FdContext::ResetContext(EventContext& ctx) $/;"	f	class:ygw::scheduler::IOManager::FdContext	signature:(EventContext& ctx)
+ResetContext	iomanager.h	/^                void ResetContext(EventContext& ctx);$/;"	p	class:ygw::scheduler::IOManager::FdContext	access:public	signature:(EventContext& ctx)
+Run	scheduler.cc	/^        void Scheduler::Run() $/;"	f	class:ygw::scheduler::Scheduler	signature:()
+Run	scheduler.h	/^            void Run();$/;"	p	class:ygw::scheduler::Scheduler	access:protected	signature:()
 Run	thread.cc	/^        void* Thread::Run(void* arg) $/;"	f	class:ygw::thread::Thread	signature:(void* arg)
 Run	thread.h	/^            static void* Run(void* arg);$/;"	p	class:ygw::thread::Thread	access:private	signature:(void* arg)
-Schedule	scheduler.h	/^            void Schedule(FiberOrCb fc, int thread = -1) $/;"	f	class:ygw::thread::Scheduler	access:public	signature:(FiberOrCb fc, int thread = -1)
-Schedule	scheduler.h	/^            void Schedule(InputIterator begin, InputIterator end) $/;"	f	class:ygw::thread::Scheduler	access:public	signature:(InputIterator begin, InputIterator end)
-ScheduleNoLock	scheduler.h	/^            bool ScheduleNoLock(FiberOrCb fc, int thread) $/;"	f	class:ygw::thread::Scheduler	access:private	signature:(FiberOrCb fc, int thread)
-Scheduler	scheduler.cc	/^        Scheduler::Scheduler(size_t threads, bool use_caller, const std::string& name)$/;"	f	class:ygw::thread::Scheduler	signature:(size_t threads, bool use_caller, const std::string& name)
-Scheduler	scheduler.h	/^        class Scheduler $/;"	c	namespace:ygw::thread
-SchedulerSwitcher	scheduler.cc	/^        SchedulerSwitcher::SchedulerSwitcher(Scheduler* target)$/;"	f	class:ygw::thread::SchedulerSwitcher	signature:(Scheduler* target)
-SchedulerSwitcher	scheduler.h	/^            SchedulerSwitcher(Scheduler* target = nullptr);$/;"	p	class:ygw::thread::SchedulerSwitcher	access:public	signature:(Scheduler* target = nullptr)
-SchedulerSwitcher	scheduler.h	/^        class SchedulerSwitcher : public able::Noncopyable  $/;"	c	namespace:ygw::thread	inherits:able::Noncopyable
+Schedule	scheduler.h	/^            void Schedule(FiberOrCb fc, int thread = -1) $/;"	f	class:ygw::scheduler::Scheduler	access:public	signature:(FiberOrCb fc, int thread = -1)
+Schedule	scheduler.h	/^            void Schedule(InputIterator begin, InputIterator end) $/;"	f	class:ygw::scheduler::Scheduler	access:public	signature:(InputIterator begin, InputIterator end)
+ScheduleNoLock	scheduler.h	/^            bool ScheduleNoLock(FiberOrCb fc, int thread) $/;"	f	class:ygw::scheduler::Scheduler	access:private	signature:(FiberOrCb fc, int thread)
+Scheduler	scheduler.cc	/^        Scheduler::Scheduler(size_t threads, bool use_caller, const std::string& name)$/;"	f	class:ygw::scheduler::Scheduler	signature:(size_t threads, bool use_caller, const std::string& name)
+Scheduler	scheduler.h	/^        class Scheduler $/;"	c	namespace:ygw::scheduler
+SchedulerSwitcher	scheduler.cc	/^        SchedulerSwitcher::SchedulerSwitcher(Scheduler* target)$/;"	f	class:ygw::scheduler::SchedulerSwitcher	signature:(Scheduler* target)
+SchedulerSwitcher	scheduler.h	/^            SchedulerSwitcher(Scheduler* target = nullptr);$/;"	p	class:ygw::scheduler::SchedulerSwitcher	access:public	signature:(Scheduler* target = nullptr)
+SchedulerSwitcher	scheduler.h	/^        class SchedulerSwitcher : public able::Noncopyable  $/;"	c	namespace:ygw::scheduler	inherits:able::Noncopyable
 ScopedLockImpl	mutex.h	/^            ScopedLockImpl(T& mutex)$/;"	f	struct:ygw::thread::ScopedLockImpl	access:public	signature:(T& mutex)
 ScopedLockImpl	mutex.h	/^        struct ScopedLockImpl {$/;"	s	namespace:ygw::thread
 Semaphore	mutex.cc	/^        Semaphore::Semaphore(uint32_t count) $/;"	f	class:ygw::thread::Semaphore	signature:(uint32_t count)
 Semaphore	mutex.h	/^            Semaphore(uint32_t count = 0);$/;"	p	class:ygw::thread::Semaphore	access:public	signature:(uint32_t count = 0)
 Semaphore	mutex.h	/^        class Semaphore : able::Noncopyable {$/;"	c	namespace:ygw::thread	inherits:able::Noncopyable
+SetContext	fiber.cc	/^        static inline bool SetContext(ucontext_t* pcontext, ucontext_t *uc_link, void *stack, size_t size)$/;"	f	namespace:ygw::scheduler	signature:(ucontext_t* pcontext, ucontext_t *uc_link, void *stack, size_t size)
 SetFormatter	log.cc	/^        void LogAppender::SetFormatter(LogFormatter::ptr val) $/;"	f	class:ygw::log::LogAppender	signature:(LogFormatter::ptr val)
 SetFormatter	log.cc	/^        void Logger::SetFormatter(LogFormatter::ptr val) $/;"	f	class:ygw::log::Logger	signature:(LogFormatter::ptr val)
 SetFormatter	log.cc	/^        void Logger::SetFormatter(const std::string& val) {$/;"	f	class:ygw::log::Logger	signature:(const std::string& val)
@@ -274,40 +305,35 @@ SetLevel	log.h	/^            void SetLevel(LogLevel::Level val) { level_ = val;}
 SetLevel	log.h	/^            void SetLevel(LogLevel::Level val) { level_ = val;}$/;"	f	class:ygw::log::Logger	access:public	signature:(LogLevel::Level val)
 SetName	thread.cc	/^        void Thread::SetName(const std::string& name) $/;"	f	class:ygw::thread::Thread	signature:(const std::string& name)
 SetName	thread.h	/^            static void SetName(const std::string& name);$/;"	p	class:ygw::thread::Thread	access:public	signature:(const std::string& name)
-SetThis	barkup/fiber.cc	/^void Fiber::SetThis(Fiber* f) {$/;"	f	class:ygw::thread::Fiber	signature:(Fiber* f)
-SetThis	barkup/fiber.h	/^    static void SetThis(Fiber* f);$/;"	p	class:ygw::thread::Fiber	access:public	signature:(Fiber* f)
-SetThis	fiber.cc	/^        void Fiber::SetThis(Fiber* f)$/;"	f	class:ygw::thread::Fiber	signature:(Fiber* f)
-SetThis	fiber.h	/^            static void SetThis(Fiber* f);$/;"	p	class:ygw::thread::Fiber	access:public	signature:(Fiber* f)
-SetThis	scheduler.cc	/^        void Scheduler::SetThis() $/;"	f	class:ygw::thread::Scheduler	signature:()
-SetThis	scheduler.h	/^            void SetThis();$/;"	p	class:ygw::thread::Scheduler	access:protected	signature:()
+SetThis	fiber.cc	/^        void Fiber::SetThis(Fiber* f)$/;"	f	class:ygw::scheduler::Fiber	signature:(Fiber* f)
+SetThis	fiber.h	/^            static void SetThis(Fiber* f);$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:(Fiber* f)
+SetThis	scheduler.cc	/^        void Scheduler::SetThis() $/;"	f	class:ygw::scheduler::Scheduler	signature:()
+SetThis	scheduler.h	/^            void SetThis();$/;"	p	class:ygw::scheduler::Scheduler	access:protected	signature:()
 SetValue	config.h	/^            void SetValue(const T& v) $/;"	f	class:ygw::config::ConfigVar	access:public	signature:(const T& v)
 Singleton	singleton.h	/^        class Singleton {$/;"	c	namespace:ygw::mode
 SingletonPtr	singleton.h	/^        class SingletonPtr {$/;"	c	namespace:ygw::mode
 Spinlock	mutex.cc	/^        Spinlock::Spinlock() $/;"	f	class:ygw::thread::Spinlock	signature:()
 Spinlock	mutex.h	/^        class Spinlock : able::Noncopyable {$/;"	c	namespace:ygw::thread	inherits:able::Noncopyable
-StackAllocator	fiber.cc	/^        class StackAllocator {$/;"	c	namespace:ygw::thread	file:
-Start	scheduler.cc	/^        void Scheduler::Start() $/;"	f	class:ygw::thread::Scheduler	signature:()
-Start	scheduler.h	/^            void Start();$/;"	p	class:ygw::thread::Scheduler	access:public	signature:()
-State	barkup/fiber.h	/^    enum State {$/;"	g	class:ygw::thread::Fiber	access:public
-State	fiber.h	/^            enum State {$/;"	g	class:ygw::thread::Fiber	access:public
+StackAllocator	fiber.cc	/^        class StackAllocator {$/;"	c	namespace:ygw::scheduler	file:
+Start	scheduler.cc	/^        void Scheduler::Start() $/;"	f	class:ygw::scheduler::Scheduler	signature:()
+Start	scheduler.h	/^            void Start();$/;"	p	class:ygw::scheduler::Scheduler	access:public	signature:()
+State	fiber.h	/^            enum State {$/;"	g	class:ygw::scheduler::Fiber	access:public
 StdoutLogAppender	log.h	/^        class StdoutLogAppender : public LogAppender {$/;"	c	namespace:ygw::log	inherits:LogAppender
-Stop	scheduler.cc	/^        void Scheduler::Stop() $/;"	f	class:ygw::thread::Scheduler	signature:()
-Stop	scheduler.h	/^            void Stop();$/;"	p	class:ygw::thread::Scheduler	access:public	signature:()
-Stopping	scheduler.cc	/^        bool Scheduler::Stopping()$/;"	f	class:ygw::thread::Scheduler	signature:()
-Stopping	scheduler.h	/^            virtual bool Stopping();$/;"	p	class:ygw::thread::Scheduler	access:protected	signature:()
+Stop	scheduler.cc	/^        void Scheduler::Stop() $/;"	f	class:ygw::scheduler::Scheduler	signature:()
+Stop	scheduler.h	/^            void Stop();$/;"	p	class:ygw::scheduler::Scheduler	access:public	signature:()
+Stopping	iomanager.cc	/^        bool IOManager::Stopping() $/;"	f	class:ygw::scheduler::IOManager	signature:()
+Stopping	iomanager.cc	/^        bool IOManager::Stopping(uint64_t* timeout) $/;"	f	class:ygw::scheduler::IOManager	signature:(uint64_t* timeout)
+Stopping	iomanager.h	/^            bool Stopping(uint64_t* timeout);$/;"	p	class:ygw::scheduler::IOManager	access:protected	signature:(uint64_t* timeout)
+Stopping	scheduler.cc	/^        bool Scheduler::Stopping()$/;"	f	class:ygw::scheduler::Scheduler	signature:()
+Stopping	scheduler.h	/^            virtual bool Stopping();$/;"	p	class:ygw::scheduler::Scheduler	access:protected	signature:()
 StringFormatItem	log.cc	/^            StringFormatItem(const std::string& str)$/;"	f	class:ygw::log::StringFormatItem	access:public	signature:(const std::string& str)
 StringFormatItem	log.cc	/^        class StringFormatItem : public LogFormatter::FormatItem {$/;"	c	namespace:ygw::log	file:	inherits:LogFormatter::FormatItem
-SwapIn	barkup/fiber.cc	/^void Fiber::SwapIn() {$/;"	f	class:ygw::thread::Fiber	signature:()
-SwapIn	barkup/fiber.h	/^    void SwapIn();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-SwapIn	fiber.cc	/^        void Fiber::SwapIn()$/;"	f	class:ygw::thread::Fiber	signature:()
-SwapIn	fiber.h	/^            void SwapIn();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-SwapOut	barkup/fiber.cc	/^void Fiber::SwapOut() {$/;"	f	class:ygw::thread::Fiber	signature:()
-SwapOut	barkup/fiber.h	/^    void SwapOut();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-SwapOut	fiber.cc	/^        void Fiber::SwapOut()$/;"	f	class:ygw::thread::Fiber	signature:()
-SwapOut	fiber.h	/^            void SwapOut();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-SwitchTo	scheduler.cc	/^        void Scheduler::SwitchTo(int thread)$/;"	f	class:ygw::thread::Scheduler	signature:(int thread)
-SwitchTo	scheduler.h	/^            void SwitchTo(int thread = -1);$/;"	p	class:ygw::thread::Scheduler	access:public	signature:(int thread = -1)
-TERM	barkup/fiber.h	/^        TERM,$/;"	e	enum:ygw::thread::Fiber::State
+SwapIn	fiber.cc	/^        void Fiber::SwapIn()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+SwapIn	fiber.h	/^            void SwapIn();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+SwapOut	fiber.cc	/^        void Fiber::SwapOut()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+SwapOut	fiber.h	/^            void SwapOut();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+SwitchTo	scheduler.cc	/^        void Scheduler::SwitchTo(int thread)$/;"	f	class:ygw::scheduler::Scheduler	signature:(int thread)
+SwitchTo	scheduler.h	/^            void SwitchTo(int thread = -1);$/;"	p	class:ygw::scheduler::Scheduler	access:public	signature:(int thread = -1)
 TabFormatItem	log.cc	/^                TabFormatItem(const std::string& str = "") {}$/;"	f	class:ygw::log::TabFormatItem	access:public	signature:(const std::string& str = �)
 TabFormatItem	log.cc	/^        class TabFormatItem : public LogFormatter::FormatItem {$/;"	c	namespace:ygw::log	file:	inherits:LogFormatter::FormatItem
 Thread	a.cc	/^    Thread() : std::thread()$/;"	f	class:Thread	access:public	signature:()
@@ -323,8 +349,16 @@ ThreadIdFormatItem	log.cc	/^            ThreadIdFormatItem(const std::string& st
 ThreadIdFormatItem	log.cc	/^        class ThreadIdFormatItem : public LogFormatter::FormatItem {$/;"	c	namespace:ygw::log	file:	inherits:LogFormatter::FormatItem
 ThreadNameFormatItem	log.cc	/^            ThreadNameFormatItem(const std::string& str = "") {}$/;"	f	class:ygw::log::ThreadNameFormatItem	access:public	signature:(const std::string& str = �)
 ThreadNameFormatItem	log.cc	/^        class ThreadNameFormatItem : public LogFormatter::FormatItem $/;"	c	namespace:ygw::log	file:	inherits:LogFormatter::FormatItem
-Tickle	scheduler.cc	/^        void Scheduler::Tickle() $/;"	f	class:ygw::thread::Scheduler	signature:()
-Tickle	scheduler.h	/^            virtual void Tickle();$/;"	p	class:ygw::thread::Scheduler	access:protected	signature:()
+Tickle	iomanager.cc	/^        void IOManager::Tickle() $/;"	f	class:ygw::scheduler::IOManager	signature:()
+Tickle	scheduler.cc	/^        void Scheduler::Tickle() $/;"	f	class:ygw::scheduler::Scheduler	signature:()
+Tickle	scheduler.h	/^            virtual void Tickle();$/;"	p	class:ygw::scheduler::Scheduler	access:protected	signature:()
+Timer	timer.cc	/^        Timer::Timer(uint64_t ms, std::function<void()> cb,$/;"	f	class:ygw::timer::Timer	signature:(uint64_t ms, std::function<void()> cb, bool recurring, TimerManager* manager)
+Timer	timer.cc	/^        Timer::Timer(uint64_t next)$/;"	f	class:ygw::timer::Timer	signature:(uint64_t next)
+Timer	timer.h	/^            Timer(uint64_t ms, std::function<void()> cb,$/;"	p	class:ygw::timer::Timer	access:private	signature:(uint64_t ms, std::function<void()> cb, bool recurring, TimerManager* manager)
+Timer	timer.h	/^            Timer(uint64_t next);$/;"	p	class:ygw::timer::Timer	access:private	signature:(uint64_t next)
+Timer	timer.h	/^        class Timer : public std::enable_shared_from_this<Timer> $/;"	c	namespace:ygw::timer	inherits:std::enable_shared_from_this
+TimerManager	timer.cc	/^        TimerManager::TimerManager() $/;"	f	class:ygw::timer::TimerManager	signature:()
+TimerManager	timer.h	/^        class TimerManager $/;"	c	namespace:ygw::timer
 ToString	config.h	/^            virtual std::string ToString() = 0;$/;"	p	class:ygw::config::ConfigVarBase	access:public	signature:()
 ToString	log.cc	/^        const char* LogLevel::ToString(LogLevel::Level level) $/;"	f	class:ygw::log::LogLevel	signature:(LogLevel::Level level)
 ToString	log.h	/^            static const char* ToString(LogLevel::Level level);$/;"	p	class:ygw::log::LogLevel	access:public	signature:(LogLevel::Level level)
@@ -335,11 +369,11 @@ ToYamlString	log.cc	/^        std::string StdoutLogAppender::ToYamlString() $/;"
 ToYamlString	log.h	/^            std::string ToYamlString();$/;"	p	class:ygw::log::Logger	access:public	signature:()
 ToYamlString	log.h	/^            std::string ToYamlString();$/;"	p	class:ygw::log::LoggerManager	access:public	signature:()
 ToYamlString	log.h	/^            virtual std::string ToYamlString() = 0;$/;"	p	class:ygw::log::LogAppender	access:public	signature:()
-TotalFibers	barkup/fiber.cc	/^uint64_t Fiber::TotalFibers() {$/;"	f	class:ygw::thread::Fiber	signature:()
-TotalFibers	barkup/fiber.h	/^    static uint64_t TotalFibers();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-TotalFibers	fiber.cc	/^        uint64_t Fiber::TotalFibers()$/;"	f	class:ygw::thread::Fiber	signature:()
-TotalFibers	fiber.h	/^            static uint64_t TotalFibers();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-TypeToName	util.h	/^        const char* TypeToName() $/;"	f	namespace:ygw::util	signature:()
+TotalFibers	fiber.cc	/^        uint64_t Fiber::TotalFibers()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+TotalFibers	fiber.h	/^            static uint64_t TotalFibers();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+TriggerEvent	iomanager.cc	/^        void IOManager::FdContext::TriggerEvent(IOManager::Event event) $/;"	f	class:ygw::scheduler::IOManager::FdContext	signature:(IOManager::Event event)
+TriggerEvent	iomanager.h	/^                void TriggerEvent(Event event);$/;"	p	class:ygw::scheduler::IOManager::FdContext	access:public	signature:(Event event)
+TypeToName	util.h	/^        inline const char* TypeToName() $/;"	f	namespace:ygw::util	signature:()
 Visit	config.cc	/^        void Config::Visit(std::function<void(ConfigVarBase::ptr)> cb) $/;"	f	class:ygw::config::Config	signature:(std::function<void(ConfigVarBase::ptr)> cb)
 Visit	config.h	/^            static void Visit(std::function<void(ConfigVarBase::ptr)> cb);$/;"	p	class:ygw::config::Config	access:public	signature:(std::function<void(ConfigVarBase::ptr)> cb)
 Wait	mutex.cc	/^        void Semaphore::Wait() $/;"	f	class:ygw::thread::Semaphore	signature:()
@@ -349,11 +383,17 @@ Warn	log.h	/^            void Warn(LogEvent::ptr event);$/;"	p	class:ygw::log::L
 WriteLock	mutex.h	/^            typedef WriteScopedLockImpl<RWMutex> WriteLock;$/;"	t	class:ygw::thread::RWMutex	access:public
 WriteScopedLockImpl	mutex.h	/^            WriteScopedLockImpl(T& mutex)$/;"	f	struct:ygw::thread::WriteScopedLockImpl	access:public	signature:(T& mutex)
 WriteScopedLockImpl	mutex.h	/^        struct WriteScopedLockImpl {$/;"	s	namespace:ygw::thread
+XX	iomanager.cc	44;"	d	file:
+XX	iomanager.cc	53;"	d	file:
+XX	iomanager.cc	64;"	d	file:
+XX	iomanager.cc	85;"	d	file:
 XX	log.cc	50;"	d	file:
 XX	log.cc	66;"	d	file:
 XX	log.cc	698;"	d	file:
 XX	log.cc	713;"	d	file:
-YGW_ASSERT	macro.h	20;"	d
+YGW_ASSERT	macro.h	30;"	d
+YGW_LIKELY	macro.h	22;"	d
+YGW_LIKELY	macro.h	26;"	d
 YGW_LOG_DEBUG	log.h	43;"	d
 YGW_LOG_ERROR	log.h	58;"	d
 YGW_LOG_FATAL	log.h	63;"	d
@@ -368,51 +408,53 @@ YGW_LOG_LEVEL	log.h	34;"	d
 YGW_LOG_NAME	log.h	107;"	d
 YGW_LOG_ROOT	log.h	102;"	d
 YGW_LOG_WARN	log.h	53;"	d
-YGW_MSG_ASSERT	macro.h	28;"	d
-YieldToHold	barkup/fiber.cc	/^void Fiber::YieldToHold() {$/;"	f	class:ygw::thread::Fiber	signature:()
-YieldToHold	barkup/fiber.h	/^    static void YieldToHold();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-YieldToHold	fiber.cc	/^        void Fiber::YieldToHold()$/;"	f	class:ygw::thread::Fiber	signature:()
-YieldToHold	fiber.h	/^            static void YieldToHold();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-YieldToReady	barkup/fiber.cc	/^void Fiber::YieldToReady() {$/;"	f	class:ygw::thread::Fiber	signature:()
-YieldToReady	barkup/fiber.h	/^    static void YieldToReady();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-YieldToReady	fiber.cc	/^        void Fiber::YieldToReady()$/;"	f	class:ygw::thread::Fiber	signature:()
-YieldToReady	fiber.h	/^            static void YieldToReady();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-__SYLAR_FIBER_H__	barkup/fiber.h	10;"	d
+YGW_MSG_ASSERT	macro.h	38;"	d
+YGW_UNLIKELY	macro.h	24;"	d
+YGW_UNLIKELY	macro.h	27;"	d
+YieldToHold	fiber.cc	/^        void Fiber::YieldToHold()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+YieldToHold	fiber.h	/^            static void YieldToHold();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+YieldToReady	fiber.cc	/^        void Fiber::YieldToReady()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+YieldToReady	fiber.h	/^            static void YieldToReady();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
 __YGW_ABLE_H__	able.h	15;"	d
 __YGW_CONFIG_H__	config.h	14;"	d
 __YGW_FIBER_H__	fiber.h	14;"	d
+__YGW_IOMANAGER_H__	iomanager.h	14;"	d
 __YGW_LOG_H__	log.h	14;"	d
 __YGW_MACRO_H__	macro.h	14;"	d
 __YGW_MUTEX_H__	mutex.h	14;"	d
 __YGW_SCHEDULER_H__	scheduler.h	14;"	d
 __YGW_SINGLETON_H__	singleton.h	14;"	d
 __YGW_THREAD_H__	thread.h	14;"	d
+__YGW_TIMER_H__	timer.h	14;"	d
 __YGW_UTIL_H__	util.h	14;"	d
 __log_init	log.cc	/^        static LogIniter __log_init;$/;"	m	namespace:ygw::log	file:
 able	able.h	/^    namespace able {$/;"	n	namespace:ygw
-active_thread_count_	scheduler.h	/^            std::atomic<size_t> active_thread_count_ = {0};$/;"	m	class:ygw::thread::Scheduler	access:protected
+active_thread_count_	scheduler.h	/^            std::atomic<size_t> active_thread_count_ = {0};$/;"	m	class:ygw::scheduler::Scheduler	access:protected
 appenders_	log.cc	/^            std::vector<LogAppenderDefine> appenders_;$/;"	m	class:ygw::log::LogDefine	file:	access:public
 appenders_	log.h	/^            std::list<LogAppender::ptr> appenders_;$/;"	m	class:ygw::log::Logger	access:private
-auto_stop_	scheduler.h	/^            bool auto_stop_ = false;$/;"	m	class:ygw::thread::Scheduler	access:protected
-back	barkup/fiber.cc	/^void Fiber::back() {$/;"	f	class:ygw::thread::Fiber	signature:()
-back	barkup/fiber.h	/^    void back();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-call	barkup/fiber.cc	/^void Fiber::call() {$/;"	f	class:ygw::thread::Fiber	signature:()
-call	barkup/fiber.h	/^    void call();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-caller_	scheduler.h	/^            Scheduler* caller_;$/;"	m	class:ygw::thread::SchedulerSwitcher	access:private
-cb_	fiber.h	/^            std::function<void()> cb_;$/;"	m	class:ygw::thread::Fiber	access:private
-cb_	scheduler.h	/^                std::function<void()> cb_;$/;"	m	class:ygw::thread::Scheduler::FiberAndThread	access:public
+auto_stop_	scheduler.h	/^            bool auto_stop_ = false;$/;"	m	class:ygw::scheduler::Scheduler	access:protected
+caller_	scheduler.h	/^            Scheduler* caller_;$/;"	m	class:ygw::scheduler::SchedulerSwitcher	access:private
+cb	iomanager.h	/^                    std::function<void()> cb;$/;"	m	struct:ygw::scheduler::IOManager::FdContext::EventContext	access:public
+cb_	fiber.h	/^            std::function<void()> cb_;$/;"	m	class:ygw::scheduler::Fiber	access:private
+cb_	scheduler.h	/^                std::function<void()> cb_;$/;"	m	class:ygw::scheduler::Scheduler::FiberAndThread	access:public
 cb_	thread.h	/^            std::function<void()> cb_;$/;"	m	class:ygw::thread::Thread	access:private
+cb_	timer.h	/^            std::function<void()> cb_;$/;"	m	class:ygw::timer::Timer	access:private
 cbs_	config.h	/^            std::map<uint64_t, on_change_cb> cbs_;$/;"	m	class:ygw::config::ConfigVar	access:private
 config	config.cc	/^    namespace config {$/;"	n	namespace:ygw	file:
 config	config.h	/^    namespace config {$/;"	n	namespace:ygw
 config	log.cc	/^    namespace config {$/;"	n	namespace:ygw	file:
-context_	fiber.h	/^            ucontext_t context_;$/;"	m	class:ygw::thread::Fiber	access:private
+context_	fiber.h	/^            ucontext_t context_;$/;"	m	class:ygw::scheduler::Fiber	access:private
 description_	config.h	/^            std::string description_;$/;"	m	class:ygw::config::ConfigVarBase	access:protected
 elapse_	log.h	/^            uint32_t elapse_ = 0;          $/;"	m	class:ygw::log::LogEvent	access:private
+epfd_	iomanager.h	/^            int epfd_ = 0;$/;"	m	class:ygw::scheduler::IOManager	access:private
 event_	log.h	/^            LogEvent::ptr event_;$/;"	m	class:ygw::log::LogEventWrap	access:private
-fiber_	scheduler.h	/^                Fiber::ptr fiber_;$/;"	m	class:ygw::thread::Scheduler::FiberAndThread	access:public
+events	iomanager.h	/^                Event events = Event::kNone;$/;"	m	class:ygw::scheduler::IOManager::FdContext	access:public
+fd	iomanager.h	/^                int fd = 0;$/;"	m	class:ygw::scheduler::IOManager::FdContext	access:public
+fd_contexts_	iomanager.h	/^            std::vector<FdContext*> fd_contexts_;$/;"	m	class:ygw::scheduler::IOManager	access:private
+fiber	iomanager.h	/^                    Fiber::ptr fiber;$/;"	m	struct:ygw::scheduler::IOManager::FdContext::EventContext	access:public
+fiber_	scheduler.h	/^                Fiber::ptr fiber_;$/;"	m	class:ygw::scheduler::Scheduler::FiberAndThread	access:public
 fiber_id_	log.h	/^            uint32_t fiber_id_ = 0;         $/;"	m	class:ygw::log::LogEvent	access:private
-fibers_	scheduler.h	/^            std::list<FiberAndThread> fibers_;$/;"	m	class:ygw::thread::Scheduler	access:private
+fibers_	scheduler.h	/^            std::list<FiberAndThread> fibers_;$/;"	m	class:ygw::scheduler::Scheduler	access:private
 file_	log.cc	/^            std::string file_;$/;"	m	class:ygw::log::LogAppenderDefine	file:	access:public
 filename_	log.h	/^            const char* filename_ = nullptr;   $/;"	m	class:ygw::log::LogEvent	access:private
 filename_	log.h	/^            std::string filename_;$/;"	m	class:ygw::log::FileLogAppender	access:private
@@ -422,37 +464,37 @@ formatter_	log.cc	/^            std::string formatter_;$/;"	m	class:ygw::log::Lo
 formatter_	log.cc	/^            std::string formatter_;$/;"	m	class:ygw::log::LogDefine	file:	access:public
 formatter_	log.h	/^            LogFormatter::ptr formatter_;$/;"	m	class:ygw::log::LogAppender	access:protected
 formatter_	log.h	/^            LogFormatter::ptr formatter_;$/;"	m	class:ygw::log::Logger	access:private
-g_fiber_stack_size	barkup/fiber.cc	/^static config::ConfigVar<uint32_t>::ptr g_fiber_stack_size =$/;"	m	namespace:ygw::thread	file:
-g_fiber_stack_size	fiber.cc	/^        static config::ConfigVar<uint32_t>::ptr g_fiber_stack_size = $/;"	m	namespace:ygw::thread	file:
+g_fiber_stack_size	fiber.cc	/^        static config::ConfigVar<uint32_t>::ptr g_fiber_stack_size = $/;"	m	namespace:ygw::scheduler	file:
 g_log_defines	log.cc	/^        ygw::config::ConfigVar<std::set<LogDefine> >::ptr g_log_defines =$/;"	m	namespace:ygw::log	file:
-g_logger	barkup/fiber.cc	/^static log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::thread	file:
 g_logger	config.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::config	file:
-g_logger	fiber.cc	/^        static log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::thread	file:
-g_logger	scheduler.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::thread	file:
+g_logger	fiber.cc	/^        static log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::scheduler	file:
+g_logger	iomanager.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::scheduler	file:
+g_logger	scheduler.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::scheduler	file:
 g_logger	thread.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::thread	file:
 g_logger	util.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::util	file:
-getId	barkup/fiber.h	/^    uint64_t getId() const { return m_id;}$/;"	f	class:ygw::thread::Fiber	access:public	signature:() const
-getState	barkup/fiber.h	/^    State getState() const { return m_state;}$/;"	f	class:ygw::thread::Fiber	access:public	signature:() const
 has_formatter_	log.h	/^            bool has_formatter_ = false;$/;"	m	class:ygw::log::LogAppender	access:protected
 id_	a.cc	/^    int id_;    $/;"	m	class:Thread	file:	access:private
-id_	fiber.h	/^            uint64_t id_ = 0;$/;"	m	class:ygw::thread::Fiber	access:private
+id_	fiber.h	/^            uint64_t id_ = 0;$/;"	m	class:ygw::scheduler::Fiber	access:private
 id_	thread.h	/^            pid_t id_ = -1;$/;"	m	class:ygw::thread::Thread	access:private
-idle_thread_count_	scheduler.h	/^            std::atomic<size_t> idle_thread_count_ = {0};$/;"	m	class:ygw::thread::Scheduler	access:protected
+idle_thread_count_	scheduler.h	/^            std::atomic<size_t> idle_thread_count_ = {0};$/;"	m	class:ygw::scheduler::Scheduler	access:protected
 is_error_	log.h	/^            bool is_error_= false;$/;"	m	class:ygw::log::LogFormatter	access:private
 is_init_	thread.h	/^            bool is_init_ = false;$/;"	m	class:ygw::thread::Thread	access:private
 items_	log.h	/^            std::vector<FormatItem::ptr> items_;$/;"	m	class:ygw::log::LogFormatter	access:private
 kDebug	log.h	/^                kDebug = 1,$/;"	e	enum:ygw::log::LogLevel::Level
 kError	log.h	/^                kError = 4,$/;"	e	enum:ygw::log::LogLevel::Level
-kExcept	fiber.h	/^                kExcept $/;"	e	enum:ygw::thread::Fiber::State
-kExec	fiber.h	/^                kExec,$/;"	e	enum:ygw::thread::Fiber::State
+kExcept	fiber.h	/^                kExcept $/;"	e	enum:ygw::scheduler::Fiber::State
+kExec	fiber.h	/^                kExec,$/;"	e	enum:ygw::scheduler::Fiber::State
 kFatal	log.h	/^                kFatal = 5$/;"	e	enum:ygw::log::LogLevel::Level
-kHold	fiber.h	/^                kHold,$/;"	e	enum:ygw::thread::Fiber::State
+kHold	fiber.h	/^                kHold,$/;"	e	enum:ygw::scheduler::Fiber::State
 kInfo	log.h	/^                kInfo = 2,$/;"	e	enum:ygw::log::LogLevel::Level
-kInit	fiber.h	/^                kInit,$/;"	e	enum:ygw::thread::Fiber::State
-kReady	fiber.h	/^                kReady,$/;"	e	enum:ygw::thread::Fiber::State
-kTerm	fiber.h	/^                kTerm,$/;"	e	enum:ygw::thread::Fiber::State
+kInit	fiber.h	/^                kInit,$/;"	e	enum:ygw::scheduler::Fiber::State
+kNone	iomanager.h	/^                kNone  = 0x0,$/;"	e	enum:ygw::scheduler::IOManager::Event
+kRead	iomanager.h	/^                kRead  = 0x1,$/;"	e	enum:ygw::scheduler::IOManager::Event
+kReady	fiber.h	/^                kReady,$/;"	e	enum:ygw::scheduler::Fiber::State
+kTerm	fiber.h	/^                kTerm,$/;"	e	enum:ygw::scheduler::Fiber::State
 kUnknown	log.h	/^                kUnknown = 0,$/;"	e	enum:ygw::log::LogLevel::Level
 kWarn	log.h	/^                kWarn = 3,$/;"	e	enum:ygw::log::LogLevel::Level
+kWrite	iomanager.h	/^                kWrite = 0x4,$/;"	e	enum:ygw::scheduler::IOManager::Event
 last_time_	log.h	/^            uint64_t last_time_ = 0;$/;"	m	class:ygw::log::FileLogAppender	access:private
 level_	log.cc	/^            LogLevel::Level level_ = LogLevel::Level::kUnknown;$/;"	m	class:ygw::log::LogAppenderDefine	file:	access:public
 level_	log.cc	/^            LogLevel::Level level_ = LogLevel::Level::kUnknown;$/;"	m	class:ygw::log::LogDefine	file:	access:public
@@ -482,18 +524,16 @@ log	log.cc	/^    namespace log {$/;"	n	namespace:ygw	file:
 log	log.h	/^    namespace log {$/;"	n	namespace:ygw
 logger_	log.h	/^            std::shared_ptr<Logger> logger_;$/;"	m	class:ygw::log::LogEvent	access:private
 loggers_	log.h	/^            std::map<std::string, Logger::ptr> loggers_;$/;"	m	class:ygw::log::LoggerManager	access:private
-m_cb	barkup/fiber.h	/^    std::function<void()> m_cb;$/;"	m	class:ygw::thread::Fiber	access:private
-m_ctx	barkup/fiber.h	/^    ucontext_t m_ctx;$/;"	m	class:ygw::thread::Fiber	access:private
-m_id	barkup/fiber.h	/^    uint64_t m_id = 0;$/;"	m	class:ygw::thread::Fiber	access:private
-m_stack	barkup/fiber.h	/^    void* m_stack = nullptr;$/;"	m	class:ygw::thread::Fiber	access:private
-m_stacksize	barkup/fiber.h	/^    uint32_t m_stacksize = 0;$/;"	m	class:ygw::thread::Fiber	access:private
-m_state	barkup/fiber.h	/^    State m_state = INIT;$/;"	m	class:ygw::thread::Fiber	access:private
 m_string	log.cc	/^                std::string m_string;$/;"	m	class:ygw::log::TabFormatItem	file:	access:private
 m_string	log.cc	/^            std::string m_string;$/;"	m	class:ygw::log::StringFormatItem	file:	access:private
 main	a.cc	/^int main()$/;"	f	signature:()
 main1	a.cc	/^int main1()$/;"	f	signature:()
+manager_	timer.h	/^            TimerManager* manager_ = nullptr;$/;"	m	class:ygw::timer::Timer	access:private
 mode	singleton.h	/^    namespace mode {$/;"	n	namespace:ygw
+ms_	timer.h	/^            uint64_t ms_ = 0;$/;"	m	class:ygw::timer::Timer	access:private
+mutex	iomanager.h	/^                MutexType mutex;$/;"	m	class:ygw::scheduler::IOManager::FdContext	access:public
 mutex_	config.h	/^            RWMutexType mutex_;$/;"	m	class:ygw::config::ConfigVar	access:private
+mutex_	iomanager.h	/^            RWMutexType mutex_;$/;"	m	class:ygw::scheduler::IOManager	access:private
 mutex_	log.h	/^            MutexType mutex_;$/;"	m	class:ygw::log::LogAppender	access:protected
 mutex_	log.h	/^            MutexType mutex_;$/;"	m	class:ygw::log::Logger	access:private
 mutex_	log.h	/^            MutexType mutex_;$/;"	m	class:ygw::log::LoggerManager	access:private
@@ -503,12 +543,14 @@ mutex_	mutex.h	/^            T& mutex_;$/;"	m	struct:ygw::thread::WriteScopedLoc
 mutex_	mutex.h	/^            pthread_mutex_t mutex_;$/;"	m	class:ygw::thread::Mutex	access:private
 mutex_	mutex.h	/^            pthread_spinlock_t mutex_;$/;"	m	class:ygw::thread::Spinlock	access:private
 mutex_	mutex.h	/^            volatile std::atomic_flag mutex_;$/;"	m	class:ygw::thread::CASLock	access:private
-mutex_	scheduler.h	/^            MutexType mutex_;$/;"	m	class:ygw::thread::Scheduler	access:private
+mutex_	scheduler.h	/^            MutexType mutex_;$/;"	m	class:ygw::scheduler::Scheduler	access:private
+mutex_	timer.h	/^            RWMutexType mutex_;$/;"	m	class:ygw::timer::TimerManager	access:private
 name_	config.h	/^            std::string name_;$/;"	m	class:ygw::config::ConfigVarBase	access:protected
 name_	log.cc	/^            std::string name_;$/;"	m	class:ygw::log::LogDefine	file:	access:public
 name_	log.h	/^            std::string name_;                  $/;"	m	class:ygw::log::Logger	access:private
-name_	scheduler.h	/^            std::string name_;$/;"	m	class:ygw::thread::Scheduler	access:private
+name_	scheduler.h	/^            std::string name_;$/;"	m	class:ygw::scheduler::Scheduler	access:private
 name_	thread.h	/^            std::string name_;$/;"	m	class:ygw::thread::Thread	access:private
+next_	timer.h	/^            uint64_t next_ = 0;$/;"	m	class:ygw::timer::Timer	access:private
 operator ()	config.h	/^			std::list<T> operator()(const std::string& v) {$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const std::string& v)
 operator ()	config.h	/^			std::map<std::string, T> operator()(const std::string& v) {$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const std::string& v)
 operator ()	config.h	/^			std::set<T> operator()(const std::string& v) {$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const std::string& v)
@@ -524,61 +566,74 @@ operator ()	config.h	/^            T operator()(const F& v) $/;"	f	class:ygw::co
 operator ()	config.h	/^            std::vector<T> operator()(const std::string& v) $/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const std::string& v)
 operator ()	log.cc	/^            log::LogDefine operator()(const std::string& v)$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const std::string& v)
 operator ()	log.cc	/^            std::string operator()(const log::LogDefine& i)$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const log::LogDefine& i)
+operator ()	timer.cc	/^        bool Timer::Comparator::operator()(const Timer::ptr& lhs$/;"	f	class:ygw::timer::Timer::Comparator	signature:(const Timer::ptr& lhs ,const Timer::ptr& rhs) const
+operator ()	timer.h	/^                bool operator()(const Timer::ptr& lhs, const Timer::ptr& rhs) const;$/;"	p	class:ygw::timer::Timer::Comparator	access:public	signature:(const Timer::ptr& lhs, const Timer::ptr& rhs) const
 operator <	log.cc	/^            bool operator<(const LogDefine& oth) const $/;"	f	class:ygw::log::LogDefine	access:public	signature:(const LogDefine& oth) const
+operator <<	iomanager.cc	/^        static std::ostream& operator<< (std::ostream& os, EPOLL_EVENTS events) $/;"	f	namespace:ygw::scheduler	signature:(std::ostream& os, EPOLL_EVENTS events)
+operator <<	iomanager.cc	/^        static std::ostream& operator<< (std::ostream& os, const EpollCtlOp& op) $/;"	f	namespace:ygw::scheduler	signature:(std::ostream& os, const EpollCtlOp& op)
 operator =	able.h	/^            Noncopyable& operator=(const Noncopyable&) = delete;$/;"	p	class:ygw::able::Noncopyable	access:public	signature:(const Noncopyable&)
 operator ==	log.cc	/^            bool operator==(const LogAppenderDefine& oth) const $/;"	f	class:ygw::log::LogAppenderDefine	access:public	signature:(const LogAppenderDefine& oth) const
 operator ==	log.cc	/^            bool operator==(const LogDefine& oth) const $/;"	f	class:ygw::log::LogDefine	access:public	signature:(const LogDefine& oth) const
+override	iomanager.h	/^            bool Stopping() override;$/;"	m	class:ygw::scheduler::IOManager	access:protected
+override	iomanager.h	/^            void Idle() override;$/;"	m	class:ygw::scheduler::IOManager	access:protected
+override	iomanager.h	/^            void OnTimerInsertedAtFront() override;$/;"	m	class:ygw::scheduler::IOManager	access:protected
+override	iomanager.h	/^            void Tickle() override;$/;"	m	class:ygw::scheduler::IOManager	access:protected
 override	log.h	/^                    LogEvent::ptr event) override;$/;"	m	class:ygw::log::StdoutLogAppender	access:public
 override	log.h	/^            std::string ToYamlString() override;$/;"	m	class:ygw::log::FileLogAppender	access:public
 override	log.h	/^            std::string ToYamlString() override;$/;"	m	class:ygw::log::StdoutLogAppender	access:public
 override	log.h	/^            void Log(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override;$/;"	m	class:ygw::log::FileLogAppender	access:public
 pattern_	log.h	/^            std::string pattern_;$/;"	m	class:ygw::log::LogFormatter	access:private
-ptr	barkup/fiber.h	/^    typedef std::shared_ptr<Fiber> ptr;$/;"	t	class:ygw::thread::Fiber	access:public
+pending_event_count_	iomanager.h	/^            std::atomic<size_t> pending_event_count_ = {0};$/;"	m	class:ygw::scheduler::IOManager	access:private
+previouse_time_	timer.h	/^            uint64_t previouse_time_ = 0;$/;"	m	class:ygw::timer::TimerManager	access:private
 rdlock	mutex.cc	/^        void RWMutex::rdlock() $/;"	f	class:ygw::thread::RWMutex	signature:()
 rdlock	mutex.h	/^            void rdlock() {}$/;"	f	class:ygw::thread::NullRWMutex	access:public	signature:()
 rdlock	mutex.h	/^            void rdlock();$/;"	p	class:ygw::thread::RWMutex	access:public	signature:()
-reset	barkup/fiber.cc	/^void Fiber::reset(std::function<void()> cb) {$/;"	f	class:ygw::thread::Fiber	signature:(std::function<void()> cb)
-reset	barkup/fiber.h	/^    void reset(std::function<void()> cb);$/;"	p	class:ygw::thread::Fiber	access:public	signature:(std::function<void()> cb)
+read_	iomanager.h	/^                EventContext read_;$/;"	m	class:ygw::scheduler::IOManager::FdContext	access:public
+recurring_	timer.h	/^            bool recurring_ = false;$/;"	m	class:ygw::timer::Timer	access:private
 root_	log.h	/^            Logger::ptr root_;$/;"	m	class:ygw::log::Logger	access:private
 root_	log.h	/^            Logger::ptr root_;$/;"	m	class:ygw::log::LoggerManager	access:private
-root_fiber_	scheduler.h	/^            Fiber::ptr root_fiber_;$/;"	m	class:ygw::thread::Scheduler	access:private
-root_thread_	scheduler.h	/^            int root_thread_ = 0;$/;"	m	class:ygw::thread::Scheduler	access:protected
+root_fiber_	scheduler.h	/^            Fiber::ptr root_fiber_;$/;"	m	class:ygw::scheduler::Scheduler	access:private
+root_thread_	scheduler.h	/^            int root_thread_ = 0;$/;"	m	class:ygw::scheduler::Scheduler	access:protected
 run	a.cc	/^void run()$/;"	f	signature:()
 s_file2modifytime	config.cc	/^        static std::map<std::string, uint64_t> s_file2modifytime;$/;"	m	namespace:ygw::config	file:
 s_mutex	config.cc	/^        static ygw::thread::Mutex s_mutex;$/;"	m	namespace:ygw::config	file:
+scheduler	fiber.cc	/^    namespace scheduler {$/;"	n	namespace:ygw	file:
+scheduler	fiber.h	/^    namespace scheduler {$/;"	n	namespace:ygw
+scheduler	iomanager.cc	/^    namespace scheduler {$/;"	n	namespace:ygw	file:
+scheduler	iomanager.h	/^                    Scheduler* scheduler = nullptr;$/;"	m	struct:ygw::scheduler::IOManager::FdContext::EventContext	access:public
+scheduler	iomanager.h	/^    namespace scheduler {$/;"	n	namespace:ygw
+scheduler	scheduler.cc	/^    namespace scheduler {$/;"	n	namespace:ygw	file:
+scheduler	scheduler.h	/^    namespace scheduler {$/;"	n	namespace:ygw
 semaphore_	mutex.h	/^            sem_t semaphore_;$/;"	m	class:ygw::thread::Semaphore	access:private
 semaphore_	thread.h	/^            Semaphore semaphore_;$/;"	m	class:ygw::thread::Thread	access:private
-stack_	fiber.h	/^            void* stack_ = nullptr;$/;"	m	class:ygw::thread::Fiber	access:private
-stack_size_	fiber.h	/^            uint32_t stack_size_ = 0;$/;"	m	class:ygw::thread::Fiber	access:private
-state_	fiber.h	/^            State state_ = State::kInit;$/;"	m	class:ygw::thread::Fiber	access:private
-stopping_	scheduler.h	/^            bool stopping_ = true;$/;"	m	class:ygw::thread::Scheduler	access:protected
+stack_	fiber.h	/^            void* stack_ = nullptr;$/;"	m	class:ygw::scheduler::Fiber	access:private
+stack_size_	fiber.h	/^            uint32_t stack_size_ = 0;$/;"	m	class:ygw::scheduler::Fiber	access:private
+state_	fiber.h	/^            State state_ = State::kInit;$/;"	m	class:ygw::scheduler::Fiber	access:private
+stopping_	scheduler.h	/^            bool stopping_ = true;$/;"	m	class:ygw::scheduler::Scheduler	access:protected
 string_stream_	log.h	/^            std::stringstream string_stream_;$/;"	m	class:ygw::log::LogEvent	access:private
-t_fiber	barkup/fiber.cc	/^static thread_local Fiber* t_fiber = nullptr;$/;"	m	namespace:ygw::thread	file:
-t_fiber	fiber.cc	/^        static thread_local Fiber* t_fiber = nullptr;$/;"	m	namespace:ygw::thread	file:
-t_scheduler	scheduler.cc	/^        static thread_local Scheduler* t_scheduler = nullptr;  \/\/当前协程调度器指针$/;"	m	namespace:ygw::thread	file:
-t_scheduler_fiber	scheduler.cc	/^        static thread_local Fiber* t_scheduler_fiber = nullptr;\/\/主协程$/;"	m	namespace:ygw::thread	file:
+t_fiber	fiber.cc	/^        static thread_local Fiber* t_fiber = nullptr;$/;"	m	namespace:ygw::scheduler	file:
+t_scheduler	scheduler.cc	/^        static thread_local Scheduler* t_scheduler = nullptr;  \/\/当前协程调度器指针$/;"	m	namespace:ygw::scheduler	file:
+t_scheduler_fiber	scheduler.cc	/^        static thread_local Fiber* t_scheduler_fiber = nullptr;\/\/主协程$/;"	m	namespace:ygw::scheduler	file:
 t_thread	thread.cc	/^        static thread_local Thread* t_thread = nullptr;$/;"	m	namespace:ygw::thread	file:
-t_thread_fiber	barkup/fiber.cc	/^static thread_local Fiber::ptr t_thread_fiber = nullptr;$/;"	m	namespace:ygw::thread	file:
-t_thread_fiber	fiber.cc	/^        static thread_local Fiber::ptr t_thread_fiber = nullptr;$/;"	m	namespace:ygw::thread	file:
+t_thread_fiber	fiber.cc	/^        static thread_local Fiber::ptr t_thread_fiber = nullptr;$/;"	m	namespace:ygw::scheduler	file:
 t_thread_name	thread.cc	/^        static thread_local std::string t_thread_name = "UNKNOW";$/;"	m	namespace:ygw::thread	file:
-thread	barkup/fiber.cc	/^    namespace thread {$/;"	n	namespace:ygw	file:
-thread	barkup/fiber.h	/^    namespace thread {$/;"	n	namespace:ygw
-thread	fiber.cc	/^    namespace thread {$/;"	n	namespace:ygw	file:
-thread	fiber.h	/^    namespace thread {$/;"	n	namespace:ygw
 thread	mutex.cc	/^    namespace thread {$/;"	n	namespace:ygw	file:
 thread	mutex.h	/^    namespace thread {$/;"	n	namespace:ygw
-thread	scheduler.cc	/^    namespace thread {$/;"	n	namespace:ygw	file:
-thread	scheduler.h	/^    namespace thread {$/;"	n	namespace:ygw
 thread	thread.cc	/^    namespace thread {$/;"	n	namespace:ygw	file:
 thread	thread.h	/^    namespace thread {$/;"	n	namespace:ygw
 thread_	thread.h	/^            pthread_t thread_;$/;"	m	class:ygw::thread::Thread	access:private
-thread_count_	scheduler.h	/^            size_t thread_count_ = 0;$/;"	m	class:ygw::thread::Scheduler	access:protected
+thread_count_	scheduler.h	/^            size_t thread_count_ = 0;$/;"	m	class:ygw::scheduler::Scheduler	access:protected
 thread_id_	log.h	/^            uint32_t thread_id_ = 0;$/;"	m	class:ygw::log::LogEvent	access:private
-thread_id_	scheduler.h	/^                int thread_id_;$/;"	m	class:ygw::thread::Scheduler::FiberAndThread	access:public
-thread_ids_	scheduler.h	/^            std::vector<int> thread_ids_;$/;"	m	class:ygw::thread::Scheduler	access:protected
+thread_id_	scheduler.h	/^                int thread_id_;$/;"	m	class:ygw::scheduler::Scheduler::FiberAndThread	access:public
+thread_ids_	scheduler.h	/^            std::vector<int> thread_ids_;$/;"	m	class:ygw::scheduler::Scheduler	access:protected
 thread_name_	log.h	/^            std::string thread_name_;$/;"	m	class:ygw::log::LogEvent	access:private
-threads_	scheduler.h	/^            std::vector<Thread::ptr> threads_;$/;"	m	class:ygw::thread::Scheduler	access:private
+threads_	scheduler.h	/^            std::vector<thread::Thread::ptr> threads_;$/;"	m	class:ygw::scheduler::Scheduler	access:private
+tickle_fds_	iomanager.h	/^            int tickle_fds_[2];$/;"	m	class:ygw::scheduler::IOManager	access:private
+tickled_	timer.h	/^            bool tickled_ = false;$/;"	m	class:ygw::timer::TimerManager	access:private
 time_	log.h	/^            uint64_t time_ = 0;             $/;"	m	class:ygw::log::LogEvent	access:private
+timer	timer.cc	/^    namespace timer {$/;"	n	namespace:ygw	file:
+timer	timer.h	/^    namespace timer {$/;"	n	namespace:ygw
+timers_	timer.h	/^            std::set<Timer::ptr, Timer::Comparator> timers_;$/;"	m	class:ygw::timer::TimerManager	access:private
 type_	log.cc	/^            int type_ = 0; \/\/1 File, 2 Stdout$/;"	m	class:ygw::log::LogAppenderDefine	file:	access:public
 unlock	mutex.cc	/^        void CASLock::unlock() $/;"	f	class:ygw::thread::CASLock	signature:()
 unlock	mutex.cc	/^        void Mutex::unlock() $/;"	f	class:ygw::thread::Mutex	signature:()
@@ -598,16 +653,17 @@ unlock_shared	mutex.h	/^            void unlock_shared();$/;"	p	class:ygw::threa
 util	util.cc	/^    namespace util {$/;"	n	namespace:ygw	file:
 util	util.h	/^    namespace util {$/;"	n	namespace:ygw
 val_	config.h	/^            T val_;$/;"	m	class:ygw::config::ConfigVar	access:private
+write_	iomanager.h	/^                EventContext write_;$/;"	m	class:ygw::scheduler::IOManager::FdContext	access:public
 wrlock	mutex.cc	/^        void RWMutex::wrlock() $/;"	f	class:ygw::thread::RWMutex	signature:()
 wrlock	mutex.h	/^            void wrlock() {}$/;"	f	class:ygw::thread::NullRWMutex	access:public	signature:()
 wrlock	mutex.h	/^            void wrlock();$/;"	p	class:ygw::thread::RWMutex	access:public	signature:()
 ygw	able.h	/^namespace ygw {$/;"	n
-ygw	barkup/fiber.cc	/^namespace ygw{$/;"	n	file:
-ygw	barkup/fiber.h	/^namespace ygw {$/;"	n
 ygw	config.cc	/^namespace ygw {$/;"	n	file:
 ygw	config.h	/^namespace ygw {$/;"	n
 ygw	fiber.cc	/^namespace ygw {$/;"	n	file:
 ygw	fiber.h	/^namespace ygw {$/;"	n
+ygw	iomanager.cc	/^namespace ygw {$/;"	n	file:
+ygw	iomanager.h	/^namespace ygw {$/;"	n
 ygw	log.cc	/^namespace ygw {$/;"	n	file:
 ygw	log.h	/^namespace ygw {$/;"	n
 ygw	mutex.cc	/^namespace ygw {$/;"	n	file:
@@ -617,6 +673,8 @@ ygw	scheduler.h	/^namespace ygw {$/;"	n
 ygw	singleton.h	/^namespace ygw {$/;"	n
 ygw	thread.cc	/^namespace ygw {$/;"	n	file:
 ygw	thread.h	/^namespace ygw {$/;"	n
+ygw	timer.cc	/^namespace ygw {$/;"	n	file:
+ygw	timer.h	/^namespace ygw {$/;"	n
 ygw	util.cc	/^namespace ygw {$/;"	n	file:
 ygw	util.h	/^namespace ygw {$/;"	n
 ygw::able	able.h	/^    namespace able {$/;"	n	namespace:ygw
@@ -895,14 +953,188 @@ ygw::mode::Singleton	singleton.h	/^        class Singleton {$/;"	c	namespace:ygw
 ygw::mode::Singleton::GetInstance	singleton.h	/^            static T* GetInstance()$/;"	f	class:ygw::mode::Singleton	access:public	signature:()
 ygw::mode::SingletonPtr	singleton.h	/^        class SingletonPtr {$/;"	c	namespace:ygw::mode
 ygw::mode::SingletonPtr::GetInstance	singleton.h	/^            static std::shared_ptr<T> GetInstance() $/;"	f	class:ygw::mode::SingletonPtr	access:public	signature:()
-ygw::thread	barkup/fiber.cc	/^    namespace thread {$/;"	n	namespace:ygw	file:
-ygw::thread	barkup/fiber.h	/^    namespace thread {$/;"	n	namespace:ygw
-ygw::thread	fiber.cc	/^    namespace thread {$/;"	n	namespace:ygw	file:
-ygw::thread	fiber.h	/^    namespace thread {$/;"	n	namespace:ygw
+ygw::scheduler	fiber.cc	/^    namespace scheduler {$/;"	n	namespace:ygw	file:
+ygw::scheduler	fiber.h	/^    namespace scheduler {$/;"	n	namespace:ygw
+ygw::scheduler	iomanager.cc	/^    namespace scheduler {$/;"	n	namespace:ygw	file:
+ygw::scheduler	iomanager.h	/^    namespace scheduler {$/;"	n	namespace:ygw
+ygw::scheduler	scheduler.cc	/^    namespace scheduler {$/;"	n	namespace:ygw	file:
+ygw::scheduler	scheduler.h	/^    namespace scheduler {$/;"	n	namespace:ygw
+ygw::scheduler::EpollCtlOp	iomanager.cc	/^        enum EpollCtlOp {$/;"	g	namespace:ygw::scheduler	file:
+ygw::scheduler::Fiber	fiber.h	/^        class Fiber : public std::enable_shared_from_this<Fiber> {$/;"	c	namespace:ygw::scheduler	inherits:std::enable_shared_from_this
+ygw::scheduler::Fiber::Back	fiber.cc	/^        void Fiber::Back()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+ygw::scheduler::Fiber::Back	fiber.h	/^            void Back();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+ygw::scheduler::Fiber::Call	fiber.cc	/^        void Fiber::Call()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+ygw::scheduler::Fiber::Call	fiber.h	/^            void Call();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+ygw::scheduler::Fiber::CallerMainFunc	fiber.cc	/^        void Fiber::CallerMainFunc() $/;"	f	class:ygw::scheduler::Fiber	signature:()
+ygw::scheduler::Fiber::CallerMainFunc	fiber.h	/^            static void CallerMainFunc();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+ygw::scheduler::Fiber::Fiber	fiber.cc	/^        Fiber::Fiber()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+ygw::scheduler::Fiber::Fiber	fiber.cc	/^        Fiber::Fiber(std::function<void()> cb, size_t stack_size, bool use_caller)$/;"	f	class:ygw::scheduler::Fiber	signature:(std::function<void()> cb, size_t stack_size, bool use_caller)
+ygw::scheduler::Fiber::Fiber	fiber.h	/^            Fiber();$/;"	p	class:ygw::scheduler::Fiber	access:private	signature:()
+ygw::scheduler::Fiber::Fiber	fiber.h	/^            Fiber(std::function<void()> cb, size_t stacksize = 0, bool use_caller = false);$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:(std::function<void()> cb, size_t stacksize = 0, bool use_caller = false)
+ygw::scheduler::Fiber::GetFiberId	fiber.cc	/^        uint64_t Fiber::GetFiberId()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+ygw::scheduler::Fiber::GetFiberId	fiber.h	/^            static uint64_t GetFiberId();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+ygw::scheduler::Fiber::GetId	fiber.h	/^            uint64_t GetId() const { return id_; }$/;"	f	class:ygw::scheduler::Fiber	access:public	signature:() const
+ygw::scheduler::Fiber::GetState	fiber.h	/^            State GetState() const { return state_; }$/;"	f	class:ygw::scheduler::Fiber	access:public	signature:() const
+ygw::scheduler::Fiber::GetThis	fiber.cc	/^        Fiber::ptr Fiber::GetThis()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+ygw::scheduler::Fiber::GetThis	fiber.h	/^            static Fiber::ptr GetThis();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+ygw::scheduler::Fiber::MainFunc	fiber.cc	/^        void Fiber::MainFunc()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+ygw::scheduler::Fiber::MainFunc	fiber.h	/^            static void MainFunc();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+ygw::scheduler::Fiber::Reset	fiber.cc	/^        void Fiber::Reset(std::function<void()> cb)$/;"	f	class:ygw::scheduler::Fiber	signature:(std::function<void()> cb)
+ygw::scheduler::Fiber::Reset	fiber.h	/^            void Reset(std::function<void()> cb);$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:(std::function<void()> cb)
+ygw::scheduler::Fiber::SetThis	fiber.cc	/^        void Fiber::SetThis(Fiber* f)$/;"	f	class:ygw::scheduler::Fiber	signature:(Fiber* f)
+ygw::scheduler::Fiber::SetThis	fiber.h	/^            static void SetThis(Fiber* f);$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:(Fiber* f)
+ygw::scheduler::Fiber::State	fiber.h	/^            enum State {$/;"	g	class:ygw::scheduler::Fiber	access:public
+ygw::scheduler::Fiber::SwapIn	fiber.cc	/^        void Fiber::SwapIn()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+ygw::scheduler::Fiber::SwapIn	fiber.h	/^            void SwapIn();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+ygw::scheduler::Fiber::SwapOut	fiber.cc	/^        void Fiber::SwapOut()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+ygw::scheduler::Fiber::SwapOut	fiber.h	/^            void SwapOut();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+ygw::scheduler::Fiber::TotalFibers	fiber.cc	/^        uint64_t Fiber::TotalFibers()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+ygw::scheduler::Fiber::TotalFibers	fiber.h	/^            static uint64_t TotalFibers();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+ygw::scheduler::Fiber::YieldToHold	fiber.cc	/^        void Fiber::YieldToHold()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+ygw::scheduler::Fiber::YieldToHold	fiber.h	/^            static void YieldToHold();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+ygw::scheduler::Fiber::YieldToReady	fiber.cc	/^        void Fiber::YieldToReady()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+ygw::scheduler::Fiber::YieldToReady	fiber.h	/^            static void YieldToReady();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+ygw::scheduler::Fiber::cb_	fiber.h	/^            std::function<void()> cb_;$/;"	m	class:ygw::scheduler::Fiber	access:private
+ygw::scheduler::Fiber::context_	fiber.h	/^            ucontext_t context_;$/;"	m	class:ygw::scheduler::Fiber	access:private
+ygw::scheduler::Fiber::id_	fiber.h	/^            uint64_t id_ = 0;$/;"	m	class:ygw::scheduler::Fiber	access:private
+ygw::scheduler::Fiber::kExcept	fiber.h	/^                kExcept $/;"	e	enum:ygw::scheduler::Fiber::State
+ygw::scheduler::Fiber::kExec	fiber.h	/^                kExec,$/;"	e	enum:ygw::scheduler::Fiber::State
+ygw::scheduler::Fiber::kHold	fiber.h	/^                kHold,$/;"	e	enum:ygw::scheduler::Fiber::State
+ygw::scheduler::Fiber::kInit	fiber.h	/^                kInit,$/;"	e	enum:ygw::scheduler::Fiber::State
+ygw::scheduler::Fiber::kReady	fiber.h	/^                kReady,$/;"	e	enum:ygw::scheduler::Fiber::State
+ygw::scheduler::Fiber::kTerm	fiber.h	/^                kTerm,$/;"	e	enum:ygw::scheduler::Fiber::State
+ygw::scheduler::Fiber::stack_	fiber.h	/^            void* stack_ = nullptr;$/;"	m	class:ygw::scheduler::Fiber	access:private
+ygw::scheduler::Fiber::stack_size_	fiber.h	/^            uint32_t stack_size_ = 0;$/;"	m	class:ygw::scheduler::Fiber	access:private
+ygw::scheduler::Fiber::state_	fiber.h	/^            State state_ = State::kInit;$/;"	m	class:ygw::scheduler::Fiber	access:private
+ygw::scheduler::Fiber::~Fiber	fiber.cc	/^        Fiber::~Fiber()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+ygw::scheduler::Fiber::~Fiber	fiber.h	/^            ~Fiber();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+ygw::scheduler::IOManager	iomanager.h	/^        class IOManager : public Scheduler , public timer::TimerManager $/;"	c	namespace:ygw::scheduler	inherits:Scheduler,timer::TimerManager
+ygw::scheduler::IOManager::AddEvent	iomanager.cc	/^        int IOManager::AddEvent(int fd, Event event, std::function<void()> cb) $/;"	f	class:ygw::scheduler::IOManager	signature:(int fd, Event event, std::function<void()> cb)
+ygw::scheduler::IOManager::AddEvent	iomanager.h	/^            int AddEvent(int fd, Event event, std::function<void()> cb = nullptr);$/;"	p	class:ygw::scheduler::IOManager	access:public	signature:(int fd, Event event, std::function<void()> cb = nullptr)
+ygw::scheduler::IOManager::CancelAll	iomanager.cc	/^        bool IOManager::CancelAll(int fd) $/;"	f	class:ygw::scheduler::IOManager	signature:(int fd)
+ygw::scheduler::IOManager::CancelAll	iomanager.h	/^            bool CancelAll(int fd);$/;"	p	class:ygw::scheduler::IOManager	access:public	signature:(int fd)
+ygw::scheduler::IOManager::CancelEvent	iomanager.cc	/^        bool IOManager::CancelEvent(int fd, Event event) $/;"	f	class:ygw::scheduler::IOManager	signature:(int fd, Event event)
+ygw::scheduler::IOManager::CancelEvent	iomanager.h	/^            bool CancelEvent(int fd, Event event);$/;"	p	class:ygw::scheduler::IOManager	access:public	signature:(int fd, Event event)
+ygw::scheduler::IOManager::ContextResize	iomanager.cc	/^        void IOManager::ContextResize(size_t size) $/;"	f	class:ygw::scheduler::IOManager	signature:(size_t size)
+ygw::scheduler::IOManager::ContextResize	iomanager.h	/^            void ContextResize(size_t size);$/;"	p	class:ygw::scheduler::IOManager	access:protected	signature:(size_t size)
+ygw::scheduler::IOManager::DelEvent	iomanager.cc	/^        bool IOManager::DelEvent(int fd, Event event) $/;"	f	class:ygw::scheduler::IOManager	signature:(int fd, Event event)
+ygw::scheduler::IOManager::DelEvent	iomanager.h	/^            bool DelEvent(int fd, Event event);$/;"	p	class:ygw::scheduler::IOManager	access:public	signature:(int fd, Event event)
+ygw::scheduler::IOManager::Event	iomanager.h	/^            enum Event {$/;"	g	class:ygw::scheduler::IOManager	access:public
+ygw::scheduler::IOManager::FdContext	iomanager.h	/^            class FdContext $/;"	c	class:ygw::scheduler::IOManager	access:private
+ygw::scheduler::IOManager::FdContext::EventContext	iomanager.h	/^                struct EventContext $/;"	s	class:ygw::scheduler::IOManager::FdContext	access:public
+ygw::scheduler::IOManager::FdContext::EventContext::cb	iomanager.h	/^                    std::function<void()> cb;$/;"	m	struct:ygw::scheduler::IOManager::FdContext::EventContext	access:public
+ygw::scheduler::IOManager::FdContext::EventContext::fiber	iomanager.h	/^                    Fiber::ptr fiber;$/;"	m	struct:ygw::scheduler::IOManager::FdContext::EventContext	access:public
+ygw::scheduler::IOManager::FdContext::EventContext::scheduler	iomanager.h	/^                    Scheduler* scheduler = nullptr;$/;"	m	struct:ygw::scheduler::IOManager::FdContext::EventContext	access:public
+ygw::scheduler::IOManager::FdContext::GetContext	iomanager.cc	/^        IOManager::FdContext::GetContext(IOManager::Event event) $/;"	f	class:ygw::scheduler::IOManager::FdContext	signature:(IOManager::Event event)
+ygw::scheduler::IOManager::FdContext::GetContext	iomanager.h	/^                EventContext& GetContext(Event event);$/;"	p	class:ygw::scheduler::IOManager::FdContext	access:public	signature:(Event event)
+ygw::scheduler::IOManager::FdContext::ResetContext	iomanager.cc	/^        void IOManager::FdContext::ResetContext(EventContext& ctx) $/;"	f	class:ygw::scheduler::IOManager::FdContext	signature:(EventContext& ctx)
+ygw::scheduler::IOManager::FdContext::ResetContext	iomanager.h	/^                void ResetContext(EventContext& ctx);$/;"	p	class:ygw::scheduler::IOManager::FdContext	access:public	signature:(EventContext& ctx)
+ygw::scheduler::IOManager::FdContext::TriggerEvent	iomanager.cc	/^        void IOManager::FdContext::TriggerEvent(IOManager::Event event) $/;"	f	class:ygw::scheduler::IOManager::FdContext	signature:(IOManager::Event event)
+ygw::scheduler::IOManager::FdContext::TriggerEvent	iomanager.h	/^                void TriggerEvent(Event event);$/;"	p	class:ygw::scheduler::IOManager::FdContext	access:public	signature:(Event event)
+ygw::scheduler::IOManager::FdContext::events	iomanager.h	/^                Event events = Event::kNone;$/;"	m	class:ygw::scheduler::IOManager::FdContext	access:public
+ygw::scheduler::IOManager::FdContext::fd	iomanager.h	/^                int fd = 0;$/;"	m	class:ygw::scheduler::IOManager::FdContext	access:public
+ygw::scheduler::IOManager::FdContext::mutex	iomanager.h	/^                MutexType mutex;$/;"	m	class:ygw::scheduler::IOManager::FdContext	access:public
+ygw::scheduler::IOManager::FdContext::read_	iomanager.h	/^                EventContext read_;$/;"	m	class:ygw::scheduler::IOManager::FdContext	access:public
+ygw::scheduler::IOManager::FdContext::write_	iomanager.h	/^                EventContext write_;$/;"	m	class:ygw::scheduler::IOManager::FdContext	access:public
+ygw::scheduler::IOManager::GetThis	iomanager.cc	/^        IOManager* IOManager::GetThis() $/;"	f	class:ygw::scheduler::IOManager	signature:()
+ygw::scheduler::IOManager::GetThis	iomanager.h	/^            static IOManager* GetThis();$/;"	p	class:ygw::scheduler::IOManager	access:public	signature:()
+ygw::scheduler::IOManager::IOManager	iomanager.cc	/^        IOManager::IOManager(size_t threads, bool use_caller, const std::string& name)$/;"	f	class:ygw::scheduler::IOManager	signature:(size_t threads, bool use_caller, const std::string& name)
+ygw::scheduler::IOManager::IOManager	iomanager.h	/^            IOManager(size_t threads = 1, bool use_caller = true, const std::string& name = "");$/;"	p	class:ygw::scheduler::IOManager	access:public	signature:(size_t threads = 1, bool use_caller = true, const std::string& name = �)
+ygw::scheduler::IOManager::Idle	iomanager.cc	/^        void IOManager::Idle() $/;"	f	class:ygw::scheduler::IOManager	signature:()
+ygw::scheduler::IOManager::OnTimerInsertedAtFront	iomanager.cc	/^       void IOManager::OnTimerInsertedAtFront() $/;"	f	class:ygw::scheduler::IOManager	signature:()
+ygw::scheduler::IOManager::Stopping	iomanager.cc	/^        bool IOManager::Stopping() $/;"	f	class:ygw::scheduler::IOManager	signature:()
+ygw::scheduler::IOManager::Stopping	iomanager.cc	/^        bool IOManager::Stopping(uint64_t* timeout) $/;"	f	class:ygw::scheduler::IOManager	signature:(uint64_t* timeout)
+ygw::scheduler::IOManager::Stopping	iomanager.h	/^            bool Stopping(uint64_t* timeout);$/;"	p	class:ygw::scheduler::IOManager	access:protected	signature:(uint64_t* timeout)
+ygw::scheduler::IOManager::Tickle	iomanager.cc	/^        void IOManager::Tickle() $/;"	f	class:ygw::scheduler::IOManager	signature:()
+ygw::scheduler::IOManager::epfd_	iomanager.h	/^            int epfd_ = 0;$/;"	m	class:ygw::scheduler::IOManager	access:private
+ygw::scheduler::IOManager::fd_contexts_	iomanager.h	/^            std::vector<FdContext*> fd_contexts_;$/;"	m	class:ygw::scheduler::IOManager	access:private
+ygw::scheduler::IOManager::kNone	iomanager.h	/^                kNone  = 0x0,$/;"	e	enum:ygw::scheduler::IOManager::Event
+ygw::scheduler::IOManager::kRead	iomanager.h	/^                kRead  = 0x1,$/;"	e	enum:ygw::scheduler::IOManager::Event
+ygw::scheduler::IOManager::kWrite	iomanager.h	/^                kWrite = 0x4,$/;"	e	enum:ygw::scheduler::IOManager::Event
+ygw::scheduler::IOManager::mutex_	iomanager.h	/^            RWMutexType mutex_;$/;"	m	class:ygw::scheduler::IOManager	access:private
+ygw::scheduler::IOManager::override	iomanager.h	/^            bool Stopping() override;$/;"	m	class:ygw::scheduler::IOManager	access:protected
+ygw::scheduler::IOManager::override	iomanager.h	/^            void Idle() override;$/;"	m	class:ygw::scheduler::IOManager	access:protected
+ygw::scheduler::IOManager::override	iomanager.h	/^            void OnTimerInsertedAtFront() override;$/;"	m	class:ygw::scheduler::IOManager	access:protected
+ygw::scheduler::IOManager::override	iomanager.h	/^            void Tickle() override;$/;"	m	class:ygw::scheduler::IOManager	access:protected
+ygw::scheduler::IOManager::pending_event_count_	iomanager.h	/^            std::atomic<size_t> pending_event_count_ = {0};$/;"	m	class:ygw::scheduler::IOManager	access:private
+ygw::scheduler::IOManager::tickle_fds_	iomanager.h	/^            int tickle_fds_[2];$/;"	m	class:ygw::scheduler::IOManager	access:private
+ygw::scheduler::IOManager::~IOManager	iomanager.cc	/^        IOManager::~IOManager() $/;"	f	class:ygw::scheduler::IOManager	signature:()
+ygw::scheduler::IOManager::~IOManager	iomanager.h	/^            ~IOManager();$/;"	p	class:ygw::scheduler::IOManager	access:public	signature:()
+ygw::scheduler::Scheduler	scheduler.h	/^        class Scheduler $/;"	c	namespace:ygw::scheduler
+ygw::scheduler::Scheduler::Dump	scheduler.cc	/^        std::ostream& Scheduler::Dump(std::ostream& os)$/;"	f	class:ygw::scheduler::Scheduler	signature:(std::ostream& os)
+ygw::scheduler::Scheduler::Dump	scheduler.h	/^            std::ostream& Dump(std::ostream& os);$/;"	p	class:ygw::scheduler::Scheduler	access:public	signature:(std::ostream& os)
+ygw::scheduler::Scheduler::FiberAndThread	scheduler.h	/^            class FiberAndThread {$/;"	c	class:ygw::scheduler::Scheduler	access:private
+ygw::scheduler::Scheduler::FiberAndThread::FiberAndThread	scheduler.h	/^                FiberAndThread()$/;"	f	class:ygw::scheduler::Scheduler::FiberAndThread	access:public	signature:()
+ygw::scheduler::Scheduler::FiberAndThread::FiberAndThread	scheduler.h	/^                FiberAndThread(Fiber::ptr *f, int th_id)$/;"	f	class:ygw::scheduler::Scheduler::FiberAndThread	access:public	signature:(Fiber::ptr *f, int th_id)
+ygw::scheduler::Scheduler::FiberAndThread::FiberAndThread	scheduler.h	/^                FiberAndThread(Fiber::ptr f, int th_id)$/;"	f	class:ygw::scheduler::Scheduler::FiberAndThread	access:public	signature:(Fiber::ptr f, int th_id)
+ygw::scheduler::Scheduler::FiberAndThread::FiberAndThread	scheduler.h	/^                FiberAndThread(std::function<void()> *f, int th_id)$/;"	f	class:ygw::scheduler::Scheduler::FiberAndThread	access:public	signature:(std::function<void()> *f, int th_id)
+ygw::scheduler::Scheduler::FiberAndThread::FiberAndThread	scheduler.h	/^                FiberAndThread(std::function<void()> f, int th_id)$/;"	f	class:ygw::scheduler::Scheduler::FiberAndThread	access:public	signature:(std::function<void()> f, int th_id)
+ygw::scheduler::Scheduler::FiberAndThread::Reset	scheduler.h	/^                void Reset() $/;"	f	class:ygw::scheduler::Scheduler::FiberAndThread	access:public	signature:()
+ygw::scheduler::Scheduler::FiberAndThread::cb_	scheduler.h	/^                std::function<void()> cb_;$/;"	m	class:ygw::scheduler::Scheduler::FiberAndThread	access:public
+ygw::scheduler::Scheduler::FiberAndThread::fiber_	scheduler.h	/^                Fiber::ptr fiber_;$/;"	m	class:ygw::scheduler::Scheduler::FiberAndThread	access:public
+ygw::scheduler::Scheduler::FiberAndThread::thread_id_	scheduler.h	/^                int thread_id_;$/;"	m	class:ygw::scheduler::Scheduler::FiberAndThread	access:public
+ygw::scheduler::Scheduler::GetMainFiber	scheduler.cc	/^        Fiber* Scheduler::GetMainFiber() $/;"	f	class:ygw::scheduler::Scheduler	signature:()
+ygw::scheduler::Scheduler::GetMainFiber	scheduler.h	/^            static Fiber* GetMainFiber();$/;"	p	class:ygw::scheduler::Scheduler	access:public	signature:()
+ygw::scheduler::Scheduler::GetName	scheduler.h	/^            const std::string& GetName() const { return name_;}$/;"	f	class:ygw::scheduler::Scheduler	access:public	signature:() const
+ygw::scheduler::Scheduler::GetThis	scheduler.cc	/^        Scheduler* Scheduler::GetThis() $/;"	f	class:ygw::scheduler::Scheduler	signature:()
+ygw::scheduler::Scheduler::GetThis	scheduler.h	/^            static Scheduler* GetThis();$/;"	p	class:ygw::scheduler::Scheduler	access:public	signature:()
+ygw::scheduler::Scheduler::HasIdleThreads	scheduler.h	/^            bool HasIdleThreads() { return idle_thread_count_ > 0;}$/;"	f	class:ygw::scheduler::Scheduler	access:protected	signature:()
+ygw::scheduler::Scheduler::Idle	scheduler.cc	/^        void Scheduler::Idle()$/;"	f	class:ygw::scheduler::Scheduler	signature:()
+ygw::scheduler::Scheduler::Idle	scheduler.h	/^            virtual void Idle();$/;"	p	class:ygw::scheduler::Scheduler	access:protected	signature:()
+ygw::scheduler::Scheduler::Run	scheduler.cc	/^        void Scheduler::Run() $/;"	f	class:ygw::scheduler::Scheduler	signature:()
+ygw::scheduler::Scheduler::Run	scheduler.h	/^            void Run();$/;"	p	class:ygw::scheduler::Scheduler	access:protected	signature:()
+ygw::scheduler::Scheduler::Schedule	scheduler.h	/^            void Schedule(FiberOrCb fc, int thread = -1) $/;"	f	class:ygw::scheduler::Scheduler	access:public	signature:(FiberOrCb fc, int thread = -1)
+ygw::scheduler::Scheduler::Schedule	scheduler.h	/^            void Schedule(InputIterator begin, InputIterator end) $/;"	f	class:ygw::scheduler::Scheduler	access:public	signature:(InputIterator begin, InputIterator end)
+ygw::scheduler::Scheduler::ScheduleNoLock	scheduler.h	/^            bool ScheduleNoLock(FiberOrCb fc, int thread) $/;"	f	class:ygw::scheduler::Scheduler	access:private	signature:(FiberOrCb fc, int thread)
+ygw::scheduler::Scheduler::Scheduler	scheduler.cc	/^        Scheduler::Scheduler(size_t threads, bool use_caller, const std::string& name)$/;"	f	class:ygw::scheduler::Scheduler	signature:(size_t threads, bool use_caller, const std::string& name)
+ygw::scheduler::Scheduler::SetThis	scheduler.cc	/^        void Scheduler::SetThis() $/;"	f	class:ygw::scheduler::Scheduler	signature:()
+ygw::scheduler::Scheduler::SetThis	scheduler.h	/^            void SetThis();$/;"	p	class:ygw::scheduler::Scheduler	access:protected	signature:()
+ygw::scheduler::Scheduler::Start	scheduler.cc	/^        void Scheduler::Start() $/;"	f	class:ygw::scheduler::Scheduler	signature:()
+ygw::scheduler::Scheduler::Start	scheduler.h	/^            void Start();$/;"	p	class:ygw::scheduler::Scheduler	access:public	signature:()
+ygw::scheduler::Scheduler::Stop	scheduler.cc	/^        void Scheduler::Stop() $/;"	f	class:ygw::scheduler::Scheduler	signature:()
+ygw::scheduler::Scheduler::Stop	scheduler.h	/^            void Stop();$/;"	p	class:ygw::scheduler::Scheduler	access:public	signature:()
+ygw::scheduler::Scheduler::Stopping	scheduler.cc	/^        bool Scheduler::Stopping()$/;"	f	class:ygw::scheduler::Scheduler	signature:()
+ygw::scheduler::Scheduler::Stopping	scheduler.h	/^            virtual bool Stopping();$/;"	p	class:ygw::scheduler::Scheduler	access:protected	signature:()
+ygw::scheduler::Scheduler::SwitchTo	scheduler.cc	/^        void Scheduler::SwitchTo(int thread)$/;"	f	class:ygw::scheduler::Scheduler	signature:(int thread)
+ygw::scheduler::Scheduler::SwitchTo	scheduler.h	/^            void SwitchTo(int thread = -1);$/;"	p	class:ygw::scheduler::Scheduler	access:public	signature:(int thread = -1)
+ygw::scheduler::Scheduler::Tickle	scheduler.cc	/^        void Scheduler::Tickle() $/;"	f	class:ygw::scheduler::Scheduler	signature:()
+ygw::scheduler::Scheduler::Tickle	scheduler.h	/^            virtual void Tickle();$/;"	p	class:ygw::scheduler::Scheduler	access:protected	signature:()
+ygw::scheduler::Scheduler::active_thread_count_	scheduler.h	/^            std::atomic<size_t> active_thread_count_ = {0};$/;"	m	class:ygw::scheduler::Scheduler	access:protected
+ygw::scheduler::Scheduler::auto_stop_	scheduler.h	/^            bool auto_stop_ = false;$/;"	m	class:ygw::scheduler::Scheduler	access:protected
+ygw::scheduler::Scheduler::fibers_	scheduler.h	/^            std::list<FiberAndThread> fibers_;$/;"	m	class:ygw::scheduler::Scheduler	access:private
+ygw::scheduler::Scheduler::idle_thread_count_	scheduler.h	/^            std::atomic<size_t> idle_thread_count_ = {0};$/;"	m	class:ygw::scheduler::Scheduler	access:protected
+ygw::scheduler::Scheduler::mutex_	scheduler.h	/^            MutexType mutex_;$/;"	m	class:ygw::scheduler::Scheduler	access:private
+ygw::scheduler::Scheduler::name_	scheduler.h	/^            std::string name_;$/;"	m	class:ygw::scheduler::Scheduler	access:private
+ygw::scheduler::Scheduler::root_fiber_	scheduler.h	/^            Fiber::ptr root_fiber_;$/;"	m	class:ygw::scheduler::Scheduler	access:private
+ygw::scheduler::Scheduler::root_thread_	scheduler.h	/^            int root_thread_ = 0;$/;"	m	class:ygw::scheduler::Scheduler	access:protected
+ygw::scheduler::Scheduler::stopping_	scheduler.h	/^            bool stopping_ = true;$/;"	m	class:ygw::scheduler::Scheduler	access:protected
+ygw::scheduler::Scheduler::thread_count_	scheduler.h	/^            size_t thread_count_ = 0;$/;"	m	class:ygw::scheduler::Scheduler	access:protected
+ygw::scheduler::Scheduler::thread_ids_	scheduler.h	/^            std::vector<int> thread_ids_;$/;"	m	class:ygw::scheduler::Scheduler	access:protected
+ygw::scheduler::Scheduler::threads_	scheduler.h	/^            std::vector<thread::Thread::ptr> threads_;$/;"	m	class:ygw::scheduler::Scheduler	access:private
+ygw::scheduler::Scheduler::~Scheduler	scheduler.cc	/^        Scheduler::~Scheduler() $/;"	f	class:ygw::scheduler::Scheduler	signature:()
+ygw::scheduler::Scheduler::~Scheduler	scheduler.h	/^            virtual ~Scheduler();$/;"	p	class:ygw::scheduler::Scheduler	access:public	signature:()
+ygw::scheduler::SchedulerSwitcher	scheduler.h	/^        class SchedulerSwitcher : public able::Noncopyable  $/;"	c	namespace:ygw::scheduler	inherits:able::Noncopyable
+ygw::scheduler::SchedulerSwitcher::SchedulerSwitcher	scheduler.cc	/^        SchedulerSwitcher::SchedulerSwitcher(Scheduler* target)$/;"	f	class:ygw::scheduler::SchedulerSwitcher	signature:(Scheduler* target)
+ygw::scheduler::SchedulerSwitcher::SchedulerSwitcher	scheduler.h	/^            SchedulerSwitcher(Scheduler* target = nullptr);$/;"	p	class:ygw::scheduler::SchedulerSwitcher	access:public	signature:(Scheduler* target = nullptr)
+ygw::scheduler::SchedulerSwitcher::caller_	scheduler.h	/^            Scheduler* caller_;$/;"	m	class:ygw::scheduler::SchedulerSwitcher	access:private
+ygw::scheduler::SchedulerSwitcher::~SchedulerSwitcher	scheduler.cc	/^        SchedulerSwitcher::~SchedulerSwitcher()$/;"	f	class:ygw::scheduler::SchedulerSwitcher	signature:()
+ygw::scheduler::SchedulerSwitcher::~SchedulerSwitcher	scheduler.h	/^            ~SchedulerSwitcher();$/;"	p	class:ygw::scheduler::SchedulerSwitcher	access:public	signature:()
+ygw::scheduler::SetContext	fiber.cc	/^        static inline bool SetContext(ucontext_t* pcontext, ucontext_t *uc_link, void *stack, size_t size)$/;"	f	namespace:ygw::scheduler	signature:(ucontext_t* pcontext, ucontext_t *uc_link, void *stack, size_t size)
+ygw::scheduler::StackAllocator	fiber.cc	/^        class StackAllocator {$/;"	c	namespace:ygw::scheduler	file:
+ygw::scheduler::StackAllocator::Alloc	fiber.cc	/^            static void * Alloc(size_t size)$/;"	f	class:ygw::scheduler::StackAllocator	access:public	signature:(size_t size)
+ygw::scheduler::StackAllocator::Dealloc	fiber.cc	/^            static void Dealloc(void* vp, size_t size)$/;"	f	class:ygw::scheduler::StackAllocator	access:public	signature:(void* vp, size_t size)
+ygw::scheduler::g_fiber_stack_size	fiber.cc	/^        static config::ConfigVar<uint32_t>::ptr g_fiber_stack_size = $/;"	m	namespace:ygw::scheduler	file:
+ygw::scheduler::g_logger	fiber.cc	/^        static log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::scheduler	file:
+ygw::scheduler::g_logger	iomanager.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::scheduler	file:
+ygw::scheduler::g_logger	scheduler.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::scheduler	file:
+ygw::scheduler::operator <<	iomanager.cc	/^        static std::ostream& operator<< (std::ostream& os, EPOLL_EVENTS events) $/;"	f	namespace:ygw::scheduler	signature:(std::ostream& os, EPOLL_EVENTS events)
+ygw::scheduler::operator <<	iomanager.cc	/^        static std::ostream& operator<< (std::ostream& os, const EpollCtlOp& op) $/;"	f	namespace:ygw::scheduler	signature:(std::ostream& os, const EpollCtlOp& op)
+ygw::scheduler::t_fiber	fiber.cc	/^        static thread_local Fiber* t_fiber = nullptr;$/;"	m	namespace:ygw::scheduler	file:
+ygw::scheduler::t_scheduler	scheduler.cc	/^        static thread_local Scheduler* t_scheduler = nullptr;  \/\/当前协程调度器指针$/;"	m	namespace:ygw::scheduler	file:
+ygw::scheduler::t_scheduler_fiber	scheduler.cc	/^        static thread_local Fiber* t_scheduler_fiber = nullptr;\/\/主协程$/;"	m	namespace:ygw::scheduler	file:
+ygw::scheduler::t_thread_fiber	fiber.cc	/^        static thread_local Fiber::ptr t_thread_fiber = nullptr;$/;"	m	namespace:ygw::scheduler	file:
 ygw::thread	mutex.cc	/^    namespace thread {$/;"	n	namespace:ygw	file:
 ygw::thread	mutex.h	/^    namespace thread {$/;"	n	namespace:ygw
-ygw::thread	scheduler.cc	/^    namespace thread {$/;"	n	namespace:ygw	file:
-ygw::thread	scheduler.h	/^    namespace thread {$/;"	n	namespace:ygw
 ygw::thread	thread.cc	/^    namespace thread {$/;"	n	namespace:ygw	file:
 ygw::thread	thread.h	/^    namespace thread {$/;"	n	namespace:ygw
 ygw::thread::CASLock	mutex.h	/^        class CASLock : able::Noncopyable {$/;"	c	namespace:ygw::thread	inherits:able::Noncopyable
@@ -913,106 +1145,6 @@ ygw::thread::CASLock::mutex_	mutex.h	/^            volatile std::atomic_flag mut
 ygw::thread::CASLock::unlock	mutex.cc	/^        void CASLock::unlock() $/;"	f	class:ygw::thread::CASLock	signature:()
 ygw::thread::CASLock::unlock	mutex.h	/^            void unlock();$/;"	p	class:ygw::thread::CASLock	access:public	signature:()
 ygw::thread::CASLock::~CASLock	mutex.h	/^            ~CASLock() {$/;"	f	class:ygw::thread::CASLock	access:public	signature:()
-ygw::thread::Fiber	barkup/fiber.h	/^class Fiber : public std::enable_shared_from_this<Fiber> {$/;"	c	namespace:ygw::thread	inherits:std::enable_shared_from_this
-ygw::thread::Fiber	fiber.h	/^        class Fiber : public std::enable_shared_from_this<Fiber> {$/;"	c	namespace:ygw::thread	inherits:std::enable_shared_from_this
-ygw::thread::Fiber::Back	fiber.cc	/^        void Fiber::Back()$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::Back	fiber.h	/^            void Back();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::Call	fiber.cc	/^        void Fiber::Call()$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::Call	fiber.h	/^            void Call();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::CallerMainFunc	barkup/fiber.cc	/^void Fiber::CallerMainFunc() {$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::CallerMainFunc	barkup/fiber.h	/^    static void CallerMainFunc();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::CallerMainFunc	fiber.cc	/^        void Fiber::CallerMainFunc() $/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::CallerMainFunc	fiber.h	/^            static void CallerMainFunc();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::EXCEPT	barkup/fiber.h	/^        EXCEPT$/;"	e	enum:ygw::thread::Fiber::State
-ygw::thread::Fiber::EXEC	barkup/fiber.h	/^        EXEC,$/;"	e	enum:ygw::thread::Fiber::State
-ygw::thread::Fiber::Fiber	barkup/fiber.cc	/^Fiber::Fiber() {$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::Fiber	barkup/fiber.cc	/^Fiber::Fiber(std::function<void()> cb, size_t stacksize, bool use_caller)$/;"	f	class:ygw::thread::Fiber	signature:(std::function<void()> cb, size_t stacksize, bool use_caller)
-ygw::thread::Fiber::Fiber	barkup/fiber.h	/^    Fiber();$/;"	p	class:ygw::thread::Fiber	access:private	signature:()
-ygw::thread::Fiber::Fiber	barkup/fiber.h	/^    Fiber(std::function<void()> cb, size_t stacksize = 0, bool use_caller = false);$/;"	p	class:ygw::thread::Fiber	access:public	signature:(std::function<void()> cb, size_t stacksize = 0, bool use_caller = false)
-ygw::thread::Fiber::Fiber	fiber.cc	/^        Fiber::Fiber()$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::Fiber	fiber.cc	/^        Fiber::Fiber(std::function<void()> cb, size_t stack_size, bool use_caller)$/;"	f	class:ygw::thread::Fiber	signature:(std::function<void()> cb, size_t stack_size, bool use_caller)
-ygw::thread::Fiber::Fiber	fiber.h	/^            Fiber();$/;"	p	class:ygw::thread::Fiber	access:private	signature:()
-ygw::thread::Fiber::Fiber	fiber.h	/^            Fiber(std::function<void()> cb, size_t stacksize = 0, bool use_caller = false);$/;"	p	class:ygw::thread::Fiber	access:public	signature:(std::function<void()> cb, size_t stacksize = 0, bool use_caller = false)
-ygw::thread::Fiber::GetFiberId	barkup/fiber.cc	/^uint64_t Fiber::GetFiberId() {$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::GetFiberId	barkup/fiber.h	/^    static uint64_t GetFiberId();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::GetFiberId	fiber.cc	/^        uint64_t Fiber::GetFiberId()$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::GetFiberId	fiber.h	/^            static uint64_t GetFiberId();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::GetId	fiber.h	/^            uint64_t GetId() const { return id_; }$/;"	f	class:ygw::thread::Fiber	access:public	signature:() const
-ygw::thread::Fiber::GetState	fiber.h	/^            State GetState() const { return state_; }$/;"	f	class:ygw::thread::Fiber	access:public	signature:() const
-ygw::thread::Fiber::GetThis	barkup/fiber.cc	/^Fiber::ptr Fiber::GetThis() {$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::GetThis	barkup/fiber.h	/^    static Fiber::ptr GetThis();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::GetThis	fiber.cc	/^        Fiber::ptr Fiber::GetThis()$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::GetThis	fiber.h	/^            static Fiber::ptr GetThis();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::HOLD	barkup/fiber.h	/^        HOLD,$/;"	e	enum:ygw::thread::Fiber::State
-ygw::thread::Fiber::INIT	barkup/fiber.h	/^        INIT,$/;"	e	enum:ygw::thread::Fiber::State
-ygw::thread::Fiber::MainFunc	barkup/fiber.cc	/^void Fiber::MainFunc() {$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::MainFunc	barkup/fiber.h	/^    static void MainFunc();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::MainFunc	fiber.cc	/^        void Fiber::MainFunc()$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::MainFunc	fiber.h	/^            static void MainFunc();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::READY	barkup/fiber.h	/^        READY,$/;"	e	enum:ygw::thread::Fiber::State
-ygw::thread::Fiber::Reset	fiber.cc	/^        void Fiber::Reset(std::function<void()> cb)$/;"	f	class:ygw::thread::Fiber	signature:(std::function<void()> cb)
-ygw::thread::Fiber::Reset	fiber.h	/^            void Reset(std::function<void()> cb);$/;"	p	class:ygw::thread::Fiber	access:public	signature:(std::function<void()> cb)
-ygw::thread::Fiber::SetThis	barkup/fiber.cc	/^void Fiber::SetThis(Fiber* f) {$/;"	f	class:ygw::thread::Fiber	signature:(Fiber* f)
-ygw::thread::Fiber::SetThis	barkup/fiber.h	/^    static void SetThis(Fiber* f);$/;"	p	class:ygw::thread::Fiber	access:public	signature:(Fiber* f)
-ygw::thread::Fiber::SetThis	fiber.cc	/^        void Fiber::SetThis(Fiber* f)$/;"	f	class:ygw::thread::Fiber	signature:(Fiber* f)
-ygw::thread::Fiber::SetThis	fiber.h	/^            static void SetThis(Fiber* f);$/;"	p	class:ygw::thread::Fiber	access:public	signature:(Fiber* f)
-ygw::thread::Fiber::State	barkup/fiber.h	/^    enum State {$/;"	g	class:ygw::thread::Fiber	access:public
-ygw::thread::Fiber::State	fiber.h	/^            enum State {$/;"	g	class:ygw::thread::Fiber	access:public
-ygw::thread::Fiber::SwapIn	barkup/fiber.cc	/^void Fiber::SwapIn() {$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::SwapIn	barkup/fiber.h	/^    void SwapIn();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::SwapIn	fiber.cc	/^        void Fiber::SwapIn()$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::SwapIn	fiber.h	/^            void SwapIn();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::SwapOut	barkup/fiber.cc	/^void Fiber::SwapOut() {$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::SwapOut	barkup/fiber.h	/^    void SwapOut();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::SwapOut	fiber.cc	/^        void Fiber::SwapOut()$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::SwapOut	fiber.h	/^            void SwapOut();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::TERM	barkup/fiber.h	/^        TERM,$/;"	e	enum:ygw::thread::Fiber::State
-ygw::thread::Fiber::TotalFibers	barkup/fiber.cc	/^uint64_t Fiber::TotalFibers() {$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::TotalFibers	barkup/fiber.h	/^    static uint64_t TotalFibers();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::TotalFibers	fiber.cc	/^        uint64_t Fiber::TotalFibers()$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::TotalFibers	fiber.h	/^            static uint64_t TotalFibers();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::YieldToHold	barkup/fiber.cc	/^void Fiber::YieldToHold() {$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::YieldToHold	barkup/fiber.h	/^    static void YieldToHold();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::YieldToHold	fiber.cc	/^        void Fiber::YieldToHold()$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::YieldToHold	fiber.h	/^            static void YieldToHold();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::YieldToReady	barkup/fiber.cc	/^void Fiber::YieldToReady() {$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::YieldToReady	barkup/fiber.h	/^    static void YieldToReady();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::YieldToReady	fiber.cc	/^        void Fiber::YieldToReady()$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::YieldToReady	fiber.h	/^            static void YieldToReady();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::back	barkup/fiber.cc	/^void Fiber::back() {$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::back	barkup/fiber.h	/^    void back();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::call	barkup/fiber.cc	/^void Fiber::call() {$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::call	barkup/fiber.h	/^    void call();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::cb_	fiber.h	/^            std::function<void()> cb_;$/;"	m	class:ygw::thread::Fiber	access:private
-ygw::thread::Fiber::context_	fiber.h	/^            ucontext_t context_;$/;"	m	class:ygw::thread::Fiber	access:private
-ygw::thread::Fiber::getId	barkup/fiber.h	/^    uint64_t getId() const { return m_id;}$/;"	f	class:ygw::thread::Fiber	access:public	signature:() const
-ygw::thread::Fiber::getState	barkup/fiber.h	/^    State getState() const { return m_state;}$/;"	f	class:ygw::thread::Fiber	access:public	signature:() const
-ygw::thread::Fiber::id_	fiber.h	/^            uint64_t id_ = 0;$/;"	m	class:ygw::thread::Fiber	access:private
-ygw::thread::Fiber::kExcept	fiber.h	/^                kExcept $/;"	e	enum:ygw::thread::Fiber::State
-ygw::thread::Fiber::kExec	fiber.h	/^                kExec,$/;"	e	enum:ygw::thread::Fiber::State
-ygw::thread::Fiber::kHold	fiber.h	/^                kHold,$/;"	e	enum:ygw::thread::Fiber::State
-ygw::thread::Fiber::kInit	fiber.h	/^                kInit,$/;"	e	enum:ygw::thread::Fiber::State
-ygw::thread::Fiber::kReady	fiber.h	/^                kReady,$/;"	e	enum:ygw::thread::Fiber::State
-ygw::thread::Fiber::kTerm	fiber.h	/^                kTerm,$/;"	e	enum:ygw::thread::Fiber::State
-ygw::thread::Fiber::m_cb	barkup/fiber.h	/^    std::function<void()> m_cb;$/;"	m	class:ygw::thread::Fiber	access:private
-ygw::thread::Fiber::m_ctx	barkup/fiber.h	/^    ucontext_t m_ctx;$/;"	m	class:ygw::thread::Fiber	access:private
-ygw::thread::Fiber::m_id	barkup/fiber.h	/^    uint64_t m_id = 0;$/;"	m	class:ygw::thread::Fiber	access:private
-ygw::thread::Fiber::m_stack	barkup/fiber.h	/^    void* m_stack = nullptr;$/;"	m	class:ygw::thread::Fiber	access:private
-ygw::thread::Fiber::m_stacksize	barkup/fiber.h	/^    uint32_t m_stacksize = 0;$/;"	m	class:ygw::thread::Fiber	access:private
-ygw::thread::Fiber::m_state	barkup/fiber.h	/^    State m_state = INIT;$/;"	m	class:ygw::thread::Fiber	access:private
-ygw::thread::Fiber::ptr	barkup/fiber.h	/^    typedef std::shared_ptr<Fiber> ptr;$/;"	t	class:ygw::thread::Fiber	access:public
-ygw::thread::Fiber::reset	barkup/fiber.cc	/^void Fiber::reset(std::function<void()> cb) {$/;"	f	class:ygw::thread::Fiber	signature:(std::function<void()> cb)
-ygw::thread::Fiber::reset	barkup/fiber.h	/^    void reset(std::function<void()> cb);$/;"	p	class:ygw::thread::Fiber	access:public	signature:(std::function<void()> cb)
-ygw::thread::Fiber::stack_	fiber.h	/^            void* stack_ = nullptr;$/;"	m	class:ygw::thread::Fiber	access:private
-ygw::thread::Fiber::stack_size_	fiber.h	/^            uint32_t stack_size_ = 0;$/;"	m	class:ygw::thread::Fiber	access:private
-ygw::thread::Fiber::state_	fiber.h	/^            State state_ = State::kInit;$/;"	m	class:ygw::thread::Fiber	access:private
-ygw::thread::Fiber::~Fiber	barkup/fiber.cc	/^Fiber::~Fiber() {$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::~Fiber	barkup/fiber.h	/^    ~Fiber();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::Fiber::~Fiber	fiber.cc	/^        Fiber::~Fiber()$/;"	f	class:ygw::thread::Fiber	signature:()
-ygw::thread::Fiber::~Fiber	fiber.h	/^            ~Fiber();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-ygw::thread::MallocStackAllocator	barkup/fiber.cc	/^class MallocStackAllocator {$/;"	c	namespace:ygw::thread	file:
-ygw::thread::MallocStackAllocator::Alloc	barkup/fiber.cc	/^    static void* Alloc(size_t size) {$/;"	f	class:ygw::thread::MallocStackAllocator	access:public	signature:(size_t size)
-ygw::thread::MallocStackAllocator::Dealloc	barkup/fiber.cc	/^    static void Dealloc(void* vp, size_t size) {$/;"	f	class:ygw::thread::MallocStackAllocator	access:public	signature:(void* vp, size_t size)
 ygw::thread::Mutex	mutex.h	/^        class Mutex : able::Noncopyable $/;"	c	namespace:ygw::thread	inherits:able::Noncopyable
 ygw::thread::Mutex::Mutex	mutex.cc	/^        Mutex::Mutex()$/;"	f	class:ygw::thread::Mutex	signature:()
 ygw::thread::Mutex::lock	mutex.cc	/^        void Mutex::lock() $/;"	f	class:ygw::thread::Mutex	signature:()
@@ -1060,65 +1192,6 @@ ygw::thread::ReadScopedLockImpl::locked_	mutex.h	/^            bool locked_;$/;"
 ygw::thread::ReadScopedLockImpl::mutex_	mutex.h	/^            T& mutex_;$/;"	m	struct:ygw::thread::ReadScopedLockImpl	access:private
 ygw::thread::ReadScopedLockImpl::unlock	mutex.h	/^            void unlock() $/;"	f	struct:ygw::thread::ReadScopedLockImpl	access:public	signature:()
 ygw::thread::ReadScopedLockImpl::~ReadScopedLockImpl	mutex.h	/^            ~ReadScopedLockImpl() $/;"	f	struct:ygw::thread::ReadScopedLockImpl	access:public	signature:()
-ygw::thread::Scheduler	scheduler.h	/^        class Scheduler $/;"	c	namespace:ygw::thread
-ygw::thread::Scheduler::Dump	scheduler.cc	/^        std::ostream& Scheduler::Dump(std::ostream& os)$/;"	f	class:ygw::thread::Scheduler	signature:(std::ostream& os)
-ygw::thread::Scheduler::Dump	scheduler.h	/^            std::ostream& Dump(std::ostream& os);$/;"	p	class:ygw::thread::Scheduler	access:public	signature:(std::ostream& os)
-ygw::thread::Scheduler::FiberAndThread	scheduler.h	/^            class FiberAndThread {$/;"	c	class:ygw::thread::Scheduler	access:private
-ygw::thread::Scheduler::FiberAndThread::FiberAndThread	scheduler.h	/^                FiberAndThread()$/;"	f	class:ygw::thread::Scheduler::FiberAndThread	access:public	signature:()
-ygw::thread::Scheduler::FiberAndThread::FiberAndThread	scheduler.h	/^                FiberAndThread(Fiber::ptr *f, int th_id)$/;"	f	class:ygw::thread::Scheduler::FiberAndThread	access:public	signature:(Fiber::ptr *f, int th_id)
-ygw::thread::Scheduler::FiberAndThread::FiberAndThread	scheduler.h	/^                FiberAndThread(Fiber::ptr f, int th_id)$/;"	f	class:ygw::thread::Scheduler::FiberAndThread	access:public	signature:(Fiber::ptr f, int th_id)
-ygw::thread::Scheduler::FiberAndThread::FiberAndThread	scheduler.h	/^                FiberAndThread(std::function<void()> *f, int th_id)$/;"	f	class:ygw::thread::Scheduler::FiberAndThread	access:public	signature:(std::function<void()> *f, int th_id)
-ygw::thread::Scheduler::FiberAndThread::FiberAndThread	scheduler.h	/^                FiberAndThread(std::function<void()> f, int th_id)$/;"	f	class:ygw::thread::Scheduler::FiberAndThread	access:public	signature:(std::function<void()> f, int th_id)
-ygw::thread::Scheduler::FiberAndThread::Reset	scheduler.h	/^                void Reset() $/;"	f	class:ygw::thread::Scheduler::FiberAndThread	access:public	signature:()
-ygw::thread::Scheduler::FiberAndThread::cb_	scheduler.h	/^                std::function<void()> cb_;$/;"	m	class:ygw::thread::Scheduler::FiberAndThread	access:public
-ygw::thread::Scheduler::FiberAndThread::fiber_	scheduler.h	/^                Fiber::ptr fiber_;$/;"	m	class:ygw::thread::Scheduler::FiberAndThread	access:public
-ygw::thread::Scheduler::FiberAndThread::thread_id_	scheduler.h	/^                int thread_id_;$/;"	m	class:ygw::thread::Scheduler::FiberAndThread	access:public
-ygw::thread::Scheduler::GetMainFiber	scheduler.cc	/^        Fiber* Scheduler::GetMainFiber() $/;"	f	class:ygw::thread::Scheduler	signature:()
-ygw::thread::Scheduler::GetMainFiber	scheduler.h	/^            static Fiber* GetMainFiber();$/;"	p	class:ygw::thread::Scheduler	access:public	signature:()
-ygw::thread::Scheduler::GetName	scheduler.h	/^            const std::string& GetName() const { return name_;}$/;"	f	class:ygw::thread::Scheduler	access:public	signature:() const
-ygw::thread::Scheduler::GetThis	scheduler.cc	/^        Scheduler* Scheduler::GetThis() $/;"	f	class:ygw::thread::Scheduler	signature:()
-ygw::thread::Scheduler::GetThis	scheduler.h	/^            static Scheduler* GetThis();$/;"	p	class:ygw::thread::Scheduler	access:public	signature:()
-ygw::thread::Scheduler::HasIdleThreads	scheduler.h	/^            bool HasIdleThreads() { return idle_thread_count_ > 0;}$/;"	f	class:ygw::thread::Scheduler	access:protected	signature:()
-ygw::thread::Scheduler::Idle	scheduler.cc	/^        void Scheduler::Idle()$/;"	f	class:ygw::thread::Scheduler	signature:()
-ygw::thread::Scheduler::Idle	scheduler.h	/^            virtual void Idle();$/;"	p	class:ygw::thread::Scheduler	access:protected	signature:()
-ygw::thread::Scheduler::Run	scheduler.cc	/^        void Scheduler::Run() $/;"	f	class:ygw::thread::Scheduler	signature:()
-ygw::thread::Scheduler::Run	scheduler.h	/^            void Run();$/;"	p	class:ygw::thread::Scheduler	access:protected	signature:()
-ygw::thread::Scheduler::Schedule	scheduler.h	/^            void Schedule(FiberOrCb fc, int thread = -1) $/;"	f	class:ygw::thread::Scheduler	access:public	signature:(FiberOrCb fc, int thread = -1)
-ygw::thread::Scheduler::Schedule	scheduler.h	/^            void Schedule(InputIterator begin, InputIterator end) $/;"	f	class:ygw::thread::Scheduler	access:public	signature:(InputIterator begin, InputIterator end)
-ygw::thread::Scheduler::ScheduleNoLock	scheduler.h	/^            bool ScheduleNoLock(FiberOrCb fc, int thread) $/;"	f	class:ygw::thread::Scheduler	access:private	signature:(FiberOrCb fc, int thread)
-ygw::thread::Scheduler::Scheduler	scheduler.cc	/^        Scheduler::Scheduler(size_t threads, bool use_caller, const std::string& name)$/;"	f	class:ygw::thread::Scheduler	signature:(size_t threads, bool use_caller, const std::string& name)
-ygw::thread::Scheduler::SetThis	scheduler.cc	/^        void Scheduler::SetThis() $/;"	f	class:ygw::thread::Scheduler	signature:()
-ygw::thread::Scheduler::SetThis	scheduler.h	/^            void SetThis();$/;"	p	class:ygw::thread::Scheduler	access:protected	signature:()
-ygw::thread::Scheduler::Start	scheduler.cc	/^        void Scheduler::Start() $/;"	f	class:ygw::thread::Scheduler	signature:()
-ygw::thread::Scheduler::Start	scheduler.h	/^            void Start();$/;"	p	class:ygw::thread::Scheduler	access:public	signature:()
-ygw::thread::Scheduler::Stop	scheduler.cc	/^        void Scheduler::Stop() $/;"	f	class:ygw::thread::Scheduler	signature:()
-ygw::thread::Scheduler::Stop	scheduler.h	/^            void Stop();$/;"	p	class:ygw::thread::Scheduler	access:public	signature:()
-ygw::thread::Scheduler::Stopping	scheduler.cc	/^        bool Scheduler::Stopping()$/;"	f	class:ygw::thread::Scheduler	signature:()
-ygw::thread::Scheduler::Stopping	scheduler.h	/^            virtual bool Stopping();$/;"	p	class:ygw::thread::Scheduler	access:protected	signature:()
-ygw::thread::Scheduler::SwitchTo	scheduler.cc	/^        void Scheduler::SwitchTo(int thread)$/;"	f	class:ygw::thread::Scheduler	signature:(int thread)
-ygw::thread::Scheduler::SwitchTo	scheduler.h	/^            void SwitchTo(int thread = -1);$/;"	p	class:ygw::thread::Scheduler	access:public	signature:(int thread = -1)
-ygw::thread::Scheduler::Tickle	scheduler.cc	/^        void Scheduler::Tickle() $/;"	f	class:ygw::thread::Scheduler	signature:()
-ygw::thread::Scheduler::Tickle	scheduler.h	/^            virtual void Tickle();$/;"	p	class:ygw::thread::Scheduler	access:protected	signature:()
-ygw::thread::Scheduler::active_thread_count_	scheduler.h	/^            std::atomic<size_t> active_thread_count_ = {0};$/;"	m	class:ygw::thread::Scheduler	access:protected
-ygw::thread::Scheduler::auto_stop_	scheduler.h	/^            bool auto_stop_ = false;$/;"	m	class:ygw::thread::Scheduler	access:protected
-ygw::thread::Scheduler::fibers_	scheduler.h	/^            std::list<FiberAndThread> fibers_;$/;"	m	class:ygw::thread::Scheduler	access:private
-ygw::thread::Scheduler::idle_thread_count_	scheduler.h	/^            std::atomic<size_t> idle_thread_count_ = {0};$/;"	m	class:ygw::thread::Scheduler	access:protected
-ygw::thread::Scheduler::mutex_	scheduler.h	/^            MutexType mutex_;$/;"	m	class:ygw::thread::Scheduler	access:private
-ygw::thread::Scheduler::name_	scheduler.h	/^            std::string name_;$/;"	m	class:ygw::thread::Scheduler	access:private
-ygw::thread::Scheduler::root_fiber_	scheduler.h	/^            Fiber::ptr root_fiber_;$/;"	m	class:ygw::thread::Scheduler	access:private
-ygw::thread::Scheduler::root_thread_	scheduler.h	/^            int root_thread_ = 0;$/;"	m	class:ygw::thread::Scheduler	access:protected
-ygw::thread::Scheduler::stopping_	scheduler.h	/^            bool stopping_ = true;$/;"	m	class:ygw::thread::Scheduler	access:protected
-ygw::thread::Scheduler::thread_count_	scheduler.h	/^            size_t thread_count_ = 0;$/;"	m	class:ygw::thread::Scheduler	access:protected
-ygw::thread::Scheduler::thread_ids_	scheduler.h	/^            std::vector<int> thread_ids_;$/;"	m	class:ygw::thread::Scheduler	access:protected
-ygw::thread::Scheduler::threads_	scheduler.h	/^            std::vector<Thread::ptr> threads_;$/;"	m	class:ygw::thread::Scheduler	access:private
-ygw::thread::Scheduler::~Scheduler	scheduler.cc	/^        Scheduler::~Scheduler() $/;"	f	class:ygw::thread::Scheduler	signature:()
-ygw::thread::Scheduler::~Scheduler	scheduler.h	/^            virtual ~Scheduler();$/;"	p	class:ygw::thread::Scheduler	access:public	signature:()
-ygw::thread::SchedulerSwitcher	scheduler.h	/^        class SchedulerSwitcher : public able::Noncopyable  $/;"	c	namespace:ygw::thread	inherits:able::Noncopyable
-ygw::thread::SchedulerSwitcher::SchedulerSwitcher	scheduler.cc	/^        SchedulerSwitcher::SchedulerSwitcher(Scheduler* target)$/;"	f	class:ygw::thread::SchedulerSwitcher	signature:(Scheduler* target)
-ygw::thread::SchedulerSwitcher::SchedulerSwitcher	scheduler.h	/^            SchedulerSwitcher(Scheduler* target = nullptr);$/;"	p	class:ygw::thread::SchedulerSwitcher	access:public	signature:(Scheduler* target = nullptr)
-ygw::thread::SchedulerSwitcher::caller_	scheduler.h	/^            Scheduler* caller_;$/;"	m	class:ygw::thread::SchedulerSwitcher	access:private
-ygw::thread::SchedulerSwitcher::~SchedulerSwitcher	scheduler.cc	/^        SchedulerSwitcher::~SchedulerSwitcher()$/;"	f	class:ygw::thread::SchedulerSwitcher	signature:()
-ygw::thread::SchedulerSwitcher::~SchedulerSwitcher	scheduler.h	/^            ~SchedulerSwitcher();$/;"	p	class:ygw::thread::SchedulerSwitcher	access:public	signature:()
 ygw::thread::ScopedLockImpl	mutex.h	/^        struct ScopedLockImpl {$/;"	s	namespace:ygw::thread
 ygw::thread::ScopedLockImpl::ScopedLockImpl	mutex.h	/^            ScopedLockImpl(T& mutex)$/;"	f	struct:ygw::thread::ScopedLockImpl	access:public	signature:(T& mutex)
 ygw::thread::ScopedLockImpl::lock	mutex.h	/^            void lock() $/;"	f	struct:ygw::thread::ScopedLockImpl	access:public	signature:()
@@ -1145,9 +1218,6 @@ ygw::thread::Spinlock::unlock	mutex.cc	/^        void Spinlock::unlock() $/;"	f	
 ygw::thread::Spinlock::unlock	mutex.h	/^            void unlock();$/;"	p	class:ygw::thread::Spinlock	access:public	signature:()
 ygw::thread::Spinlock::~Spinlock	mutex.cc	/^        Spinlock::~Spinlock() $/;"	f	class:ygw::thread::Spinlock	signature:()
 ygw::thread::Spinlock::~Spinlock	mutex.h	/^            ~Spinlock(); $/;"	p	class:ygw::thread::Spinlock	access:public	signature:()
-ygw::thread::StackAllocator	fiber.cc	/^        class StackAllocator {$/;"	c	namespace:ygw::thread	file:
-ygw::thread::StackAllocator::Alloc	fiber.cc	/^            static void * Alloc(size_t size)$/;"	f	class:ygw::thread::StackAllocator	access:public	signature:(size_t size)
-ygw::thread::StackAllocator::Dealloc	fiber.cc	/^            static void Dealloc(void* vp, size_t size)$/;"	f	class:ygw::thread::StackAllocator	access:public	signature:(void* vp, size_t size)
 ygw::thread::Thread	thread.h	/^        class Thread : able::Noncopyable {$/;"	c	namespace:ygw::thread	inherits:able::Noncopyable
 ygw::thread::Thread::GetId	thread.h	/^            pid_t GetId() const { return id_; }$/;"	f	class:ygw::thread::Thread	access:public	signature:() const
 ygw::thread::Thread::GetName	thread.h	/^            const std::string& GetName() const { return name_; }$/;"	f	class:ygw::thread::Thread	access:public	signature:() const
@@ -1177,39 +1247,76 @@ ygw::thread::WriteScopedLockImpl::locked_	mutex.h	/^            bool locked_;$/;
 ygw::thread::WriteScopedLockImpl::mutex_	mutex.h	/^            T& mutex_;$/;"	m	struct:ygw::thread::WriteScopedLockImpl	access:private
 ygw::thread::WriteScopedLockImpl::unlock	mutex.h	/^            void unlock() $/;"	f	struct:ygw::thread::WriteScopedLockImpl	access:public	signature:()
 ygw::thread::WriteScopedLockImpl::~WriteScopedLockImpl	mutex.h	/^            ~WriteScopedLockImpl() $/;"	f	struct:ygw::thread::WriteScopedLockImpl	access:public	signature:()
-ygw::thread::g_fiber_stack_size	barkup/fiber.cc	/^static config::ConfigVar<uint32_t>::ptr g_fiber_stack_size =$/;"	m	namespace:ygw::thread	file:
-ygw::thread::g_fiber_stack_size	fiber.cc	/^        static config::ConfigVar<uint32_t>::ptr g_fiber_stack_size = $/;"	m	namespace:ygw::thread	file:
-ygw::thread::g_logger	barkup/fiber.cc	/^static log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::thread	file:
-ygw::thread::g_logger	fiber.cc	/^        static log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::thread	file:
-ygw::thread::g_logger	scheduler.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::thread	file:
 ygw::thread::g_logger	thread.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::thread	file:
-ygw::thread::t_fiber	barkup/fiber.cc	/^static thread_local Fiber* t_fiber = nullptr;$/;"	m	namespace:ygw::thread	file:
-ygw::thread::t_fiber	fiber.cc	/^        static thread_local Fiber* t_fiber = nullptr;$/;"	m	namespace:ygw::thread	file:
-ygw::thread::t_scheduler	scheduler.cc	/^        static thread_local Scheduler* t_scheduler = nullptr;  \/\/当前协程调度器指针$/;"	m	namespace:ygw::thread	file:
-ygw::thread::t_scheduler_fiber	scheduler.cc	/^        static thread_local Fiber* t_scheduler_fiber = nullptr;\/\/主协程$/;"	m	namespace:ygw::thread	file:
 ygw::thread::t_thread	thread.cc	/^        static thread_local Thread* t_thread = nullptr;$/;"	m	namespace:ygw::thread	file:
-ygw::thread::t_thread_fiber	barkup/fiber.cc	/^static thread_local Fiber::ptr t_thread_fiber = nullptr;$/;"	m	namespace:ygw::thread	file:
-ygw::thread::t_thread_fiber	fiber.cc	/^        static thread_local Fiber::ptr t_thread_fiber = nullptr;$/;"	m	namespace:ygw::thread	file:
 ygw::thread::t_thread_name	thread.cc	/^        static thread_local std::string t_thread_name = "UNKNOW";$/;"	m	namespace:ygw::thread	file:
+ygw::timer	timer.cc	/^    namespace timer {$/;"	n	namespace:ygw	file:
+ygw::timer	timer.h	/^    namespace timer {$/;"	n	namespace:ygw
+ygw::timer::OnTimer	timer.cc	/^        static void OnTimer(std::weak_ptr<void> weak_cond, std::function<void()> cb) $/;"	f	namespace:ygw::timer	signature:(std::weak_ptr<void> weak_cond, std::function<void()> cb)
+ygw::timer::Timer	timer.h	/^        class Timer : public std::enable_shared_from_this<Timer> $/;"	c	namespace:ygw::timer	inherits:std::enable_shared_from_this
+ygw::timer::Timer::Cancel	timer.cc	/^        bool Timer::Cancel() $/;"	f	class:ygw::timer::Timer	signature:()
+ygw::timer::Timer::Comparator	timer.h	/^            class Comparator $/;"	c	class:ygw::timer::Timer	access:private
+ygw::timer::Timer::Comparator::operator ()	timer.cc	/^        bool Timer::Comparator::operator()(const Timer::ptr& lhs$/;"	f	class:ygw::timer::Timer::Comparator	signature:(const Timer::ptr& lhs ,const Timer::ptr& rhs) const
+ygw::timer::Timer::Comparator::operator ()	timer.h	/^                bool operator()(const Timer::ptr& lhs, const Timer::ptr& rhs) const;$/;"	p	class:ygw::timer::Timer::Comparator	access:public	signature:(const Timer::ptr& lhs, const Timer::ptr& rhs) const
+ygw::timer::Timer::Refresh	timer.cc	/^        bool Timer::Refresh() $/;"	f	class:ygw::timer::Timer	signature:()
+ygw::timer::Timer::Refresh	timer.h	/^            bool Refresh();$/;"	p	class:ygw::timer::Timer	access:public	signature:()
+ygw::timer::Timer::Reset	timer.cc	/^        bool Timer::Reset(uint64_t ms, bool from_now) $/;"	f	class:ygw::timer::Timer	signature:(uint64_t ms, bool from_now)
+ygw::timer::Timer::Reset	timer.h	/^            bool Reset(uint64_t ms, bool from_now);$/;"	p	class:ygw::timer::Timer	access:public	signature:(uint64_t ms, bool from_now)
+ygw::timer::Timer::Timer	timer.cc	/^        Timer::Timer(uint64_t ms, std::function<void()> cb,$/;"	f	class:ygw::timer::Timer	signature:(uint64_t ms, std::function<void()> cb, bool recurring, TimerManager* manager)
+ygw::timer::Timer::Timer	timer.cc	/^        Timer::Timer(uint64_t next)$/;"	f	class:ygw::timer::Timer	signature:(uint64_t next)
+ygw::timer::Timer::Timer	timer.h	/^            Timer(uint64_t ms, std::function<void()> cb,$/;"	p	class:ygw::timer::Timer	access:private	signature:(uint64_t ms, std::function<void()> cb, bool recurring, TimerManager* manager)
+ygw::timer::Timer::Timer	timer.h	/^            Timer(uint64_t next);$/;"	p	class:ygw::timer::Timer	access:private	signature:(uint64_t next)
+ygw::timer::Timer::cb_	timer.h	/^            std::function<void()> cb_;$/;"	m	class:ygw::timer::Timer	access:private
+ygw::timer::Timer::manager_	timer.h	/^            TimerManager* manager_ = nullptr;$/;"	m	class:ygw::timer::Timer	access:private
+ygw::timer::Timer::ms_	timer.h	/^            uint64_t ms_ = 0;$/;"	m	class:ygw::timer::Timer	access:private
+ygw::timer::Timer::next_	timer.h	/^            uint64_t next_ = 0;$/;"	m	class:ygw::timer::Timer	access:private
+ygw::timer::Timer::recurring_	timer.h	/^            bool recurring_ = false;$/;"	m	class:ygw::timer::Timer	access:private
+ygw::timer::TimerManager	timer.h	/^        class TimerManager $/;"	c	namespace:ygw::timer
+ygw::timer::TimerManager::AddConditionTimer	timer.cc	/^        Timer::ptr TimerManager::AddConditionTimer(uint64_t ms, std::function<void()> cb$/;"	f	class:ygw::timer::TimerManager	signature:(uint64_t ms, std::function<void()> cb ,std::weak_ptr<void> weak_cond ,bool recurring)
+ygw::timer::TimerManager::AddConditionTimer	timer.h	/^            Timer::ptr AddConditionTimer(uint64_t ms, std::function<void()> cb$/;"	p	class:ygw::timer::TimerManager	access:public	signature:(uint64_t ms, std::function<void()> cb ,std::weak_ptr<void> weak_cond ,bool recurring = false)
+ygw::timer::TimerManager::AddTimer	timer.cc	/^        Timer::ptr TimerManager::AddTimer(uint64_t ms, std::function<void()> cb$/;"	f	class:ygw::timer::TimerManager	signature:(uint64_t ms, std::function<void()> cb ,bool recurring)
+ygw::timer::TimerManager::AddTimer	timer.cc	/^        void TimerManager::AddTimer(Timer::ptr val, RWMutexType::WriteLock& lock) $/;"	f	class:ygw::timer::TimerManager	signature:(Timer::ptr val, RWMutexType::WriteLock& lock)
+ygw::timer::TimerManager::AddTimer	timer.h	/^            Timer::ptr AddTimer(uint64_t ms, std::function<void()> cb$/;"	p	class:ygw::timer::TimerManager	access:public	signature:(uint64_t ms, std::function<void()> cb ,bool recurring = false)
+ygw::timer::TimerManager::AddTimer	timer.h	/^            void AddTimer(Timer::ptr val, RWMutexType::WriteLock& lock);$/;"	p	class:ygw::timer::TimerManager	access:protected	signature:(Timer::ptr val, RWMutexType::WriteLock& lock)
+ygw::timer::TimerManager::DetectClockRollover	timer.cc	/^        bool TimerManager::DetectClockRollover(uint64_t now_ms) $/;"	f	class:ygw::timer::TimerManager	signature:(uint64_t now_ms)
+ygw::timer::TimerManager::DetectClockRollover	timer.h	/^            bool DetectClockRollover(uint64_t now_ms);$/;"	p	class:ygw::timer::TimerManager	access:private	signature:(uint64_t now_ms)
+ygw::timer::TimerManager::GetNextTimer	timer.cc	/^        uint64_t TimerManager::GetNextTimer() $/;"	f	class:ygw::timer::TimerManager	signature:()
+ygw::timer::TimerManager::GetNextTimer	timer.h	/^            uint64_t GetNextTimer();$/;"	p	class:ygw::timer::TimerManager	access:public	signature:()
+ygw::timer::TimerManager::HasTimer	timer.cc	/^        bool TimerManager::HasTimer() $/;"	f	class:ygw::timer::TimerManager	signature:()
+ygw::timer::TimerManager::HasTimer	timer.h	/^            bool HasTimer();$/;"	p	class:ygw::timer::TimerManager	access:public	signature:()
+ygw::timer::TimerManager::ListExpiredCb	timer.cc	/^        void TimerManager::ListExpiredCb(std::vector<std::function<void()> >& cbs) $/;"	f	class:ygw::timer::TimerManager	signature:(std::vector<std::function<void()> >& cbs)
+ygw::timer::TimerManager::ListExpiredCb	timer.h	/^            void ListExpiredCb(std::vector<std::function<void()> >& cbs);$/;"	p	class:ygw::timer::TimerManager	access:public	signature:(std::vector<std::function<void()> >& cbs)
+ygw::timer::TimerManager::OnTimerInsertedAtFront	timer.h	/^            virtual void OnTimerInsertedAtFront() = 0;$/;"	p	class:ygw::timer::TimerManager	access:protected	signature:()
+ygw::timer::TimerManager::TimerManager	timer.cc	/^        TimerManager::TimerManager() $/;"	f	class:ygw::timer::TimerManager	signature:()
+ygw::timer::TimerManager::mutex_	timer.h	/^            RWMutexType mutex_;$/;"	m	class:ygw::timer::TimerManager	access:private
+ygw::timer::TimerManager::previouse_time_	timer.h	/^            uint64_t previouse_time_ = 0;$/;"	m	class:ygw::timer::TimerManager	access:private
+ygw::timer::TimerManager::tickled_	timer.h	/^            bool tickled_ = false;$/;"	m	class:ygw::timer::TimerManager	access:private
+ygw::timer::TimerManager::timers_	timer.h	/^            std::set<Timer::ptr, Timer::Comparator> timers_;$/;"	m	class:ygw::timer::TimerManager	access:private
+ygw::timer::TimerManager::~TimerManager	timer.cc	/^        TimerManager::~TimerManager() $/;"	f	class:ygw::timer::TimerManager	signature:()
+ygw::timer::TimerManager::~TimerManager	timer.h	/^            virtual ~TimerManager();$/;"	p	class:ygw::timer::TimerManager	access:public	signature:()
 ygw::util	util.cc	/^    namespace util {$/;"	n	namespace:ygw	file:
 ygw::util	util.h	/^    namespace util {$/;"	n	namespace:ygw
 ygw::util::Backtrace	util.cc	/^        bool Backtrace(std::vector<std::string>* bt, int size, int offset)$/;"	f	namespace:ygw::util	signature:(std::vector<std::string>* bt, int size, int offset)
-ygw::util::Backtrace	util.h	/^        void Backtrace(std::vector<std::string>& bt, int size, int offset = 1);$/;"	p	namespace:ygw::util	signature:(std::vector<std::string>& bt, int size, int offset = 1)
+ygw::util::Backtrace	util.h	/^        void Backtrace(std::vector<std::string>& bt, int size = 64, int skip = 1);$/;"	p	namespace:ygw::util	signature:(std::vector<std::string>& bt, int size = 64, int skip = 1)
 ygw::util::BacktraceToString	util.cc	/^        std::string BacktraceToString(int size, int offset, const std::string& prefix)$/;"	f	namespace:ygw::util	signature:(int size, int offset, const std::string& prefix)
-ygw::util::BacktraceToString	util.h	/^        std::string BacktraceToString(int size = 64, int offset = 2, const std::string& prefix="");$/;"	p	namespace:ygw::util	signature:(int size = 64, int offset = 2, const std::string& prefix=�)
+ygw::util::BacktraceToString	util.h	/^        std::string BacktraceToString(int size = 64, int skip = 2, const std::string& prefix = "");$/;"	p	namespace:ygw::util	signature:(int size = 64, int skip = 2, const std::string& prefix = �)
+ygw::util::GetCurrentMS	util.cc	/^        uint64_t GetCurrentMS() $/;"	f	namespace:ygw::util	signature:()
+ygw::util::GetCurrentMS	util.h	/^        uint64_t GetCurrentMS();$/;"	p	namespace:ygw::util	signature:()
+ygw::util::GetCurrentUS	util.cc	/^        uint64_t GetCurrentUS() $/;"	f	namespace:ygw::util	signature:()
+ygw::util::GetCurrentUS	util.h	/^        uint64_t GetCurrentUS();$/;"	p	namespace:ygw::util	signature:()
 ygw::util::GetFiberId	util.cc	/^        int GetFiberId()$/;"	f	namespace:ygw::util	signature:()
 ygw::util::GetFiberId	util.h	/^        int GetFiberId();$/;"	p	namespace:ygw::util	signature:()
 ygw::util::GetThreadId	util.cc	/^        int GetThreadId()$/;"	f	namespace:ygw::util	signature:()
 ygw::util::GetThreadId	util.h	/^        int GetThreadId();$/;"	p	namespace:ygw::util	signature:()
-ygw::util::TypeToName	util.h	/^        const char* TypeToName() $/;"	f	namespace:ygw::util	signature:()
+ygw::util::TypeToName	util.h	/^        inline const char* TypeToName() $/;"	f	namespace:ygw::util	signature:()
 ygw::util::g_logger	util.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::util	file:
 ~CASLock	mutex.h	/^            ~CASLock() {$/;"	f	class:ygw::thread::CASLock	access:public	signature:()
 ~ConfigVarBase	config.h	/^            virtual ~ConfigVarBase() {}$/;"	f	class:ygw::config::ConfigVarBase	access:public	signature:()
-~Fiber	barkup/fiber.cc	/^Fiber::~Fiber() {$/;"	f	class:ygw::thread::Fiber	signature:()
-~Fiber	barkup/fiber.h	/^    ~Fiber();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
-~Fiber	fiber.cc	/^        Fiber::~Fiber()$/;"	f	class:ygw::thread::Fiber	signature:()
-~Fiber	fiber.h	/^            ~Fiber();$/;"	p	class:ygw::thread::Fiber	access:public	signature:()
+~Fiber	fiber.cc	/^        Fiber::~Fiber()$/;"	f	class:ygw::scheduler::Fiber	signature:()
+~Fiber	fiber.h	/^            ~Fiber();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
 ~FormatItem	log.h	/^                virtual ~FormatItem() {}$/;"	f	class:ygw::log::LogFormatter::FormatItem	access:public	signature:()
+~IOManager	iomanager.cc	/^        IOManager::~IOManager() $/;"	f	class:ygw::scheduler::IOManager	signature:()
+~IOManager	iomanager.h	/^            ~IOManager();$/;"	p	class:ygw::scheduler::IOManager	access:public	signature:()
 ~LogAppender	log.h	/^            virtual ~LogAppender() {}$/;"	f	class:ygw::log::LogAppender	access:public	signature:()
 ~LogEventWrap	log.cc	/^        LogEventWrap::~LogEventWrap() $/;"	f	class:ygw::log::LogEventWrap	signature:()
 ~LogEventWrap	log.h	/^            ~LogEventWrap();$/;"	p	class:ygw::log::LogEventWrap	access:public	signature:()
@@ -1221,10 +1328,10 @@ ygw::util::g_logger	util.cc	/^        static ygw::log::Logger::ptr g_logger = YG
 ~RWMutex	mutex.cc	/^        RWMutex::~RWMutex() $/;"	f	class:ygw::thread::RWMutex	signature:()
 ~RWMutex	mutex.h	/^            ~RWMutex();$/;"	p	class:ygw::thread::RWMutex	access:public	signature:()
 ~ReadScopedLockImpl	mutex.h	/^            ~ReadScopedLockImpl() $/;"	f	struct:ygw::thread::ReadScopedLockImpl	access:public	signature:()
-~Scheduler	scheduler.cc	/^        Scheduler::~Scheduler() $/;"	f	class:ygw::thread::Scheduler	signature:()
-~Scheduler	scheduler.h	/^            virtual ~Scheduler();$/;"	p	class:ygw::thread::Scheduler	access:public	signature:()
-~SchedulerSwitcher	scheduler.cc	/^        SchedulerSwitcher::~SchedulerSwitcher()$/;"	f	class:ygw::thread::SchedulerSwitcher	signature:()
-~SchedulerSwitcher	scheduler.h	/^            ~SchedulerSwitcher();$/;"	p	class:ygw::thread::SchedulerSwitcher	access:public	signature:()
+~Scheduler	scheduler.cc	/^        Scheduler::~Scheduler() $/;"	f	class:ygw::scheduler::Scheduler	signature:()
+~Scheduler	scheduler.h	/^            virtual ~Scheduler();$/;"	p	class:ygw::scheduler::Scheduler	access:public	signature:()
+~SchedulerSwitcher	scheduler.cc	/^        SchedulerSwitcher::~SchedulerSwitcher()$/;"	f	class:ygw::scheduler::SchedulerSwitcher	signature:()
+~SchedulerSwitcher	scheduler.h	/^            ~SchedulerSwitcher();$/;"	p	class:ygw::scheduler::SchedulerSwitcher	access:public	signature:()
 ~ScopedLockImpl	mutex.h	/^            ~ScopedLockImpl() $/;"	f	struct:ygw::thread::ScopedLockImpl	access:public	signature:()
 ~Semaphore	mutex.cc	/^        Semaphore::~Semaphore() $/;"	f	class:ygw::thread::Semaphore	signature:()
 ~Semaphore	mutex.h	/^            ~Semaphore();$/;"	p	class:ygw::thread::Semaphore	access:public	signature:()
@@ -1232,4 +1339,6 @@ ygw::util::g_logger	util.cc	/^        static ygw::log::Logger::ptr g_logger = YG
 ~Spinlock	mutex.h	/^            ~Spinlock(); $/;"	p	class:ygw::thread::Spinlock	access:public	signature:()
 ~Thread	thread.cc	/^        Thread::~Thread() $/;"	f	class:ygw::thread::Thread	signature:()
 ~Thread	thread.h	/^            ~Thread();$/;"	p	class:ygw::thread::Thread	access:public	signature:()
+~TimerManager	timer.cc	/^        TimerManager::~TimerManager() $/;"	f	class:ygw::timer::TimerManager	signature:()
+~TimerManager	timer.h	/^            virtual ~TimerManager();$/;"	p	class:ygw::timer::TimerManager	access:public	signature:()
 ~WriteScopedLockImpl	mutex.h	/^            ~WriteScopedLockImpl() $/;"	f	struct:ygw::thread::WriteScopedLockImpl	access:public	signature:()

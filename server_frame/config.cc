@@ -13,9 +13,9 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#ifdef __GNU__
+#ifdef __GNUC__
 #include <unistd.h>
-#endif //__GNU__
+#endif //__GNUC__
 
 #ifdef _MSC_VER
 #include <io.h>
@@ -135,7 +135,7 @@ namespace ygw {
                     {
 
                     }
-#endif 
+#endif // __GNUC__
                     
                     ygw::thread::Mutex::Lock lock(s_mutex);
                     if (!force && s_file2modifytime[i] == (uint64_t)st.st_mtime) 
