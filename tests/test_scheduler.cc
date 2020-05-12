@@ -13,12 +13,12 @@ void test_fiber()
 int main()
 {
     YGW_LOG_INFO(g_logger) << "main";
-    ygw::scheduler::Scheduler sc(3, false, "test");
-    //ygw::scheduler::Scheduler sc(3);
+    //ygw::scheduler::Scheduler sc(3, false, "test");
+    ygw::scheduler::Scheduler sc(2);
     sc.Start();
-    YGW_LOG_INFO(g_logger) << "schedule";
+    //YGW_LOG_INFO(g_logger) << "schedule";
     sc.Schedule(&test_fiber);
     sc.Stop();
-    YGW_LOG_INFO(g_logger) << "over";
+    //YGW_LOG_INFO(g_logger) << "over";
     return 0;
 }

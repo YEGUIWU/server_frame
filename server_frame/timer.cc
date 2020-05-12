@@ -184,7 +184,9 @@ namespace ygw {
             if (now_ms >= next->next_) 
             {
                 return 0;
-            } else {
+            } 
+            else 
+            {
                 return next->next_ - now_ms;
             }
         }

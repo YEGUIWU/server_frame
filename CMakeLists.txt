@@ -22,6 +22,8 @@ set (LIB_SRC
     server_frame/scheduler.cc
     server_frame/iomanager.cc
     server_frame/timer.cc
+    server_frame/hook.cc
+    server_frame/fd_manager.cc
     )
 
 add_library(server_frame SHARED ${LIB_SRC})
@@ -31,6 +33,7 @@ set(LIBS
     server_frame 
     yaml-cpp
     pthread
+    dl
     )
 # add_executable(tests tests/test.cc)
 # add_definitions(tests src)
@@ -42,6 +45,7 @@ ygw_add_executable(test_util "tests/test_util.cc" server_frame "${LIBS}")
 ygw_add_executable(test_fiber "tests/test_fiber.cc" server_frame "${LIBS}")
 ygw_add_executable(test_scheduler "tests/test_scheduler.cc" server_frame "${LIBS}")
 ygw_add_executable(test_iomanager "tests/test_iomanager.cc" server_frame "${LIBS}")
+ygw_add_executable(test_hook "tests/test_hook.cc" server_frame "${LIBS}")
 # add_executable(tests tests/test_config.cc)
 # add_definitions(tests src)
 # force_redefine_file_macro_for_sources(tests)

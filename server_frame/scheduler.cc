@@ -11,9 +11,11 @@
  * ====================================================
  */
 
-#include "scheduler.h"
+#include "hook.h"
 #include "log.h"
 #include "macro.h"
+#include "scheduler.h"
+
 #include <algorithm>
 
 namespace ygw {
@@ -181,6 +183,7 @@ namespace ygw {
         void Scheduler::Run() 
         {
             YGW_LOG_DEBUG(g_logger) << name_ << " run";
+            hook::SetHookEnable(true);
             //set_hook_enable(true);
             SetThis();// 主线程设置为自己
 

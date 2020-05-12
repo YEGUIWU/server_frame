@@ -76,8 +76,8 @@ void test1()
 
 int main()
 {
-    //test1();
-    test_timer();
+    test1();
+    //test_timer();
 
     return 0;
 }

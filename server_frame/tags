@@ -49,6 +49,8 @@ DateTimeFormatItem	log.cc	/^        class DateTimeFormatItem : public LogFormatt
 Dealloc	fiber.cc	/^            static void Dealloc(void* vp, size_t size)$/;"	f	class:ygw::scheduler::StackAllocator	access:public	signature:(void* vp, size_t size)
 Debug	log.cc	/^        void Logger::Debug(LogEvent::ptr event)$/;"	f	class:ygw::log::Logger	signature:(LogEvent::ptr event)
 Debug	log.h	/^            void Debug(LogEvent::ptr event);$/;"	p	class:ygw::log::Logger	access:public	signature:(LogEvent::ptr event)
+Del	fd_manager.cc	/^        void FdContextManager::Del(int fd) $/;"	f	class:ygw::handle::FdContextManager	signature:(int fd)
+Del	fd_manager.h	/^            void Del(int fd);$/;"	p	class:ygw::handle::FdContextManager	access:public	signature:(int fd)
 DelAppender	log.cc	/^        void Logger::DelAppender(LogAppender::ptr appender)$/;"	f	class:ygw::log::Logger	signature:(LogAppender::ptr appender)
 DelAppender	log.h	/^            void DelAppender(LogAppender::ptr appender);$/;"	p	class:ygw::log::Logger	access:public	signature:(LogAppender::ptr appender)
 DelEvent	iomanager.cc	/^        bool IOManager::DelEvent(int fd, Event event) $/;"	f	class:ygw::scheduler::IOManager	signature:(int fd, Event event)
@@ -56,6 +58,7 @@ DelEvent	iomanager.h	/^            bool DelEvent(int fd, Event event);$/;"	p	cla
 DelListener	config.h	/^            void DelListener(uint64_t key) $/;"	f	class:ygw::config::ConfigVar	access:public	signature:(uint64_t key)
 DetectClockRollover	timer.cc	/^        bool TimerManager::DetectClockRollover(uint64_t now_ms) $/;"	f	class:ygw::timer::TimerManager	signature:(uint64_t now_ms)
 DetectClockRollover	timer.h	/^            bool DetectClockRollover(uint64_t now_ms);$/;"	p	class:ygw::timer::TimerManager	access:private	signature:(uint64_t now_ms)
+DoIo	hook.cc	/^        static ssize_t DoIo(int fd,         \/\/文件描述符 $/;"	f	file:	signature:(int fd, OriginFunc func, const char* hook_func_name, uint32_t event, int timeout_so, Args&&... args)
 Dump	scheduler.cc	/^        std::ostream& Scheduler::Dump(std::ostream& os)$/;"	f	class:ygw::scheduler::Scheduler	signature:(std::ostream& os)
 Dump	scheduler.h	/^            std::ostream& Dump(std::ostream& os);$/;"	p	class:ygw::scheduler::Scheduler	access:public	signature:(std::ostream& os)
 ElapseFormatItem	log.cc	/^            ElapseFormatItem(const std::string& str = "") {}$/;"	f	class:ygw::log::ElapseFormatItem	access:public	signature:(const std::string& str = �)
@@ -67,7 +70,11 @@ Event	iomanager.h	/^            enum Event {$/;"	g	class:ygw::scheduler::IOManag
 EventContext	iomanager.h	/^                struct EventContext $/;"	s	class:ygw::scheduler::IOManager::FdContext	access:public
 Fatal	log.cc	/^        void Logger::Fatal(LogEvent::ptr event)$/;"	f	class:ygw::log::Logger	signature:(LogEvent::ptr event)
 Fatal	log.h	/^            void Fatal(LogEvent::ptr event);$/;"	p	class:ygw::log::Logger	access:public	signature:(LogEvent::ptr event)
+FdContext	fd_manager.cc	/^        FdContext::FdContext(int fd)$/;"	f	class:ygw::handle::FdContext	signature:(int fd)
+FdContext	fd_manager.h	/^        class FdContext : public std::enable_shared_from_this<FdContext> $/;"	c	namespace:ygw::handle	inherits:std::enable_shared_from_this
 FdContext	iomanager.h	/^            class FdContext $/;"	c	class:ygw::scheduler::IOManager	access:private
+FdContextManager	fd_manager.cc	/^        FdContextManager::FdContextManager() $/;"	f	class:ygw::handle::FdContextManager	signature:()
+FdContextManager	fd_manager.h	/^        class FdContextManager $/;"	c	namespace:ygw::handle	inherits:std::enable_shared_from_this
 Fiber	fiber.cc	/^        Fiber::Fiber()$/;"	f	class:ygw::scheduler::Fiber	signature:()
 Fiber	fiber.cc	/^        Fiber::Fiber(std::function<void()> cb, size_t stack_size, bool use_caller)$/;"	f	class:ygw::scheduler::Fiber	signature:(std::function<void()> cb, size_t stack_size, bool use_caller)
 Fiber	fiber.h	/^            Fiber();$/;"	p	class:ygw::scheduler::Fiber	access:private	signature:()
@@ -98,6 +105,8 @@ FormatItem	log.h	/^            class FormatItem {$/;"	c	class:ygw::log::LogForma
 FromString	config.h	/^            virtual bool FromString(const std::string& val) = 0;$/;"	p	class:ygw::config::ConfigVarBase	access:public	signature:(const std::string& val)
 FromString	log.cc	/^        LogLevel::Level LogLevel::FromString(const std::string& str) {$/;"	f	class:ygw::log::LogLevel	signature:(const std::string& str)
 FromString	log.h	/^            static LogLevel::Level FromString(const std::string& str);$/;"	p	class:ygw::log::LogLevel	access:public	signature:(const std::string& str)
+Get	fd_manager.cc	/^        FdContext::ptr FdContextManager::Get(int fd, bool auto_create) $/;"	f	class:ygw::handle::FdContextManager	signature:(int fd, bool auto_create)
+Get	fd_manager.h	/^            FdContext::ptr Get(int fd, bool auto_create = false);$/;"	p	class:ygw::handle::FdContextManager	access:public	signature:(int fd, bool auto_create = false)
 GetContent	log.h	/^            std::string GetContent() const { return string_stream_.str();}$/;"	f	class:ygw::log::LogEvent	access:public	signature:() const
 GetContext	iomanager.cc	/^        IOManager::FdContext::GetContext(IOManager::Event event) $/;"	f	class:ygw::scheduler::IOManager::FdContext	signature:(IOManager::Event event)
 GetContext	iomanager.h	/^                EventContext& GetContext(Event event);$/;"	p	class:ygw::scheduler::IOManager::FdContext	access:public	signature:(Event event)
@@ -119,7 +128,6 @@ GetFormatter	log.cc	/^        LogFormatter::ptr LogAppender::GetFormatter() $/;"
 GetFormatter	log.cc	/^        LogFormatter::ptr Logger::GetFormatter() $/;"	f	class:ygw::log::Logger	signature:()
 GetFormatter	log.h	/^            LogFormatter::ptr GetFormatter();$/;"	p	class:ygw::log::LogAppender	access:public	signature:()
 GetFormatter	log.h	/^            LogFormatter::ptr GetFormatter();$/;"	p	class:ygw::log::Logger	access:public	signature:()
-GetId	a.cc	/^    int GetId() const $/;"	f	class:Thread	access:public	signature:() const
 GetId	fiber.h	/^            uint64_t GetId() const { return id_; }$/;"	f	class:ygw::scheduler::Fiber	access:public	signature:() const
 GetId	thread.h	/^            pid_t GetId() const { return id_; }$/;"	f	class:ygw::thread::Thread	access:public	signature:() const
 GetInstance	singleton.h	/^            static T* GetInstance()$/;"	f	class:ygw::mode::Singleton	access:public	signature:()
@@ -162,11 +170,15 @@ GetThreadId	util.cc	/^        int GetThreadId()$/;"	f	namespace:ygw::util	signat
 GetThreadId	util.h	/^        int GetThreadId();$/;"	p	namespace:ygw::util	signature:()
 GetThreadName	log.h	/^            const std::string& GetThreadName() const { return thread_name_;}$/;"	f	class:ygw::log::LogEvent	access:public	signature:() const
 GetTime	log.h	/^            uint64_t GetTime() const { return time_;}$/;"	f	class:ygw::log::LogEvent	access:public	signature:() const
+GetTimeout	fd_manager.cc	/^        uint64_t FdContext::GetTimeout(int type)$/;"	f	class:ygw::handle::FdContext	signature:(int type)
+GetTimeout	fd_manager.h	/^            uint64_t GetTimeout(int type);$/;"	p	class:ygw::handle::FdContext	access:public	signature:(int type)
 GetTypeName	config.h	/^            virtual std::string GetTypeName() const = 0;$/;"	p	class:ygw::config::ConfigVarBase	access:public	signature:() const
 GetValue	config.h	/^            const T GetValue() $/;"	f	class:ygw::config::ConfigVar	access:public	signature:()
+HOOK_FUNC	hook.cc	36;"	d	file:
 HasIdleThreads	scheduler.h	/^            bool HasIdleThreads() { return idle_thread_count_ > 0;}$/;"	f	class:ygw::scheduler::Scheduler	access:protected	signature:()
 HasTimer	timer.cc	/^        bool TimerManager::HasTimer() $/;"	f	class:ygw::timer::TimerManager	signature:()
 HasTimer	timer.h	/^            bool HasTimer();$/;"	p	class:ygw::timer::TimerManager	access:public	signature:()
+HookInit	hook.cc	/^        void HookInit()$/;"	f	namespace:ygw::hook	signature:()
 IOManager	iomanager.cc	/^        IOManager::IOManager(size_t threads, bool use_caller, const std::string& name)$/;"	f	class:ygw::scheduler::IOManager	signature:(size_t threads, bool use_caller, const std::string& name)
 IOManager	iomanager.h	/^            IOManager(size_t threads = 1, bool use_caller = true, const std::string& name = "");$/;"	p	class:ygw::scheduler::IOManager	access:public	signature:(size_t threads = 1, bool use_caller = true, const std::string& name = �)
 IOManager	iomanager.h	/^        class IOManager : public Scheduler , public timer::TimerManager $/;"	c	namespace:ygw::scheduler	inherits:Scheduler,timer::TimerManager
@@ -175,12 +187,21 @@ Idle	scheduler.cc	/^        void Scheduler::Idle()$/;"	f	class:ygw::scheduler::S
 Idle	scheduler.h	/^            virtual void Idle();$/;"	p	class:ygw::scheduler::Scheduler	access:protected	signature:()
 Info	log.cc	/^        void Logger::Info(LogEvent::ptr event)$/;"	f	class:ygw::log::Logger	signature:(LogEvent::ptr event)
 Info	log.h	/^            void Info(LogEvent::ptr event);$/;"	p	class:ygw::log::Logger	access:public	signature:(LogEvent::ptr event)
+Init	fd_manager.cc	/^        bool FdContext::Init() $/;"	f	class:ygw::handle::FdContext	signature:()
+Init	fd_manager.h	/^            bool Init();$/;"	p	class:ygw::handle::FdContext	access:private	signature:()
 Init	log.cc	/^        void LogFormatter::Init()$/;"	f	class:ygw::log::LogFormatter	signature:()
 Init	log.cc	/^        void LoggerManager::Init() $/;"	f	class:ygw::log::LoggerManager	signature:()
 Init	log.h	/^            void Init(); $/;"	p	class:ygw::log::LogFormatter	access:public	signature:()
 Init	log.h	/^            void Init();$/;"	p	class:ygw::log::LoggerManager	access:public	signature:()
+IsClose	fd_manager.h	/^            bool IsClose() const { return is_closed_; }$/;"	f	class:ygw::handle::FdContext	access:public	signature:() const
 IsError	log.h	/^            bool IsError() const { return is_error_;}$/;"	f	class:ygw::log::LogFormatter	access:public	signature:() const
+IsHookEnable	hook.cc	/^        bool IsHookEnable()$/;"	f	namespace:ygw::hook	signature:()
+IsHookEnable	hook.h	/^        bool IsHookEnable();$/;"	p	namespace:ygw::hook	signature:()
+IsInit	fd_manager.h	/^            bool IsInit() const { return is_init_; }$/;"	f	class:ygw::handle::FdContext	access:public	signature:() const
+IsSocket	fd_manager.h	/^            bool IsSocket() const { return is_socket_; }$/;"	f	class:ygw::handle::FdContext	access:public	signature:() const
+IsSysNonblock	fd_manager.h	/^            bool IsSysNonblock() const { return is_sys_nonblock_; }$/;"	f	class:ygw::handle::FdContext	access:public	signature:() const
 IsValid	log.cc	/^            bool IsValid() const $/;"	f	class:ygw::log::LogDefine	access:public	signature:() const
+IstUserNonblock	fd_manager.h	/^            bool IstUserNonblock() const { return is_user_nonblock_; }$/;"	f	class:ygw::handle::FdContext	access:public	signature:() const
 Join	thread.cc	/^        void Thread::Join() $/;"	f	class:ygw::thread::Thread	signature:()
 Join	thread.h	/^            void Join();$/;"	p	class:ygw::thread::Thread	access:public	signature:()
 Level	log.h	/^            enum Level {$/;"	g	class:ygw::log::LogLevel	access:public
@@ -301,14 +322,20 @@ SetFormatter	log.cc	/^        void Logger::SetFormatter(const std::string& val) 
 SetFormatter	log.h	/^            void SetFormatter(LogFormatter::ptr val);$/;"	p	class:ygw::log::LogAppender	access:public	signature:(LogFormatter::ptr val)
 SetFormatter	log.h	/^            void SetFormatter(LogFormatter::ptr val);$/;"	p	class:ygw::log::Logger	access:public	signature:(LogFormatter::ptr val)
 SetFormatter	log.h	/^            void SetFormatter(const std::string& val);$/;"	p	class:ygw::log::Logger	access:public	signature:(const std::string& val)
+SetHookEnable	hook.cc	/^        void SetHookEnable(bool flag)$/;"	f	namespace:ygw::hook	signature:(bool flag)
+SetHookEnable	hook.h	/^        void SetHookEnable(bool flag);$/;"	p	namespace:ygw::hook	signature:(bool flag)
 SetLevel	log.h	/^            void SetLevel(LogLevel::Level val) { level_ = val;}$/;"	f	class:ygw::log::LogAppender	access:public	signature:(LogLevel::Level val)
 SetLevel	log.h	/^            void SetLevel(LogLevel::Level val) { level_ = val;}$/;"	f	class:ygw::log::Logger	access:public	signature:(LogLevel::Level val)
 SetName	thread.cc	/^        void Thread::SetName(const std::string& name) $/;"	f	class:ygw::thread::Thread	signature:(const std::string& name)
 SetName	thread.h	/^            static void SetName(const std::string& name);$/;"	p	class:ygw::thread::Thread	access:public	signature:(const std::string& name)
+SetSysNonblock	fd_manager.h	/^            void SetSysNonblock(bool v) { is_sys_nonblock_ = v; }$/;"	f	class:ygw::handle::FdContext	access:public	signature:(bool v)
 SetThis	fiber.cc	/^        void Fiber::SetThis(Fiber* f)$/;"	f	class:ygw::scheduler::Fiber	signature:(Fiber* f)
 SetThis	fiber.h	/^            static void SetThis(Fiber* f);$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:(Fiber* f)
 SetThis	scheduler.cc	/^        void Scheduler::SetThis() $/;"	f	class:ygw::scheduler::Scheduler	signature:()
 SetThis	scheduler.h	/^            void SetThis();$/;"	p	class:ygw::scheduler::Scheduler	access:protected	signature:()
+SetTimeout	fd_manager.cc	/^        void FdContext::SetTimeout(int type, uint64_t v) $/;"	f	class:ygw::handle::FdContext	signature:(int type, uint64_t v)
+SetTimeout	fd_manager.h	/^            void SetTimeout(int type, uint64_t v);$/;"	p	class:ygw::handle::FdContext	access:public	signature:(int type, uint64_t v)
+SetUserNonblock	fd_manager.h	/^            void SetUserNonblock(bool v) { is_user_nonblock_ = v; }$/;"	f	class:ygw::handle::FdContext	access:public	signature:(bool v)
 SetValue	config.h	/^            void SetValue(const T& v) $/;"	f	class:ygw::config::ConfigVar	access:public	signature:(const T& v)
 Singleton	singleton.h	/^        class Singleton {$/;"	c	namespace:ygw::mode
 SingletonPtr	singleton.h	/^        class SingletonPtr {$/;"	c	namespace:ygw::mode
@@ -336,15 +363,8 @@ SwitchTo	scheduler.cc	/^        void Scheduler::SwitchTo(int thread)$/;"	f	class
 SwitchTo	scheduler.h	/^            void SwitchTo(int thread = -1);$/;"	p	class:ygw::scheduler::Scheduler	access:public	signature:(int thread = -1)
 TabFormatItem	log.cc	/^                TabFormatItem(const std::string& str = "") {}$/;"	f	class:ygw::log::TabFormatItem	access:public	signature:(const std::string& str = �)
 TabFormatItem	log.cc	/^        class TabFormatItem : public LogFormatter::FormatItem {$/;"	c	namespace:ygw::log	file:	inherits:LogFormatter::FormatItem
-Thread	a.cc	/^    Thread() : std::thread()$/;"	f	class:Thread	access:public	signature:()
-Thread	a.cc	/^    Thread(T&&func, Args&&...args) : std::thread(std::forward<T>(func),$/;"	f	class:Thread	access:public	signature:(T&&func, Args&&...args)
-Thread	a.cc	/^class Thread :public std::thread$/;"	c	file:	inherits:std::thread
 Thread	thread.cc	/^        Thread::Thread(std::function<void()> cb, const std::string& name)$/;"	f	class:ygw::thread::Thread	signature:(std::function<void()> cb, const std::string& name)
 Thread	thread.h	/^        class Thread : able::Noncopyable {$/;"	c	namespace:ygw::thread	inherits:able::Noncopyable
-Thread::GetId	a.cc	/^    int GetId() const $/;"	f	class:Thread	access:public	signature:() const
-Thread::Thread	a.cc	/^    Thread() : std::thread()$/;"	f	class:Thread	access:public	signature:()
-Thread::Thread	a.cc	/^    Thread(T&&func, Args&&...args) : std::thread(std::forward<T>(func),$/;"	f	class:Thread	access:public	signature:(T&&func, Args&&...args)
-Thread::id_	a.cc	/^    int id_;    $/;"	m	class:Thread	file:	access:private
 ThreadIdFormatItem	log.cc	/^            ThreadIdFormatItem(const std::string& str = "") {}$/;"	f	class:ygw::log::ThreadIdFormatItem	access:public	signature:(const std::string& str = �)
 ThreadIdFormatItem	log.cc	/^        class ThreadIdFormatItem : public LogFormatter::FormatItem {$/;"	c	namespace:ygw::log	file:	inherits:LogFormatter::FormatItem
 ThreadNameFormatItem	log.cc	/^            ThreadNameFormatItem(const std::string& str = "") {}$/;"	f	class:ygw::log::ThreadNameFormatItem	access:public	signature:(const std::string& str = �)
@@ -357,6 +377,8 @@ Timer	timer.cc	/^        Timer::Timer(uint64_t next)$/;"	f	class:ygw::timer::Tim
 Timer	timer.h	/^            Timer(uint64_t ms, std::function<void()> cb,$/;"	p	class:ygw::timer::Timer	access:private	signature:(uint64_t ms, std::function<void()> cb, bool recurring, TimerManager* manager)
 Timer	timer.h	/^            Timer(uint64_t next);$/;"	p	class:ygw::timer::Timer	access:private	signature:(uint64_t next)
 Timer	timer.h	/^        class Timer : public std::enable_shared_from_this<Timer> $/;"	c	namespace:ygw::timer	inherits:std::enable_shared_from_this
+TimerInfo	hook.cc	/^        struct TimerInfo$/;"	s	file:
+TimerInfo::cancelled	hook.cc	/^            int cancelled = 0;$/;"	m	struct:TimerInfo	file:	access:public
 TimerManager	timer.cc	/^        TimerManager::TimerManager() $/;"	f	class:ygw::timer::TimerManager	signature:()
 TimerManager	timer.h	/^        class TimerManager $/;"	c	namespace:ygw::timer
 ToString	config.h	/^            virtual std::string ToString() = 0;$/;"	p	class:ygw::config::ConfigVarBase	access:public	signature:()
@@ -383,14 +405,19 @@ Warn	log.h	/^            void Warn(LogEvent::ptr event);$/;"	p	class:ygw::log::L
 WriteLock	mutex.h	/^            typedef WriteScopedLockImpl<RWMutex> WriteLock;$/;"	t	class:ygw::thread::RWMutex	access:public
 WriteScopedLockImpl	mutex.h	/^            WriteScopedLockImpl(T& mutex)$/;"	f	struct:ygw::thread::WriteScopedLockImpl	access:public	signature:(T& mutex)
 WriteScopedLockImpl	mutex.h	/^        struct WriteScopedLockImpl {$/;"	s	namespace:ygw::thread
+XX	hook.cc	/^        HOOK_FUNC(XX);$/;"	v
+XX	hook.cc	106;"	d	file:
+XX	hook.cc	108;"	d	file:
+XX	hook.cc	66;"	d	file:
+XX	hook.cc	68;"	d	file:
 XX	iomanager.cc	44;"	d	file:
 XX	iomanager.cc	53;"	d	file:
 XX	iomanager.cc	64;"	d	file:
 XX	iomanager.cc	85;"	d	file:
 XX	log.cc	50;"	d	file:
 XX	log.cc	66;"	d	file:
-XX	log.cc	698;"	d	file:
-XX	log.cc	713;"	d	file:
+XX	log.cc	700;"	d	file:
+XX	log.cc	715;"	d	file:
 YGW_ASSERT	macro.h	30;"	d
 YGW_LIKELY	macro.h	22;"	d
 YGW_LIKELY	macro.h	26;"	d
@@ -415,9 +442,13 @@ YieldToHold	fiber.cc	/^        void Fiber::YieldToHold()$/;"	f	class:ygw::schedu
 YieldToHold	fiber.h	/^            static void YieldToHold();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
 YieldToReady	fiber.cc	/^        void Fiber::YieldToReady()$/;"	f	class:ygw::scheduler::Fiber	signature:()
 YieldToReady	fiber.h	/^            static void YieldToReady();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
+_HookIniter	hook.cc	/^            _HookIniter() $/;"	f	class:ygw::hook::_HookIniter	access:public	signature:()
+_HookIniter	hook.cc	/^        class _HookIniter $/;"	c	namespace:ygw::hook	file:
+__FD_MANAGER_H__	fd_manager.h	15;"	d
 __YGW_ABLE_H__	able.h	15;"	d
 __YGW_CONFIG_H__	config.h	14;"	d
 __YGW_FIBER_H__	fiber.h	14;"	d
+__YGW_HOOK_H__	hook.h	15;"	d
 __YGW_IOMANAGER_H__	iomanager.h	14;"	d
 __YGW_LOG_H__	log.h	14;"	d
 __YGW_MACRO_H__	macro.h	14;"	d
@@ -429,27 +460,35 @@ __YGW_TIMER_H__	timer.h	14;"	d
 __YGW_UTIL_H__	util.h	14;"	d
 __log_init	log.cc	/^        static LogIniter __log_init;$/;"	m	namespace:ygw::log	file:
 able	able.h	/^    namespace able {$/;"	n	namespace:ygw
+accept_fun	hook.h	/^    typedef int (*accept_fun)(int s, struct sockaddr *addr, socklen_t *addrlen);$/;"	t
 active_thread_count_	scheduler.h	/^            std::atomic<size_t> active_thread_count_ = {0};$/;"	m	class:ygw::scheduler::Scheduler	access:protected
 appenders_	log.cc	/^            std::vector<LogAppenderDefine> appenders_;$/;"	m	class:ygw::log::LogDefine	file:	access:public
 appenders_	log.h	/^            std::list<LogAppender::ptr> appenders_;$/;"	m	class:ygw::log::Logger	access:private
 auto_stop_	scheduler.h	/^            bool auto_stop_ = false;$/;"	m	class:ygw::scheduler::Scheduler	access:protected
 caller_	scheduler.h	/^            Scheduler* caller_;$/;"	m	class:ygw::scheduler::SchedulerSwitcher	access:private
+cancelled	hook.cc	/^            int cancelled = 0;$/;"	m	struct:TimerInfo	file:	access:public
 cb	iomanager.h	/^                    std::function<void()> cb;$/;"	m	struct:ygw::scheduler::IOManager::FdContext::EventContext	access:public
 cb_	fiber.h	/^            std::function<void()> cb_;$/;"	m	class:ygw::scheduler::Fiber	access:private
 cb_	scheduler.h	/^                std::function<void()> cb_;$/;"	m	class:ygw::scheduler::Scheduler::FiberAndThread	access:public
 cb_	thread.h	/^            std::function<void()> cb_;$/;"	m	class:ygw::thread::Thread	access:private
 cb_	timer.h	/^            std::function<void()> cb_;$/;"	m	class:ygw::timer::Timer	access:private
 cbs_	config.h	/^            std::map<uint64_t, on_change_cb> cbs_;$/;"	m	class:ygw::config::ConfigVar	access:private
+close_fun	hook.h	/^    typedef int (*close_fun)(int fd);$/;"	t
 config	config.cc	/^    namespace config {$/;"	n	namespace:ygw	file:
 config	config.h	/^    namespace config {$/;"	n	namespace:ygw
 config	log.cc	/^    namespace config {$/;"	n	namespace:ygw	file:
+connect_fun	hook.h	/^    typedef int (*connect_fun)(int sockfd, const struct sockaddr *addr, socklen_t addrlen);$/;"	t
+connect_with_timeout	hook.h	/^    extern int connect_with_timeout(int fd, const struct sockaddr* addr, socklen_t addrlen, uint64_t timeout_ms);$/;"	p	signature:(int fd, const struct sockaddr* addr, socklen_t addrlen, uint64_t timeout_ms)
 context_	fiber.h	/^            ucontext_t context_;$/;"	m	class:ygw::scheduler::Fiber	access:private
+datas_	fd_manager.h	/^            std::vector<FdContext::ptr> datas_;$/;"	m	class:ygw::handle::FdContextManager	access:private
 description_	config.h	/^            std::string description_;$/;"	m	class:ygw::config::ConfigVarBase	access:protected
 elapse_	log.h	/^            uint32_t elapse_ = 0;          $/;"	m	class:ygw::log::LogEvent	access:private
 epfd_	iomanager.h	/^            int epfd_ = 0;$/;"	m	class:ygw::scheduler::IOManager	access:private
 event_	log.h	/^            LogEvent::ptr event_;$/;"	m	class:ygw::log::LogEventWrap	access:private
 events	iomanager.h	/^                Event events = Event::kNone;$/;"	m	class:ygw::scheduler::IOManager::FdContext	access:public
+fcntl_fun	hook.h	/^    typedef int (*fcntl_fun)(int fd, int cmd, ... \/* arg *\/ );$/;"	t
 fd	iomanager.h	/^                int fd = 0;$/;"	m	class:ygw::scheduler::IOManager::FdContext	access:public
+fd_	fd_manager.h	/^            int fd_;$/;"	m	class:ygw::handle::FdContext	access:private
 fd_contexts_	iomanager.h	/^            std::vector<FdContext*> fd_contexts_;$/;"	m	class:ygw::scheduler::IOManager	access:private
 fiber	iomanager.h	/^                    Fiber::ptr fiber;$/;"	m	struct:ygw::scheduler::IOManager::FdContext::EventContext	access:public
 fiber_	scheduler.h	/^                Fiber::ptr fiber_;$/;"	m	class:ygw::scheduler::Scheduler::FiberAndThread	access:public
@@ -468,15 +507,21 @@ g_fiber_stack_size	fiber.cc	/^        static config::ConfigVar<uint32_t>::ptr g_
 g_log_defines	log.cc	/^        ygw::config::ConfigVar<std::set<LogDefine> >::ptr g_log_defines =$/;"	m	namespace:ygw::log	file:
 g_logger	config.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::config	file:
 g_logger	fiber.cc	/^        static log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::scheduler	file:
+g_logger	hook.cc	/^        ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::hook	file:
 g_logger	iomanager.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::scheduler	file:
 g_logger	scheduler.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::scheduler	file:
 g_logger	thread.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::thread	file:
 g_logger	util.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::util	file:
+getsockopt_fun	hook.h	/^    typedef int (*getsockopt_fun)(int sockfd, int level, int optname, void *optval, socklen_t *optlen);$/;"	t
+handle	fd_manager.cc	/^    namespace handle {$/;"	n	namespace:ygw	file:
+handle	fd_manager.h	/^    namespace handle {$/;"	n	namespace:ygw
 has_formatter_	log.h	/^            bool has_formatter_ = false;$/;"	m	class:ygw::log::LogAppender	access:protected
-id_	a.cc	/^    int id_;    $/;"	m	class:Thread	file:	access:private
+hook	hook.cc	/^    namespace hook {$/;"	n	namespace:ygw	file:
+hook	hook.h	/^    namespace hook {$/;"	n	namespace:ygw
 id_	fiber.h	/^            uint64_t id_ = 0;$/;"	m	class:ygw::scheduler::Fiber	access:private
 id_	thread.h	/^            pid_t id_ = -1;$/;"	m	class:ygw::thread::Thread	access:private
 idle_thread_count_	scheduler.h	/^            std::atomic<size_t> idle_thread_count_ = {0};$/;"	m	class:ygw::scheduler::Scheduler	access:protected
+ioctl_fun	hook.h	/^    typedef int (*ioctl_fun)(int d, unsigned long int request, ...);$/;"	t
 is_error_	log.h	/^            bool is_error_= false;$/;"	m	class:ygw::log::LogFormatter	access:private
 is_init_	thread.h	/^            bool is_init_ = false;$/;"	m	class:ygw::thread::Thread	access:private
 items_	log.h	/^            std::vector<FormatItem::ptr> items_;$/;"	m	class:ygw::log::LogFormatter	access:private
@@ -526,13 +571,12 @@ logger_	log.h	/^            std::shared_ptr<Logger> logger_;$/;"	m	class:ygw::lo
 loggers_	log.h	/^            std::map<std::string, Logger::ptr> loggers_;$/;"	m	class:ygw::log::LoggerManager	access:private
 m_string	log.cc	/^                std::string m_string;$/;"	m	class:ygw::log::TabFormatItem	file:	access:private
 m_string	log.cc	/^            std::string m_string;$/;"	m	class:ygw::log::StringFormatItem	file:	access:private
-main	a.cc	/^int main()$/;"	f	signature:()
-main1	a.cc	/^int main1()$/;"	f	signature:()
 manager_	timer.h	/^            TimerManager* manager_ = nullptr;$/;"	m	class:ygw::timer::Timer	access:private
 mode	singleton.h	/^    namespace mode {$/;"	n	namespace:ygw
 ms_	timer.h	/^            uint64_t ms_ = 0;$/;"	m	class:ygw::timer::Timer	access:private
 mutex	iomanager.h	/^                MutexType mutex;$/;"	m	class:ygw::scheduler::IOManager::FdContext	access:public
 mutex_	config.h	/^            RWMutexType mutex_;$/;"	m	class:ygw::config::ConfigVar	access:private
+mutex_	fd_manager.h	/^            RWMutexType mutex_;$/;"	m	class:ygw::handle::FdContextManager	access:private
 mutex_	iomanager.h	/^            RWMutexType mutex_;$/;"	m	class:ygw::scheduler::IOManager	access:private
 mutex_	log.h	/^            MutexType mutex_;$/;"	m	class:ygw::log::LogAppender	access:protected
 mutex_	log.h	/^            MutexType mutex_;$/;"	m	class:ygw::log::Logger	access:private
@@ -550,6 +594,8 @@ name_	log.cc	/^            std::string name_;$/;"	m	class:ygw::log::LogDefine	fi
 name_	log.h	/^            std::string name_;                  $/;"	m	class:ygw::log::Logger	access:private
 name_	scheduler.h	/^            std::string name_;$/;"	m	class:ygw::scheduler::Scheduler	access:private
 name_	thread.h	/^            std::string name_;$/;"	m	class:ygw::thread::Thread	access:private
+nanosleep	hook.cc	/^        int nanosleep(const struct timespec *req, struct timespec *rem)$/;"	f	signature:(const struct timespec *req, struct timespec *rem)
+nanosleep_func	hook.h	/^    typedef int (*nanosleep_func)(const struct timespec *req, struct timespec *rem);$/;"	t
 next_	timer.h	/^            uint64_t next_ = 0;$/;"	m	class:ygw::timer::Timer	access:private
 operator ()	config.h	/^			std::list<T> operator()(const std::string& v) {$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const std::string& v)
 operator ()	config.h	/^			std::map<std::string, T> operator()(const std::string& v) {$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const std::string& v)
@@ -589,12 +635,17 @@ rdlock	mutex.cc	/^        void RWMutex::rdlock() $/;"	f	class:ygw::thread::RWMut
 rdlock	mutex.h	/^            void rdlock() {}$/;"	f	class:ygw::thread::NullRWMutex	access:public	signature:()
 rdlock	mutex.h	/^            void rdlock();$/;"	p	class:ygw::thread::RWMutex	access:public	signature:()
 read_	iomanager.h	/^                EventContext read_;$/;"	m	class:ygw::scheduler::IOManager::FdContext	access:public
+read_fun	hook.h	/^    typedef ssize_t (*read_fun)(int fd, void *buf, size_t count);$/;"	t
+readv_fun	hook.h	/^    typedef ssize_t (*readv_fun)(int fd, const struct iovec *iov, int iovcnt);$/;"	t
 recurring_	timer.h	/^            bool recurring_ = false;$/;"	m	class:ygw::timer::Timer	access:private
+recv_fun	hook.h	/^    typedef ssize_t (*recv_fun)(int sockfd, void *buf, size_t len, int flags);$/;"	t
+recv_timeout_	fd_manager.h	/^            uint64_t recv_timeout_;$/;"	m	class:ygw::handle::FdContext	access:private
+recvfrom_fun	hook.h	/^    typedef ssize_t (*recvfrom_fun)(int sockfd, void *buf, size_t len, int flags, struct sockaddr *src_addr, socklen_t *addrlen);$/;"	t
+recvmsg_fun	hook.h	/^    typedef ssize_t (*recvmsg_fun)(int sockfd, struct msghdr *msg, int flags);$/;"	t
 root_	log.h	/^            Logger::ptr root_;$/;"	m	class:ygw::log::Logger	access:private
 root_	log.h	/^            Logger::ptr root_;$/;"	m	class:ygw::log::LoggerManager	access:private
 root_fiber_	scheduler.h	/^            Fiber::ptr root_fiber_;$/;"	m	class:ygw::scheduler::Scheduler	access:private
 root_thread_	scheduler.h	/^            int root_thread_ = 0;$/;"	m	class:ygw::scheduler::Scheduler	access:protected
-run	a.cc	/^void run()$/;"	f	signature:()
 s_file2modifytime	config.cc	/^        static std::map<std::string, uint64_t> s_file2modifytime;$/;"	m	namespace:ygw::config	file:
 s_mutex	config.cc	/^        static ygw::thread::Mutex s_mutex;$/;"	m	namespace:ygw::config	file:
 scheduler	fiber.cc	/^    namespace scheduler {$/;"	n	namespace:ygw	file:
@@ -606,12 +657,21 @@ scheduler	scheduler.cc	/^    namespace scheduler {$/;"	n	namespace:ygw	file:
 scheduler	scheduler.h	/^    namespace scheduler {$/;"	n	namespace:ygw
 semaphore_	mutex.h	/^            sem_t semaphore_;$/;"	m	class:ygw::thread::Semaphore	access:private
 semaphore_	thread.h	/^            Semaphore semaphore_;$/;"	m	class:ygw::thread::Thread	access:private
+send_fun	hook.h	/^    typedef ssize_t (*send_fun)(int s, const void *msg, size_t len, int flags);$/;"	t
+send_timeout_	fd_manager.h	/^            uint64_t send_timeout_;$/;"	m	class:ygw::handle::FdContext	access:private
+sendmsg_fun	hook.h	/^    typedef ssize_t (*sendmsg_fun)(int s, const struct msghdr *msg, int flags);$/;"	t
+sendto_fun	hook.h	/^    typedef ssize_t (*sendto_fun)(int s, const void *msg, size_t len, int flags, const struct sockaddr *to, socklen_t tolen);$/;"	t
+setsockopt_fun	hook.h	/^    typedef int (*setsockopt_fun)(int sockfd, int level, int optname, const void *optval, socklen_t optlen);$/;"	t
+sleep	hook.cc	/^        unsigned int sleep(unsigned int seconds) $/;"	f	signature:(unsigned int seconds)
+sleep_func	hook.h	/^    typedef unsigned int (*sleep_func)(unsigned int seconds);$/;"	t
+socket_func	hook.h	/^    typedef int (*socket_func)(int domain, int type, int protocol);$/;"	t
 stack_	fiber.h	/^            void* stack_ = nullptr;$/;"	m	class:ygw::scheduler::Fiber	access:private
 stack_size_	fiber.h	/^            uint32_t stack_size_ = 0;$/;"	m	class:ygw::scheduler::Fiber	access:private
 state_	fiber.h	/^            State state_ = State::kInit;$/;"	m	class:ygw::scheduler::Fiber	access:private
 stopping_	scheduler.h	/^            bool stopping_ = true;$/;"	m	class:ygw::scheduler::Scheduler	access:protected
 string_stream_	log.h	/^            std::stringstream string_stream_;$/;"	m	class:ygw::log::LogEvent	access:private
 t_fiber	fiber.cc	/^        static thread_local Fiber* t_fiber = nullptr;$/;"	m	namespace:ygw::scheduler	file:
+t_hook_enable	hook.cc	/^        static thread_local bool t_hook_enable = false;$/;"	m	namespace:ygw::hook	file:
 t_scheduler	scheduler.cc	/^        static thread_local Scheduler* t_scheduler = nullptr;  \/\/当前协程调度器指针$/;"	m	namespace:ygw::scheduler	file:
 t_scheduler_fiber	scheduler.cc	/^        static thread_local Fiber* t_scheduler_fiber = nullptr;\/\/主协程$/;"	m	namespace:ygw::scheduler	file:
 t_thread	thread.cc	/^        static thread_local Thread* t_thread = nullptr;$/;"	m	namespace:ygw::thread	file:
@@ -650,18 +710,26 @@ unlock	mutex.h	/^            void unlock();$/;"	p	class:ygw::thread::Spinlock	ac
 unlock	mutex.h	/^        void unlock() {}$/;"	f	class:ygw::thread::NullMutex	access:public	signature:()
 unlock_shared	mutex.cc	/^        void RWMutex::unlock_shared() $/;"	f	class:ygw::thread::RWMutex	signature:()
 unlock_shared	mutex.h	/^            void unlock_shared();$/;"	p	class:ygw::thread::RWMutex	access:public	signature:()
+usleep	hook.cc	/^        int usleep(useconds_t usec)$/;"	f	signature:(useconds_t usec)
+usleep_func	hook.h	/^    typedef int (*usleep_func)(useconds_t usec);$/;"	t
 util	util.cc	/^    namespace util {$/;"	n	namespace:ygw	file:
 util	util.h	/^    namespace util {$/;"	n	namespace:ygw
 val_	config.h	/^            T val_;$/;"	m	class:ygw::config::ConfigVar	access:private
 write_	iomanager.h	/^                EventContext write_;$/;"	m	class:ygw::scheduler::IOManager::FdContext	access:public
+write_fun	hook.h	/^    typedef ssize_t (*write_fun)(int fd, const void *buf, size_t count);$/;"	t
+writev_fun	hook.h	/^    typedef ssize_t (*writev_fun)(int fd, const struct iovec *iov, int iovcnt);$/;"	t
 wrlock	mutex.cc	/^        void RWMutex::wrlock() $/;"	f	class:ygw::thread::RWMutex	signature:()
 wrlock	mutex.h	/^            void wrlock() {}$/;"	f	class:ygw::thread::NullRWMutex	access:public	signature:()
 wrlock	mutex.h	/^            void wrlock();$/;"	p	class:ygw::thread::RWMutex	access:public	signature:()
 ygw	able.h	/^namespace ygw {$/;"	n
 ygw	config.cc	/^namespace ygw {$/;"	n	file:
 ygw	config.h	/^namespace ygw {$/;"	n
+ygw	fd_manager.cc	/^namespace ygw {$/;"	n	file:
+ygw	fd_manager.h	/^namespace ygw {$/;"	n
 ygw	fiber.cc	/^namespace ygw {$/;"	n	file:
 ygw	fiber.h	/^namespace ygw {$/;"	n
+ygw	hook.cc	/^namespace ygw {$/;"	n	file:
+ygw	hook.h	/^namespace ygw {$/;"	n
 ygw	iomanager.cc	/^namespace ygw {$/;"	n	file:
 ygw	iomanager.h	/^namespace ygw {$/;"	n
 ygw	log.cc	/^namespace ygw {$/;"	n	file:
@@ -756,6 +824,47 @@ ygw::config::ListAllMember	config.cc	/^        static void ListAllMember(const s
 ygw::config::g_logger	config.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::config	file:
 ygw::config::s_file2modifytime	config.cc	/^        static std::map<std::string, uint64_t> s_file2modifytime;$/;"	m	namespace:ygw::config	file:
 ygw::config::s_mutex	config.cc	/^        static ygw::thread::Mutex s_mutex;$/;"	m	namespace:ygw::config	file:
+ygw::handle	fd_manager.cc	/^    namespace handle {$/;"	n	namespace:ygw	file:
+ygw::handle	fd_manager.h	/^    namespace handle {$/;"	n	namespace:ygw
+ygw::handle::FdContext	fd_manager.h	/^        class FdContext : public std::enable_shared_from_this<FdContext> $/;"	c	namespace:ygw::handle	inherits:std::enable_shared_from_this
+ygw::handle::FdContext::FdContext	fd_manager.cc	/^        FdContext::FdContext(int fd)$/;"	f	class:ygw::handle::FdContext	signature:(int fd)
+ygw::handle::FdContext::GetTimeout	fd_manager.cc	/^        uint64_t FdContext::GetTimeout(int type)$/;"	f	class:ygw::handle::FdContext	signature:(int type)
+ygw::handle::FdContext::GetTimeout	fd_manager.h	/^            uint64_t GetTimeout(int type);$/;"	p	class:ygw::handle::FdContext	access:public	signature:(int type)
+ygw::handle::FdContext::Init	fd_manager.cc	/^        bool FdContext::Init() $/;"	f	class:ygw::handle::FdContext	signature:()
+ygw::handle::FdContext::Init	fd_manager.h	/^            bool Init();$/;"	p	class:ygw::handle::FdContext	access:private	signature:()
+ygw::handle::FdContext::IsClose	fd_manager.h	/^            bool IsClose() const { return is_closed_; }$/;"	f	class:ygw::handle::FdContext	access:public	signature:() const
+ygw::handle::FdContext::IsInit	fd_manager.h	/^            bool IsInit() const { return is_init_; }$/;"	f	class:ygw::handle::FdContext	access:public	signature:() const
+ygw::handle::FdContext::IsSocket	fd_manager.h	/^            bool IsSocket() const { return is_socket_; }$/;"	f	class:ygw::handle::FdContext	access:public	signature:() const
+ygw::handle::FdContext::IsSysNonblock	fd_manager.h	/^            bool IsSysNonblock() const { return is_sys_nonblock_; }$/;"	f	class:ygw::handle::FdContext	access:public	signature:() const
+ygw::handle::FdContext::IstUserNonblock	fd_manager.h	/^            bool IstUserNonblock() const { return is_user_nonblock_; }$/;"	f	class:ygw::handle::FdContext	access:public	signature:() const
+ygw::handle::FdContext::SetSysNonblock	fd_manager.h	/^            void SetSysNonblock(bool v) { is_sys_nonblock_ = v; }$/;"	f	class:ygw::handle::FdContext	access:public	signature:(bool v)
+ygw::handle::FdContext::SetTimeout	fd_manager.cc	/^        void FdContext::SetTimeout(int type, uint64_t v) $/;"	f	class:ygw::handle::FdContext	signature:(int type, uint64_t v)
+ygw::handle::FdContext::SetTimeout	fd_manager.h	/^            void SetTimeout(int type, uint64_t v);$/;"	p	class:ygw::handle::FdContext	access:public	signature:(int type, uint64_t v)
+ygw::handle::FdContext::SetUserNonblock	fd_manager.h	/^            void SetUserNonblock(bool v) { is_user_nonblock_ = v; }$/;"	f	class:ygw::handle::FdContext	access:public	signature:(bool v)
+ygw::handle::FdContext::fd_	fd_manager.h	/^            int fd_;$/;"	m	class:ygw::handle::FdContext	access:private
+ygw::handle::FdContext::recv_timeout_	fd_manager.h	/^            uint64_t recv_timeout_;$/;"	m	class:ygw::handle::FdContext	access:private
+ygw::handle::FdContext::send_timeout_	fd_manager.h	/^            uint64_t send_timeout_;$/;"	m	class:ygw::handle::FdContext	access:private
+ygw::handle::FdContext::~FdContext	fd_manager.cc	/^        FdContext::~FdContext() $/;"	f	class:ygw::handle::FdContext	signature:()
+ygw::handle::FdContext::~FdContext	fd_manager.h	/^            ~FdContext();$/;"	p	class:ygw::handle::FdContext	access:public	signature:()
+ygw::handle::FdContextManager	fd_manager.h	/^        class FdContextManager $/;"	c	namespace:ygw::handle	inherits:std::enable_shared_from_this
+ygw::handle::FdContextManager::Del	fd_manager.cc	/^        void FdContextManager::Del(int fd) $/;"	f	class:ygw::handle::FdContextManager	signature:(int fd)
+ygw::handle::FdContextManager::Del	fd_manager.h	/^            void Del(int fd);$/;"	p	class:ygw::handle::FdContextManager	access:public	signature:(int fd)
+ygw::handle::FdContextManager::FdContextManager	fd_manager.cc	/^        FdContextManager::FdContextManager() $/;"	f	class:ygw::handle::FdContextManager	signature:()
+ygw::handle::FdContextManager::Get	fd_manager.cc	/^        FdContext::ptr FdContextManager::Get(int fd, bool auto_create) $/;"	f	class:ygw::handle::FdContextManager	signature:(int fd, bool auto_create)
+ygw::handle::FdContextManager::Get	fd_manager.h	/^            FdContext::ptr Get(int fd, bool auto_create = false);$/;"	p	class:ygw::handle::FdContextManager	access:public	signature:(int fd, bool auto_create = false)
+ygw::handle::FdContextManager::datas_	fd_manager.h	/^            std::vector<FdContext::ptr> datas_;$/;"	m	class:ygw::handle::FdContextManager	access:private
+ygw::handle::FdContextManager::mutex_	fd_manager.h	/^            RWMutexType mutex_;$/;"	m	class:ygw::handle::FdContextManager	access:private
+ygw::hook	hook.cc	/^    namespace hook {$/;"	n	namespace:ygw	file:
+ygw::hook	hook.h	/^    namespace hook {$/;"	n	namespace:ygw
+ygw::hook::HookInit	hook.cc	/^        void HookInit()$/;"	f	namespace:ygw::hook	signature:()
+ygw::hook::IsHookEnable	hook.cc	/^        bool IsHookEnable()$/;"	f	namespace:ygw::hook	signature:()
+ygw::hook::IsHookEnable	hook.h	/^        bool IsHookEnable();$/;"	p	namespace:ygw::hook	signature:()
+ygw::hook::SetHookEnable	hook.cc	/^        void SetHookEnable(bool flag)$/;"	f	namespace:ygw::hook	signature:(bool flag)
+ygw::hook::SetHookEnable	hook.h	/^        void SetHookEnable(bool flag);$/;"	p	namespace:ygw::hook	signature:(bool flag)
+ygw::hook::_HookIniter	hook.cc	/^        class _HookIniter $/;"	c	namespace:ygw::hook	file:
+ygw::hook::_HookIniter::_HookIniter	hook.cc	/^            _HookIniter() $/;"	f	class:ygw::hook::_HookIniter	access:public	signature:()
+ygw::hook::g_logger	hook.cc	/^        ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::hook	file:
+ygw::hook::t_hook_enable	hook.cc	/^        static thread_local bool t_hook_enable = false;$/;"	m	namespace:ygw::hook	file:
 ygw::log	log.cc	/^    namespace log {$/;"	n	namespace:ygw	file:
 ygw::log	log.h	/^    namespace log {$/;"	n	namespace:ygw
 ygw::log::DateTimeFormatItem	log.cc	/^        class DateTimeFormatItem : public LogFormatter::FormatItem $/;"	c	namespace:ygw::log	file:	inherits:LogFormatter::FormatItem
@@ -1312,6 +1421,8 @@ ygw::util::TypeToName	util.h	/^        inline const char* TypeToName() $/;"	f	na
 ygw::util::g_logger	util.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::util	file:
 ~CASLock	mutex.h	/^            ~CASLock() {$/;"	f	class:ygw::thread::CASLock	access:public	signature:()
 ~ConfigVarBase	config.h	/^            virtual ~ConfigVarBase() {}$/;"	f	class:ygw::config::ConfigVarBase	access:public	signature:()
+~FdContext	fd_manager.cc	/^        FdContext::~FdContext() $/;"	f	class:ygw::handle::FdContext	signature:()
+~FdContext	fd_manager.h	/^            ~FdContext();$/;"	p	class:ygw::handle::FdContext	access:public	signature:()
 ~Fiber	fiber.cc	/^        Fiber::~Fiber()$/;"	f	class:ygw::scheduler::Fiber	signature:()
 ~Fiber	fiber.h	/^            ~Fiber();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
 ~FormatItem	log.h	/^                virtual ~FormatItem() {}$/;"	f	class:ygw::log::LogFormatter::FormatItem	access:public	signature:()
