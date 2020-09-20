@@ -138,7 +138,7 @@ namespace ygw {
         // class TimerManager method
         TimerManager::TimerManager() 
         {
-                previouse_time_ = ygw::util::GetCurrentMS();
+            previouse_time_ = ygw::util::GetCurrentMS();
         }
 
         TimerManager::~TimerManager() 
@@ -156,8 +156,12 @@ namespace ygw {
 
         static void OnTimer(std::weak_ptr<void> weak_cond, std::function<void()> cb) 
         {
-            std::shared_ptr<void> tmp = weak_cond.lock();
-            if (tmp) 
+            //std::shared_ptr<void> tmp = weak_cond.lock();
+            //if (tmp) 
+            //{
+            //    cb();
+            //}
+            if (weak_cond.lock()) 
             {
                 cb();
             }
@@ -207,6 +211,7 @@ namespace ygw {
             {
                 return;
             }
+            // 判断服务器时间是否被调过
             bool rollover = DetectClockRollover(now_ms);
             if (!rollover && ((*timers_.begin())->next_ > now_ms)) 
             {
@@ -219,6 +224,7 @@ namespace ygw {
             {
                 ++it;
             }
+            //取出 timers[begin, 最后一个lower_bound]
             expired.insert(expired.begin(), timers_.begin(), it);
             timers_.erase(timers_.begin(), it);
             cbs.reserve(expired.size());

@@ -126,7 +126,8 @@ struct TimerInfo
 };
 
 template<typename OriginFunc, typename ... Args>
-static ssize_t DoIo(int fd,         //文件描述符 
+static ssize_t DoIo(
+        int fd,         //文件描述符 
         OriginFunc func,            //原函数
         const char* hook_func_name, //要hook的函数名
         uint32_t event,             //事件 
@@ -164,10 +165,11 @@ static ssize_t DoIo(int fd,         //文件描述符
 
 
 retry:
-    ssize_t n = func(fd, std::forward<Args>(args)...);
+    ssize_t n = func(fd, std::forward<Args>(args)...); // 调用一次
+
     while(n == -1 && errno == EINTR) //执行失败且被系统中断
     {
-        n = func(fd, std::forward<Args>(args)...);
+        n = func(fd, std::forward<Args>(args)...); // 再尝试执行
     }
 
 
@@ -180,14 +182,14 @@ retry:
         if (to != static_cast<uint64_t>(-1))//如果获取超时毫秒成功
         {
             timer = iom->AddConditionTimer(to, [winfo, fd, iom, event]() {
-                    auto t = winfo.lock();      //拿出条件尝试唤醒
-                    if (!t || t->cancelled)     //如果没有条件 或者 设置了错误
-                    {
+                auto t = winfo.lock();      //拿出条件尝试唤醒
+                if (!t || t->cancelled)     //如果没有条件 或者 设置了错误
+                {
                     return;
-                    }
-                    t->cancelled = ETIMEDOUT;   //将s错误设置为超时
-                    iom->CancelEvent(fd, (ygw::scheduler::IOManager::Event)(event)); //取消事件
-                    }, winfo);//添加条件定时器
+                }
+                t->cancelled = ETIMEDOUT;   //将s错误设置为超时
+                iom->CancelEvent(fd, (ygw::scheduler::IOManager::Event)(event)); //取消事件
+            }, winfo);//添加条件定时器
         }
 
         //添加事件， 不传回调函数，就是把当前协程作为事件唤醒对象

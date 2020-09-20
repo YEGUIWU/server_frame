@@ -116,6 +116,7 @@ namespace ygw {
                 return nullptr;
             }
             {
+                //够就直接给，不够就扩充再给
                 RWMutexType::ReadLock lock(mutex_);
                 if (static_cast<int>(datas_.size()) <= fd) 
                 {

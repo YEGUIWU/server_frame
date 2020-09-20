@@ -28,7 +28,7 @@
 #endif
 
 #define YGW_ASSERT(x) \
-    if (!(x)) { \
+    if (YGW_UNLIKELY(!(x))) { \
         YGW_LOG_ERROR(YGW_LOG_ROOT()) << "ASSERTION: " #x \
         << "\nbacktrace:\n" \
         << ygw::util::BacktraceToString(100, 2, "    "); \
@@ -36,7 +36,7 @@
     }
 
 #define YGW_MSG_ASSERT(x, w) \
-    if (!(x)) { \
+    if (YGW_UNLIKELY(!(x))) { \
         YGW_LOG_ERROR(YGW_LOG_ROOT()) << "ASSERTION: " #x \
         << "\n" << w \
         << "\nbacktrace:\n" \

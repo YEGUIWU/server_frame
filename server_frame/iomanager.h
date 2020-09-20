@@ -46,7 +46,7 @@ namespace ygw {
             };
         private:
             /**
-             ** @brief Socket事件上线文类
+             ** @brief Socket事件上下文类
              **/
             class FdContext 
             {
@@ -93,9 +93,9 @@ namespace ygw {
                 /// 事件关联的句柄
                 int fd = 0;
                 /// 当前的事件
-                Event events = Event::kNone;
+                Event events_ = Event::kNone;
                 /// 事件的Mutex
-                MutexType mutex;
+                MutexType mutex_;
             };
 
         public:

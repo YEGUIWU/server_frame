@@ -119,12 +119,12 @@ namespace ygw {
             //YGW_LOG_INFO(g_logger) << "fd=" << fd
             //    << " TriggerEvent event=" << event
             //    << " events=" << events;
-            YGW_ASSERT(events & event);
+            YGW_ASSERT(events_ & event);
             //if (YGW_UNLIKELY(!(event & event))) 
             //{
             //    return;
             //}
-            events = (Event)(events & ~event);
+            events_ = (Event)(events_ & ~event);
             EventContext& ctx = GetContext(event);
             if (ctx.cb) 
             {
@@ -220,18 +220,18 @@ namespace ygw {
                 }
             }
 
-            FdContext::MutexType::Lock lock(fd_ctx->mutex);
-            if (YGW_UNLIKELY(fd_ctx->events & event)) 
+            FdContext::MutexType::Lock lock(fd_ctx->mutex_);
+            if (YGW_UNLIKELY(fd_ctx->events_ & event)) 
             {
                 YGW_LOG_ERROR(g_logger) << "AddEvent assert fd=" << fd
                     << " event=" << (EPOLL_EVENTS)event
-                    << " fd_ctx.event=" << (EPOLL_EVENTS)fd_ctx->events;
-                YGW_ASSERT(!(fd_ctx->events & event));
+                    << " fd_ctx.event=" << (EPOLL_EVENTS)fd_ctx->events_;
+                YGW_ASSERT(!(fd_ctx->events_ & event));
             }
 
-            int op = fd_ctx->events ? EPOLL_CTL_MOD : EPOLL_CTL_ADD;
+            int op = fd_ctx->events_ ? EPOLL_CTL_MOD : EPOLL_CTL_ADD;
             epoll_event epevent;
-            epevent.events = EPOLLET | fd_ctx->events | event;
+            epevent.events = EPOLLET | fd_ctx->events_ | event;
             epevent.data.ptr = fd_ctx;
 
             int rt = epoll_ctl(epfd_, op, fd, &epevent);
@@ -239,13 +239,13 @@ namespace ygw {
             {
                 YGW_LOG_ERROR(g_logger) << "epoll_ctl(" << epfd_ << ", "
                     << (EpollCtlOp)op << ", " << fd << ", " << (EPOLL_EVENTS)epevent.events << "):"
-                    << rt << " (" << errno << ") (" << strerror(errno) << ") fd_ctx->events="
-                    << (EPOLL_EVENTS)fd_ctx->events;
+                    << rt << " (" << errno << ") (" << strerror(errno) << ") fd_ctx->events_="
+                    << (EPOLL_EVENTS)fd_ctx->events_;
                 return -1;
             }
 
             ++pending_event_count_;
-            fd_ctx->events = (Event)(fd_ctx->events | event);
+            fd_ctx->events_ = (Event)(fd_ctx->events_ | event);
             FdContext::EventContext& event_ctx = fd_ctx->GetContext(event);
             YGW_ASSERT(!event_ctx.scheduler
                     && !event_ctx.fiber
@@ -276,13 +276,13 @@ namespace ygw {
             FdContext* fd_ctx = fd_contexts_[fd];
             lock.unlock();
 
-            FdContext::MutexType::Lock fd_lock(fd_ctx->mutex);
-            if (YGW_UNLIKELY(!(fd_ctx->events & event))) 
+            FdContext::MutexType::Lock fd_lock(fd_ctx->mutex_);
+            if (YGW_UNLIKELY(!(fd_ctx->events_ & event))) 
             {
                 return false;
             }
 
-            Event new_events = (Event)(fd_ctx->events & ~event);
+            Event new_events = (Event)(fd_ctx->events_ & ~event);
             int op = new_events ? EPOLL_CTL_MOD : EPOLL_CTL_DEL;
             epoll_event epevent;
             epevent.events = EPOLLET | new_events;
@@ -298,7 +298,7 @@ namespace ygw {
             }
 
             --pending_event_count_;
-            fd_ctx->events = new_events;
+            fd_ctx->events_ = new_events;
             FdContext::EventContext& event_ctx = fd_ctx->GetContext(event);
             fd_ctx->ResetContext(event_ctx);
             return true;
@@ -316,13 +316,13 @@ namespace ygw {
             FdContext* fd_ctx = fd_contexts_[fd];
             lock.unlock();
 
-            FdContext::MutexType::Lock fd_lock(fd_ctx->mutex);
-            if (YGW_UNLIKELY(!(fd_ctx->events & event))) 
+            FdContext::MutexType::Lock fd_lock(fd_ctx->mutex_);
+            if (YGW_UNLIKELY(!(fd_ctx->events_ & event))) 
             {
                 return false;
             }
 
-            Event new_events = (Event)(fd_ctx->events & ~event);
+            Event new_events = (Event)(fd_ctx->events_ & ~event);
             int op = new_events ? EPOLL_CTL_MOD : EPOLL_CTL_DEL;
             epoll_event epevent;
             epevent.events = EPOLLET | new_events;
@@ -354,9 +354,9 @@ namespace ygw {
             FdContext* fd_ctx = fd_contexts_[fd];
             lock.unlock();
 
-            FdContext::MutexType::Lock fd_lock(fd_ctx->mutex);
+            FdContext::MutexType::Lock fd_lock(fd_ctx->mutex_);
             //没有事件就不需要操作
-            if (!fd_ctx->events) 
+            if (!fd_ctx->events_) 
             {
                 return false;
             }
@@ -375,18 +375,18 @@ namespace ygw {
                 return false;
             }
 
-            if (fd_ctx->events & Event::kRead) 
+            if (fd_ctx->events_ & Event::kRead) 
             {
                 fd_ctx->TriggerEvent(Event::kRead);
                 --pending_event_count_;
             }
-            if (fd_ctx->events & Event::kWrite) 
+            if (fd_ctx->events_ & Event::kWrite) 
             {
                 fd_ctx->TriggerEvent(Event::kWrite);
                 --pending_event_count_;
             }
 
-            YGW_ASSERT(fd_ctx->events == 0);
+            YGW_ASSERT(fd_ctx->events_ == 0);
             return true;
         }
 
@@ -501,10 +501,10 @@ namespace ygw {
                     }
 
                     FdContext* fd_ctx = (FdContext*)event.data.ptr;
-                    FdContext::MutexType::Lock lock(fd_ctx->mutex);
+                    FdContext::MutexType::Lock lock(fd_ctx->mutex_);
                     if (event.events & (EPOLLERR | EPOLLHUP)) 
                     {
-                        event.events |= (EPOLLIN | EPOLLOUT) & fd_ctx->events;
+                        event.events |= (EPOLLIN | EPOLLOUT) & fd_ctx->events_;
                     }
                     int real_events = Event::kNone;
 
@@ -517,12 +517,12 @@ namespace ygw {
                         real_events |= Event::kWrite;
                     }
 
-                    if ((fd_ctx->events & real_events) == Event::kNone) //没有事件
+                    if ((fd_ctx->events_ & real_events) == Event::kNone) //没有事件
                     {
                         continue;
                     }
 
-                    int left_events = (fd_ctx->events & ~real_events);   // 剩余事件
+                    int left_events = (fd_ctx->events_ & ~real_events);   // 剩余事件
                     int op = left_events ? EPOLL_CTL_MOD : EPOLL_CTL_DEL;
                     event.events = EPOLLET | left_events; // 边缘触发剩余事件
 
@@ -536,7 +536,7 @@ namespace ygw {
                         continue; //放弃本次操作
                     }
 
-                    //YGW_LOG_INFO(g_logger) << " fd=" << fd_ctx->fd << " events=" << fd_ctx->events
+                    //YGW_LOG_INFO(g_logger) << " fd=" << fd_ctx->fd << " events=" << fd_ctx->events_
                     //                         << " real_events=" << real_events;
 
                     if (real_events & Event::kRead)  // 读事件

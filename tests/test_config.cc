@@ -248,8 +248,8 @@ int main()
     //YGW_LOG_INFO(YGW_LOG_ROOT()) << g_float_value_config->ToString();
     //test_yaml();
     //test_config();
-    //test_class();
-    test_log();
+    test_class();
+    //test_log();
 
 
     ygw::config::Config::Visit([](ygw::config::ConfigVarBase::ptr var) {

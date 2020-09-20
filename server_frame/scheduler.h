@@ -17,7 +17,7 @@
 #include <memory>
 #include <vector>
 
-#include "able.h"
+#include "noncopyable.h"
 #include "fiber.h"
 #include "thread.h"
 
@@ -73,8 +73,8 @@ namespace ygw {
             void Start();
 
             /**
-             *      * @brief 停止协程调度器
-             *           */
+             ** @brief 停止协程调度器
+             **/
             void Stop();
 
             /**
