@@ -110,6 +110,7 @@ namespace ygw {
 
             YGW_MSG_ASSERT(!getcontext(&context_), "getcontext");
 
+            //Init context
             SetContext(&context_, nullptr, stack_, stack_size_);
             //context_.uc_link = nullptr;
             //context_.uc_stack.ss_sp = stack_;
@@ -324,7 +325,7 @@ namespace ygw {
         }
 
 
-    } // namespace thread  
+    } // namespace scheduler
 
     //---------------------------------------------------
 
