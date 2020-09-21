@@ -13,8 +13,8 @@
 #ifndef __YGW_IOMANAGER_H__
 #define __YGW_IOMANAGER_H__
 
-#include "scheduler.h"
-#include "timer.h"
+#include "base/scheduler.h"
+#include "base/timer.h"
 
 namespace ygw {
 

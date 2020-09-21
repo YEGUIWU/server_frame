@@ -20,8 +20,8 @@
 #include <cstring>
 
 #include "iomanager.h"
-#include "macro.h"
 #include "log.h"
+#include "macro.h"
 
 namespace ygw {
 
