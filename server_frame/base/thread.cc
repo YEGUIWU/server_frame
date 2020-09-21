@@ -14,8 +14,8 @@
 #include <pthread.h>
 
 #include "thread.h"
-#include "log.h"
-#include "util.h"
+#include "server_frame/log.h"
+#include "server_frame/util.h"
 
 namespace ygw {
 

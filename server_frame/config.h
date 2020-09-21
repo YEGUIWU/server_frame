@@ -30,7 +30,7 @@
 
 #include "log.h"
 #include "util.h"
-#include "mutex.h"
+#include "base/mutex.h"
 
 
 namespace ygw {

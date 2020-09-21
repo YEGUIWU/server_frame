@@ -17,8 +17,8 @@
 #include <memory>
 #include <vector>
 
-#include "noncopyable.h"
 #include "fiber.h"
+#include "server_frame/noncopyable.h"
 #include "thread.h"
 
 namespace ygw {

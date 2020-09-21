@@ -16,9 +16,9 @@
 #include <functional>
 #include <string>
 #include <memory>
-#include "noncopyable.h"
-#include "mutex.h"
 
+#include "mutex.h"
+#include "server_frame/noncopyable.h"
 
 namespace ygw {
 

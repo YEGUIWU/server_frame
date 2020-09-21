@@ -15,10 +15,10 @@
 
 #include <atomic>
 
-#include "config.h"  // 里面有log.h util.h
 #include "fiber.h"
-#include "macro.h"
 #include "scheduler.h"
+#include "server_frame/config.h"  // 里面有log.h util.h
+#include "server_frame/macro.h"
 
 namespace ygw {
 

@@ -17,7 +17,7 @@
 #include <memory>
 #include <vector>
 #include "thread.h"
-#include "singleton.h"
+#include "server_frame/singleton.h"
 
 
 namespace ygw {

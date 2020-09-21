@@ -16,7 +16,7 @@
 #include <atomic>
 #include <semaphore.h>
 #include <pthread.h>
-#include "noncopyable.h"
+#include "server_frame/noncopyable.h"
 
 namespace ygw {
 
