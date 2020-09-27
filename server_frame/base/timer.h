@@ -1,15 +1,13 @@
-/*
- * ====================================================
- * Copyright (c) 2020-2100
- *     FileName: server_frame/timer.h
- *       Author: Ye Gui Wu
- *        Email: yeguiwu@qq.com
- *      Version: 1.0
- *     Compiler: gcc
- *  Create Date: 2020-05-10
- *  Description: 定时器封装
- * ====================================================
+/**
+ * @file timer.h
+ * @brief 
+ * @author YeGuiWu
+ * @email yeguiwu@qq.com
+ * @version 1.0
+ * @date 2020-09-27
+ * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.top
  */
+
 #ifndef __YGW_TIMER_H__
 #define __YGW_TIMER_H__
 
@@ -30,8 +28,8 @@ namespace ygw {
         class TimerManager;
 
         /**
-         ** @brief 定时器
-         **/
+         * @brief 定时器
+         */
         class Timer : public std::enable_shared_from_this<Timer> 
         {
         friend class TimerManager;
@@ -40,35 +38,35 @@ namespace ygw {
             using ptr = std::shared_ptr<Timer>;
 
             /**
-             ** @brief 取消定时器
-             **/
+             * @brief 取消定时器
+             */
             bool Cancel();
 
             /**
-             ** @brief 刷新设置定时器的执行时间
-             **/
+             * @brief 刷新设置定时器的执行时间
+             */
             bool Refresh();
 
             /**
-             ** @brief 重置定时器时间
-             ** @param[in] ms 定时器执行间隔时间(毫秒)
-             ** @param[in] from_now 是否从当前时间开始计算
-             **/
+             * @brief 重置定时器时间
+             * @param[in] ms 定时器执行间隔时间(毫秒)
+             * @param[in] from_now 是否从当前时间开始计算
+             */
             bool Reset(uint64_t ms, bool from_now);
         private:
             /**
-             ** @brief 构造函数
-             ** @param[in] ms 定时器执行间隔时间
-             ** @param[in] cb 回调函数
-             ** @param[in] recurring 是否循环
-             ** @param[in] manager 定时器管理器
-             **/
+             * @brief 构造函数
+             * @param[in] ms 定时器执行间隔时间
+             * @param[in] cb 回调函数
+             * @param[in] recurring 是否循环
+             * @param[in] manager 定时器管理器
+             */
             Timer(uint64_t ms, std::function<void()> cb,
                     bool recurring, TimerManager* manager);
             /**
-             ** @brief 构造函数
-             ** @param[in] next 执行的时间戳(毫秒)
-             **/
+             * @brief 构造函数
+             * @param[in] next 执行的时间戳(毫秒)
+             */
             Timer(uint64_t next);
         private:
             /// 是否循环定时器
@@ -84,16 +82,16 @@ namespace ygw {
         private:
             //--------------------------------------------------------------
             /**
-             ** @brief 定时器比较仿函数
-             **/
+             * @brief 定时器比较仿函数
+             */
             class Comparator 
             {
             public:
                 /**
-                 ** @brief 比较定时器的智能指针的大小(按执行时间排序)
-                 ** @param[in] lhs 定时器智能指针
-                 ** @param[in] rhs 定时器智能指针
-                 **/
+                 * @brief 比较定时器的智能指针的大小(按执行时间排序)
+                 * @param[in] lhs 定时器智能指针
+                 * @param[in] rhs 定时器智能指针
+                 */
                 bool operator()(const Timer::ptr& lhs, const Timer::ptr& rhs) const;
             }; // class Comparator
 
@@ -104,8 +102,8 @@ namespace ygw {
         //------------------------------------------------------------------
 
         /**
-         ** @brief 定时器管理器
-         **/
+         * @brief 定时器管理器
+         */
         class TimerManager 
         {
         friend class Timer;
@@ -114,65 +112,65 @@ namespace ygw {
             using RWMutexType = thread::RWMutex;
 
             /**
-             ** @brief 构造函数
-             **/
+             * @brief 构造函数
+             */
             TimerManager();
 
             /**
-             ** @brief 析构函数
-             **/
+             * @brief 析构函数
+             */
             virtual ~TimerManager();
 
             /**
-             ** @brief 添加定时器
-             ** @param[in] ms 定时器执行间隔时间
-             ** @param[in] cb 定时器回调函数
-             ** @param[in] recurring 是否循环定时器
-             **/
+             * @brief 添加定时器
+             * @param[in] ms 定时器执行间隔时间
+             * @param[in] cb 定时器回调函数
+             * @param[in] recurring 是否循环定时器
+             */
             Timer::ptr AddTimer(uint64_t ms, std::function<void()> cb
                     ,bool recurring = false);
 
             /**
-             ** @brief 添加条件定时器
-             ** @param[in] ms 定时器执行间隔时间
-             ** @param[in] cb 定时器回调函数
-             ** @param[in] weak_cond 条件
-             ** @param[in] recurring 是否循环
-             **/
+             * @brief 添加条件定时器
+             * @param[in] ms 定时器执行间隔时间
+             * @param[in] cb 定时器回调函数
+             * @param[in] weak_cond 条件
+             * @param[in] recurring 是否循环
+             */
             Timer::ptr AddConditionTimer(uint64_t ms, std::function<void()> cb
                     ,std::weak_ptr<void> weak_cond
                     ,bool recurring = false);
 
             /**
-             ** @brief 到最近一个定时器执行的时间间隔(毫秒)
-             **/
+             * @brief 到最近一个定时器执行的时间间隔(毫秒)
+             */
             uint64_t GetNextTimer();
 
             /**
-             ** @brief 获取需要执行的定时器的回调函数列表
-             ** @param[out] cbs 回调函数数组
-             **/
+             * @brief 获取需要执行的定时器的回调函数列表
+             * @param[out] cbs 回调函数数组
+             */
             void ListExpiredCb(std::vector<std::function<void()> >& cbs);
 
             /**
-             ** @brief 是否有定时器
-             **/
+             * @brief 是否有定时器
+             */
             bool HasTimer();
         protected:
 
             /**
-             ** @brief 当有新的定时器插入到定时器的首部,执行该函数
-             **/
+             * @brief 当有新的定时器插入到定时器的首部,执行该函数
+             */
             virtual void OnTimerInsertedAtFront() = 0;
 
             /**
-             ** @brief 将定时器添加到管理器中
-             **/
+             * @brief 将定时器添加到管理器中
+             */
             void AddTimer(Timer::ptr val, RWMutexType::WriteLock& lock);
         private:
             /**
-             ** @brief 检测服务器时间是否被调后了
-             **/
+             * @brief 检测服务器时间是否被调后了
+             */
             bool DetectClockRollover(uint64_t now_ms);
         private:
             /// Mutex

@@ -39,51 +39,51 @@ namespace ygw {
         public:
             using ptr = std::shared_ptr<Thread>;
             /**
-             ** @brief 构造函数
-             ** @param[in] cb 线程执行函数
-             ** @param[in] name 线程名称
-             **/
+             * @brief 构造函数
+             * @param[in] cb 线程执行函数
+             * @param[in] name 线程名称
+             */
             Thread(std::function<void()> cb, const std::string& name);
 
             /**
-             ** @brief 析构函数
-             **/
+             * @brief 析构函数
+             */
             ~Thread();
 
             /**
-             ** @brief 线程ID
-             **/
+             * @brief 线程ID
+             */
             pid_t GetId() const { return id_; }
 
             /**
-             ** @brief 线程名称
-             **/
+             * @brief 线程名称
+             */
             const std::string& GetName() const { return name_; }
 
             /**
-             ** @brief 等待线程执行完成
-             **/
+             * @brief 等待线程执行完成
+             */
             void Join();
 
             /**
-             ** @brief 获取当前的线程指针
-             **/
+             * @brief 获取当前的线程指针
+             */
             static Thread* GetThisPtr();
 
             /**
-             ** @brief 获取当前的线程名称
-             **/
+             * @brief 获取当前的线程名称
+             */
             static const std::string& GetThisName();
 
             /**
-             ** @brief 设置当前线程名称
-             ** @param[in] name 线程名称
-             **/
+             * @brief 设置当前线程名称
+             * @param[in] name 线程名称
+             */
             static void SetName(const std::string& name);
         private:
             /**
-             ** @brief 线程执行函数
-             **/
+             * @brief 线程执行函数
+             */
             static void* Run(void* arg);
         private:
             /// 线程id

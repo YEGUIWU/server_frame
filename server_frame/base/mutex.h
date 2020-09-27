@@ -25,29 +25,29 @@ namespace ygw {
     namespace thread {
 
         /**
-         ** @brief 信号量
-         **/
+         * @brief 信号量
+         */
         class Semaphore : able::Noncopyable {
         public:
             /**
-             ** @brief 构造函数
-             ** @param[in] count 信号量值的大小
-             **/
+             * @brief 构造函数
+             * @param[in] count 信号量值的大小
+             */
             Semaphore(uint32_t count = 0);
 
             /**
-             ** @brief 析构函数
-             **/
+             * @brief 析构函数
+             */
             ~Semaphore();
 
             /**
-             ** @brief 获取信号量
-             **/
+             * @brief 获取信号量
+             */
             void Wait();
 
             /**
-             ** @brief 释放信号量
-             **/
+             * @brief 释放信号量
+             */
             void Notify();
         private:
             sem_t semaphore_;
@@ -55,15 +55,15 @@ namespace ygw {
 
         
         /**
-         ** @brief 局部锁的模板实现
-         **/
+         * @brief 局部锁的模板实现
+         */
         template<class T>
         struct ScopedLockImpl {
         public:
             /**
-             ** @brief 构造函数
-             ** @param[in] mutex Mutex
-             **/
+             * @brief 构造函数
+             * @param[in] mutex Mutex
+             */
             ScopedLockImpl(T& mutex)
                 :mutex_(mutex) 
             {
@@ -72,16 +72,16 @@ namespace ygw {
             }
 
             /**
-             ** @brief 析构函数,自动释放锁
-             **/
+             * @brief 析构函数,自动释放锁
+             */
             ~ScopedLockImpl() 
             {
                 unlock();
             }
 
             /**
-             ** @brief 加锁
-             **/
+             * @brief 加锁
+             */
             void lock() 
             {
                 if (!locked_) 
@@ -92,8 +92,8 @@ namespace ygw {
             }
 
             /**
-             ** @brief 解锁
-             **/
+             * @brief 解锁
+             */
             void unlock() 
             {
                 if (locked_) 
@@ -116,9 +116,9 @@ namespace ygw {
         struct ReadScopedLockImpl {
         public:
             /**
-             ** @brief 构造函数
-             ** @param[in] mutex 读写锁
-             **/
+             * @brief 构造函数
+             * @param[in] mutex 读写锁
+             */
             ReadScopedLockImpl(T& mutex)
                 :mutex_(mutex) 
             {
@@ -127,16 +127,16 @@ namespace ygw {
             }
 
             /**
-             ** @brief 析构函数,自动释放锁
-             **/
+             * @brief 析构函数,自动释放锁
+             */
             ~ReadScopedLockImpl() 
             {
                 unlock();
             }
 
             /**
-             ** @brief 上读锁
-             **/
+             * @brief 上读锁
+             */
             void lock() 
             {
                 if (!locked_) 
@@ -147,8 +147,8 @@ namespace ygw {
             }
 
             /**
-             ** @brief 释放锁
-             **/
+             * @brief 释放锁
+             */
             void unlock() 
             {
                 if (locked_) 
@@ -165,15 +165,15 @@ namespace ygw {
         };
 
         /**
-         ** @brief 局部写锁模板实现
-         **/
+         * @brief 局部写锁模板实现
+         */
         template<class T>
         struct WriteScopedLockImpl {
         public:
             /**
-             ** @brief 构造函数
-             ** @param[in] mutex 读写锁
-             **/
+             * @brief 构造函数
+             * @param[in] mutex 读写锁
+             */
             WriteScopedLockImpl(T& mutex)
                 :mutex_(mutex) 
             {
@@ -182,16 +182,16 @@ namespace ygw {
             }
 
             /**
-             ** @brief 析构函数
-             **/
+             * @brief 析构函数
+             */
             ~WriteScopedLockImpl() 
             {
                 unlock();
             }
 
             /**
-             ** @brief 上写锁
-             **/
+             * @brief 上写锁
+             */
             void lock() 
             {
                 if (!locked_) 
@@ -202,8 +202,8 @@ namespace ygw {
             }
 
             /**
-             ** @brief 解锁
-             **/
+             * @brief 解锁
+             */
             void unlock() 
             {
                 if (locked_) 
@@ -220,8 +220,8 @@ namespace ygw {
         };
 
         /**
-         ** @brief 互斥量
-         **/
+         * @brief 互斥量
+         */
         class Mutex : able::Noncopyable 
         {
         public: 
@@ -229,23 +229,23 @@ namespace ygw {
             using Lock = ScopedLockImpl<Mutex>; 
 
             /**
-             ** @brief 构造函数
-             **/
+             * @brief 构造函数
+             */
             Mutex();
 
             /**
-             ** @brief 析构函数
-             **/
+             * @brief 析构函数
+             */
             ~Mutex();
 
             /**
-             ** @brief 加锁
-             **/
+             * @brief 加锁
+             */
             void lock();
 
             /**
-             ** @brief 解锁
-             **/
+             * @brief 解锁
+             */
             void unlock();
         private:
             /// mutex
@@ -261,23 +261,23 @@ namespace ygw {
         using Lock = ScopedLockImpl<NullMutex>;
 
         /**
-         ** @brief 构造函数
-         **/
+         * @brief 构造函数
+         */
         NullMutex() {}
 
         /**
-         ** @brief 析构函数
-         **/
+         * @brief 析构函数
+         */
         ~NullMutex() {}
 
         /**
-         ** @brief 加锁
-         **/
+         * @brief 加锁
+         */
         void lock() {}
 
         /**
-         ** @brief 解锁
-         **/
+         * @brief 解锁
+         */
         void unlock() {}
         };
 
@@ -292,30 +292,30 @@ namespace ygw {
             typedef WriteScopedLockImpl<RWMutex> WriteLock;
 
             /**
-             ** @brief 构造函数
-             **/
+             * @brief 构造函数
+             */
             RWMutex();
 
             /**
-             ** @brief 析构函数
-             **/
+             * @brief 析构函数
+             */
             ~RWMutex();
 
             /**
-             ** @brief 上读锁
-             **/
+             * @brief 上读锁
+             */
             void rdlock();
             void lock();
 
             /**
-             ** @brief 上写锁
-             **/
+             * @brief 上写锁
+             */
             void wrlock();
             void lock_shared();
 
             /**
-             ** @brief 解锁
-             **/
+             * @brief 解锁
+             */
             void unlock();
             void unlock_shared();
         private:
@@ -334,55 +334,55 @@ namespace ygw {
             using WriteLock = WriteScopedLockImpl<NullMutex>;
 
             /**
-             ** @brief 构造函数
-             **/
+             * @brief 构造函数
+             */
             NullRWMutex() {}
             /**
-             ** @brief 析构函数
-             **/
+             * @brief 析构函数
+             */
             ~NullRWMutex() {}
 
             /**
-             ** @brief 上读锁
-             **/
+             * @brief 上读锁
+             */
             void rdlock() {}
 
             /**
-             ** @brief 上写锁
-             **/
+             * @brief 上写锁
+             */
             void wrlock() {}
             /**
-             ** @brief 解锁
-             **/
+             * @brief 解锁
+             */
             void unlock() {}
         };
 
         /**
-         ** @brief 自旋锁
-         **/
+         * @brief 自旋锁
+         */
         class Spinlock : able::Noncopyable {
         public:
         /// 局部锁
             using Lock = ScopedLockImpl<Spinlock>; 
 
             /**
-             ** @brief 构造函数
-             **/
+             * @brief 构造函数
+             */
             Spinlock(); 
 
             /**
-             ** @brief 析构函数
-             **/
+             * @brief 析构函数
+             */
             ~Spinlock(); 
 
             /**
-             ** @brief 上锁
-             **/
+             * @brief 上锁
+             */
             void lock();
 
             /**
-             ** @brief 解锁
-             **/
+             * @brief 解锁
+             */
             void unlock();
         private:
             /// 自旋锁
@@ -390,32 +390,32 @@ namespace ygw {
         };
 
         /**
-         ** @brief 原子锁
-         **/
+         * @brief 原子锁
+         */
         class CASLock : able::Noncopyable {
         public:
             /// 局部锁
             using Lock = ScopedLockImpl<CASLock>; 
 
             /**
-             ** @brief 构造函数
-             **/
+             * @brief 构造函数
+             */
             CASLock();
 
             /**
-             ** @brief 析构函数
-             **/
+             * @brief 析构函数
+             */
             ~CASLock() {
             }
 
             /**
-             ** @brief 上锁
-             **/
+             * @brief 上锁
+             */
             void lock();
 
             /**
-             ** @brief 解锁
-             **/
+             * @brief 解锁
+             */
             void unlock();
         private:
             /// 原子状态

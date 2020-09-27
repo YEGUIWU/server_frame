@@ -249,6 +249,7 @@ namespace ygw {
         {
             Fiber::ptr cur = GetThis();
             YGW_ASSERT(cur->state_ == State::kExec);
+            cur->state_ = State::kHold;
             cur->SwapOut();
         }
 
