@@ -66,14 +66,12 @@ namespace ygw {
                     << " name=" << name;
                 throw std::logic_error("pthread_create error");
             }
-            is_init_ = true;
-            //semaphore_.Wait();
+            semaphore_.Wait(); // 阻塞当前进程，等待线程初始化完毕
         }
         
         Thread::~Thread() 
         {
-            //if (thread_) 
-            if (is_init_)
+            if (thread_) 
             {
                 pthread_detach(thread_);
             }
@@ -81,8 +79,7 @@ namespace ygw {
         
         void Thread::Join() 
         {
-            //if (thread_) 
-            if (is_init_)
+            if (thread_) 
             {
                 int rt = pthread_join(thread_, nullptr);
                 if (rt) 
@@ -91,8 +88,7 @@ namespace ygw {
                         << " name=" << name_;
                     throw std::logic_error("pthread_join error");
                 }
-                is_init_ = false;
-                //thread_ = 0;
+                thread_ = 0;
             }
         }
 
@@ -104,17 +100,13 @@ namespace ygw {
             t_thread_name = thread->name_;
             //获取线程ID
             thread->id_ = ygw::util::GetThreadId();
-            //设置线程名: 最大支持16未
-#ifdef _MSC_VER
-
-#elif __GNUC__
+            //设置线程名: 最大支持16位
             pthread_setname_np(pthread_self(), thread->name_.substr(0, 15).c_str());
-#endif //
             //对换一下
             std::function<void()> cb;
             cb.swap(thread->cb_);
             //唤醒
-            //thread->semaphore_.Notify();
+            thread->semaphore_.Notify();
 
             cb();
             return 0;

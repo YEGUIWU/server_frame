@@ -1,14 +1,11 @@
-/*
- * ====================================================
- * Copyright (c) 2020-2100
- *     FileName: server_frame/fd_manager.h
- *       Author: Ye Gui Wu
- *        Email: yeguiwu@qq.com
- *      Version: 1.0
- *     Compiler: gcc
- *  Create Date: 2020-05-11
- *  Description: 文件句柄管理类
- * ====================================================
+/**
+ * @file fd_manager.h
+ * @brief 
+ * @author YeGuiWu
+ * @email yeguiwu@qq.com
+ * @version 1.0
+ * @date 2020-09-27
+ * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.top
  */
 
 #ifndef __FD_MANAGER_H__

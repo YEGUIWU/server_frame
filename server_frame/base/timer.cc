@@ -55,7 +55,7 @@ namespace ygw {
             ,cb_(cb)
             ,manager_(manager) 
         {
-            next_ = ygw::util::GetCurrentMS() + ms_;
+            next_ = ygw::util::TimeUtil::GetCurrentMS() + ms_;
         }
         
         Timer::Timer(uint64_t next)
@@ -92,7 +92,7 @@ namespace ygw {
             //必须先从树上删除，再添加回去
             //直接改next_会改变树的key
             manager_->timers_.erase(it);
-            next_ = ygw::util::GetCurrentMS() + ms_;
+            next_ = ygw::util::TimeUtil::GetCurrentMS() + ms_;
             manager_->timers_.insert(shared_from_this());
             return true;
         }
@@ -118,7 +118,7 @@ namespace ygw {
             uint64_t start = 0;
             if (from_now) 
             {
-                start = ygw::util::GetCurrentMS();
+                start = ygw::util::TimeUtil::GetCurrentMS();
             } 
             else
             {
@@ -135,7 +135,7 @@ namespace ygw {
         // class TimerManager method
         TimerManager::TimerManager() 
         {
-            previouse_time_ = ygw::util::GetCurrentMS();
+            previouse_time_ = ygw::util::TimeUtil::GetCurrentMS();
         }
 
         TimerManager::~TimerManager() 
@@ -181,7 +181,7 @@ namespace ygw {
             }
 
             const Timer::ptr& next = *timers_.begin();
-            uint64_t now_ms = ygw::util::GetCurrentMS();
+            uint64_t now_ms = ygw::util::TimeUtil::GetCurrentMS();
             if (now_ms >= next->next_) 
             {
                 return 0;
@@ -194,7 +194,7 @@ namespace ygw {
 
         void TimerManager::ListExpiredCb(std::vector<std::function<void()> >& cbs) 
         {
-            uint64_t now_ms = ygw::util::GetCurrentMS();
+            uint64_t now_ms = ygw::util::TimeUtil::GetCurrentMS();
             std::vector<Timer::ptr> expired;
             {
                 RWMutexType::ReadLock lock(mutex_);

@@ -239,7 +239,15 @@ void test_log()
     YGW_LOG_INFO(system_log) << "hello system" << std::endl;
 }
 
-
+void test_visit()
+{
+    ygw::config::Config::Visit([](ygw::config::ConfigVarBase::ptr var) {
+        YGW_LOG_INFO(YGW_LOG_ROOT()) << "name = " << var->GetName()
+        << " description = " << var->GetDescription()
+        << " typename = " << var->GetTypeName()
+        << " value = " << var->ToString();
+    });
+}
 
 
 int main()
@@ -248,15 +256,16 @@ int main()
     //YGW_LOG_INFO(YGW_LOG_ROOT()) << g_float_value_config->ToString();
     //test_yaml();
     //test_config();
-    test_class();
+    //test_class();
     //test_log();
+    YAML::Node conf = YAML::LoadFile("./bin/conf/http_server.yml");
+    ygw::config::Config::LoadFromYaml(conf);
+    //ygw::config::ConfigVar<std::string>::ptr root_path = ygw::config::Config::Lookup("conf.root_path", "./", "http server root path");
+    ygw::config::ConfigVar<int>::ptr num = ygw::config::Config::Lookup("conf.num", 123, "http server root path");
+    //ygw::config::ConfigVar<std::string>::ptr root_path = nullptr;
+    //YGW_LOG_INFO(g_logger) << root_path;
+    test_visit();
 
 
-    ygw::config::Config::Visit([](ygw::config::ConfigVarBase::ptr var) {
-        YGW_LOG_INFO(YGW_LOG_ROOT()) << "name = " << var->GetName()
-        << " description = " << var->GetDescription()
-        << " typename = " << var->GetTypeName()
-        << " value = " << var->ToString();
-    });
     return 0;
 }

@@ -29,7 +29,7 @@ void test_fiber()
 
 }
 
-int main()
+void test_fiber_thread()
 {
     ygw::thread::Thread::SetName("main");
     std::vector<ygw::thread::Thread::ptr> ths;
@@ -42,5 +42,10 @@ int main()
     {
         i->Join();
     }
+}
+
+int main()
+{
+    test_fiber();
     return 0;
 }

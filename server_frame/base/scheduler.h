@@ -1,15 +1,13 @@
-/*
- * ====================================================
- * Copyright (c) 2020-2100
- *     FileName: server_frame/scheduler.h
- *       Author: Ye Gui Wu
- *        Email: yeguiwu@qq.com
- *      Version: 1.0
- *     Compiler: gcc
- *  Create Date: 2020-05-06
- *  Description: 
- * ====================================================
+/**
+ * @file scheduler.h
+ * @brief 
+ * @author YeGuiWu
+ * @email yeguiwu@qq.com
+ * @version 1.0
+ * @date 2020-09-27
+ * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.top
  */
+
 #ifndef __YGW_SCHEDULER_H__
 #define __YGW_SCHEDULER_H__
 
@@ -160,7 +158,7 @@ namespace ygw {
             template<class FiberOrCb>
             bool ScheduleNoLock(FiberOrCb fc, int thread) 
             {
-                bool need_tickle = fibers_.empty();
+                bool need_tickle = fibers_.empty(); // 有协程任务就need_tickle
                 FiberAndThread ft(fc, thread);
                 if (ft.fiber_ || ft.cb_) 
                 {
@@ -172,7 +170,7 @@ namespace ygw {
             //-----------------------------------------
             //
             /**
-             * @brief 协程/函数/线程组
+             * @brief 协程/函数/线程
              */
             class FiberAndThread {
             public:

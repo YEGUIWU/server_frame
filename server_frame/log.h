@@ -1,14 +1,11 @@
-/*
- * ====================================================
- * Copyright (c) 2020-2100
- *     FileName: log.h
- *       Author: Ye Gui Wu
- *        Email: yeguiwu@qq.com
- *      Version: 1.0
- *     Compiler: gcc
- *  Create Date: 2020-05-01
- *  Description: 
- * ====================================================
+/**
+ * @file log.h
+ * @brief 日志模块
+ * @author YeGuiWu
+ * @email yeguiwu@qq.com
+ * @version 1.0
+ * @date 2020-09-23
+ * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.top
  */
 #ifndef __YGW_LOG_H__
 #define __YGW_LOG_H__
@@ -110,17 +107,19 @@ namespace ygw {
 
     
     namespace log {
-        //
-        class Logger;
-        class LoggerManager;
         //------------------------------------------------
+        // 声明
+        class Logger;        // 日志器
+        class LoggerManager; // 日志管理器
         //------------------------------------------------
-        // 日志级别
+        /**
+         * @brief 日志级别
+         */
         class LogLevel {
         public:
             /**
-             ** @brief 日志级别枚举
-             **/
+             * @brief 日志级别枚举
+             */
             enum Level {
                 /// 未知级别
                 kUnknown = 0,
@@ -134,39 +133,43 @@ namespace ygw {
                 kError = 4,
                 /// FATAL 级别
                 kFatal = 5
-            };
+            }; // enum Level
 
             /**
-             ** @brief 将日志级别转成文本输出
-             ** @param[in] level 日志级别
-             **/
+             * @brief 将日志级别转成字符串输出
+             * @param[in] level 日志级别
+             * @return const char* 用C字符串描述的日志级别
+             */
             static const char* ToString(LogLevel::Level level);
 
             /**
-             ** @brief 将文本转换成日志级别
-             ** @param[in] str 日志级别文本
-             **/
+             * @brief 将字符串转换成日志级别
+             * @param[in] str 日志级别文本
+             * @return LogLevel::Level日志级别
+             */
             static LogLevel::Level FromString(const std::string& str);
         }; // class LogLevel 
 
 
         //------------------------------------------------
-        // 日志事件
+        /**
+         * @brief 日志事件
+         */
         class LogEvent {
         public:
             using ptr = std::shared_ptr<LogEvent>;
             /**
-             ** @brief 构造函数
-             ** @param[in] logger 日志器
-             ** @param[in] level 日志级别
-             ** @param[in] file 文件名
-             ** @param[in] line 文件行号
-             ** @param[in] elapse 程序启动依赖的耗时(毫秒)
-             ** @param[in] thread_id 线程id
-             ** @param[in] fiber_id 协程id
-             ** @param[in] time 日志事件(秒)
-             ** @param[in] thread_name 线程名称
-             **/
+             * @brief 构造函数
+             * @param[in] logger 日志器
+             * @param[in] level 日志级别
+             * @param[in] file 文件名
+             * @param[in] line 文件行号
+             * @param[in] elapse 程序启动依赖的耗时(毫秒)
+             * @param[in] thread_id 线程id
+             * @param[in] fiber_id 协程id
+             * @param[in] time 日志事件(秒)
+             * @param[in] thread_name 线程名称
+             */
             LogEvent(std::shared_ptr<Logger> logger, LogLevel::Level level
                     ,const char* file, int32_t line, uint32_t elapse
                     ,uint32_t thread_id, uint32_t fiber_id, uint64_t time
@@ -174,68 +177,68 @@ namespace ygw {
 
 
             /**
-             ** @brief 返回文件名
-             **/
+             * @brief 返回文件名
+             */
             const char* GetFile() const { return filename_;}
 
             /**
-             ** @brief 返回行号
-             **/
+             * @brief 返回行号
+             */
             int32_t GetLine() const { return line_;}
 
             /**
-             ** @brief 返回耗时
-             **/
+             * @brief 返回耗时
+             */
             uint32_t GetElapse() const { return elapse_;}
 
             /**
-             ** @brief 返回线程ID
-             **/
+             * @brief 返回线程ID
+             */
             uint32_t GetThreadId() const { return thread_id_;}
 
             /**
-             ** @brief 返回协程ID
-             **/
+             * @brief 返回协程ID
+             */
             uint32_t GetFiberId() const { return fiber_id_;}
 
             /**
-             ** @brief 返回时间
-             **/
+             * @brief 返回时间
+             */
             uint64_t GetTime() const { return time_;}
 
             /**
-             ** @brief 返回线程名称
-             **/
+             * @brief 返回线程名称
+             */
             const std::string& GetThreadName() const { return thread_name_;}
 
             /**
-             ** @brief 返回日志内容
-             **/
+             * @brief 返回日志内容
+             */
             std::string GetContent() const { return string_stream_.str();}
 
             /**
-             ** @brief 返回日志器
-             **/
+             * @brief 返回日志器
+             */
             std::shared_ptr<Logger> GetLogger() const { return logger_;}
 
             /**
-             ** @brief 返回日志级别
-             **/
+             * @brief 返回日志级别
+             */
             LogLevel::Level GetLevel() const { return level_;}
 
             /**
-             ** @brief 返回日志内容字符串流
-             **/
+             * @brief 返回日志内容字符串流
+             */
             std::stringstream& GetStringStream() { return string_stream_;}
 
             /**
-             ** @brief 格式化写入日志内容
-             **/
+             * @brief 格式化写入日志内容
+             */
             void Format(const char* fmt, ...);
 
             /**
-             ** @brief 格式化写入日志内容
-             **/
+             * @brief 格式化写入日志内容
+             */
             void Format(const char* fmt, va_list al);
         private:
             /// 文件名
@@ -261,106 +264,113 @@ namespace ygw {
         }; // class LogEvent
 
         //--------------------------------------------------
-        //日志事件包装器
+        /**
+         * brief 日志事件包装器
+         */
         class LogEventWrap {
         public:
             /**
-             ** @brief 构造函数
-             ** @param[in] e 日志事件
-             **/
+             * @brief 构造函数
+             * @param[in] e 日志事件
+             */
             LogEventWrap(LogEvent::ptr e);
 
             /**
-             ** @brief 析构函数
-             **/
+             * @brief 析构函数
+             */
             ~LogEventWrap();
 
             /**
-             ** @brief 获取日志事件
-             **/
+             * @brief 获取日志事件
+             */
             LogEvent::ptr GetEvent() const { return event_;}
 
             /**
-             ** @brief 获取日志内容流
-             **/
+             * @brief 获取日志内容流
+             */
             std::stringstream& GetStringStream();
         private:
             /**
-             ** @brief 日志事件
-             **/
+             * @brief 日志事件
+             */
             LogEvent::ptr event_;
         };
 
         //------------------------------------------------
-        // 日志格式器
+        /**
+         * @brief 日志格式器
+         */
         class LogFormatter {
         public:
             using ptr = std::shared_ptr<LogFormatter>;
             /**
-             ** @brief 构造函数
-             ** @param[in] pattern 格式模板
-             ** @details 
-             **  %m 消息
-             **  %p 日志级别
-             **  %r 累计毫秒数
-             **  %c 日志名称
-             **  %t 线程id
-             **  %n 换行
-             **  %d 时间
-             **  %f 文件名
-             **  %l 行号
-             **  %T 制表符
-             **  %F 协程id
-             **  %N 线程名称
-             **
-             **  默认格式 "%d{%Y-%m-%d %H:%M:%S}%T%t%T%N%T%F%T[%p]%T[%c]%T%f:%l%T%m%n"
-             **/
+             * @brief 构造函数
+             * @param[in] pattern 格式模板
+             * @details 
+             *  %m 消息
+             *  %p 日志级别
+             *  %r 累计毫秒数
+             *  %c 日志名称
+             *  %t 线程id
+             *  %n 换行
+             *  %d 时间
+             *  %f 文件名
+             *  %l 行号
+             *  %T 制表符
+             *  %F 协程id
+             *  %N 线程名称
+             *
+             *  默认格式 "%d{%Y-%m-%d %H:%M:%S}%T%t%T%N%T%F%T[%p]%T[%c]%T%f:%l%T%m%n"
+             */
             LogFormatter(const std::string& pattern);
 
             /**
-             ** @brief 返回格式化日志文本
-             ** @param[in] logger 日志器
-             ** @param[in] level 日志级别
-             ** @param[in] event 日志事件
-             **/
+             * @brief 返回格式化日志文本
+             * @param[in] logger 日志器
+             * @param[in] level 日志级别
+             * @param[in] event 日志事件
+             */
             std::string Format(std::shared_ptr<Logger> logger,
                     LogLevel::Level level, LogEvent::ptr event);
+
             std::ostream& Format(std::ostream& ofs, std::shared_ptr<Logger> logger,
                     LogLevel::Level level, LogEvent::ptr event);
         //private:
             //-------------------------------------------
-            //日志内容项格式化
+            /**
+             * @brief 日志内容项格式化
+             */
             class FormatItem {
             public:
                 using ptr = std::shared_ptr<FormatItem> ;
                 /**
-                 ** @brief 析构函数
-                 **/
+                 * @brief 析构函数
+                 */
                 virtual ~FormatItem() {}
                 /**
-                 ** @brief 格式化日志到流
-                 ** @param[in, out] os 日志输出流
-                 ** @param[in] logger 日志器
-                 ** @param[in] level 日志等级
-                 ** @param[in] event 日志事件
-                 **/
+                 * @brief 格式化日志到流
+                 * @param[in, out] os 日志输出流
+                 * @param[in] logger 日志器
+                 * @param[in] level 日志等级
+                 * @param[in] event 日志事件
+                 */
                 virtual void Format(std::ostream& os, std::shared_ptr<Logger> logger, 
                         LogLevel::Level level, LogEvent::ptr event) = 0;
             };// class FormatItem
             //--------------------------------------------
             /**
-             ** @brief 初始化,解析日志模板
-             **/
+             * @brief 初始化,解析日志模板
+             */
             void Init(); 
 
             /**
-             ** @brief 是否有错误
-             **/
+             * @brief 是否有错误
+             */
             bool IsError() const { return is_error_;}
 
             /**
-             ** @brief 返回日志模板
-             **/
+             * @brief 返回日志模板
+             */
             const std::string GetPattern() const { return pattern_; }
         private:
             /// 日志格式模板
@@ -373,7 +383,9 @@ namespace ygw {
 
 
         //------------------------------------------------
-        // 日志输出目标
+        /** 
+         * @brief 日志输出目标(地)
+         */
         class LogAppender {
             friend class Logger;
         public:
@@ -382,37 +394,37 @@ namespace ygw {
             //析构
             virtual ~LogAppender() {}
             /**
-             ** @brief 写入日志
-             ** @param[in] logger 日志器
-             ** @param[in] level 日志级别
-             ** @param[in] event 日志事件
-             **/
+             * @brief 写入日志
+             * @param[in] logger 日志器
+             * @param[in] level 日志级别
+             * @param[in] event 日志事件
+             */
             virtual void Log(std::shared_ptr<Logger> logger, 
                     LogLevel::Level level, LogEvent::ptr event) = 0;
 
             /**
-             ** @brief 将日志输出目标的配置转成YAML String
-             **/
+             * @brief 将日志输出目标的配置转成YAML String
+             */
             virtual std::string ToYamlString() = 0;
 
             /**
-             ** @brief 更改日志格式器
-             **/
+             * @brief 更改日志格式器
+             */
             void SetFormatter(LogFormatter::ptr val);
 
             /**
-             ** @brief 获取日志格式器
-             **/
+             * @brief 获取日志格式器
+             */
             LogFormatter::ptr GetFormatter();
 
             /**
-             ** @brief 获取日志级别
-             **/
+             * @brief 获取日志级别
+             */
             LogLevel::Level GetLevel() const { return level_;}
 
             /**
-             ** @brief 设置日志级别
-             **/
+             * @brief 设置日志级别
+             */
             void SetLevel(LogLevel::Level val) { level_ = val;}
         protected:
             /// 日志级别
@@ -427,7 +439,9 @@ namespace ygw {
 
 
         //-------------------------------------------------
-        // 日志器
+        /**
+         * @brief 日志器
+         */
         class Logger : public std::enable_shared_from_this<Logger> 
         {
             friend class LoggerManager;
@@ -435,99 +449,99 @@ namespace ygw {
             using ptr = std::shared_ptr<Logger> ;
             using MutexType = thread::Spinlock;
             /**
-             ** @brief 构造函数
-             ** @param[in] name 日志器名称
-             **/
+             * @brief 构造函数
+             * @param[in] name 日志器名称
+             */
             Logger(const std::string& name = "root");
 
             /**
-             ** @brief 写日志
-             ** @param[in] level 日志级别
-             ** @param[in] event 日志事件
-             **/
+             * @brief 写日志
+             * @param[in] level 日志级别
+             * @param[in] event 日志事件
+             */
             void Log(LogLevel::Level level, LogEvent::ptr event);
 
             /**
-             ** @brief 写debug级别日志
-             ** @param[in] event 日志事件
-             **/
+             * @brief 写debug级别日志
+             * @param[in] event 日志事件
+             */
             void Debug(LogEvent::ptr event);
 
             /**
-             ** @brief 写info级别日志
-             ** @param[in] event 日志事件
-             **/
+             * @brief 写info级别日志
+             * @param[in] event 日志事件
+             */
             void Info(LogEvent::ptr event);
 
             /**
-             ** @brief 写warn级别日志
-             ** @param[in] event 日志事件
-             **/
+             * @brief 写warn级别日志
+             * @param[in] event 日志事件
+             */
             void Warn(LogEvent::ptr event);
 
             /**
-             ** @brief 写error级别日志
-             ** @param[in] event 日志事件
-             **/
+             * @brief 写error级别日志
+             * @param[in] event 日志事件
+             */
             void Error(LogEvent::ptr event);
 
             /**
-             ** @brief 写fatal级别日志
-             ** @param[in] event 日志事件
-             **/
+             * @brief 写fatal级别日志
+             * @param[in] event 日志事件
+             */
             void Fatal(LogEvent::ptr event);
     
             /**
-             ** @brief 添加日志目标
-             ** @param[in] appender 日志目标
-             **/
+             * @brief 添加日志目标
+             * @param[in] appender 日志目标
+             */
             void AddAppender(LogAppender::ptr appender);
 
             /**
-             ** @brief 删除日志目标
-             ** @param[in] appender 日志目标
-             **/
+             * @brief 删除日志目标
+             * @param[in] appender 日志目标
+             */
             void DelAppender(LogAppender::ptr appender);
 
 
             /**
-             ** @brief 清空日志目标
-             **/
+             * @brief 清空日志目标
+             */
             void ClearAppenders();
 
             /**
-             ** @brief 返回日志级别
-             **/
+             * @brief 返回日志级别
+             */
             LogLevel::Level GetLevel() const { return level_;}
 
             /**
-             ** @brief 设置日志级别
-             **/
+             * @brief 设置日志级别
+             */
             void SetLevel(LogLevel::Level val) { level_ = val;}
 
             /**
-             ** @brief 返回日志名称
-             **/
+             * @brief 返回日志名称
+             */
             const std::string& GetName() const { return name_;}
 
             /**
-             ** @brief 设置日志格式器
-             **/
+             * @brief 设置日志格式器
+             */
             void SetFormatter(LogFormatter::ptr val);
 
             /**
-             ** @brief 设置日志格式模板
-             **/
+             * @brief 设置日志格式模板
+             */
             void SetFormatter(const std::string& val);
 
             /**
-             ** @brief 获取日志格式器
-             **/
+             * @brief 获取日志格式器
+             */
             LogFormatter::ptr GetFormatter();
 
             /**
-             ** @brief 将日志器的配置转成YAML String
-             **/
+             * @brief 将日志器的配置转成YAML String
+             */
             std::string ToYamlString();
 
         private:
@@ -547,7 +561,9 @@ namespace ygw {
 
 
         //------------------------------------------------
-        //输出到控制台的LogAppender
+        /**
+         * @brief 输出到控制台的LogAppender
+         */
         class StdoutLogAppender : public LogAppender {
         public:
             using ptr = std::shared_ptr<StdoutLogAppender> ; 
@@ -557,7 +573,9 @@ namespace ygw {
         };
 
         //-------------------------------------------------
-        //输出到文件的Appender
+        /**
+         * @brief 输出到文件的Appender
+         */
         class FileLogAppender : public LogAppender {
         public:
             using ptr = std::shared_ptr<FileLogAppender> ;
@@ -579,35 +597,35 @@ namespace ygw {
         };//
 
         /**
-         ** @brief 日志器管理类
-         **/
+         * @brief 日志器管理类
+         */
         class LoggerManager {
         public:
             using MutexType = thread::Spinlock;
             /**
-             ** @brief 构造函数
-             **/
+             * @brief 构造函数
+             */
             LoggerManager();
 
             /**
-             ** @brief 获取日志器
-             ** @param[in] name 日志器名称
-             **/
+             * @brief 获取日志器
+             * @param[in] name 日志器名称
+             */
             Logger::ptr GetLogger(const std::string& name);
 
             /**
-             ** @brief 初始化
-             **/
+             * @brief 初始化
+             */
             void Init();
 
             /**
-             ** @brief 返回主日志器
-             **/
+             * @brief 返回主日志器
+             */
             Logger::ptr GetRoot() const { return root_;}
 
             /**
-             ** @brief 将所有的日志器配置转成YAML String
-             **/
+             * @brief 将所有的日志器配置转成YAML String
+             */
             std::string ToYamlString();
         private:
             /// Mutex

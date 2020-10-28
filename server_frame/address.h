@@ -1,14 +1,11 @@
-/*
- * ====================================================
- * Copyright (c) 2020-2100
- *     FileName: server_frame/address.h
- *       Author: Ye Gui Wu
- *        Email: yeguiwu@qq.com
- *      Version: 1.0
- *     Compiler: gcc
- *  Create Date: 2020-05-13
- *  Description: 
- * ====================================================
+/**
+ * @file address.h
+ * @brief 
+ * @author YeGuiWu
+ * @email yeguiwu@qq.com
+ * @version 1.0
+ * @date 2020-09-23
+ * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.top
  */
 
 #ifndef __YGW_ADDRESS_H__

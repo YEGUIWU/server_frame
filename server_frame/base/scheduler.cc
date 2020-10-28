@@ -1,14 +1,11 @@
-/*
- * ====================================================
- * Copyright (c) 2020-2100
- *     FileName: server_frame/scheduler.cc
- *       Author: Ye Gui Wu
- *        Email: yeguiwu@qq.com
- *      Version: 1.0
- *     Compiler: gcc
- *  Create Date: 2020-05-06
- *  Description: 
- * ====================================================
+/**
+ * @file server_frame/base/scheduler.cc
+ * @brief 
+ * @author YeGuiWu
+ * @email yeguiwu@qq.com
+ * @version 1.0
+ * @date 2020-09-27
+ * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.top
  */
 
 #include <algorithm>

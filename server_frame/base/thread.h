@@ -1,14 +1,11 @@
-/*
- * ====================================================
- * Copyright (c) 2020-2100
- *     FileName: thread.h
- *       Author: Ye Gui Wu
- *        Email: yeguiwu@qq.com
- *      Version: 1.0
- *     Compiler: gcc
- *  Create Date: 2020-05-04
- *  Description: 
- * ====================================================
+/**
+ * @file thread.h
+ * @brief 基于pthread封装的线程库
+ * @author YeGuiWu
+ * @email yeguiwu@qq.com
+ * @version 1.0
+ * @date 2020-10-01
+ * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.top
  */
 #ifndef __YGW_THREAD_H__
 #define __YGW_THREAD_H__
@@ -26,13 +23,9 @@ namespace ygw {
 
     namespace thread {
 
-//#ifdef _MSC_VER
-//        struct thread_t;
-//#elif __GNUC__
-//        using thread_t = unsigned long;
-//#endif //
-
-
+        /**
+         * @brief 线程类封装
+         */
         //---------------------------------------------------
 
         class Thread : able::Noncopyable {
@@ -94,8 +87,6 @@ namespace ygw {
             std::function<void()> cb_;
             /// 线程名称
             std::string name_;
-            ///
-            bool is_init_ = false;
             /// 信号量
             Semaphore semaphore_;
         };

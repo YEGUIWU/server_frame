@@ -106,6 +106,7 @@ namespace ygw {
             }
 #elif _MSC_VER
             char buf[512];
+            // TODO check out of range
             int len = vsprintf_s(buf, sizeof(buf), fmt, al);
             if (len != -1)
             {
@@ -346,7 +347,6 @@ namespace ygw {
             new LogFormatter("%d{%Y-%m-%d %H:%M:%S}%T%t%T%N%T%F%T[%p]%T[%c]%T%f:%l%T%m%n"));
         }
 
-        //-----------------------------------------------------------
         // 
         void Logger::Log(LogLevel::Level level, LogEvent::ptr event)
         {
@@ -387,7 +387,7 @@ namespace ygw {
         {
             Log(LogLevel::Level::kFatal, event);
         }
-        //-----------------------------------------------------------
+
         //
         void Logger::SetFormatter(LogFormatter::ptr val) 
         {
@@ -404,8 +404,9 @@ namespace ygw {
             }
         }
 
-        void Logger::SetFormatter(const std::string& val) {
-            std::cout << "---" << val << std::endl;
+        void Logger::SetFormatter(const std::string& val) 
+        {
+            //std::cout << "---" << val << std::endl;
             ygw::log::LogFormatter::ptr new_val(new ygw::log::LogFormatter(val));
             if (new_val->IsError()) 
             {
@@ -540,7 +541,7 @@ namespace ygw {
                     last_time_ = now;
                 }
                 MutexType::Lock lock(mutex_);
-                //if (!(m_filestream << m_formatter->format(logger, level, event))) {
+                //if (!(filestream_ << formatter_->format(logger, level, event))) {
                 if (!formatter_->Format(fileout_, logger, level, event)) 
                 {
                     std::cout << "error" << std::endl;
@@ -568,8 +569,9 @@ namespace ygw {
         }
 
 
-        //---------------------------------------------------------------------
-        // LogFormatter
+        //---------------------------------------------------------------------//
+        //                      LogFormatter Method                            //
+        //---------------------------------------------------------------------//
         LogFormatter::LogFormatter(const std::string& pattern)
             :pattern_(pattern)
         {
@@ -598,6 +600,9 @@ namespace ygw {
             return ofs;
         }
 
+
+        //------------------------------------------------------------------------------
+        // 特长函数，维护有点坑，日志格式器初始化。
         //%xxx %xxx{xxx} %%
         void LogFormatter::Init()
         {
@@ -625,17 +630,18 @@ namespace ygw {
                 }
                 //%d %s ...
                 n = i + 1;//d s ...
-                fmt_status = 0;
+                fmt_status = 0; // 0 is ok, 1 is error
                 fmt_begin = 0;
 
                 //
                 str.clear();
                 fmt.clear();
+                // 解析%后的字符
                 while (n < pattern_.size())
                 {
                     if (!fmt_status && 
                             (!isalpha(pattern_[n]) && pattern_[n] != '{' && pattern_[n] != '}')
-                       )
+                       ) // 不是{}就可以溜了
                     {
                         str =  pattern_.substr(i + 1, n - i - 1);
                         break;
@@ -669,8 +675,8 @@ namespace ygw {
                         {
                             str = pattern_.substr(i + 1);
                         }
-                    }
-                }
+                    } 
+                } // while
 
                 if (fmt_status == 0)
                 {
@@ -690,7 +696,9 @@ namespace ygw {
                     vec.push_back(std::make_tuple("<<pattern_error>>", fmt, 0));
                 }
 
-           }
+            } // for
+
+
             if (!nstr.empty())
             {
                 vec.push_back(std::make_tuple(nstr, "", 0));
@@ -887,7 +895,6 @@ namespace ygw {
         {
             root_.reset(new Logger);
             root_->AddAppender(LogAppender::ptr(new StdoutLogAppender));
-
             loggers_[root_->name_] = root_;
 
             Init();
@@ -907,6 +914,7 @@ namespace ygw {
             loggers_[name] = logger;
             return logger;
         }
+
         std::string LoggerManager::ToYamlString() 
         {
             MutexType::Lock lock(mutex_);
@@ -919,6 +927,7 @@ namespace ygw {
             ss << node;
             return ss.str();
         }
+
         void LoggerManager::Init() 
         {
 

@@ -1,18 +1,15 @@
-/*
- * ====================================================
- * Copyright (c) 2020-2100
- *     FileName: config.h
- *       Author: Ye Gui Wu
- *        Email: yeguiwu@qq.com
- *      Version: 1.0
- *     Compiler: gcc
- *  Create Date: 2020-05-02
- *  Description: 配置模块
- * ====================================================
+/**
+ * @file config.h
+ * @brief 
+ * @author YeGuiWu
+ * @email yeguiwu@qq.com
+ * @version 1.0
+ * @date 2020-09-23
+ * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.top
  */
+
 #ifndef __YGW_CONFIG_H__
 #define __YGW_CONFIG_H__
-
 
 #include <cstdint>
 
@@ -40,73 +37,75 @@ namespace ygw {
     namespace config {
 
         //-------------------------------------------
+        /**
+		 * @brief 配置变量的基类
+		 */
         class ConfigVarBase {
         public:
             using ptr = std::shared_ptr<ConfigVarBase>;
 
             /**
-             ** @brief 构造函数
-             ** @param[in] name 配置参数名称[0-9a-z_.]
-             ** @param[in] description 配置参数描述
-             **/
+             * @brief 构造函数
+             * @param[in] name 配置参数名称[0-9a-z_.]
+             * @param[in] description 配置参数描述
+             */
             ConfigVarBase(const std::string& name, 
                     const std::string& description = "")
-                : name_(name)
+                : name_(util::StringUtil::ToLower(name))
                 , description_(description)
             {
-                std::transform(name_.begin(), name_.end(), name_.begin(), ::tolower);
             }
 
             /**
-             ** @brief 析构函数
-             **/
+             * @brief 析构函数
+             */
             virtual ~ConfigVarBase() {}
 
             /**
-             ** @brief 返回配置参数名称
-             **/
+             * @brief 返回配置参数名称
+             */
             const std::string& GetName() const { return name_; }
 
             /**
-             ** @brief 返回配置参数的描述
-             **/
+             * @brief 返回配置参数的描述
+             */
             const std::string& GetDescription() const { return description_; }
 
             /**
-             ** @brief 转成字符串
-             **/
+             * @brief 转成字符串
+             */
             virtual std::string ToString() = 0;
 
             /**
-             ** @brief 从字符串初始化值
-             **/
+             * @brief 从字符串初始化值
+             */
             virtual bool FromString(const std::string& val) = 0;
 
             /**
-             ** @brief 返回配置参数值的类型名称
-             **/
+             * @brief 返回配置参数值的类型名称
+             */
             virtual std::string GetTypeName() const = 0;
         protected:
             /// 配置参数的名称
             std::string name_;
             /// 配置参数的描述
             std::string description_;
-        };
+        }; // class ConfigVarBase
 
         //----------------------------------------------------------------
         /**
-         ** @brief 类型转换模板类(F 源类型, T 目标类型)
-         **/
+         * @brief 类型转换模板类(F 源类型, T 目标类型)
+         */
         //F from_type, T to_type
         template<class F, class T>
         class LexicalCast {
         public:
             /**
-             ** @brief 类型转换
-             ** @param[in] v 源类型值
-             ** @return 返回v转换后的目标类型
-             ** @exception 当类型不可转换时抛出异常
-             **/
+             * @brief 类型转换
+             * @param[in] v 源类型值
+             * @return 返回v转换后的目标类型
+             * @exception 当类型不可转换时抛出异常
+             */
             T operator()(const F& v) 
             {
                 return boost::lexical_cast<T>(v);
@@ -114,8 +113,8 @@ namespace ygw {
         };
         //----------------------------------------------------------------
         /**
-         ** @brief 类型转换模板类片特化(YAML String 转换成 std::vector<T>)
-         **/
+         * @brief 类型转换模板类片特化(YAML String 转换成 std::vector<T>)
+         */
         template<class T>
         class LexicalCast<std::string, std::vector<T> > {
         public:
@@ -141,7 +140,8 @@ namespace ygw {
 		template<class T>
 		class LexicalCast<std::vector<T>, std::string> {
 		public:
-			std::string operator()(const std::vector<T>& v) {
+			std::string operator()(const std::vector<T>& v) 
+            {
 				YAML::Node node(YAML::NodeType::Sequence);
 				for (auto& i : v) {
 					node.push_back(YAML::Load(LexicalCast<T, std::string>()(i)));
@@ -158,11 +158,13 @@ namespace ygw {
 		template<class T>
 		class LexicalCast<std::string, std::list<T> > {
 		public:
-			std::list<T> operator()(const std::string& v) {
+			std::list<T> operator()(const std::string& v) 
+            {
 				YAML::Node node = YAML::Load(v);
 				typename std::list<T> vec;
 				std::stringstream ss;
-				for (size_t i = 0; i < node.size(); ++i) {
+				for (size_t i = 0; i < node.size(); ++i) 
+                {
 					ss.str("");
 					ss << node[i];
 					vec.push_back(LexicalCast<std::string, T>()(ss.str()));
@@ -177,7 +179,8 @@ namespace ygw {
 		template<class T>
 		class LexicalCast<std::list<T>, std::string> {
 		public:
-			std::string operator()(const std::list<T>& v) {
+			std::string operator()(const std::list<T>& v) 
+            {
 				YAML::Node node(YAML::NodeType::Sequence);
 				for (auto& i : v) {
 					node.push_back(YAML::Load(LexicalCast<T, std::string>()(i)));
@@ -194,11 +197,13 @@ namespace ygw {
 		template<class T>
 		class LexicalCast<std::string, std::set<T> > {
 		public:
-			std::set<T> operator()(const std::string& v) {
+			std::set<T> operator()(const std::string& v)
+            {
 				YAML::Node node = YAML::Load(v);
 				typename std::set<T> vec;
 				std::stringstream ss;
-				for (size_t i = 0; i < node.size(); ++i) {
+				for (size_t i = 0; i < node.size(); ++i) 
+                {
 					ss.str("");
 					ss << node[i];
 					vec.insert(LexicalCast<std::string, T>()(ss.str()));
@@ -213,9 +218,11 @@ namespace ygw {
 		template<class T>
 		class LexicalCast<std::set<T>, std::string> {
 		public:
-			std::string operator()(const std::set<T>& v) {
+			std::string operator()(const std::set<T>& v) 
+            {
 				YAML::Node node(YAML::NodeType::Sequence);
-				for (auto& i : v) {
+				for (auto& i : v) 
+                {
 					node.push_back(YAML::Load(LexicalCast<T, std::string>()(i)));
 				}
 				std::stringstream ss;
@@ -230,11 +237,13 @@ namespace ygw {
 		template<class T>
 		class LexicalCast<std::string, std::unordered_set<T> > {
 		public:
-			std::unordered_set<T> operator()(const std::string& v) {
+			std::unordered_set<T> operator()(const std::string& v) 
+            {
 				YAML::Node node = YAML::Load(v);
 				typename std::unordered_set<T> vec;
 				std::stringstream ss;
-				for (size_t i = 0; i < node.size(); ++i) {
+				for (size_t i = 0; i < node.size(); ++i) 
+                {
 					ss.str("");
 					ss << node[i];
 					vec.insert(LexicalCast<std::string, T>()(ss.str()));
@@ -249,9 +258,11 @@ namespace ygw {
 		template<class T>
 		class LexicalCast<std::unordered_set<T>, std::string> {
 		public:
-			std::string operator()(const std::unordered_set<T>& v) {
+			std::string operator()(const std::unordered_set<T>& v) 
+            {
 				YAML::Node node(YAML::NodeType::Sequence);
-				for (auto& i : v) {
+				for (auto& i : v) 
+                {
 					node.push_back(YAML::Load(LexicalCast<T, std::string>()(i)));
 				}
 				std::stringstream ss;
@@ -266,12 +277,14 @@ namespace ygw {
 		template<class T>
 		class LexicalCast<std::string, std::map<std::string, T> > {
 		public:
-			std::map<std::string, T> operator()(const std::string& v) {
+			std::map<std::string, T> operator()(const std::string& v) 
+            {
 				YAML::Node node = YAML::Load(v);
 				typename std::map<std::string, T> vec;
 				std::stringstream ss;
 				for (auto it = node.begin();
-						it != node.end(); ++it) {
+						it != node.end(); ++it) 
+                {
 					ss.str("");
 					ss << it->second;
 					vec.insert(std::make_pair(it->first.Scalar(),
@@ -290,7 +303,8 @@ namespace ygw {
 			std::string operator()(const std::map<std::string, T>& v) 
             {
 				YAML::Node node(YAML::NodeType::Map);
-				for (auto& i : v) {
+				for (auto& i : v) 
+                {
 					node[i.first] = YAML::Load(LexicalCast<T, std::string>()(i.second));
 				}
 				std::stringstream ss;
@@ -311,7 +325,8 @@ namespace ygw {
 				typename std::unordered_map<std::string, T> vec;
 				std::stringstream ss;
 				for (auto it = node.begin();
-						it != node.end(); ++it) {
+						it != node.end(); ++it) 
+                {
 					ss.str("");
 					ss << it->second;
 					vec.insert(std::make_pair(it->first.Scalar(),
@@ -330,7 +345,8 @@ namespace ygw {
 			std::string operator()(const std::unordered_map<std::string, T>& v) 
             {
 				YAML::Node node(YAML::NodeType::Map);
-				for (auto& i : v) {
+				for (auto& i : v) 
+                {
 					node[i.first] = YAML::Load(LexicalCast<T, std::string>()(i.second));
 				}
 				std::stringstream ss;
@@ -339,17 +355,14 @@ namespace ygw {
 			}
 		};
 
-
-
-
-        //-------------------------------------------------------------------------------------------
+        //---------------------------------------------------------------------
         /**
-         ** @brief 配置参数模板子类,保存对应类型的参数值
-         ** @details T 参数的具体类型
-         **          FromStr 从std::string转换成T类型的仿函数
-         **          ToStr 从T转换成std::string的仿函数
-         **          std::string 为YAML格式的字符串
-         **/
+         * @brief 配置参数模板子类,保存对应类型的参数值
+         * @details T 参数的具体类型
+         *          FromStr 从std::string转换成T类型的仿函数
+         *          ToStr 从T转换成std::string的仿函数
+         *          std::string 为YAML格式的字符串
+         */
         template<class T, class FromStr = LexicalCast<std::string, T>, 
             class ToStr = LexicalCast<T, std::string> >
         class ConfigVar : public ConfigVarBase 
@@ -358,14 +371,15 @@ namespace ygw {
             using RWMutexType = thread::RWMutex;
             using ptr = std::shared_ptr<ConfigVar>;
             //配置变更回调
-            using OnChangeCb = std::function<void (const T& old_value, const T& new_value)>; 
+            using OnChangeCb = 
+                std::function<void (const T& old_value, const T& new_value)>; 
 
             /**
-             ** @brief 通过参数名,参数值,描述构造ConfigVar
-             ** @param[in] name 参数名称有效字符为[0-9a-z_.]
-             ** @param[in] default_value 参数的默认值
-             ** @param[in] description 参数的描述
-             **/
+             * @brief 通过参数名,参数值,描述构造ConfigVar
+             * @param[in] name 参数名称有效字符为[0-9a-z_.]
+             * @param[in] default_value 参数的默认值
+             * @param[in] description 参数的描述
+             */
             ConfigVar(const std::string& name
                     ,const T& default_value
                     ,const std::string& description = "")
@@ -375,9 +389,9 @@ namespace ygw {
             }
 
             /**
-             ** @brief 将参数值转换成YAML String
-             ** @exception 当转换失败抛出异常
-             **/
+             * @brief 将参数值转换成YAML String
+             * @exception 当转换失败抛出异常
+             */
             std::string ToString() override 
             {
                 try 
@@ -395,9 +409,9 @@ namespace ygw {
             }
 
             /**
-             ** @brief 从YAML String 转成参数的值
-             ** @exception 当转换失败抛出异常
-             **/
+             * @brief 从YAML String 转成参数的值
+             * @exception 当转换失败抛出异常
+             */
             bool FromString(const std::string& val) override 
             {
                 try 
@@ -415,8 +429,8 @@ namespace ygw {
             }
 
             /**
-             ** @brief 获取当前参数的值
-             **/
+             * @brief 获取当前参数的值
+             */
             const T GetValue() 
             {
                 RWMutexType::ReadLock lock(mutex_);
@@ -424,9 +438,9 @@ namespace ygw {
             }
 
             /**
-             ** @brief 设置当前参数的值
-             ** @details 如果参数的值有发生变化,则通知对应的注册回调函数
-             **/
+             * @brief 设置当前参数的值
+             * @details 如果参数的值有发生变化,则通知对应的注册回调函数
+             */
             void SetValue(const T& v) 
             {
                 {
@@ -440,13 +454,13 @@ namespace ygw {
                         i.second(val_, v);
                     }
                 }
-                RWMutexType::ReadLock lock(mutex_);
+                RWMutexType::WriteLock lock(mutex_);
                 val_ = v;
             }
 
             /**
-             ** @brief 返回参数值的类型名称(typeinfo)
-             **/
+             * @brief 返回参数值的类型名称(typeinfo)
+             */
             std::string GetTypeName() const override { return util::TypeToName<T>(); }
 
 
@@ -454,33 +468,33 @@ namespace ygw {
             //          on change call back
             //----------------------------------------------------
             /**
-             ** @brief 添加变化回调函数
-             ** @return 返回该回调函数对应的唯一id,用于删除回调
-             **/
+             * @brief 添加变化回调函数
+             * @return 返回该回调函数对应的唯一id,用于删除回调
+             */
             uint64_t AddListener(OnChangeCb cb) 
             {
                 static uint64_t s_fun_id = 0;
-                RWMutexType::ReadLock lock(mutex_);
+                RWMutexType::WriteLock lock(mutex_);
                 ++s_fun_id;
                 cbs_[s_fun_id] = cb;
                 return s_fun_id;
             }
 
             /**
-             ** @brief 删除回调函数
-             ** @param[in] key 回调函数的唯一id
-             **/
+             * @brief 删除回调函数
+             * @param[in] key 回调函数的唯一id
+             */
             void DelListener(uint64_t key) 
             {
-                RWMutexType::ReadLock lock(mutex_);
+                RWMutexType::WriteLock lock(mutex_);
                 cbs_.erase(key);
             }
 
             /**
-             ** @brief 获取回调函数
-             ** @param[in] key 回调函数的唯一id
-             ** @return 如果存在返回对应的回调函数,否则返回nullptr
-             **/
+             * @brief 获取回调函数
+             * @param[in] key 回调函数的唯一id
+             * @return 如果存在返回对应的回调函数,否则返回nullptr
+             */
             OnChangeCb GetListener(uint64_t key) 
             {
                 RWMutexType::ReadLock lock(mutex_);
@@ -489,11 +503,11 @@ namespace ygw {
             }
 
             /**
-             ** @brief 清理所有的回调函数
-             **/
+             * @brief 清理所有的回调函数
+             */
             void ClearListener() 
             {
-                RWMutexType::ReadLock lock(mutex_);
+                RWMutexType::WriteLock lock(mutex_);
                 cbs_.clear();
             }
         private:
@@ -506,34 +520,35 @@ namespace ygw {
             std::map<uint64_t, OnChangeCb> cbs_;
         };
        
-        //----------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------
         /**
-         ** @brief ConfigVar的管理类
-         ** @details 提供便捷的方法创建/访问ConfigVar
-         **/
+         * @brief ConfigVar的管理类
+         * @details 提供便捷的方法创建/访问ConfigVar
+         */
         class Config {
         public:
+            //
             using ConfigVarMap = std::unordered_map<std::string, ConfigVarBase::ptr>;
             //
             using RWMutexType = thread::RWMutex;
 
             /**
-             ** @brief 获取/创建对应参数名的配置参数
-             ** @param[in] name 配置参数名称
-             ** @param[in] default_value 参数默认值
-             ** @param[in] description 参数描述
-             ** @details 获取参数名为name的配置参数,如果存在直接返回
-             **          如果不存在,创建参数配置并用default_value赋值
-             ** @return 返回对应的配置参数,如果参数名存在但是类型不匹配则返回nullptr
-             ** @exception 如果参数名包含非法字符[^0-9a-z_.] 抛出异常 std::invalid_argument
-             **/
+             * @brief 获取/创建对应参数名的配置参数
+             * @param[in] name 配置参数名称
+             * @param[in] default_value 参数默认值
+             * @param[in] description 参数描述
+             * @details 获取参数名为name的配置参数,如果存在直接返回
+             *          如果不存在,创建参数配置并用default_value赋值
+             * @return 返回对应的配置参数,如果参数名存在但是类型不匹配则返回nullptr
+             * @exception 如果参数名包含非法字符[^0-9a-z_.] 抛出异常 std::invalid_argument
+             */
             template<class T>
             static typename ConfigVar<T>::ptr Lookup(const std::string& name,
                    const T& default_value, const std::string& description = "") 
             {
                 RWMutexType::WriteLock lock(GetMutex());
                 auto it = GetDatas().find(name);
-                if (it != GetDatas().end()) 
+                if (it != GetDatas().end())  // 找到了
                 {
                     auto tmp = std::dynamic_pointer_cast<ConfigVar<T> >(it->second);
                     if (tmp) //能转换成功则正常返回
@@ -563,10 +578,10 @@ namespace ygw {
             }
 
             /**
-             ** @brief 查找配置参数
-             ** @param[in] name 配置参数名称
-             ** @return 返回配置参数名为name的配置参数
-             **/
+             * @brief 查找配置参数
+             * @param[in] name 配置参数名称
+             * @return 返回配置参数名为name的配置参数
+             */
             template<class T>
             static typename ConfigVar<T>::ptr Lookup(const std::string& name) 
             {
@@ -580,36 +595,36 @@ namespace ygw {
             }
 
             /**
-             ** @brief 使用YAML::Node初始化配置模块
-             **/
+             * @brief 使用YAML::Node初始化配置模块
+             */
             static void LoadFromYaml(const YAML::Node& root);
 
             /**
-             ** @brief 加载filepath配置文件
-             **/
+             * @brief 加载filepath配置文件
+             */
             static void LoadFromYamlFile(const std::string& file_path);
 
             /**
-             ** @brief 加载path文件夹里面的配置文件
-             **/
+             * @brief 加载path文件夹里面的配置文件
+             */
             static void LoadFromConfDir(const std::string& path, bool force = false);
 
             /**
-             ** @brief 查找配置参数,返回配置参数的基类
-             ** @param[in] name 配置参数名称
-             **/
+             * @brief 查找配置参数,返回配置参数的基类
+             * @param[in] name 配置参数名称
+             */
             static ConfigVarBase::ptr LookupBase(const std::string& name);
 
             /**
-             ** @brief 遍历配置模块里面所有配置项
-             ** @param[in] cb 配置项回调函数
-             **/
+             * @brief 遍历配置模块里面所有配置项
+             * @param[in] cb 配置项回调函数
+             */
             static void Visit(std::function<void(ConfigVarBase::ptr)> cb);
         private:
 
             /**
-             ** @brief 返回所有的配置项
-             **/
+             * @brief 返回所有的配置项
+             */
             static ConfigVarMap& GetDatas() 
             {
                 static ConfigVarMap s_datas;
@@ -617,8 +632,8 @@ namespace ygw {
             }
 
             /**
-             ** @brief 配置项的RWMutex
-             **/
+             * @brief 配置项的RWMutex
+             */
             static RWMutexType& GetMutex() 
             {
                 static RWMutexType s_mutex;

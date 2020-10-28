@@ -1,0 +1,4 @@
+http_server: 
+    default:
+        name: ygw/1.0
+        root: /home/workspace/server_frame/bin/web/

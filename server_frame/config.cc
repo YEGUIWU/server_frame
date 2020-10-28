@@ -1,15 +1,13 @@
-/*
- * ====================================================
- * Copyright (c) 2020-2100
- *     FileName: config.cc
- *       Author: Ye Gui Wu
- *        Email: yeguiwu@qq.com
- *      Version: 1.0
- *     Compiler: gcc
- *  Create Date: 2020-05-02
- *  Description: 
- * ====================================================
+/**
+ * @file server_frame/config.cc
+ * @brief 
+ * @author YeGuiWu
+ * @email yeguiwu@qq.com
+ * @version 1.0
+ * @date 2020-09-23
+ * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.top
  */
+
 #include <sys/stat.h>
 #include <sys/types.h>
 
@@ -77,7 +75,9 @@ namespace ygw {
                     continue;
                 }
                 //全部转小写
-                std::transform(key.begin(), key.end(), key.begin(), ::tolower);
+                //std::transform(key.begin(), key.end(), key.begin(), ::tolower);
+                key = util::StringUtil::ToLower(key);
+
                 ConfigVarBase::ptr var = LookupBase(key);
 
                 if (var) 
