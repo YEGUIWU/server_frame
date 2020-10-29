@@ -1,15 +1,14 @@
-/*
- * ====================================================
- * Copyright (c) 2020-2100
- *     FileName: uri.h
- *       Author: Ye Gui Wu
- *        Email: yeguiwu@qq.com
- *      Version: 1.0
- *     Compiler: gcc
- *  Create Date: 2020-09-21
- *  Description: 
- * ====================================================
+/**
+ * @file server_frame/http/uri.h
+ * @brief 
+ * @author YeGuiWu
+ * @email yeguiwu@qq.com
+ * @version 1.0
+ * @date 2020-10-28
+ * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.xyz
  */
+#ifndef __YGW_URI_H__
+#define __YGW_URI_H__
 #include <memory>
 #include <string>
 #include <stdint.h>
@@ -167,3 +166,5 @@ namespace ygw {
 
 
 } // namespace ygw
+
+#endif // __YGW_URI_H__

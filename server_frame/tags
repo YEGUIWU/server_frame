@@ -88,7 +88,7 @@ ByteswapOnBigEndian	endian.h	/^        T ByteswapOnBigEndian(T t) $/;"	f	namespa
 ByteswapOnLittleEndian	endian.h	/^        T ByteswapOnLittleEndian(T t) $/;"	f	namespace:ygw::util	signature:(T t)
 CASLock	base/mutex.cc	/^        CASLock::CASLock()$/;"	f	class:ygw::thread::CASLock	signature:()
 CASLock	base/mutex.h	/^        class CASLock : able::Noncopyable {$/;"	c	namespace:ygw::thread	inherits:able::Noncopyable
-CHAR_IS_UNRESERVED	util.cc	639;"	d	file:
+CHAR_IS_UNRESERVED	util.cc	700;"	d	file:
 Call	base/fiber.cc	/^        void Fiber::Call()$/;"	f	class:ygw::scheduler::Fiber	signature:()
 Call	base/fiber.h	/^            void Call();$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:()
 CallerMainFunc	base/fiber.cc	/^        void Fiber::CallerMainFunc() $/;"	f	class:ygw::scheduler::Fiber	signature:()
@@ -342,10 +342,12 @@ Format	log.h	/^            std::ostream& Format(std::ostream& ofs, std::shared_p
 Format	log.h	/^            std::string Format(std::shared_ptr<Logger> logger,$/;"	p	class:ygw::log::LogFormatter	access:public	signature:(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event)
 Format	log.h	/^            void Format(const char* fmt, ...);$/;"	p	class:ygw::log::LogEvent	access:public	signature:(const char* fmt, ...)
 Format	log.h	/^            void Format(const char* fmt, va_list al);$/;"	p	class:ygw::log::LogEvent	access:public	signature:(const char* fmt, va_list al)
+Format	util.cc	/^        std::string StringUtil::Format(const char* fmt, ...) {$/;"	f	class:ygw::util::StringUtil	signature:(const char* fmt, ...)
 Format	util.h	/^            static std::string Format(const char* fmt, ...);$/;"	p	class:ygw::util::StringUtil	access:public	signature:(const char* fmt, ...)
 Format	util.h	/^        std::string Format(const char* fmt, ...);$/;"	p	namespace:ygw::util	signature:(const char* fmt, ...)
 FormatItem	log.h	/^            class FormatItem {$/;"	c	class:ygw::log::LogFormatter	access:public
 FormatUsedTime	http/servlet/status_servlet.cc	/^        std::string FormatUsedTime(int64_t ts) $/;"	f	namespace:ygw::http	signature:(int64_t ts)
+Formatv	util.cc	/^        std::string StringUtil::Formatv(const char* fmt, va_list ap) {$/;"	f	class:ygw::util::StringUtil	signature:(const char* fmt, va_list ap)
 Formatv	util.h	/^            static std::string Formatv(const char* fmt, va_list ap);$/;"	p	class:ygw::util::StringUtil	access:public	signature:(const char* fmt, va_list ap)
 Formatv	util.h	/^        std::string Formatv(const char* fmt, va_list ap);$/;"	p	namespace:ygw::util	signature:(const char* fmt, va_list ap)
 FromString	config.h	/^            virtual bool FromString(const std::string& val) = 0;$/;"	p	class:ygw::config::ConfigVarBase	access:public	signature:(const std::string& val)
@@ -401,10 +403,12 @@ GetCookie	http/http.cc	/^        std::string HttpRequest::GetCookie(const std::s
 GetCookie	http/http.h	/^            std::string GetCookie(const std::string& key, const std::string& def="");$/;"	p	class:ygw::http::HttpRequest	access:public	signature:(const std::string& key, const std::string& def=�)
 GetCookieAs	http/http.h	/^            T GetCookieAs(const std::string& key, const T& def = T()) $/;"	f	class:ygw::http::HttpRequest	access:public	signature:(const std::string& key, const T& def = T())
 GetCookies	http/http.h	/^            const MapType& GetCookies() const { return cookies_; }$/;"	f	class:ygw::http::HttpRequest	access:public	signature:() const
-GetCurrentMS	util.cc	/^        uint64_t GetCurrentMS() $/;"	f	namespace:ygw::util	signature:()
-GetCurrentMS	util.h	/^        uint64_t GetCurrentMS();$/;"	p	namespace:ygw::util	signature:()
-GetCurrentUS	util.cc	/^        uint64_t GetCurrentUS() $/;"	f	namespace:ygw::util	signature:()
-GetCurrentUS	util.h	/^        uint64_t GetCurrentUS();$/;"	p	namespace:ygw::util	signature:()
+GetCurDir	util.cc	/^        std::string FSUtil::GetCurDir()$/;"	f	class:ygw::util::FSUtil	signature:()
+GetCurDir	util.h	/^            static std::string GetCurDir();$/;"	p	class:ygw::util::FSUtil	access:public	signature:()
+GetCurrentMS	util.cc	/^        uint64_t TimeUtil::GetCurrentMS() $/;"	f	class:ygw::util::TimeUtil	signature:()
+GetCurrentMS	util.h	/^            static uint64_t GetCurrentMS();$/;"	p	class:ygw::util::TimeUtil	access:public	signature:()
+GetCurrentUS	util.cc	/^        uint64_t TimeUtil::GetCurrentUS() $/;"	f	class:ygw::util::TimeUtil	signature:()
+GetCurrentUS	util.h	/^            static uint64_t GetCurrentUS();$/;"	p	class:ygw::util::TimeUtil	access:public	signature:()
 GetData	http/http_parser.h	/^            HttpRequest::ptr GetData() const { return data_;}$/;"	f	class:ygw::http::HttpRequestParser	access:public	signature:() const
 GetData	http/http_parser.h	/^            HttpResponse::ptr GetData() const { return data_;}$/;"	f	class:ygw::http::HttpResponseParser	access:public	signature:() const
 GetDatas	config.h	/^            static ConfigVarMap& GetDatas() $/;"	f	class:ygw::config::Config	access:private	signature:()
@@ -428,6 +432,8 @@ GetFiberId	log.h	/^            uint32_t GetFiberId() const { return fiber_id_;}$
 GetFiberId	util.cc	/^        int GetFiberId()$/;"	f	namespace:ygw::util	signature:()
 GetFiberId	util.h	/^        int GetFiberId();$/;"	p	namespace:ygw::util	signature:()
 GetFile	log.h	/^            const char* GetFile() const { return filename_;}$/;"	f	class:ygw::log::LogEvent	access:public	signature:() const
+GetFileSize	util.cc	/^        int FSUtil::GetFileSize(FILE* pf)$/;"	f	class:ygw::util::FSUtil	signature:(FILE* pf)
+GetFileSize	util.h	/^            static int GetFileSize(FILE* pf);$/;"	p	class:ygw::util::FSUtil	access:public	signature:(FILE* pf)
 GetFormatter	log.cc	/^        LogFormatter::ptr LogAppender::GetFormatter() $/;"	f	class:ygw::log::LogAppender	signature:()
 GetFormatter	log.cc	/^        LogFormatter::ptr Logger::GetFormatter() $/;"	f	class:ygw::log::Logger	signature:()
 GetFormatter	log.h	/^            LogFormatter::ptr GetFormatter();$/;"	p	class:ygw::log::LogAppender	access:public	signature:()
@@ -497,6 +503,7 @@ GetMutex	config.h	/^            static RWMutexType& GetMutex() $/;"	f	class:ygw:
 GetName	base/scheduler.h	/^            const std::string& GetName() const { return name_;}$/;"	f	class:ygw::scheduler::Scheduler	access:public	signature:() const
 GetName	base/thread.h	/^            const std::string& GetName() const { return name_; }$/;"	f	class:ygw::thread::Thread	access:public	signature:() const
 GetName	config.h	/^            const std::string& GetName() const { return name_; }$/;"	f	class:ygw::config::ConfigVarBase	access:public	signature:() const
+GetName	http/http_server.h	/^            std::string GetName() const { return name_; }$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:() const
 GetName	http/servlet.h	/^            const std::string& GetName() const { return name_; }$/;"	f	class:ygw::http::Servlet	access:public	signature:() const
 GetName	http/servlet.h	/^            virtual std::string GetName() const = 0;$/;"	p	class:ygw::http::IServletCreator	access:public	signature:() const
 GetName	log.h	/^            const std::string& GetName() const { return name_;}$/;"	f	class:ygw::log::Logger	access:public	signature:() const
@@ -551,6 +558,7 @@ GetRemoteAddressString	stream/socket_stream.cc	/^        std::string SocketStrea
 GetRemoteAddressString	stream/socket_stream.h	/^            std::string GetRemoteAddressString();$/;"	p	class:ygw::stream::SocketStream	access:public	signature:()
 GetResult	stream/zlib_stream.cc	/^        std::string ZlibStream::GetResult() const $/;"	f	class:ygw::stream::ZlibStream	signature:() const
 GetResult	stream/zlib_stream.h	/^            std::string GetResult() const;$/;"	p	class:ygw::stream::ZlibStream	access:public	signature:() const
+GetRoot	http/http_server.h	/^            std::string GetRoot() const { return root_; }$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:() const
 GetRoot	log.h	/^            Logger::ptr GetRoot() const { return root_;}$/;"	f	class:ygw::log::LoggerManager	access:public	signature:() const
 GetScheme	http/uri.h	/^            const std::string& GetScheme() const { return scheme_;}$/;"	f	class:ygw::http::Uri	access:public	signature:() const
 GetSendTimeout	socket.cc	/^        int64_t Socket::GetSendTimeout()$/;"	f	class:ygw::socket::Socket	signature:()
@@ -600,6 +608,8 @@ GetVersion	http/http.h	/^            uint8_t GetVersion() const { return version
 GetVersion	http/http.h	/^            uint8_t GetVersion() const { return version_;}$/;"	f	class:ygw::http::HttpResponse	access:public	signature:() const
 GetWriteBuffers	bytearray.cc	/^        uint64_t ByteArray::GetWriteBuffers(std::vector<iovec>& buffers, uint64_t len) $/;"	f	class:ygw::container::ByteArray	signature:(std::vector<iovec>& buffers, uint64_t len)
 GetWriteBuffers	bytearray.h	/^            uint64_t GetWriteBuffers(std::vector<iovec>& buffers, uint64_t len);$/;"	p	class:ygw::container::ByteArray	access:public	signature:(std::vector<iovec>& buffers, uint64_t len)
+GuessContentType	util.cc	/^        const char* StringUtil::GuessContentType(const std::string& path)$/;"	f	class:ygw::util::StringUtil	signature:(const std::string& path)
+GuessContentType	util.h	/^            static const char* GuessContentType(const std::string& path);$/;"	p	class:ygw::util::StringUtil	access:public	signature:(const std::string& path)
 HOOK_FUNC	hook.cc	43;"	d	file:
 HTTP_METHOD_MAP	http/http.h	31;"	d
 HTTP_STATUS_MAP	http/http.h	78;"	d
@@ -651,6 +661,7 @@ HttpResult	http/http_connection.h	/^            HttpResult(int _result$/;"	f	str
 HttpResult	http/http_connection.h	/^        struct HttpResult {$/;"	s	namespace:ygw::http
 HttpServer	http/http_server.cc	/^        HttpServer::HttpServer(bool keepalive$/;"	f	class:ygw::http::HttpServer	signature:(bool keepalive ,ygw::scheduler::IOManager* worker ,ygw::scheduler::IOManager* io_worker ,ygw::scheduler::IOManager* accept_worker)
 HttpServer	http/http_server.h	/^        class HttpServer : public tcp::TcpServer $/;"	c	namespace:ygw::http	inherits:tcp::TcpServer
+HttpServerConfig	http/http_server.h	/^        class HttpServerConfig {$/;"	c	namespace:ygw::http
 HttpSession	http/http_session.cc	/^		HttpSession::HttpSession(socket::Socket::ptr sock, bool owner)$/;"	f	class:ygw::http::HttpSession	signature:(socket::Socket::ptr sock, bool owner)
 HttpSession	http/http_session.h	/^        class HttpSession : public stream::SocketStream {$/;"	c	namespace:ygw::http	inherits:stream::SocketStream
 HttpStatus	http/http.h	/^        enum class HttpStatus$/;"	c	namespace:ygw::http
@@ -732,6 +743,7 @@ IsSocket	base/fd_manager.h	/^            bool IsSocket() const { return is_socke
 IsStop	tcp_server.h	/^            bool IsStop() const { return is_stop_;}$/;"	f	class:ygw::tcp::TcpServer	access:public	signature:() const
 IsSysNonblock	base/fd_manager.h	/^            bool IsSysNonblock() const { return is_sys_nonblock_; }$/;"	f	class:ygw::handle::FdContext	access:public	signature:() const
 IsUserNonblock	base/fd_manager.h	/^            bool IsUserNonblock() const { return is_user_nonblock_; }$/;"	f	class:ygw::handle::FdContext	access:public	signature:() const
+IsValid	http/http_server.h	/^            bool IsValid() const$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:() const
 IsValid	log.cc	/^            bool IsValid() const $/;"	f	class:ygw::log::LogDefine	access:public	signature:() const
 IsValid	socket.cc	/^        bool Socket::IsValid() const $/;"	f	class:ygw::socket::Socket	signature:() const
 IsValid	socket.h	/^			bool IsValid() const;$/;"	p	class:ygw::socket::Socket	access:public	signature:() const
@@ -762,6 +774,8 @@ LexicalCast	config.h	/^		class LexicalCast<std::unordered_set<T>, std::string> {
 LexicalCast	config.h	/^		class LexicalCast<std::vector<T>, std::string> {$/;"	c	namespace:ygw::config
 LexicalCast	config.h	/^        class LexicalCast {$/;"	c	namespace:ygw::config
 LexicalCast	config.h	/^        class LexicalCast<std::string, std::vector<T> > {$/;"	c	namespace:ygw::config
+LexicalCast	http/http_server.cc	/^        class LexicalCast<std::string, ygw::http::HttpServerConfig>{$/;"	c	namespace:ygw::config	file:
+LexicalCast	http/http_server.cc	/^        class LexicalCast<ygw::http::HttpServerConfig, std::string> {$/;"	c	namespace:ygw::config	file:
 LexicalCast	log.cc	/^        class LexicalCast<log::LogDefine, std::string> {$/;"	c	namespace:ygw::config	file:
 LexicalCast	log.cc	/^        class LexicalCast<std::string, log::LogDefine> {$/;"	c	namespace:ygw::config	file:
 LexicalCast	tcp_server.h	/^		class LexicalCast<std::string, ygw::tcp::TcpServerConf> {$/;"	c	namespace:ygw::config
@@ -882,6 +896,8 @@ OnResponseVersion	http/http_parser.cc	/^        void OnResponseVersion(void *dat
 OnTimer	base/timer.cc	/^        static void OnTimer(std::weak_ptr<void> weak_cond, std::function<void()> cb) $/;"	f	namespace:ygw::timer	signature:(std::weak_ptr<void> weak_cond, std::function<void()> cb)
 OnTimerInsertedAtFront	base/timer.h	/^            virtual void OnTimerInsertedAtFront() = 0;$/;"	p	class:ygw::timer::TimerManager	access:protected	signature:()
 OnTimerInsertedAtFront	iomanager.cc	/^       void IOManager::OnTimerInsertedAtFront() $/;"	f	class:ygw::scheduler::IOManager	signature:()
+OpenFile	util.cc	/^        std::shared_ptr<FILE> FSUtil::OpenFile(const std::string& filename, const char* mode)$/;"	f	class:ygw::util::FSUtil	signature:(const std::string& filename, const char* mode)
+OpenFile	util.h	/^            static std::shared_ptr<FILE> OpenFile(const std::string& filename, const char* mode);$/;"	p	class:ygw::util::FSUtil	access:public	signature:(const std::string& filename, const char* mode)
 OpenForRead	util.cc	/^        bool FSUtil::OpenForRead(std::ifstream& ifs, const std::string& filename$/;"	f	class:ygw::util::FSUtil	signature:(std::ifstream& ifs, const std::string& filename ,std::ios_base::openmode mode)
 OpenForRead	util.h	/^            static bool OpenForRead(std::ifstream& ifs, const std::string& filename$/;"	p	class:ygw::util::FSUtil	access:public	signature:(std::ifstream& ifs, const std::string& filename ,std::ios_base::openmode mode)
 OpenForWrite	util.cc	/^        bool FSUtil::OpenForWrite(std::ofstream& ofs, const std::string& filename$/;"	f	class:ygw::util::FSUtil	signature:(std::ofstream& ofs, const std::string& filename ,std::ios_base::openmode mode)
@@ -900,6 +916,7 @@ PrivateEncrypt	util/crypto_util.cc	/^        int32_t RSACipher::PrivateEncrypt(c
 PrivateEncrypt	util/crypto_util.cc	/^        int32_t RSACipher::PrivateEncrypt(const void* from, int flen,$/;"	f	class:ygw::util::RSACipher	signature:(const void* from, int flen, void* to, int padding)
 PrivateEncrypt	util/crypto_util.h	/^            int32_t PrivateEncrypt(const void* from, int flen,$/;"	p	class:ygw::util::RSACipher	access:public	signature:(const void* from, int flen, std::string& to, int padding = RSA_NO_PADDING)
 PrivateEncrypt	util/crypto_util.h	/^            int32_t PrivateEncrypt(const void* from, int flen,$/;"	p	class:ygw::util::RSACipher	access:public	signature:(const void* from, int flen, void* to, int padding = RSA_NO_PADDING)
+ProcessInfo	daemon.h	/^        struct ProcessInfo {$/;"	s	namespace:ygw::sys
 PublicDecrypt	util/crypto_util.cc	/^        int32_t RSACipher::PublicDecrypt(const void* from, int flen,$/;"	f	class:ygw::util::RSACipher	signature:(const void* from, int flen, std::string& to, int padding)
 PublicDecrypt	util/crypto_util.cc	/^        int32_t RSACipher::PublicDecrypt(const void* from, int flen,$/;"	f	class:ygw::util::RSACipher	signature:(const void* from, int flen, void* to, int padding)
 PublicDecrypt	util/crypto_util.h	/^            int32_t PublicDecrypt(const void* from, int flen,$/;"	p	class:ygw::util::RSACipher	access:public	signature:(const void* from, int flen, std::string& to, int padding = RSA_NO_PADDING)
@@ -979,6 +996,8 @@ ReadUint32	bytearray.cc	/^        uint32_t ByteArray::ReadUint32() $/;"	f	class:
 ReadUint32	bytearray.h	/^            uint32_t ReadUint32();$/;"	p	class:ygw::container::ByteArray	access:public	signature:()
 ReadUint64	bytearray.cc	/^        uint64_t ByteArray::ReadUint64() $/;"	f	class:ygw::container::ByteArray	signature:()
 ReadUint64	bytearray.h	/^            uint64_t ReadUint64();$/;"	p	class:ygw::container::ByteArray	access:public	signature:()
+RealDaemon	daemon.cc	/^        static int RealDaemon(int argc, char** argv,$/;"	f	namespace:ygw::sys	signature:(int argc, char** argv, std::function<int(int argc, char** argv)> main_cb)
+RealStart	daemon.cc	/^        static int RealStart(int argc, char** argv,$/;"	f	namespace:ygw::sys	signature:(int argc, char** argv, std::function<int(int argc, char** argv)> main_cb)
 Realpath	util.cc	/^        bool FSUtil::Realpath(const std::string& path, std::string& rpath) $/;"	f	class:ygw::util::FSUtil	signature:(const std::string& path, std::string& rpath)
 Realpath	util.h	/^            static bool Realpath(const std::string& path, std::string& rpath);$/;"	p	class:ygw::util::FSUtil	access:public	signature:(const std::string& path, std::string& rpath)
 Reconnect	socket.cc	/^        bool Socket::Reconnect(uint64_t timeout_ms)$/;"	f	class:ygw::socket::Socket	signature:(uint64_t timeout_ms)
@@ -1044,6 +1063,8 @@ Send	socket.cc	/^        int Socket::Send(const iovec* buffers, size_t length, i
 Send	socket.cc	/^        int Socket::Send(const void* buffer, size_t length, int flags)$/;"	f	class:ygw::socket::Socket	signature:(const void* buffer, size_t length, int flags)
 Send	socket.h	/^			virtual int Send(const iovec* buffers, size_t length, int flags = 0);$/;"	p	class:ygw::socket::Socket	access:public	signature:(const iovec* buffers, size_t length, int flags = 0)
 Send	socket.h	/^			virtual int Send(const void* buffer, size_t length, int flags = 0);$/;"	p	class:ygw::socket::Socket	access:public	signature:(const void* buffer, size_t length, int flags = 0)
+SendDocument	http/http_server.cc	/^        bool HttpServer::SendDocument(HttpRequest::ptr request, HttpResponse::ptr response, HttpSession::ptr session)$/;"	f	class:ygw::http::HttpServer	signature:(HttpRequest::ptr request, HttpResponse::ptr response, HttpSession::ptr session)
+SendDocument	http/http_server.h	/^            bool SendDocument(HttpRequest::ptr request, HttpResponse::ptr response, HttpSession::ptr session);$/;"	p	class:ygw::http::HttpServer	access:protected	signature:(HttpRequest::ptr request, HttpResponse::ptr response, HttpSession::ptr session)
 SendRequest	http/http_connection.cc	/^        int HttpConnection::SendRequest(HttpRequest::ptr rsp) $/;"	f	class:ygw::http::HttpConnection	signature:(HttpRequest::ptr rsp)
 SendRequest	http/http_connection.h	/^            int SendRequest(HttpRequest::ptr req);$/;"	p	class:ygw::http::HttpConnection	access:public	signature:(HttpRequest::ptr req)
 SendResponse	http/http_session.cc	/^		int HttpSession::SendResponse(HttpResponse::ptr rsp) $/;"	f	class:ygw::http::HttpSession	signature:(HttpResponse::ptr rsp)
@@ -1110,6 +1131,7 @@ SetMethod	http/http.h	/^            void SetMethod(HttpMethod v) { method_ = v;}
 SetName	base/thread.cc	/^        void Thread::SetName(const std::string& name) $/;"	f	class:ygw::thread::Thread	signature:(const std::string& name)
 SetName	base/thread.h	/^            static void SetName(const std::string& name);$/;"	p	class:ygw::thread::Thread	access:public	signature:(const std::string& name)
 SetName	http/http_server.cc	/^        void HttpServer::SetName(const std::string& v) $/;"	f	class:ygw::http::HttpServer	signature:(const std::string& v)
+SetName	http/http_server.h	/^            void SetName(const std::string& name) { name_ = name; }$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:(const std::string& name)
 SetName	tcp_server.h	/^            virtual void SetName(const std::string& v) { name_ = v;}$/;"	f	class:ygw::tcp::TcpServer	access:public	signature:(const std::string& v)
 SetOption	socket.cc	/^        bool Socket::SetOption(int level, int option, const void* result, socklen_t len)$/;"	f	class:ygw::socket::Socket	signature:(int level, int option, const void* result, socklen_t len)
 SetOption	socket.h	/^			bool SetOption(int level, int option, const T& value) $/;"	f	class:ygw::socket::Socket	access:public	signature:(int level, int option, const T& value)
@@ -1133,6 +1155,8 @@ SetRecvTimeout	socket.h	/^			void SetRecvTimeout(int64_t v);$/;"	p	class:ygw::so
 SetRecvTimeout	tcp_server.h	/^            void SetRecvTimeout(uint64_t v) { recv_timeout_ = v;}$/;"	f	class:ygw::tcp::TcpServer	access:public	signature:(uint64_t v)
 SetRedirect	http/http.cc	/^        void HttpResponse::SetRedirect(const std::string& uri) $/;"	f	class:ygw::http::HttpResponse	signature:(const std::string& uri)
 SetRedirect	http/http.h	/^            void SetRedirect(const std::string& uri);$/;"	p	class:ygw::http::HttpResponse	access:public	signature:(const std::string& uri)
+SetRoot	http/http_server.h	/^            void SetRoot(const std::string& path) { root_path_ = path; }$/;"	f	class:ygw::http::HttpServer	access:public	signature:(const std::string& path)
+SetRoot	http/http_server.h	/^            void SetRoot(const std::string& root) { root_ = root; }$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:(const std::string& root)
 SetScheme	http/uri.h	/^            void SetScheme(const std::string& v) { scheme_ = v;}$/;"	f	class:ygw::http::Uri	access:public	signature:(const std::string& v)
 SetSendTimeout	socket.cc	/^        void Socket::SetSendTimeout(int64_t v)$/;"	f	class:ygw::socket::Socket	signature:(int64_t v)
 SetSendTimeout	socket.h	/^			void SetSendTimeout(int64_t v);$/;"	p	class:ygw::socket::Socket	access:public	signature:(int64_t v)
@@ -1178,6 +1202,7 @@ Start	tcp_server.cc	/^        bool TcpServer::Start() $/;"	f	class:ygw::tcp::Tcp
 Start	tcp_server.h	/^            virtual bool Start();$/;"	p	class:ygw::tcp::TcpServer	access:public	signature:()
 StartAccept	tcp_server.cc	/^        void TcpServer::StartAccept(ygw::socket::Socket::ptr sock) $/;"	f	class:ygw::tcp::TcpServer	signature:(ygw::socket::Socket::ptr sock)
 StartAccept	tcp_server.h	/^            virtual void StartAccept(ygw::socket::Socket::ptr sock);$/;"	p	class:ygw::tcp::TcpServer	access:protected	signature:(ygw::socket::Socket::ptr sock)
+StartDaemon	daemon.h	/^        int StartDaemon(int argc, char** argv$/;"	p	namespace:ygw::sys	signature:(int argc, char** argv , std::function<int(int argc, char** argv)> main_cb , bool is_daemon)
 State	base/fiber.h	/^            enum State {$/;"	g	class:ygw::scheduler::Fiber	access:public
 StatusServlet	http/servlet/status_servlet.cc	/^        StatusServlet::StatusServlet()$/;"	f	class:ygw::http::StatusServlet	signature:()
 StatusServlet	http/servlet/status_servlet.h	/^            StatusServlet();$/;"	p	class:ygw::http::StatusServlet	access:public	signature:()
@@ -1192,8 +1217,8 @@ Stopping	base/scheduler.h	/^            virtual bool Stopping();$/;"	p	class:ygw
 Stopping	iomanager.cc	/^        bool IOManager::Stopping() $/;"	f	class:ygw::scheduler::IOManager	signature:()
 Stopping	iomanager.cc	/^        bool IOManager::Stopping(uint64_t* timeout) $/;"	f	class:ygw::scheduler::IOManager	signature:(uint64_t* timeout)
 Stopping	iomanager.h	/^            bool Stopping(uint64_t* timeout);$/;"	p	class:ygw::scheduler::IOManager	access:protected	signature:(uint64_t* timeout)
-Str2Time	util.cc	/^        time_t Str2Time(const char* str, const char* format) $/;"	f	namespace:ygw::util	signature:(const char* str, const char* format)
-Str2Time	util.h	/^        time_t Str2Time(const char* str, const char* format = "%Y-%m-%d %H:%M:%S");$/;"	p	namespace:ygw::util	signature:(const char* str, const char* format = �)
+Str2Time	util.cc	/^        time_t TimeUtil::Str2Time(const char* str, const char* format) $/;"	f	class:ygw::util::TimeUtil	signature:(const char* str, const char* format)
+Str2Time	util.h	/^            static time_t Str2Time(const char* str, const char* format = "%Y-%m-%d %H:%M:%S");$/;"	p	class:ygw::util::TimeUtil	access:public	signature:(const char* str, const char* format = �)
 Strategy	stream/zlib_stream.h	/^            enum Strategy {$/;"	g	class:ygw::stream::ZlibStream	access:public
 Stream	stream/stream.h	/^        class Stream {$/;"	c	namespace:ygw::stream
 StringFormatItem	log.cc	/^            StringFormatItem(const std::string& str)$/;"	f	class:ygw::log::StringFormatItem	access:public	signature:(const std::string& str)
@@ -1229,8 +1254,9 @@ ThreadNameFormatItem	log.cc	/^        class ThreadNameFormatItem : public LogFor
 Tickle	base/scheduler.cc	/^        void Scheduler::Tickle() $/;"	f	class:ygw::scheduler::Scheduler	signature:()
 Tickle	base/scheduler.h	/^            virtual void Tickle();$/;"	p	class:ygw::scheduler::Scheduler	access:protected	signature:()
 Tickle	iomanager.cc	/^        void IOManager::Tickle() $/;"	f	class:ygw::scheduler::IOManager	signature:()
-Time2Str	util.cc	/^        std::string Time2Str(time_t ts, const std::string& format) $/;"	f	namespace:ygw::util	signature:(time_t ts, const std::string& format)
-Time2Str	util.h	/^        std::string Time2Str(time_t ts = time(0), const std::string& format = "%Y-%m-%d %H:%M:%S");$/;"	p	namespace:ygw::util	signature:(time_t ts = time(0), const std::string& format = �)
+Time2Str	util.cc	/^        std::string TimeUtil::Time2Str(time_t ts, const std::string& format) $/;"	f	class:ygw::util::TimeUtil	signature:(time_t ts, const std::string& format)
+Time2Str	util.h	/^            static std::string Time2Str(time_t ts = time(0), const std::string& format = "%Y-%m-%d %H:%M:%S");$/;"	p	class:ygw::util::TimeUtil	access:public	signature:(time_t ts = time(0), const std::string& format = �)
+TimeUtil	util.h	/^        class TimeUtil {$/;"	c	namespace:ygw::util
 Timer	base/timer.cc	/^        Timer::Timer(uint64_t ms, std::function<void()> cb,$/;"	f	class:ygw::timer::Timer	signature:(uint64_t ms, std::function<void()> cb, bool recurring, TimerManager* manager)
 Timer	base/timer.cc	/^        Timer::Timer(uint64_t next)$/;"	f	class:ygw::timer::Timer	signature:(uint64_t next)
 Timer	base/timer.h	/^            Timer(uint64_t ms, std::function<void()> cb,$/;"	p	class:ygw::timer::Timer	access:private	signature:(uint64_t ms, std::function<void()> cb, bool recurring, TimerManager* manager)
@@ -1253,6 +1279,8 @@ ToString	address.h	/^            std::string ToString() const;$/;"	p	class:ygw::
 ToString	bytearray.cc	/^        std::string ByteArray::ToString() const $/;"	f	class:ygw::container::ByteArray	signature:() const
 ToString	bytearray.h	/^            std::string ToString() const;$/;"	p	class:ygw::container::ByteArray	access:public	signature:() const
 ToString	config.h	/^            virtual std::string ToString() = 0;$/;"	p	class:ygw::config::ConfigVarBase	access:public	signature:()
+ToString	daemon.cc	/^        std::string ProcessInfo::ToString() const $/;"	f	class:ygw::sys::ProcessInfo	signature:() const
+ToString	daemon.h	/^            std::string ToString() const;$/;"	p	struct:ygw::sys::ProcessInfo	access:public	signature:() const
 ToString	email/email.cc	/^        std::string EMailEntity::ToString() const $/;"	f	class:ygw::smtp::EMailEntity	signature:() const
 ToString	email/email.h	/^            std::string ToString() const;$/;"	p	class:ygw::smtp::EMailEntity	access:public	signature:() const
 ToString	http/http.cc	/^        std::string HttpRequest::ToString() const$/;"	f	class:ygw::http::HttpRequest	signature:() const
@@ -1414,10 +1442,10 @@ XX	log.cc	50;"	d	file:
 XX	log.cc	66;"	d	file:
 XX	log.cc	708;"	d	file:
 XX	log.cc	723;"	d	file:
-XX	util.cc	925;"	d	file:
-XX	util.cc	940;"	d	file:
-XX	util.cc	975;"	d	file:
-XX	util.cc	987;"	d	file:
+XX	util.cc	1022;"	d	file:
+XX	util.cc	1037;"	d	file:
+XX	util.cc	1072;"	d	file:
+XX	util.cc	1084;"	d	file:
 XX2	http/servlet/status_servlet.cc	136;"	d	file:
 XorFetch	util.h	/^            static T XorFetch(volatile T& t, S v) $/;"	f	class:ygw::util::Atomic	access:public	signature:(volatile T& t, S v)
 YGW_ASSERT	macro.h	30;"	d
@@ -1468,6 +1496,7 @@ __YGW_BYTEARRAY_H__	bytearray.h	14;"	d
 __YGW_CONFIG_H__	config.h	12;"	d
 __YGW_CONFIG_SERVLET_H__	http/servlet/config_servlet.h	14;"	d
 __YGW_CRYPTO_UTIL_H__	util/crypto_util.h	15;"	d
+__YGW_DAEMON_H__	daemon.h	11;"	d
 __YGW_ENDIAN_H__	endian.h	14;"	d
 __YGW_FIBER_H__	base/fiber.h	14;"	d
 __YGW_HASH_UTIL_H__	util/hash_util.h	14;"	d
@@ -1490,6 +1519,7 @@ __YGW_STREAM_H__	stream/stream.h	15;"	d
 __YGW_TCP_SERVER_H__	tcp_server.h	12;"	d
 __YGW_THREAD_H__	base/thread.h	11;"	d
 __YGW_TIMER_H__	base/timer.h	12;"	d
+__YGW_URI_H__	http/uri.h	11;"	d
 __YGW_UTIL_H__	util.h	14;"	d
 __YGW_UTIL_JSON_UTIL_H__	util/json_util.h	14;"	d
 __YGW_ZLIB_STREAM_H__	stream/zlib_stream.h	14;"	d
@@ -1552,6 +1582,7 @@ close_func	hook.h	/^    typedef int (*close_func)(int fd);$/;"	t
 conf_	tcp_server.h	/^            TcpServerConf::ptr conf_;$/;"	m	class:ygw::tcp::TcpServer	access:protected
 config	config.cc	/^    namespace config {$/;"	n	namespace:ygw	file:
 config	config.h	/^    namespace config {$/;"	n	namespace:ygw
+config	http/http_server.cc	/^    namespace config {$/;"	n	namespace:ygw	file:
 config	log.cc	/^    namespace config {$/;"	n	namespace:ygw	file:
 config	tcp_server.h	/^    namespace config {$/;"	n	namespace:ygw
 connect	hook.cc	/^    int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen) $/;"	f	signature:(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
@@ -1565,6 +1596,8 @@ content_	email/email.h	/^            std::string content_;$/;"	m	class:ygw::smtp
 content_	http/servlet.h	/^            std::string content_;$/;"	m	class:ygw::http::NotFoundServlet	access:private
 content_len	http/parser/http11_parser.h	/^  int content_len;$/;"	m	struct:http_parser	access:public
 content_len	http/parser/httpclient_parser.h	/^  int content_len;$/;"	m	struct:httpclient_parser	access:public
+content_type	util.cc	/^            const char* content_type;$/;"	m	struct:ygw::util::table_entry	file:	access:public
+content_type_table	util.cc	/^        } content_type_table[] = {$/;"	m	namespace:ygw::util	typeref:struct:ygw::util::table_entry	file:
 context_	base/fiber.h	/^            ucontext_t context_;$/;"	m	class:ygw::scheduler::Fiber	access:private
 cookies_	http/http.h	/^            MapType cookies_;$/;"	m	class:ygw::http::HttpRequest	access:private
 cookies_	http/http.h	/^            std::vector<std::string> cookies_;$/;"	m	class:ygw::http::HttpResponse	access:private
@@ -1602,6 +1635,7 @@ error_	http/http_parser.h	/^            int error_;$/;"	m	class:ygw::http::HttpR
 error_	http/http_parser.h	/^            int error_;$/;"	m	class:ygw::http::HttpResponseParser	access:private
 event_	log.h	/^            LogEvent::ptr event_;$/;"	m	class:ygw::log::LogEventWrap	access:private
 events_	iomanager.h	/^                Event events_ = Event::kNone;$/;"	m	class:ygw::scheduler::IOManager::FdContext	access:public
+extension	util.cc	/^            const char* extension;$/;"	m	struct:ygw::util::table_entry	file:	access:public
 family_	socket.h	/^			int family_;$/;"	m	class:ygw::socket::Socket	access:protected
 fcntl	hook.cc	/^    int fcntl(int fd, int cmd, ... \/* arg *\/ )$/;"	f	signature:(int fd, int cmd, ... )
 fcntl_func	hook.h	/^    typedef int (*fcntl_func)(int fd, int cmd, ... \/* arg *\/ );$/;"	t
@@ -1633,12 +1667,15 @@ fragment_	http/uri.h	/^            std::string fragment_;$/;"	m	class:ygw::http:
 free_	stream/zlib_stream.h	/^            bool free_;$/;"	m	class:ygw::stream::ZlibStream	access:private
 from_email_address_	email/email.h	/^            std::string from_email_address_;$/;"	m	class:ygw::smtp::EMail	access:private
 from_email_passwd_	email/email.h	/^            std::string from_email_passwd_;$/;"	m	class:ygw::smtp::EMail	access:private
+g_daemon_restart_interval	daemon.cc	/^        static ygw::config::ConfigVar<uint32_t>::ptr g_daemon_restart_interval = $/;"	m	namespace:ygw::sys	file:
 g_fiber_stack_size	base/fiber.cc	/^        static config::ConfigVar<uint32_t>::ptr g_fiber_stack_size = $/;"	m	namespace:ygw::scheduler	file:
 g_http_request_buffer_size	http/http_parser.cc	/^        static ygw::config::ConfigVar<uint64_t>::ptr g_http_request_buffer_size = $/;"	m	namespace:ygw::http	file:
 g_http_request_max_body_size	http/http_parser.cc	/^        static ygw::config::ConfigVar<uint64_t>::ptr g_http_request_max_body_size = $/;"	m	namespace:ygw::http	file:
 g_http_response_buffer_size	http/http_parser.cc	/^        static ygw::config::ConfigVar<uint64_t>::ptr g_http_response_buffer_size = $/;"	m	namespace:ygw::http	file:
 g_http_response_max_body_size	http/http_parser.cc	/^        static ygw::config::ConfigVar<uint64_t>::ptr g_http_response_max_body_size = $/;"	m	namespace:ygw::http	file:
+g_http_server_config	http/http_server.cc	/^        ConfigVar<ygw::http::HttpServerConfig>::ptr g_http_server_config = $/;"	m	namespace:ygw::config	file:
 g_log_defines	log.cc	/^        ygw::config::ConfigVar<std::set<LogDefine> >::ptr g_log_defines =$/;"	m	namespace:ygw::log	file:
+g_loger	daemon.cc	/^        static ygw::log::Logger::ptr g_loger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::sys	file:
 g_logger	address.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::socket	file:
 g_logger	base/fiber.cc	/^        static log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::scheduler	file:
 g_logger	base/scheduler.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::scheduler	file:
@@ -1878,6 +1915,8 @@ loggers_	log.h	/^            std::map<std::string, Logger::ptr> loggers_;$/;"	m	
 m_string	log.cc	/^                std::string m_string;$/;"	m	class:ygw::log::TabFormatItem	file:	access:private
 m_string	log.cc	/^            std::string m_string;$/;"	m	class:ygw::log::StringFormatItem	file:	access:private
 m_value	util/hash_util.cc	/^            char m_value;$/;"	m	struct:ygw::util::xorStruct	file:	access:public
+main_id	daemon.h	/^            pid_t main_id = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
+main_start_time	daemon.h	/^            uint64_t main_start_time = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
 manager_	base/timer.h	/^            TimerManager* manager_ = nullptr;$/;"	m	class:ygw::timer::Timer	access:private
 mark	http/parser/http11_parser.h	/^  size_t mark;$/;"	m	struct:http_parser	access:public
 mark	http/parser/httpclient_parser.h	/^  size_t mark;$/;"	m	struct:httpclient_parser	access:public
@@ -1923,6 +1962,7 @@ name	tcp_server.h	/^            std::string name;$/;"	m	struct:ygw::tcp::TcpServ
 name_	base/scheduler.h	/^            std::string name_;$/;"	m	class:ygw::scheduler::Scheduler	access:private
 name_	base/thread.h	/^            std::string name_;$/;"	m	class:ygw::thread::Thread	access:private
 name_	config.h	/^            std::string name_;$/;"	m	class:ygw::config::ConfigVarBase	access:protected
+name_	http/http_server.h	/^            std::string name_; \/\/ 名字$/;"	m	class:ygw::http::HttpServerConfig	access:private
 name_	http/servlet.h	/^            std::string name_;$/;"	m	class:ygw::http::NotFoundServlet	access:private
 name_	http/servlet.h	/^            std::string name_;$/;"	m	class:ygw::http::Servlet	access:protected
 name_	log.cc	/^            std::string name_;$/;"	m	class:ygw::log::LogDefine	file:	access:public
@@ -1953,6 +1993,8 @@ operator ()	config.h	/^            T operator()(const F& v) $/;"	f	class:ygw::co
 operator ()	config.h	/^            std::vector<T> operator()(const std::string& v) $/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const std::string& v)
 operator ()	http/http.cc	/^        bool CaseInsensitiveLess::operator()(const std::string& lhs$/;"	f	class:ygw::http::CaseInsensitiveLess	signature:(const std::string& lhs ,const std::string& rhs) const
 operator ()	http/http.h	/^            bool operator()(const std::string& lhs, const std::string& rhs) const;$/;"	p	struct:ygw::http::CaseInsensitiveLess	access:public	signature:(const std::string& lhs, const std::string& rhs) const
+operator ()	http/http_server.cc	/^            std::string operator()(const ygw::http::HttpServerConfig& cfg)$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const ygw::http::HttpServerConfig& cfg)
+operator ()	http/http_server.cc	/^            ygw::http::HttpServerConfig operator()(const std::string& yaml_str)$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const std::string& yaml_str)
 operator ()	log.cc	/^            log::LogDefine operator()(const std::string& v)$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const std::string& v)
 operator ()	log.cc	/^            std::string operator()(const log::LogDefine& i)$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const log::LogDefine& i)
 operator ()	tcp_server.h	/^            std::string operator()(const ygw::tcp::TcpServerConf& conf) $/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const ygw::tcp::TcpServerConf& conf)
@@ -1960,6 +2002,7 @@ operator ()	tcp_server.h	/^            ygw::tcp::TcpServerConf operator()(const 
 operator ()	util/hash_util.cc	/^            char operator()(char in) const { return in ^ m_value; }$/;"	f	struct:ygw::util::xorStruct	access:public	signature:(char in) const
 operator <	address.cc	/^        bool Address::operator<(const Address& rhs) const $/;"	f	class:ygw::socket::Address	signature:(const Address& rhs) const
 operator <	address.h	/^            bool operator<(const Address& rhs) const;$/;"	p	class:ygw::socket::Address	access:public	signature:(const Address& rhs) const
+operator <	http/http_server.h	/^            bool operator<(const HttpServerConfig& cfg) const$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:(const HttpServerConfig& cfg) const
 operator <	log.cc	/^            bool operator<(const LogDefine& oth) const $/;"	f	class:ygw::log::LogDefine	access:public	signature:(const LogDefine& oth) const
 operator <<	address.cc	/^        std::ostream& operator<<(std::ostream& os, const Address& addr) $/;"	f	namespace:ygw::socket	signature:(std::ostream& os, const Address& addr)
 operator <<	address.h	/^        std::ostream& operator<<(std::ostream& os, const Address& addr);$/;"	p	namespace:ygw::socket	signature:(std::ostream& os, const Address& addr)
@@ -1974,6 +2017,7 @@ operator <<	socket.h	/^		std::ostream& operator<<(std::ostream& os, const Socket
 operator =	noncopyable.h	/^            Noncopyable& operator=(const Noncopyable&) = delete;$/;"	p	class:ygw::able::Noncopyable	access:public	signature:(const Noncopyable&)
 operator ==	address.cc	/^        bool Address::operator==(const Address& rhs) const $/;"	f	class:ygw::socket::Address	signature:(const Address& rhs) const
 operator ==	address.h	/^            bool operator==(const Address& rhs) const;$/;"	p	class:ygw::socket::Address	access:public	signature:(const Address& rhs) const
+operator ==	http/http_server.h	/^            bool operator==(const HttpServerConfig& cfg) const$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:(const HttpServerConfig& cfg) const
 operator ==	log.cc	/^            bool operator==(const LogAppenderDefine& oth) const $/;"	f	class:ygw::log::LogAppenderDefine	access:public	signature:(const LogAppenderDefine& oth) const
 operator ==	log.cc	/^            bool operator==(const LogDefine& oth) const $/;"	f	class:ygw::log::LogDefine	access:public	signature:(const LogDefine& oth) const
 operator ==	tcp_server.h	/^            bool operator==(const TcpServerConf& oth) const $/;"	f	struct:ygw::tcp::TcpServerConf	access:public	signature:(const TcpServerConf& oth) const
@@ -2045,6 +2089,8 @@ override	stream/zlib_stream.h	/^            virtual int Write(ygw::container::By
 override	stream/zlib_stream.h	/^            virtual void Close() override;$/;"	m	class:ygw::stream::ZlibStream	access:public
 owner_	stream/socket_stream.h	/^            bool owner_;$/;"	m	class:ygw::stream::SocketStream	access:protected
 params_	http/http.h	/^            MapType params_;$/;"	m	class:ygw::http::HttpRequest	access:private
+parent_id	daemon.h	/^            pid_t parent_id = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
+parent_start_time	daemon.h	/^            uint64_t parent_start_time = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
 parser_	http/http_parser.h	/^            HttpClientParser parser_;$/;"	m	class:ygw::http::HttpResponseParser	access:private
 parser_	http/http_parser.h	/^            HttpParser parser_;$/;"	m	class:ygw::http::HttpRequestParser	access:private
 parser_param_flag_	http/http.h	/^            uint8_t parser_param_flag_;$/;"	m	class:ygw::http::HttpRequest	access:private
@@ -2108,12 +2154,15 @@ request_method	http/parser/http11_parser.h	/^  element_cb request_method;$/;"	m	
 request_path	http/parser/http11_parser.h	/^  element_cb request_path;$/;"	m	struct:http_parser	access:public
 request_uri	http/parser/http11_parser.h	/^  element_cb request_uri;$/;"	m	struct:http_parser	access:public
 response	http/http_connection.h	/^            HttpResponse::ptr response;$/;"	m	struct:ygw::http::HttpResult	access:public
+restart_count	daemon.h	/^            uint32_t restart_count = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
 result	email/smtp.h	/^            int result;$/;"	m	struct:ygw::smtp::SmtpResult	access:public
 result	http/http_connection.h	/^            int result;$/;"	m	struct:ygw::http::HttpResult	access:public
 root_	bytearray.h	/^            Node* root_;$/;"	m	class:ygw::container::ByteArray	access:private
+root_	http/http_server.h	/^            std::string root_; \/\/ 根路径$/;"	m	class:ygw::http::HttpServerConfig	access:private
 root_	log.h	/^            Logger::ptr root_;$/;"	m	class:ygw::log::Logger	access:private
 root_	log.h	/^            Logger::ptr root_;$/;"	m	class:ygw::log::LoggerManager	access:private
 root_fiber_	base/scheduler.h	/^            Fiber::ptr root_fiber_;$/;"	m	class:ygw::scheduler::Scheduler	access:private
+root_path_	http/http_server.h	/^            std::string root_path_;$/;"	m	class:ygw::http::HttpServer	access:private
 root_thread_	base/scheduler.h	/^            int root_thread_ = 0;$/;"	m	class:ygw::scheduler::Scheduler	access:protected
 s_connect_timeout	hook.cc	/^        static uint64_t s_connect_timeout = -1;$/;"	m	namespace:ygw::hook	file:
 s_file2modifytime	config.cc	/^        static std::map<std::string, uint64_t> s_file2modifytime;$/;"	m	namespace:ygw::config	file:
@@ -2198,6 +2247,8 @@ stream	stream/stream.h	/^    namespace stream {$/;"	n	namespace:ygw
 stream	stream/zlib_stream.cc	/^    namespace stream {$/;"	n	namespace:ygw	file:
 stream	stream/zlib_stream.h	/^    namespace stream {$/;"	n	namespace:ygw
 string_stream_	log.h	/^            std::stringstream string_stream_;$/;"	m	class:ygw::log::LogEvent	access:private
+sys	daemon.cc	/^    namespace sys {$/;"	n	namespace:ygw	file:
+sys	daemon.h	/^    namespace sys {$/;"	n	namespace:ygw
 t_fiber	base/fiber.cc	/^        static thread_local Fiber* t_fiber = nullptr;$/;"	m	namespace:ygw::scheduler	file:
 t_hook_enable	hook.cc	/^        static thread_local bool t_hook_enable = false;$/;"	m	namespace:ygw::hook	file:
 t_scheduler	base/scheduler.cc	/^        static thread_local Scheduler* t_scheduler = nullptr;  \/\/当前协程调度器指针$/;"	m	namespace:ygw::scheduler	file:
@@ -2205,6 +2256,7 @@ t_scheduler_fiber	base/scheduler.cc	/^        static thread_local Fiber* t_sched
 t_thread	base/thread.cc	/^        static thread_local Thread* t_thread = nullptr;$/;"	m	namespace:ygw::thread	file:
 t_thread_fiber	base/fiber.cc	/^        static thread_local Fiber::ptr t_thread_fiber = nullptr;$/;"	m	namespace:ygw::scheduler	file:
 t_thread_name	base/thread.cc	/^        static thread_local std::string t_thread_name = "UNKNOW";$/;"	m	namespace:ygw::thread	file:
+table_entry	util.cc	/^        static const struct table_entry {$/;"	s	namespace:ygw::util	file:
 tcp	tcp_server.cc	/^    namespace tcp {$/;"	n	namespace:ygw	file:
 tcp	tcp_server.h	/^    namespace tcp { $/;"	n	namespace:ygw
 thread	base/mutex.cc	/^    namespace thread {$/;"	n	namespace:ygw	file:
@@ -2302,6 +2354,8 @@ ygw	bytearray.cc	/^namespace ygw {$/;"	n	file:
 ygw	bytearray.h	/^namespace ygw {$/;"	n
 ygw	config.cc	/^namespace ygw {$/;"	n	file:
 ygw	config.h	/^namespace ygw {$/;"	n
+ygw	daemon.cc	/^namespace ygw {$/;"	n	file:
+ygw	daemon.h	/^namespace ygw {$/;"	n
 ygw	email/email.cc	/^namespace ygw {$/;"	n	file:
 ygw	email/email.h	/^namespace ygw {$/;"	n
 ygw	email/smtp.cc	/^namespace ygw {$/;"	n	file:
@@ -2359,6 +2413,7 @@ ygw::able::Noncopyable::operator =	noncopyable.h	/^            Noncopyable& oper
 ygw::able::Noncopyable::~Noncopyable	noncopyable.h	/^            ~Noncopyable() = default;$/;"	p	class:ygw::able::Noncopyable	access:public	signature:()
 ygw::config	config.cc	/^    namespace config {$/;"	n	namespace:ygw	file:
 ygw::config	config.h	/^    namespace config {$/;"	n	namespace:ygw
+ygw::config	http/http_server.cc	/^    namespace config {$/;"	n	namespace:ygw	file:
 ygw::config	log.cc	/^    namespace config {$/;"	n	namespace:ygw	file:
 ygw::config	tcp_server.h	/^    namespace config {$/;"	n	namespace:ygw
 ygw::config::Config	config.h	/^        class Config {$/;"	c	namespace:ygw::config
@@ -2410,6 +2465,8 @@ ygw::config::LexicalCast	config.h	/^		class LexicalCast<std::unordered_set<T>, s
 ygw::config::LexicalCast	config.h	/^		class LexicalCast<std::vector<T>, std::string> {$/;"	c	namespace:ygw::config
 ygw::config::LexicalCast	config.h	/^        class LexicalCast {$/;"	c	namespace:ygw::config
 ygw::config::LexicalCast	config.h	/^        class LexicalCast<std::string, std::vector<T> > {$/;"	c	namespace:ygw::config
+ygw::config::LexicalCast	http/http_server.cc	/^        class LexicalCast<std::string, ygw::http::HttpServerConfig>{$/;"	c	namespace:ygw::config	file:
+ygw::config::LexicalCast	http/http_server.cc	/^        class LexicalCast<ygw::http::HttpServerConfig, std::string> {$/;"	c	namespace:ygw::config	file:
 ygw::config::LexicalCast	log.cc	/^        class LexicalCast<log::LogDefine, std::string> {$/;"	c	namespace:ygw::config	file:
 ygw::config::LexicalCast	log.cc	/^        class LexicalCast<std::string, log::LogDefine> {$/;"	c	namespace:ygw::config	file:
 ygw::config::LexicalCast	tcp_server.h	/^		class LexicalCast<std::string, ygw::tcp::TcpServerConf> {$/;"	c	namespace:ygw::config
@@ -2427,11 +2484,14 @@ ygw::config::LexicalCast::operator ()	config.h	/^			std::unordered_map<std::stri
 ygw::config::LexicalCast::operator ()	config.h	/^			std::unordered_set<T> operator()(const std::string& v) $/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const std::string& v)
 ygw::config::LexicalCast::operator ()	config.h	/^            T operator()(const F& v) $/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const F& v)
 ygw::config::LexicalCast::operator ()	config.h	/^            std::vector<T> operator()(const std::string& v) $/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const std::string& v)
+ygw::config::LexicalCast::operator ()	http/http_server.cc	/^            std::string operator()(const ygw::http::HttpServerConfig& cfg)$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const ygw::http::HttpServerConfig& cfg)
+ygw::config::LexicalCast::operator ()	http/http_server.cc	/^            ygw::http::HttpServerConfig operator()(const std::string& yaml_str)$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const std::string& yaml_str)
 ygw::config::LexicalCast::operator ()	log.cc	/^            log::LogDefine operator()(const std::string& v)$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const std::string& v)
 ygw::config::LexicalCast::operator ()	log.cc	/^            std::string operator()(const log::LogDefine& i)$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const log::LogDefine& i)
 ygw::config::LexicalCast::operator ()	tcp_server.h	/^            std::string operator()(const ygw::tcp::TcpServerConf& conf) $/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const ygw::tcp::TcpServerConf& conf)
 ygw::config::LexicalCast::operator ()	tcp_server.h	/^            ygw::tcp::TcpServerConf operator()(const std::string& v) $/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const std::string& v)
 ygw::config::ListAllMember	config.cc	/^        static void ListAllMember(const std::string& prefix,$/;"	f	namespace:ygw::config	signature:(const std::string& prefix, const YAML::Node& node, std::list<std::pair<std::string, const YAML::Node> >* output)
+ygw::config::g_http_server_config	http/http_server.cc	/^        ConfigVar<ygw::http::HttpServerConfig>::ptr g_http_server_config = $/;"	m	namespace:ygw::config	file:
 ygw::config::g_logger	config.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::config	file:
 ygw::config::s_file2modifytime	config.cc	/^        static std::map<std::string, uint64_t> s_file2modifytime;$/;"	m	namespace:ygw::config	file:
 ygw::config::s_mutex	config.cc	/^        static ygw::thread::Mutex s_mutex;$/;"	m	namespace:ygw::config	file:
@@ -2900,12 +2960,26 @@ ygw::http::HttpServer	http/http_server.h	/^        class HttpServer : public tcp
 ygw::http::HttpServer::GetServletDispatch	http/http_server.h	/^            ServletDispatch::ptr GetServletDispatch() const { return dispatch_; }$/;"	f	class:ygw::http::HttpServer	access:public	signature:() const
 ygw::http::HttpServer::HandleClient	http/http_server.cc	/^        void HttpServer::HandleClient(socket::Socket::ptr client) $/;"	f	class:ygw::http::HttpServer	signature:(socket::Socket::ptr client)
 ygw::http::HttpServer::HttpServer	http/http_server.cc	/^        HttpServer::HttpServer(bool keepalive$/;"	f	class:ygw::http::HttpServer	signature:(bool keepalive ,ygw::scheduler::IOManager* worker ,ygw::scheduler::IOManager* io_worker ,ygw::scheduler::IOManager* accept_worker)
+ygw::http::HttpServer::SendDocument	http/http_server.cc	/^        bool HttpServer::SendDocument(HttpRequest::ptr request, HttpResponse::ptr response, HttpSession::ptr session)$/;"	f	class:ygw::http::HttpServer	signature:(HttpRequest::ptr request, HttpResponse::ptr response, HttpSession::ptr session)
+ygw::http::HttpServer::SendDocument	http/http_server.h	/^            bool SendDocument(HttpRequest::ptr request, HttpResponse::ptr response, HttpSession::ptr session);$/;"	p	class:ygw::http::HttpServer	access:protected	signature:(HttpRequest::ptr request, HttpResponse::ptr response, HttpSession::ptr session)
 ygw::http::HttpServer::SetName	http/http_server.cc	/^        void HttpServer::SetName(const std::string& v) $/;"	f	class:ygw::http::HttpServer	signature:(const std::string& v)
+ygw::http::HttpServer::SetRoot	http/http_server.h	/^            void SetRoot(const std::string& path) { root_path_ = path; }$/;"	f	class:ygw::http::HttpServer	access:public	signature:(const std::string& path)
 ygw::http::HttpServer::SetServletDispatch	http/http_server.h	/^            void SetServletDispatch(ServletDispatch::ptr v) { dispatch_ = v; }$/;"	f	class:ygw::http::HttpServer	access:public	signature:(ServletDispatch::ptr v)
 ygw::http::HttpServer::dispatch_	http/http_server.h	/^            ServletDispatch::ptr dispatch_;$/;"	m	class:ygw::http::HttpServer	access:private
 ygw::http::HttpServer::is_keepalive_	http/http_server.h	/^            bool is_keepalive_;$/;"	m	class:ygw::http::HttpServer	access:private
 ygw::http::HttpServer::override	http/http_server.h	/^            virtual void HandleClient(ygw::socket::Socket::ptr client) override;$/;"	m	class:ygw::http::HttpServer	access:protected
 ygw::http::HttpServer::override	http/http_server.h	/^            virtual void SetName(const std::string& v) override;$/;"	m	class:ygw::http::HttpServer	access:public
+ygw::http::HttpServer::root_path_	http/http_server.h	/^            std::string root_path_;$/;"	m	class:ygw::http::HttpServer	access:private
+ygw::http::HttpServerConfig	http/http_server.h	/^        class HttpServerConfig {$/;"	c	namespace:ygw::http
+ygw::http::HttpServerConfig::GetName	http/http_server.h	/^            std::string GetName() const { return name_; }$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:() const
+ygw::http::HttpServerConfig::GetRoot	http/http_server.h	/^            std::string GetRoot() const { return root_; }$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:() const
+ygw::http::HttpServerConfig::IsValid	http/http_server.h	/^            bool IsValid() const$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:() const
+ygw::http::HttpServerConfig::SetName	http/http_server.h	/^            void SetName(const std::string& name) { name_ = name; }$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:(const std::string& name)
+ygw::http::HttpServerConfig::SetRoot	http/http_server.h	/^            void SetRoot(const std::string& root) { root_ = root; }$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:(const std::string& root)
+ygw::http::HttpServerConfig::name_	http/http_server.h	/^            std::string name_; \/\/ 名字$/;"	m	class:ygw::http::HttpServerConfig	access:private
+ygw::http::HttpServerConfig::operator <	http/http_server.h	/^            bool operator<(const HttpServerConfig& cfg) const$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:(const HttpServerConfig& cfg) const
+ygw::http::HttpServerConfig::operator ==	http/http_server.h	/^            bool operator==(const HttpServerConfig& cfg) const$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:(const HttpServerConfig& cfg) const
+ygw::http::HttpServerConfig::root_	http/http_server.h	/^            std::string root_; \/\/ 根路径$/;"	m	class:ygw::http::HttpServerConfig	access:private
 ygw::http::HttpSession	http/http_session.h	/^        class HttpSession : public stream::SocketStream {$/;"	c	namespace:ygw::http	inherits:stream::SocketStream
 ygw::http::HttpSession::HttpSession	http/http_session.cc	/^		HttpSession::HttpSession(socket::Socket::ptr sock, bool owner)$/;"	f	class:ygw::http::HttpSession	signature:(socket::Socket::ptr sock, bool owner)
 ygw::http::HttpSession::RecvRequest	http/http_session.cc	/^		HttpRequest::ptr HttpSession::RecvRequest() $/;"	f	class:ygw::http::HttpSession	signature:()
@@ -3897,6 +3971,21 @@ ygw::stream::ZlibStream::override	stream/zlib_stream.h	/^            virtual voi
 ygw::stream::ZlibStream::zstream_	stream/zlib_stream.h	/^            z_stream zstream_;$/;"	m	class:ygw::stream::ZlibStream	access:private
 ygw::stream::ZlibStream::~ZlibStream	stream/zlib_stream.cc	/^        ZlibStream::~ZlibStream() $/;"	f	class:ygw::stream::ZlibStream	signature:()
 ygw::stream::ZlibStream::~ZlibStream	stream/zlib_stream.h	/^            ~ZlibStream();$/;"	p	class:ygw::stream::ZlibStream	access:public	signature:()
+ygw::sys	daemon.cc	/^    namespace sys {$/;"	n	namespace:ygw	file:
+ygw::sys	daemon.h	/^    namespace sys {$/;"	n	namespace:ygw
+ygw::sys::ProcessInfo	daemon.h	/^        struct ProcessInfo {$/;"	s	namespace:ygw::sys
+ygw::sys::ProcessInfo::ToString	daemon.cc	/^        std::string ProcessInfo::ToString() const $/;"	f	class:ygw::sys::ProcessInfo	signature:() const
+ygw::sys::ProcessInfo::ToString	daemon.h	/^            std::string ToString() const;$/;"	p	struct:ygw::sys::ProcessInfo	access:public	signature:() const
+ygw::sys::ProcessInfo::main_id	daemon.h	/^            pid_t main_id = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
+ygw::sys::ProcessInfo::main_start_time	daemon.h	/^            uint64_t main_start_time = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
+ygw::sys::ProcessInfo::parent_id	daemon.h	/^            pid_t parent_id = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
+ygw::sys::ProcessInfo::parent_start_time	daemon.h	/^            uint64_t parent_start_time = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
+ygw::sys::ProcessInfo::restart_count	daemon.h	/^            uint32_t restart_count = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
+ygw::sys::RealDaemon	daemon.cc	/^        static int RealDaemon(int argc, char** argv,$/;"	f	namespace:ygw::sys	signature:(int argc, char** argv, std::function<int(int argc, char** argv)> main_cb)
+ygw::sys::RealStart	daemon.cc	/^        static int RealStart(int argc, char** argv,$/;"	f	namespace:ygw::sys	signature:(int argc, char** argv, std::function<int(int argc, char** argv)> main_cb)
+ygw::sys::StartDaemon	daemon.h	/^        int StartDaemon(int argc, char** argv$/;"	p	namespace:ygw::sys	signature:(int argc, char** argv , std::function<int(int argc, char** argv)> main_cb , bool is_daemon)
+ygw::sys::g_daemon_restart_interval	daemon.cc	/^        static ygw::config::ConfigVar<uint32_t>::ptr g_daemon_restart_interval = $/;"	m	namespace:ygw::sys	file:
+ygw::sys::g_loger	daemon.cc	/^        static ygw::log::Logger::ptr g_loger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::sys	file:
 ygw::tcp	tcp_server.cc	/^    namespace tcp {$/;"	n	namespace:ygw	file:
 ygw::tcp	tcp_server.h	/^    namespace tcp { $/;"	n	namespace:ygw
 ygw::tcp::TcpServer	tcp_server.h	/^        class TcpServer : public std::enable_shared_from_this<TcpServer>$/;"	c	namespace:ygw::tcp	inherits:std::enable_shared_from_this,able::Noncopyable
@@ -4166,6 +4255,10 @@ ygw::util::FSUtil::Basename	util.cc	/^        std::string FSUtil::Basename(const
 ygw::util::FSUtil::Basename	util.h	/^            static std::string Basename(const std::string& filename);$/;"	p	class:ygw::util::FSUtil	access:public	signature:(const std::string& filename)
 ygw::util::FSUtil::Dirname	util.cc	/^        std::string FSUtil::Dirname(const std::string& filename) $/;"	f	class:ygw::util::FSUtil	signature:(const std::string& filename)
 ygw::util::FSUtil::Dirname	util.h	/^            static std::string Dirname(const std::string& filename);$/;"	p	class:ygw::util::FSUtil	access:public	signature:(const std::string& filename)
+ygw::util::FSUtil::GetCurDir	util.cc	/^        std::string FSUtil::GetCurDir()$/;"	f	class:ygw::util::FSUtil	signature:()
+ygw::util::FSUtil::GetCurDir	util.h	/^            static std::string GetCurDir();$/;"	p	class:ygw::util::FSUtil	access:public	signature:()
+ygw::util::FSUtil::GetFileSize	util.cc	/^        int FSUtil::GetFileSize(FILE* pf)$/;"	f	class:ygw::util::FSUtil	signature:(FILE* pf)
+ygw::util::FSUtil::GetFileSize	util.h	/^            static int GetFileSize(FILE* pf);$/;"	p	class:ygw::util::FSUtil	access:public	signature:(FILE* pf)
 ygw::util::FSUtil::IsRunningPidfile	util.cc	/^        bool FSUtil::IsRunningPidfile(const std::string& pidfile) $/;"	f	class:ygw::util::FSUtil	signature:(const std::string& pidfile)
 ygw::util::FSUtil::IsRunningPidfile	util.h	/^            static bool IsRunningPidfile(const std::string& pidfile);$/;"	p	class:ygw::util::FSUtil	access:public	signature:(const std::string& pidfile)
 ygw::util::FSUtil::ListAllFile	util.cc	/^        void FSUtil::ListAllFile(std::vector<std::string>& files$/;"	f	class:ygw::util::FSUtil	signature:(std::vector<std::string>& files ,const std::string& path ,const std::string& subfix)
@@ -4174,6 +4267,8 @@ ygw::util::FSUtil::Mkdir	util.cc	/^		bool FSUtil::Mkdir(const std::string& dirna
 ygw::util::FSUtil::Mkdir	util.h	/^            static bool Mkdir(const std::string& dirname);$/;"	p	class:ygw::util::FSUtil	access:public	signature:(const std::string& dirname)
 ygw::util::FSUtil::Mv	util.cc	/^        bool FSUtil::Mv(const std::string& from, const std::string& to) $/;"	f	class:ygw::util::FSUtil	signature:(const std::string& from, const std::string& to)
 ygw::util::FSUtil::Mv	util.h	/^            static bool Mv(const std::string& from, const std::string& to);$/;"	p	class:ygw::util::FSUtil	access:public	signature:(const std::string& from, const std::string& to)
+ygw::util::FSUtil::OpenFile	util.cc	/^        std::shared_ptr<FILE> FSUtil::OpenFile(const std::string& filename, const char* mode)$/;"	f	class:ygw::util::FSUtil	signature:(const std::string& filename, const char* mode)
+ygw::util::FSUtil::OpenFile	util.h	/^            static std::shared_ptr<FILE> OpenFile(const std::string& filename, const char* mode);$/;"	p	class:ygw::util::FSUtil	access:public	signature:(const std::string& filename, const char* mode)
 ygw::util::FSUtil::OpenForRead	util.cc	/^        bool FSUtil::OpenForRead(std::ifstream& ifs, const std::string& filename$/;"	f	class:ygw::util::FSUtil	signature:(std::ifstream& ifs, const std::string& filename ,std::ios_base::openmode mode)
 ygw::util::FSUtil::OpenForRead	util.h	/^            static bool OpenForRead(std::ifstream& ifs, const std::string& filename$/;"	p	class:ygw::util::FSUtil	access:public	signature:(std::ifstream& ifs, const std::string& filename ,std::ios_base::openmode mode)
 ygw::util::FSUtil::OpenForWrite	util.cc	/^        bool FSUtil::OpenForWrite(std::ofstream& ofs, const std::string& filename$/;"	f	class:ygw::util::FSUtil	signature:(std::ofstream& ofs, const std::string& filename ,std::ios_base::openmode mode)
@@ -4188,10 +4283,6 @@ ygw::util::FSUtil::Unlink	util.cc	/^        bool FSUtil::Unlink(const std::strin
 ygw::util::FSUtil::Unlink	util.h	/^            static bool Unlink(const std::string& filename, bool exist = false);$/;"	p	class:ygw::util::FSUtil	access:public	signature:(const std::string& filename, bool exist = false)
 ygw::util::Format	util.h	/^        std::string Format(const char* fmt, ...);$/;"	p	namespace:ygw::util	signature:(const char* fmt, ...)
 ygw::util::Formatv	util.h	/^        std::string Formatv(const char* fmt, va_list ap);$/;"	p	namespace:ygw::util	signature:(const char* fmt, va_list ap)
-ygw::util::GetCurrentMS	util.cc	/^        uint64_t GetCurrentMS() $/;"	f	namespace:ygw::util	signature:()
-ygw::util::GetCurrentMS	util.h	/^        uint64_t GetCurrentMS();$/;"	p	namespace:ygw::util	signature:()
-ygw::util::GetCurrentUS	util.cc	/^        uint64_t GetCurrentUS() $/;"	f	namespace:ygw::util	signature:()
-ygw::util::GetCurrentUS	util.h	/^        uint64_t GetCurrentUS();$/;"	p	namespace:ygw::util	signature:()
 ygw::util::GetFiberId	util.cc	/^        int GetFiberId()$/;"	f	namespace:ygw::util	signature:()
 ygw::util::GetFiberId	util.h	/^        int GetFiberId();$/;"	p	namespace:ygw::util	signature:()
 ygw::util::GetHostName	util.cc	/^        std::string GetHostName() $/;"	f	namespace:ygw::util	signature:()
@@ -4279,11 +4370,13 @@ ygw::util::SpeedLimit::count_per_ms_	util.h	/^            float count_per_ms_;$/
 ygw::util::SpeedLimit::cur_count_	util.h	/^            uint32_t cur_count_;$/;"	m	class:ygw::util::SpeedLimit	access:private
 ygw::util::SpeedLimit::cur_sec_	util.h	/^            uint32_t cur_sec_;$/;"	m	class:ygw::util::SpeedLimit	access:private
 ygw::util::SpeedLimit::speed_	util.h	/^            uint32_t speed_;$/;"	m	class:ygw::util::SpeedLimit	access:private
-ygw::util::Str2Time	util.cc	/^        time_t Str2Time(const char* str, const char* format) $/;"	f	namespace:ygw::util	signature:(const char* str, const char* format)
-ygw::util::Str2Time	util.h	/^        time_t Str2Time(const char* str, const char* format = "%Y-%m-%d %H:%M:%S");$/;"	p	namespace:ygw::util	signature:(const char* str, const char* format = �)
 ygw::util::StringUtil	util.h	/^        class StringUtil $/;"	c	namespace:ygw::util
+ygw::util::StringUtil::Format	util.cc	/^        std::string StringUtil::Format(const char* fmt, ...) {$/;"	f	class:ygw::util::StringUtil	signature:(const char* fmt, ...)
 ygw::util::StringUtil::Format	util.h	/^            static std::string Format(const char* fmt, ...);$/;"	p	class:ygw::util::StringUtil	access:public	signature:(const char* fmt, ...)
+ygw::util::StringUtil::Formatv	util.cc	/^        std::string StringUtil::Formatv(const char* fmt, va_list ap) {$/;"	f	class:ygw::util::StringUtil	signature:(const char* fmt, va_list ap)
 ygw::util::StringUtil::Formatv	util.h	/^            static std::string Formatv(const char* fmt, va_list ap);$/;"	p	class:ygw::util::StringUtil	access:public	signature:(const char* fmt, va_list ap)
+ygw::util::StringUtil::GuessContentType	util.cc	/^        const char* StringUtil::GuessContentType(const std::string& path)$/;"	f	class:ygw::util::StringUtil	signature:(const std::string& path)
+ygw::util::StringUtil::GuessContentType	util.h	/^            static const char* GuessContentType(const std::string& path);$/;"	p	class:ygw::util::StringUtil	access:public	signature:(const std::string& path)
 ygw::util::StringUtil::StringToWString	util.cc	/^        std::wstring StringUtil::StringToWString(const std::string& s) $/;"	f	class:ygw::util::StringUtil	signature:(const std::string& s)
 ygw::util::StringUtil::StringToWString	util.h	/^            static std::wstring StringToWString(const std::string& s);$/;"	p	class:ygw::util::StringUtil	access:public	signature:(const std::string& s)
 ygw::util::StringUtil::ToLower	util.cc	/^        std::string StringUtil::ToLower(const std::string& name) $/;"	f	class:ygw::util::StringUtil	signature:(const std::string& name)
@@ -4302,8 +4395,15 @@ ygw::util::StringUtil::UrlEncode	util.cc	/^        std::string StringUtil::UrlEn
 ygw::util::StringUtil::UrlEncode	util.h	/^            static std::string UrlEncode(const std::string& str, bool space_as_plus = true);$/;"	p	class:ygw::util::StringUtil	access:public	signature:(const std::string& str, bool space_as_plus = true)
 ygw::util::StringUtil::WStringToString	util.cc	/^        std::string StringUtil::WStringToString(const std::wstring& ws) $/;"	f	class:ygw::util::StringUtil	signature:(const std::wstring& ws)
 ygw::util::StringUtil::WStringToString	util.h	/^            static std::string WStringToString(const std::wstring& ws);$/;"	p	class:ygw::util::StringUtil	access:public	signature:(const std::wstring& ws)
-ygw::util::Time2Str	util.cc	/^        std::string Time2Str(time_t ts, const std::string& format) $/;"	f	namespace:ygw::util	signature:(time_t ts, const std::string& format)
-ygw::util::Time2Str	util.h	/^        std::string Time2Str(time_t ts = time(0), const std::string& format = "%Y-%m-%d %H:%M:%S");$/;"	p	namespace:ygw::util	signature:(time_t ts = time(0), const std::string& format = �)
+ygw::util::TimeUtil	util.h	/^        class TimeUtil {$/;"	c	namespace:ygw::util
+ygw::util::TimeUtil::GetCurrentMS	util.cc	/^        uint64_t TimeUtil::GetCurrentMS() $/;"	f	class:ygw::util::TimeUtil	signature:()
+ygw::util::TimeUtil::GetCurrentMS	util.h	/^            static uint64_t GetCurrentMS();$/;"	p	class:ygw::util::TimeUtil	access:public	signature:()
+ygw::util::TimeUtil::GetCurrentUS	util.cc	/^        uint64_t TimeUtil::GetCurrentUS() $/;"	f	class:ygw::util::TimeUtil	signature:()
+ygw::util::TimeUtil::GetCurrentUS	util.h	/^            static uint64_t GetCurrentUS();$/;"	p	class:ygw::util::TimeUtil	access:public	signature:()
+ygw::util::TimeUtil::Str2Time	util.cc	/^        time_t TimeUtil::Str2Time(const char* str, const char* format) $/;"	f	class:ygw::util::TimeUtil	signature:(const char* str, const char* format)
+ygw::util::TimeUtil::Str2Time	util.h	/^            static time_t Str2Time(const char* str, const char* format = "%Y-%m-%d %H:%M:%S");$/;"	p	class:ygw::util::TimeUtil	access:public	signature:(const char* str, const char* format = �)
+ygw::util::TimeUtil::Time2Str	util.cc	/^        std::string TimeUtil::Time2Str(time_t ts, const std::string& format) $/;"	f	class:ygw::util::TimeUtil	signature:(time_t ts, const std::string& format)
+ygw::util::TimeUtil::Time2Str	util.h	/^            static std::string Time2Str(time_t ts = time(0), const std::string& format = "%Y-%m-%d %H:%M:%S");$/;"	p	class:ygw::util::TimeUtil	access:public	signature:(time_t ts = time(0), const std::string& format = �)
 ygw::util::TypeToName	util.h	/^        inline const char* TypeToName() $/;"	f	namespace:ygw::util	signature:()
 ygw::util::TypeUtil	util.h	/^        class TypeUtil {$/;"	c	namespace:ygw::util
 ygw::util::TypeUtil::Atof	util.cc	/^        double  TypeUtil::Atof(const char* str) $/;"	f	class:ygw::util::TypeUtil	signature:(const char* str)
@@ -4335,6 +4435,7 @@ ygw::util::base64encode	util/hash_util.cc	/^        std::string base64encode(con
 ygw::util::base64encode	util/hash_util.cc	/^        std::string base64encode(const void* data, size_t len) {$/;"	f	namespace:ygw::util	signature:(const void* data, size_t len)
 ygw::util::base64encode	util/hash_util.h	/^        std::string base64encode(const std::string &data);$/;"	p	namespace:ygw::util	signature:(const std::string &data)
 ygw::util::base64encode	util/hash_util.h	/^        std::string base64encode(const void *data, size_t len);$/;"	p	namespace:ygw::util	signature:(const void *data, size_t len)
+ygw::util::content_type_table	util.cc	/^        } content_type_table[] = {$/;"	m	namespace:ygw::util	typeref:struct:ygw::util::table_entry	file:
 ygw::util::data_from_hexstring	util/hash_util.cc	/^        std::string data_from_hexstring(const char *hexstring, size_t length) $/;"	f	namespace:ygw::util	signature:(const char *hexstring, size_t length)
 ygw::util::data_from_hexstring	util/hash_util.cc	/^        std::string data_from_hexstring(const std::string &hexstring) $/;"	f	namespace:ygw::util	signature:(const std::string &hexstring)
 ygw::util::data_from_hexstring	util/hash_util.cc	/^        void data_from_hexstring(const char *hexstring, size_t length, void *output) $/;"	f	namespace:ygw::util	signature:(const char *hexstring, size_t length, void *output)
@@ -4398,6 +4499,9 @@ ygw::util::split	util/hash_util.cc	/^        std::vector<std::string> split(cons
 ygw::util::split	util/hash_util.cc	/^        std::vector<std::string> split(const std::string &str, const char *delims, size_t max) $/;"	f	namespace:ygw::util	signature:(const std::string &str, const char *delims, size_t max)
 ygw::util::split	util/hash_util.h	/^        std::vector<std::string> split(const std::string &str, char delim, size_t max = ~0);$/;"	p	namespace:ygw::util	signature:(const std::string &str, char delim, size_t max = ~0)
 ygw::util::split	util/hash_util.h	/^        std::vector<std::string> split(const std::string &str, const char *delims, size_t max = ~0);$/;"	p	namespace:ygw::util	signature:(const std::string &str, const char *delims, size_t max = ~0)
+ygw::util::table_entry	util.cc	/^        static const struct table_entry {$/;"	s	namespace:ygw::util	file:
+ygw::util::table_entry::content_type	util.cc	/^            const char* content_type;$/;"	m	struct:ygw::util::table_entry	file:	access:public
+ygw::util::table_entry::extension	util.cc	/^            const char* extension;$/;"	m	struct:ygw::util::table_entry	file:	access:public
 ygw::util::uri_chars	util.cc	/^        static const char uri_chars[256] = {$/;"	m	namespace:ygw::util	file:
 ygw::util::xdigit_chars	util.cc	/^        static const char xdigit_chars[256] = {$/;"	m	namespace:ygw::util	file:
 ygw::util::xorStruct	util/hash_util.cc	/^        struct xorStruct $/;"	s	namespace:ygw::util	file:
