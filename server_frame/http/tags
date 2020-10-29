@@ -132,6 +132,7 @@ GetHttpResponseMaxBodySize	http_parser.h	/^            static uint64_t GetHttpRe
 GetMatchedServlet	servlet.cc	/^        Servlet::ptr ServletDispatch::GetMatchedServlet(const std::string& uri) $/;"	f	class:ygw::http::ServletDispatch	signature:(const std::string& uri)
 GetMatchedServlet	servlet.h	/^            Servlet::ptr GetMatchedServlet(const std::string& uri);$/;"	p	class:ygw::http::ServletDispatch	access:public	signature:(const std::string& uri)
 GetMethod	http.h	/^            HttpMethod GetMethod() const { return method_; }$/;"	f	class:ygw::http::HttpRequest	access:public	signature:() const
+GetName	http_server.h	/^            std::string GetName() const { return name_; }$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:() const
 GetName	servlet.h	/^            const std::string& GetName() const { return name_; }$/;"	f	class:ygw::http::Servlet	access:public	signature:() const
 GetName	servlet.h	/^            virtual std::string GetName() const = 0;$/;"	p	class:ygw::http::IServletCreator	access:public	signature:() const
 GetParam	http.cc	/^        std::string HttpRequest::GetParam(const std::string& key$/;"	f	class:ygw::http::HttpRequest	signature:(const std::string& key ,const std::string& def)
@@ -148,6 +149,7 @@ GetPort	uri.rl.cc	/^int32_t Uri::GetPort() const $/;"	f	class:ygw::http::Uri	sig
 GetQuery	http.h	/^            const std::string& GetQuery() const { return query_; }$/;"	f	class:ygw::http::HttpRequest	access:public	signature:() const
 GetQuery	uri.h	/^            const std::string& GetQuery() const { return query_;}$/;"	f	class:ygw::http::Uri	access:public	signature:() const
 GetReason	http.h	/^            const std::string& GetReason() const { return reason_;}$/;"	f	class:ygw::http::HttpResponse	access:public	signature:() const
+GetRoot	http_server.h	/^            std::string GetRoot() const { return root_; }$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:() const
 GetScheme	uri.h	/^            const std::string& GetScheme() const { return scheme_;}$/;"	f	class:ygw::http::Uri	access:public	signature:() const
 GetServlet	servlet.cc	/^        Servlet::ptr ServletDispatch::GetServlet(const std::string& uri) $/;"	f	class:ygw::http::ServletDispatch	signature:(const std::string& uri)
 GetServlet	servlet.h	/^            Servlet::ptr GetServlet(const std::string& uri);$/;"	p	class:ygw::http::ServletDispatch	access:public	signature:(const std::string& uri)
@@ -200,6 +202,7 @@ HttpResult	http_connection.h	/^            HttpResult(int _result$/;"	f	struct:y
 HttpResult	http_connection.h	/^        struct HttpResult {$/;"	s	namespace:ygw::http
 HttpServer	http_server.cc	/^        HttpServer::HttpServer(bool keepalive$/;"	f	class:ygw::http::HttpServer	signature:(bool keepalive ,ygw::scheduler::IOManager* worker ,ygw::scheduler::IOManager* io_worker ,ygw::scheduler::IOManager* accept_worker)
 HttpServer	http_server.h	/^        class HttpServer : public tcp::TcpServer $/;"	c	namespace:ygw::http	inherits:tcp::TcpServer
+HttpServerConfig	http_server.h	/^        class HttpServerConfig {$/;"	c	namespace:ygw::http
 HttpSession	http_session.cc	/^		HttpSession::HttpSession(socket::Socket::ptr sock, bool owner)$/;"	f	class:ygw::http::HttpSession	signature:(socket::Socket::ptr sock, bool owner)
 HttpSession	http_session.h	/^        class HttpSession : public stream::SocketStream {$/;"	c	namespace:ygw::http	inherits:stream::SocketStream
 HttpStatus	http.h	/^        enum class HttpStatus$/;"	c	namespace:ygw::http
@@ -224,10 +227,13 @@ IsFinished	http_parser.cc	/^        int HttpRequestParser::IsFinished()$/;"	f	cl
 IsFinished	http_parser.cc	/^        int HttpResponseParser::IsFinished() $/;"	f	class:ygw::http::HttpResponseParser	signature:()
 IsFinished	http_parser.h	/^            int IsFinished();$/;"	p	class:ygw::http::HttpRequestParser	access:public	signature:()
 IsFinished	http_parser.h	/^            int IsFinished();$/;"	p	class:ygw::http::HttpResponseParser	access:public	signature:()
+IsValid	http_server.h	/^            bool IsValid() const$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:() const
 IsWebsocket	http.h	/^            bool IsWebsocket() const { return websocket_; }$/;"	f	class:ygw::http::HttpRequest	access:public	signature:() const
 IsWebsocket	http.h	/^            bool IsWebsocket() const { return websocket_;}$/;"	f	class:ygw::http::HttpResponse	access:public	signature:() const
 LEN	parser/http11_parser.rl.cc	45;"	d	file:
 LEN	parser/httpclient_parser.rl.cc	46;"	d	file:
+LexicalCast	http_server.cc	/^        class LexicalCast<std::string, ygw::http::HttpServerConfig>{$/;"	c	namespace:ygw::config	file:
+LexicalCast	http_server.cc	/^        class LexicalCast<ygw::http::HttpServerConfig, std::string> {$/;"	c	namespace:ygw::config	file:
 ListAllGlobServletCreator	servlet.cc	/^        void ServletDispatch::ListAllGlobServletCreator(std::map<std::string, IServletCreator::ptr>& infos) $/;"	f	class:ygw::http::ServletDispatch	signature:(std::map<std::string, IServletCreator::ptr>& infos)
 ListAllGlobServletCreator	servlet.h	/^            void ListAllGlobServletCreator(std::map<std::string, IServletCreator::ptr>& infos);$/;"	p	class:ygw::http::ServletDispatch	access:public	signature:(std::map<std::string, IServletCreator::ptr>& infos)
 ListAllServletCreator	servlet.cc	/^        void ServletDispatch::ListAllServletCreator(std::map<std::string, IServletCreator::ptr>& infos) $/;"	f	class:ygw::http::ServletDispatch	signature:(std::map<std::string, IServletCreator::ptr>& infos)
@@ -261,6 +267,8 @@ RecvResponse	http_connection.cc	/^        HttpResponse::ptr HttpConnection::Recv
 RecvResponse	http_connection.h	/^            HttpResponse::ptr RecvResponse();$/;"	p	class:ygw::http::HttpConnection	access:public	signature:()
 ReleasePtr	http_connection.cc	/^        void HttpConnectionPool::ReleasePtr(HttpConnection* ptr, HttpConnectionPool* pool) $/;"	f	class:ygw::http::HttpConnectionPool	signature:(HttpConnection* ptr, HttpConnectionPool* pool)
 ReleasePtr	http_connection.h	/^            static void ReleasePtr(HttpConnection* ptr, HttpConnectionPool* pool);$/;"	p	class:ygw::http::HttpConnectionPool	access:private	signature:(HttpConnection* ptr, HttpConnectionPool* pool)
+SendDocument	http_server.cc	/^        bool HttpServer::SendDocument(HttpRequest::ptr request, HttpResponse::ptr response, HttpSession::ptr session)$/;"	f	class:ygw::http::HttpServer	signature:(HttpRequest::ptr request, HttpResponse::ptr response, HttpSession::ptr session)
+SendDocument	http_server.h	/^            bool SendDocument(HttpRequest::ptr request, HttpResponse::ptr response, HttpSession::ptr session);$/;"	p	class:ygw::http::HttpServer	access:protected	signature:(HttpRequest::ptr request, HttpResponse::ptr response, HttpSession::ptr session)
 SendRequest	http_connection.cc	/^        int HttpConnection::SendRequest(HttpRequest::ptr rsp) $/;"	f	class:ygw::http::HttpConnection	signature:(HttpRequest::ptr rsp)
 SendRequest	http_connection.h	/^            int SendRequest(HttpRequest::ptr req);$/;"	p	class:ygw::http::HttpConnection	access:public	signature:(HttpRequest::ptr req)
 SendResponse	http_session.cc	/^		int HttpSession::SendResponse(HttpResponse::ptr rsp) $/;"	f	class:ygw::http::HttpSession	signature:(HttpResponse::ptr rsp)
@@ -294,6 +302,7 @@ SetHeaders	http.h	/^            void SetHeaders(const MapType& v) { headers_ = v
 SetHost	uri.h	/^            void SetHost(const std::string& v) { host_ = v;}$/;"	f	class:ygw::http::Uri	access:public	signature:(const std::string& v)
 SetMethod	http.h	/^            void SetMethod(HttpMethod v) { method_ = v;}$/;"	f	class:ygw::http::HttpRequest	access:public	signature:(HttpMethod v)
 SetName	http_server.cc	/^        void HttpServer::SetName(const std::string& v) $/;"	f	class:ygw::http::HttpServer	signature:(const std::string& v)
+SetName	http_server.h	/^            void SetName(const std::string& name) { name_ = name; }$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:(const std::string& name)
 SetParam	http.cc	/^        void HttpRequest::SetParam(const std::string& key, const std::string& val) $/;"	f	class:ygw::http::HttpRequest	signature:(const std::string& key, const std::string& val)
 SetParam	http.h	/^            void SetParam(const std::string& key, const std::string& val);$/;"	p	class:ygw::http::HttpRequest	access:public	signature:(const std::string& key, const std::string& val)
 SetParams	http.h	/^            void SetParams(const MapType& v) { params_ = v; }$/;"	f	class:ygw::http::HttpRequest	access:public	signature:(const MapType& v)
@@ -305,6 +314,8 @@ SetQuery	uri.h	/^            void SetQuery(const std::string& v) { query_ = v;}$
 SetReason	http.h	/^            void SetReason(const std::string& v) { reason_ = v;}$/;"	f	class:ygw::http::HttpResponse	access:public	signature:(const std::string& v)
 SetRedirect	http.cc	/^        void HttpResponse::SetRedirect(const std::string& uri) $/;"	f	class:ygw::http::HttpResponse	signature:(const std::string& uri)
 SetRedirect	http.h	/^            void SetRedirect(const std::string& uri);$/;"	p	class:ygw::http::HttpResponse	access:public	signature:(const std::string& uri)
+SetRoot	http_server.h	/^            void SetRoot(const std::string& path) { root_path_ = path; }$/;"	f	class:ygw::http::HttpServer	access:public	signature:(const std::string& path)
+SetRoot	http_server.h	/^            void SetRoot(const std::string& root) { root_ = root; }$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:(const std::string& root)
 SetScheme	uri.h	/^            void SetScheme(const std::string& v) { scheme_ = v;}$/;"	f	class:ygw::http::Uri	access:public	signature:(const std::string& v)
 SetServletDispatch	http_server.h	/^            void SetServletDispatch(ServletDispatch::ptr v) { dispatch_ = v; }$/;"	f	class:ygw::http::HttpServer	access:public	signature:(ServletDispatch::ptr v)
 SetStatus	http.h	/^            void SetStatus(HttpStatus v) { status_ = v;}$/;"	f	class:ygw::http::HttpResponse	access:public	signature:(HttpStatus v)
@@ -353,6 +364,7 @@ __YGW_HTTP_PARSER_H__	http_parser.h	15;"	d
 __YGW_HTTP_SERVER_H__	servlet.h	14;"	d
 __YGW_HTTP_SESSION_H__	http_session.h	14;"	d
 __YGW_STATUS_SERVLET_H__	servlet/status_servlet.h	15;"	d
+__YGW_URI_H__	uri.h	11;"	d
 _http11_common_h	parser/http11_common.h	2;"	d
 _init	http_parser.cc	/^            static _RequestSizeIniter _init;$/;"	m	namespace:ygw::http::__anon1	file:
 body_	http.h	/^            std::string body_;$/;"	m	class:ygw::http::HttpRequest	access:private
@@ -367,6 +379,7 @@ chunks_done	parser/httpclient_parser.h	/^  int chunks_done;$/;"	m	struct:httpcli
 close	parser/httpclient_parser.h	/^  int close;$/;"	m	struct:httpclient_parser	access:public
 close_	http.h	/^            bool close_;$/;"	m	class:ygw::http::HttpRequest	access:private
 close_	http.h	/^            bool close_;$/;"	m	class:ygw::http::HttpResponse	access:private
+config	http_server.cc	/^    namespace config {$/;"	n	namespace:ygw	file:
 conns_	http_connection.h	/^            std::list<HttpConnection*> conns_;$/;"	m	class:ygw::http::HttpConnectionPool	access:private
 content_	servlet.h	/^            std::string content_;$/;"	m	class:ygw::http::NotFoundServlet	access:private
 content_len	parser/http11_parser.h	/^  int content_len;$/;"	m	struct:http_parser	access:public
@@ -399,6 +412,7 @@ g_http_request_buffer_size	http_parser.cc	/^        static ygw::config::ConfigVa
 g_http_request_max_body_size	http_parser.cc	/^        static ygw::config::ConfigVar<uint64_t>::ptr g_http_request_max_body_size = $/;"	m	namespace:ygw::http	file:
 g_http_response_buffer_size	http_parser.cc	/^        static ygw::config::ConfigVar<uint64_t>::ptr g_http_response_buffer_size = $/;"	m	namespace:ygw::http	file:
 g_http_response_max_body_size	http_parser.cc	/^        static ygw::config::ConfigVar<uint64_t>::ptr g_http_response_max_body_size = $/;"	m	namespace:ygw::http	file:
+g_http_server_config	http_server.cc	/^        ConfigVar<ygw::http::HttpServerConfig>::ptr g_http_server_config = $/;"	m	namespace:ygw::config	file:
 g_logger	http_connection.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::http	file:
 g_logger	http_parser.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system"); \/\/ $/;"	m	namespace:ygw::http	file:
 g_logger	http_server.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::http	file:
@@ -528,16 +542,21 @@ max_size_	http_connection.h	/^            uint32_t max_size_;$/;"	m	class:ygw::h
 method_	http.h	/^            HttpMethod method_;$/;"	m	class:ygw::http::HttpRequest	access:private
 mutex_	http_connection.h	/^            MutexType mutex_;$/;"	m	class:ygw::http::HttpConnectionPool	access:private
 mutex_	servlet.h	/^            RWMutexType mutex_;$/;"	m	class:ygw::http::ServletDispatch	access:private
+name_	http_server.h	/^            std::string name_; \/\/ 名字$/;"	m	class:ygw::http::HttpServerConfig	access:private
 name_	servlet.h	/^            std::string name_;$/;"	m	class:ygw::http::NotFoundServlet	access:private
 name_	servlet.h	/^            std::string name_;$/;"	m	class:ygw::http::Servlet	access:protected
 nread	parser/http11_parser.h	/^  size_t nread;$/;"	m	struct:http_parser	access:public
 nread	parser/httpclient_parser.h	/^  size_t nread;$/;"	m	struct:httpclient_parser	access:public
 operator ()	http.cc	/^        bool CaseInsensitiveLess::operator()(const std::string& lhs$/;"	f	class:ygw::http::CaseInsensitiveLess	signature:(const std::string& lhs ,const std::string& rhs) const
 operator ()	http.h	/^            bool operator()(const std::string& lhs, const std::string& rhs) const;$/;"	p	struct:ygw::http::CaseInsensitiveLess	access:public	signature:(const std::string& lhs, const std::string& rhs) const
+operator ()	http_server.cc	/^            std::string operator()(const ygw::http::HttpServerConfig& cfg)$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const ygw::http::HttpServerConfig& cfg)
+operator ()	http_server.cc	/^            ygw::http::HttpServerConfig operator()(const std::string& yaml_str)$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const std::string& yaml_str)
+operator <	http_server.h	/^            bool operator<(const HttpServerConfig& cfg) const$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:(const HttpServerConfig& cfg) const
 operator <<	http.cc	/^        std::ostream& operator<<(std::ostream& os, const HttpRequest& req) $/;"	f	namespace:ygw::http	signature:(std::ostream& os, const HttpRequest& req)
 operator <<	http.cc	/^        std::ostream& operator<<(std::ostream& os, const HttpResponse& rsp) $/;"	f	namespace:ygw::http	signature:(std::ostream& os, const HttpResponse& rsp)
 operator <<	http.h	/^        std::ostream& operator<<(std::ostream& os, const HttpRequest& req);$/;"	p	namespace:ygw::http	signature:(std::ostream& os, const HttpRequest& req)
 operator <<	http.h	/^        std::ostream& operator<<(std::ostream& os, const HttpResponse& rsp);$/;"	p	namespace:ygw::http	signature:(std::ostream& os, const HttpResponse& rsp)
+operator ==	http_server.h	/^            bool operator==(const HttpServerConfig& cfg) const$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:(const HttpServerConfig& cfg) const
 override	http_server.h	/^            virtual void HandleClient(ygw::socket::Socket::ptr client) override;$/;"	m	class:ygw::http::HttpServer	access:protected
 override	http_server.h	/^            virtual void SetName(const std::string& v) override;$/;"	m	class:ygw::http::HttpServer	access:public
 override	servlet.h	/^                           , ygw::http::HttpSession::ptr session) override;$/;"	m	class:ygw::http::NotFoundServlet	access:public
@@ -567,6 +586,8 @@ request_path	parser/http11_parser.h	/^  element_cb request_path;$/;"	m	struct:ht
 request_uri	parser/http11_parser.h	/^  element_cb request_uri;$/;"	m	struct:http_parser	access:public
 response	http_connection.h	/^            HttpResponse::ptr response;$/;"	m	struct:ygw::http::HttpResult	access:public
 result	http_connection.h	/^            int result;$/;"	m	struct:ygw::http::HttpResult	access:public
+root_	http_server.h	/^            std::string root_; \/\/ 根路径$/;"	m	class:ygw::http::HttpServerConfig	access:private
+root_path_	http_server.h	/^            std::string root_path_;$/;"	m	class:ygw::http::HttpServer	access:private
 s_http_request_buffer_size	http_parser.cc	/^        static uint64_t s_http_request_buffer_size = 0;$/;"	m	namespace:ygw::http	file:
 s_http_request_max_body_size	http_parser.cc	/^        static uint64_t s_http_request_max_body_size = 0;$/;"	m	namespace:ygw::http	file:
 s_http_response_buffer_size	http_parser.cc	/^        static uint64_t s_http_response_buffer_size = 0;$/;"	m	namespace:ygw::http	file:
@@ -608,6 +629,12 @@ ygw	servlet/status_servlet.cc	/^namespace ygw {$/;"	n	file:
 ygw	servlet/status_servlet.h	/^namespace ygw {$/;"	n
 ygw	uri.h	/^namespace ygw {$/;"	n
 ygw	uri.rl.cc	/^namespace ygw {$/;"	n	file:
+ygw::config	http_server.cc	/^    namespace config {$/;"	n	namespace:ygw	file:
+ygw::config::LexicalCast	http_server.cc	/^        class LexicalCast<std::string, ygw::http::HttpServerConfig>{$/;"	c	namespace:ygw::config	file:
+ygw::config::LexicalCast	http_server.cc	/^        class LexicalCast<ygw::http::HttpServerConfig, std::string> {$/;"	c	namespace:ygw::config	file:
+ygw::config::LexicalCast::operator ()	http_server.cc	/^            std::string operator()(const ygw::http::HttpServerConfig& cfg)$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const ygw::http::HttpServerConfig& cfg)
+ygw::config::LexicalCast::operator ()	http_server.cc	/^            ygw::http::HttpServerConfig operator()(const std::string& yaml_str)$/;"	f	class:ygw::config::LexicalCast	access:public	signature:(const std::string& yaml_str)
+ygw::config::g_http_server_config	http_server.cc	/^        ConfigVar<ygw::http::HttpServerConfig>::ptr g_http_server_config = $/;"	m	namespace:ygw::config	file:
 ygw::http	http.cc	/^    namespace http {$/;"	n	namespace:ygw	file:
 ygw::http	http.h	/^    namespace http {$/;"	n	namespace:ygw
 ygw::http	http_connection.cc	/^    namespace http {$/;"	n	namespace:ygw	file:
@@ -892,12 +919,26 @@ ygw::http::HttpServer	http_server.h	/^        class HttpServer : public tcp::Tcp
 ygw::http::HttpServer::GetServletDispatch	http_server.h	/^            ServletDispatch::ptr GetServletDispatch() const { return dispatch_; }$/;"	f	class:ygw::http::HttpServer	access:public	signature:() const
 ygw::http::HttpServer::HandleClient	http_server.cc	/^        void HttpServer::HandleClient(socket::Socket::ptr client) $/;"	f	class:ygw::http::HttpServer	signature:(socket::Socket::ptr client)
 ygw::http::HttpServer::HttpServer	http_server.cc	/^        HttpServer::HttpServer(bool keepalive$/;"	f	class:ygw::http::HttpServer	signature:(bool keepalive ,ygw::scheduler::IOManager* worker ,ygw::scheduler::IOManager* io_worker ,ygw::scheduler::IOManager* accept_worker)
+ygw::http::HttpServer::SendDocument	http_server.cc	/^        bool HttpServer::SendDocument(HttpRequest::ptr request, HttpResponse::ptr response, HttpSession::ptr session)$/;"	f	class:ygw::http::HttpServer	signature:(HttpRequest::ptr request, HttpResponse::ptr response, HttpSession::ptr session)
+ygw::http::HttpServer::SendDocument	http_server.h	/^            bool SendDocument(HttpRequest::ptr request, HttpResponse::ptr response, HttpSession::ptr session);$/;"	p	class:ygw::http::HttpServer	access:protected	signature:(HttpRequest::ptr request, HttpResponse::ptr response, HttpSession::ptr session)
 ygw::http::HttpServer::SetName	http_server.cc	/^        void HttpServer::SetName(const std::string& v) $/;"	f	class:ygw::http::HttpServer	signature:(const std::string& v)
+ygw::http::HttpServer::SetRoot	http_server.h	/^            void SetRoot(const std::string& path) { root_path_ = path; }$/;"	f	class:ygw::http::HttpServer	access:public	signature:(const std::string& path)
 ygw::http::HttpServer::SetServletDispatch	http_server.h	/^            void SetServletDispatch(ServletDispatch::ptr v) { dispatch_ = v; }$/;"	f	class:ygw::http::HttpServer	access:public	signature:(ServletDispatch::ptr v)
 ygw::http::HttpServer::dispatch_	http_server.h	/^            ServletDispatch::ptr dispatch_;$/;"	m	class:ygw::http::HttpServer	access:private
 ygw::http::HttpServer::is_keepalive_	http_server.h	/^            bool is_keepalive_;$/;"	m	class:ygw::http::HttpServer	access:private
 ygw::http::HttpServer::override	http_server.h	/^            virtual void HandleClient(ygw::socket::Socket::ptr client) override;$/;"	m	class:ygw::http::HttpServer	access:protected
 ygw::http::HttpServer::override	http_server.h	/^            virtual void SetName(const std::string& v) override;$/;"	m	class:ygw::http::HttpServer	access:public
+ygw::http::HttpServer::root_path_	http_server.h	/^            std::string root_path_;$/;"	m	class:ygw::http::HttpServer	access:private
+ygw::http::HttpServerConfig	http_server.h	/^        class HttpServerConfig {$/;"	c	namespace:ygw::http
+ygw::http::HttpServerConfig::GetName	http_server.h	/^            std::string GetName() const { return name_; }$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:() const
+ygw::http::HttpServerConfig::GetRoot	http_server.h	/^            std::string GetRoot() const { return root_; }$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:() const
+ygw::http::HttpServerConfig::IsValid	http_server.h	/^            bool IsValid() const$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:() const
+ygw::http::HttpServerConfig::SetName	http_server.h	/^            void SetName(const std::string& name) { name_ = name; }$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:(const std::string& name)
+ygw::http::HttpServerConfig::SetRoot	http_server.h	/^            void SetRoot(const std::string& root) { root_ = root; }$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:(const std::string& root)
+ygw::http::HttpServerConfig::name_	http_server.h	/^            std::string name_; \/\/ 名字$/;"	m	class:ygw::http::HttpServerConfig	access:private
+ygw::http::HttpServerConfig::operator <	http_server.h	/^            bool operator<(const HttpServerConfig& cfg) const$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:(const HttpServerConfig& cfg) const
+ygw::http::HttpServerConfig::operator ==	http_server.h	/^            bool operator==(const HttpServerConfig& cfg) const$/;"	f	class:ygw::http::HttpServerConfig	access:public	signature:(const HttpServerConfig& cfg) const
+ygw::http::HttpServerConfig::root_	http_server.h	/^            std::string root_; \/\/ 根路径$/;"	m	class:ygw::http::HttpServerConfig	access:private
 ygw::http::HttpSession	http_session.h	/^        class HttpSession : public stream::SocketStream {$/;"	c	namespace:ygw::http	inherits:stream::SocketStream
 ygw::http::HttpSession::HttpSession	http_session.cc	/^		HttpSession::HttpSession(socket::Socket::ptr sock, bool owner)$/;"	f	class:ygw::http::HttpSession	signature:(socket::Socket::ptr sock, bool owner)
 ygw::http::HttpSession::RecvRequest	http_session.cc	/^		HttpRequest::ptr HttpSession::RecvRequest() $/;"	f	class:ygw::http::HttpSession	signature:()

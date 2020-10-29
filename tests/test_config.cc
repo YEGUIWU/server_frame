@@ -12,6 +12,7 @@
  */
 #include <server_frame/log.h>
 #include <server_frame/config.h>
+#include <server_frame/sys/env.h>
 #include <iostream>
 ygw::config::ConfigVar<int>::ptr g_int_value_config =
 ygw::config::Config::Lookup("system.port", 8080, "system port");
@@ -249,8 +250,23 @@ void test_visit()
     });
 }
 
+void test_my()
+{
+    YAML::Node conf = YAML::LoadFile("./bin/conf/http_server.yml");
+    ygw::config::Config::LoadFromYaml(conf);
+    //ygw::config::ConfigVar<std::string>::ptr root_path = ygw::config::Config::Lookup("conf.root_path", "./", "http server root path");
+    ygw::config::ConfigVar<int>::ptr num = ygw::config::Config::Lookup("conf.num", 123, "http server root path");
+    //ygw::config::ConfigVar<std::string>::ptr root_path = nullptr;
+    //YGW_LOG_INFO(g_logger) << root_path;
+}
 
-int main()
+void test_loadconf()
+{
+    ygw::config::Config::LoadFromConfDir("conf");
+}
+
+
+int main(int argc, char* argv[])
 {
     //YGW_LOG_INFO(YGW_LOG_ROOT()) << g_int_value_config->GetValue();
     //YGW_LOG_INFO(YGW_LOG_ROOT()) << g_float_value_config->ToString();
@@ -258,12 +274,11 @@ int main()
     //test_config();
     //test_class();
     //test_log();
-    YAML::Node conf = YAML::LoadFile("./bin/conf/http_server.yml");
-    ygw::config::Config::LoadFromYaml(conf);
-    //ygw::config::ConfigVar<std::string>::ptr root_path = ygw::config::Config::Lookup("conf.root_path", "./", "http server root path");
-    ygw::config::ConfigVar<int>::ptr num = ygw::config::Config::Lookup("conf.num", 123, "http server root path");
-    //ygw::config::ConfigVar<std::string>::ptr root_path = nullptr;
-    //YGW_LOG_INFO(g_logger) << root_path;
+
+    ygw::sys::EnvManager::GetInstance()->Init(argc, argv);
+    test_visit();
+    std::cout << "------------------------------------------------------" << std::endl;
+    test_loadconf();
     test_visit();
 
 

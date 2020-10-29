@@ -10,6 +10,7 @@
 
 #include <server_frame/log.h>
 #include <server_frame/config.h>
+#include <server_frame/sys/env.h>
 
 #include <sys/stat.h>
 #include <dirent.h>
@@ -33,7 +34,7 @@ namespace ygw {
                 ,ygw::scheduler::IOManager* accept_worker)
             :TcpServer(worker, io_worker, accept_worker)
             ,is_keepalive_(keepalive) 
-            ,root_path_(ygw::util::FSUtil::GetCurDir())
+            ,root_path_(ygw::sys::EnvManager::GetInstance()->GetAbsolutePath(""))
         {
                  dispatch_.reset(new ServletDispatch);
                  type_ = "http";

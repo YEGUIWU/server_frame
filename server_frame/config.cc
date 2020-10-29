@@ -10,19 +10,14 @@
 
 #include <sys/stat.h>
 #include <sys/types.h>
-
-#ifdef __GNUC__
 #include <unistd.h>
-#endif //__GNUC__
-
-#ifdef _MSC_VER
-#include <io.h>
-#include <fcntl.h>
-#endif// _MSC_VER
 
 #include <utility>
 
+#include <server_frame/sys/env.h>
+
 #include "config.h"
+
 namespace ygw {
 
     namespace config {
@@ -108,35 +103,16 @@ namespace ygw {
 
         void Config::LoadFromConfDir(const std::string& path, bool force) 
         {
-            //std::string absoulte_path = sylar::EnvMgr::GetInstance()->getAbsolutePath(path);
+            std::string absoulte_path = ygw::sys::EnvManager::GetInstance()->GetAbsolutePath(path);
             std::vector<std::string> files;
-            //FSUtil::ListAllFile(files, absoulte_path, ".yml");
+            ygw::util::FSUtil::ListAllFile(files, absoulte_path, ".yml");
 
             for (auto& i : files) 
             {
                 {
-#ifdef __GNUC__
                     struct stat st;
                     lstat(i.c_str(), &st);
-#elif _MSC_VER
-                    struct _stat st;
-                    int fd, result;
 
-                    _sopen_s(&fd,
-                            i.c_str(),
-                            _O_CREAT | _O_WRONLY | _O_TRUNC,
-                            _SH_DENYNO,
-                            _S_IREAD | _S_IWRITE);
-                    if (fd != -1)
-                    {
-                        result = _fstat(fd, &st);
-                    }
-                    else
-                    {
-
-                    }
-#endif // __GNUC__
-                    
                     ygw::thread::Mutex::Lock lock(s_mutex);
                     if (!force && s_file2modifytime[i] == (uint64_t)st.st_mtime) 
                     {

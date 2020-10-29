@@ -241,23 +241,23 @@ namespace ygw {
             struct dirent* dp = nullptr;
             while ((dp = readdir(dir)) != nullptr) 
             {
-                if (dp->d_type == DT_DIR) 
+                if (dp->d_type == DT_DIR)  // 是个目录，就递归读
                 {
-                    if (!strcmp(dp->d_name, ".")
+                    if (!strcmp(dp->d_name, ".") // 避开. ..
                             || !strcmp(dp->d_name, "..")) 
                     {
                         continue;
                     }
                     ListAllFile(files, path + "/" + dp->d_name, subfix);
                 } 
-                else if (dp->d_type == DT_REG)
+                else if (dp->d_type == DT_REG) // 普通文件
                 {
                     std::string filename(dp->d_name);
-                    if (subfix.empty()) 
+                    if (subfix.empty()) // 指定后缀为空 == 任意文件
                     {
                         files.push_back(path + "/" + filename);
                     } 
-                    else 
+                    else  // 指定了后缀名
                     {
                         if (filename.size() < subfix.size()) 
                         {

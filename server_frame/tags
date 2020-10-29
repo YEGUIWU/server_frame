@@ -15,6 +15,8 @@ AES256Ecb	util/crypto_util.h	/^            static int32_t AES256Ecb(const void* 
 Accept	socket.cc	/^        Socket::ptr SSLSocket::Accept() $/;"	f	class:ygw::socket::SSLSocket	signature:()
 Accept	socket.cc	/^        Socket::ptr Socket::Accept()$/;"	f	class:ygw::socket::Socket	signature:()
 Accept	socket.h	/^			virtual Socket::ptr Accept();$/;"	p	class:ygw::socket::Socket	access:public	signature:()
+Add	sys/env.cc	/^        void Env::Add(const std::string& key, const std::string& val)$/;"	f	class:ygw::sys::Env	signature:(const std::string& key, const std::string& val)
+Add	sys/env.h	/^            void Add(const std::string& key, const std::string& val);$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& key, const std::string& val)
 Add	util.cc	/^        void SpeedLimit::Add(uint32_t v) $/;"	f	class:ygw::util::SpeedLimit	signature:(uint32_t v)
 Add	util.h	/^            void Add(uint32_t v);$/;"	p	class:ygw::util::SpeedLimit	access:public	signature:(uint32_t v)
 AddAppender	log.cc	/^        void Logger::AddAppender(LogAppender::ptr appender)$/;"	f	class:ygw::log::Logger	signature:(LogAppender::ptr appender)
@@ -37,6 +39,8 @@ AddGlobServletCreator	http/servlet.h	/^            void AddGlobServletCreator(co
 AddGlobServletCreator	http/servlet.h	/^            void AddGlobServletCreator(const std::string& uri, IServletCreator::ptr creator);$/;"	p	class:ygw::http::ServletDispatch	access:public	signature:(const std::string& uri, IServletCreator::ptr creator)
 AddHeader	email/email.cc	/^        void EMailEntity::AddHeader(const std::string& key, const std::string& val) $/;"	f	class:ygw::smtp::EMailEntity	signature:(const std::string& key, const std::string& val)
 AddHeader	email/email.h	/^            void AddHeader(const std::string& key, const std::string& val);$/;"	p	class:ygw::smtp::EMailEntity	access:public	signature:(const std::string& key, const std::string& val)
+AddHelp	sys/env.cc	/^        void Env::AddHelp(const std::string& key, const std::string& desc) $/;"	f	class:ygw::sys::Env	signature:(const std::string& key, const std::string& desc)
+AddHelp	sys/env.h	/^            void AddHelp(const std::string& key, const std::string& desc);$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& key, const std::string& desc)
 AddListener	config.h	/^            uint64_t AddListener(OnChangeCb cb) $/;"	f	class:ygw::config::ConfigVar	access:public	signature:(OnChangeCb cb)
 AddServlet	http/servlet.cc	/^        void ServletDispatch::AddServlet(const std::string& uri$/;"	f	class:ygw::http::ServletDispatch	signature:(const std::string& uri ,FunctionServlet::callback cb)
 AddServlet	http/servlet.cc	/^        void ServletDispatch::AddServlet(const std::string& uri, Servlet::ptr slt) $/;"	f	class:ygw::http::ServletDispatch	signature:(const std::string& uri, Servlet::ptr slt)
@@ -215,6 +219,8 @@ DecodeZigzag32	bytearray.cc	/^        static int32_t DecodeZigzag32(const uint32
 DecodeZigzag64	bytearray.cc	/^        static int64_t DecodeZigzag64(const uint64_t& v) $/;"	f	namespace:ygw::container	signature:(const uint64_t& v)
 Del	base/fd_manager.cc	/^        void FdContextManager::Del(int fd) $/;"	f	class:ygw::handle::FdContextManager	signature:(int fd)
 Del	base/fd_manager.h	/^            void Del(int fd);$/;"	p	class:ygw::handle::FdContextManager	access:public	signature:(int fd)
+Del	sys/env.cc	/^        void Env::Del(const std::string& key) $/;"	f	class:ygw::sys::Env	signature:(const std::string& key)
+Del	sys/env.h	/^            void Del(const std::string& key);$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& key)
 DelAppender	log.cc	/^        void Logger::DelAppender(LogAppender::ptr appender)$/;"	f	class:ygw::log::Logger	signature:(LogAppender::ptr appender)
 DelAppender	log.h	/^            void DelAppender(LogAppender::ptr appender);$/;"	p	class:ygw::log::Logger	access:public	signature:(LogAppender::ptr appender)
 DelCookie	http/http.cc	/^        void HttpRequest::DelCookie(const std::string& key) $/;"	f	class:ygw::http::HttpRequest	signature:(const std::string& key)
@@ -287,6 +293,7 @@ Encode	stream/zlib_stream.cc	/^        int ZlibStream::Encode(const iovec* v, co
 Encode	stream/zlib_stream.h	/^            int Encode(const iovec* v, const uint64_t& size, bool finish);$/;"	p	class:ygw::stream::ZlibStream	access:private	signature:(const iovec* v, const uint64_t& size, bool finish)
 EncodeZigzag32	bytearray.cc	/^        static uint32_t EncodeZigzag32(const int32_t& v) $/;"	f	namespace:ygw::container	signature:(const int32_t& v)
 EncodeZigzag64	bytearray.cc	/^        static uint64_t EncodeZigzag64(const int64_t& v) $/;"	f	namespace:ygw::container	signature:(const int64_t& v)
+Env	sys/env.h	/^        class Env {$/;"	c	namespace:ygw::sys
 EpollCtlOp	iomanager.cc	/^        enum EpollCtlOp {$/;"	g	namespace:ygw::scheduler	file:
 Error	http/http_connection.h	/^            enum class Error {$/;"	c	struct:ygw::http::HttpResult	access:public
 Error	log.cc	/^        void Logger::Error(LogEvent::ptr event)$/;"	f	class:ygw::log::Logger	signature:(LogEvent::ptr event)
@@ -362,6 +369,12 @@ GenerateKey	util/crypto_util.h	/^            static int32_t GenerateKey(const st
 Get	base/fd_manager.cc	/^        FdContext::ptr FdContextManager::Get(int fd, bool auto_create) $/;"	f	class:ygw::handle::FdContextManager	signature:(int fd, bool auto_create)
 Get	base/fd_manager.h	/^            FdContext::ptr Get(int fd, bool auto_create = false);$/;"	p	class:ygw::handle::FdContextManager	access:public	signature:(int fd, bool auto_create = false)
 Get	http/servlet.h	/^            virtual Servlet::ptr Get() const = 0;$/;"	p	class:ygw::http::IServletCreator	access:public	signature:() const
+Get	sys/env.cc	/^        std::string Env::Get(const std::string& key, const std::string& default_value) $/;"	f	class:ygw::sys::Env	signature:(const std::string& key, const std::string& default_value)
+Get	sys/env.h	/^            std::string Get(const std::string& key, const std::string& default_value = "");$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& key, const std::string& default_value = ”)
+GetAbsolutePath	sys/env.cc	/^        std::string Env::GetAbsolutePath(const std::string& path) const $/;"	f	class:ygw::sys::Env	signature:(const std::string& path) const
+GetAbsolutePath	sys/env.h	/^            std::string GetAbsolutePath(const std::string& path) const;$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& path) const
+GetAbsoluteWorkPath	sys/env.cc	/^        std::string Env::GetAbsoluteWorkPath(const std::string& path) const $/;"	f	class:ygw::sys::Env	signature:(const std::string& path) const
+GetAbsoluteWorkPath	sys/env.h	/^            std::string GetAbsoluteWorkPath(const std::string& path) const;$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& path) const
 GetAddr	address.cc	/^        const sockaddr* IPv4Address::GetAddr() const $/;"	f	class:ygw::socket::IPv4Address	signature:() const
 GetAddr	address.cc	/^        const sockaddr* IPv6Address::GetAddr() const $/;"	f	class:ygw::socket::IPv6Address	signature:() const
 GetAddr	address.cc	/^        const sockaddr* UnixAddress::GetAddr() const $/;"	f	class:ygw::socket::UnixAddress	signature:() const
@@ -389,6 +402,8 @@ GetByteArray	stream/zlib_stream.h	/^            ygw::container::ByteArray::ptr G
 GetCapacity	bytearray.h	/^            size_t GetCapacity() const { return capacity_ - position_;}$/;"	f	class:ygw::container::ByteArray	access:private	signature:() const
 GetCcEMailAddress	email/email.h	/^            const std::vector<std::string>& GetCcEMailAddress() const { return cc_email_address_;}$/;"	f	class:ygw::smtp::EMail	access:public	signature:() const
 GetConf	tcp_server.h	/^            TcpServerConf::ptr GetConf() const { return conf_;}$/;"	f	class:ygw::tcp::TcpServer	access:public	signature:() const
+GetConfigPath	sys/env.cc	/^        std::string Env::GetConfigPath() $/;"	f	class:ygw::sys::Env	signature:()
+GetConfigPath	sys/env.h	/^            std::string GetConfigPath();$/;"	p	class:ygw::sys::Env	access:public	signature:()
 GetConnection	http/http_connection.cc	/^        HttpConnection::ptr HttpConnectionPool::GetConnection() $/;"	f	class:ygw::http::HttpConnectionPool	signature:()
 GetConnection	http/http_connection.h	/^            HttpConnection::ptr GetConnection();$/;"	p	class:ygw::http::HttpConnectionPool	access:public	signature:()
 GetContent	email/email.h	/^            const std::string& GetContent() const { return content_;}$/;"	f	class:ygw::smtp::EMailEntity	access:public	signature:() const
@@ -409,6 +424,7 @@ GetCurrentMS	util.cc	/^        uint64_t TimeUtil::GetCurrentMS() $/;"	f	class:yg
 GetCurrentMS	util.h	/^            static uint64_t GetCurrentMS();$/;"	p	class:ygw::util::TimeUtil	access:public	signature:()
 GetCurrentUS	util.cc	/^        uint64_t TimeUtil::GetCurrentUS() $/;"	f	class:ygw::util::TimeUtil	signature:()
 GetCurrentUS	util.h	/^            static uint64_t GetCurrentUS();$/;"	p	class:ygw::util::TimeUtil	access:public	signature:()
+GetCwd	sys/env.h	/^            const std::string& GetCwd() const { return cwd_;}$/;"	f	class:ygw::sys::Env	access:public	signature:() const
 GetData	http/http_parser.h	/^            HttpRequest::ptr GetData() const { return data_;}$/;"	f	class:ygw::http::HttpRequestParser	access:public	signature:() const
 GetData	http/http_parser.h	/^            HttpResponse::ptr GetData() const { return data_;}$/;"	f	class:ygw::http::HttpResponseParser	access:public	signature:() const
 GetDatas	config.h	/^            static ConfigVarMap& GetDatas() $/;"	f	class:ygw::config::Config	access:private	signature:()
@@ -420,9 +436,12 @@ GetDouble	util/json_util.cc	/^        double JsonUtil::GetDouble(const Json::Val
 GetDouble	util/json_util.h	/^			static double GetDouble(const Json::Value& json$/;"	p	class:ygw::util::JsonUtil	access:public	signature:(const Json::Value& json ,const std::string& name ,double default_value = 0)
 GetElapse	log.h	/^            uint32_t GetElapse() const { return elapse_;}$/;"	f	class:ygw::log::LogEvent	access:public	signature:() const
 GetEntitys	email/email.h	/^            const std::vector<EMailEntity::ptr>& GetEntitys() const { return entitys_;}$/;"	f	class:ygw::smtp::EMail	access:public	signature:() const
+GetEnv	sys/env.cc	/^        std::string Env::GetEnv(const std::string& key, const std::string& default_value) $/;"	f	class:ygw::sys::Env	signature:(const std::string& key, const std::string& default_value)
+GetEnv	sys/env.h	/^            std::string GetEnv(const std::string& key, const std::string& default_value = "");$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& key, const std::string& default_value = ”)
 GetError	socket.cc	/^        int Socket::GetError()$/;"	f	class:ygw::socket::Socket	signature:()
 GetError	socket.h	/^			int GetError();$/;"	p	class:ygw::socket::Socket	access:public	signature:()
 GetEvent	log.h	/^            LogEvent::ptr GetEvent() const { return event_;}$/;"	f	class:ygw::log::LogEventWrap	access:public	signature:() const
+GetExe	sys/env.h	/^            const std::string& GetExe() const { return exe_;}$/;"	f	class:ygw::sys::Env	access:public	signature:() const
 GetFamily	address.cc	/^        int Address::GetFamily() const $/;"	f	class:ygw::socket::Address	signature:() const
 GetFamily	address.h	/^            int GetFamily() const;$/;"	p	class:ygw::socket::Address	access:public	signature:() const
 GetFamily	socket.h	/^			int GetFamily() const { return family_;}$/;"	f	class:ygw::socket::Socket	access:public	signature:() const
@@ -622,6 +641,8 @@ Handle	http/servlet/status_servlet.cc	/^        int32_t StatusServlet::Handle(yg
 HandleClient	http/http_server.cc	/^        void HttpServer::HandleClient(socket::Socket::ptr client) $/;"	f	class:ygw::http::HttpServer	signature:(socket::Socket::ptr client)
 HandleClient	tcp_server.cc	/^        void TcpServer::HandleClient(ygw::socket::Socket::ptr client) $/;"	f	class:ygw::tcp::TcpServer	signature:(ygw::socket::Socket::ptr client)
 HandleClient	tcp_server.h	/^            virtual void HandleClient(ygw::socket::Socket::ptr client);$/;"	p	class:ygw::tcp::TcpServer	access:protected	signature:(ygw::socket::Socket::ptr client)
+Has	sys/env.cc	/^        bool Env::Has(const std::string& key) $/;"	f	class:ygw::sys::Env	signature:(const std::string& key)
+Has	sys/env.h	/^            bool Has(const std::string& key);$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& key)
 HasCookie	http/http.cc	/^        bool HttpRequest::HasCookie(const std::string& key, std::string* val) {$/;"	f	class:ygw::http::HttpRequest	signature:(const std::string& key, std::string* val)
 HasCookie	http/http.h	/^            bool HasCookie(const std::string& key, std::string* val = nullptr);$/;"	p	class:ygw::http::HttpRequest	access:public	signature:(const std::string& key, std::string* val = nullptr)
 HasError	http/http_parser.cc	/^        int HttpRequestParser::HasError() $/;"	f	class:ygw::http::HttpRequestParser	signature:()
@@ -702,6 +723,7 @@ Init	socket.cc	/^        bool Socket::Init(int sockfd)$/;"	f	class:ygw::socket::
 Init	socket.h	/^			virtual bool Init(int sockfd);$/;"	p	class:ygw::socket::Socket	access:protected	signature:(int sockfd)
 Init	stream/zlib_stream.cc	/^        int ZlibStream::Init(Type type, int level, int window_bits$/;"	f	class:ygw::stream::ZlibStream	signature:(Type type, int level, int window_bits ,int memlevel, Strategy strategy)
 Init	stream/zlib_stream.h	/^            int Init(Type type = kDeflate, int level = kDefaultCompression $/;"	p	class:ygw::stream::ZlibStream	access:private	signature:(Type type = kDeflate, int level = kDefaultCompression ,int window_bits = 15, int memlevel = 8, Strategy strategy = kDefault)
+Init	sys/env.cc	/^        bool Env::Init(int argc, char** argv) $/;"	f	class:ygw::sys::Env	signature:(int argc, char** argv)
 InitBodyParam	http/http.cc	/^        void HttpRequest::InitBodyParam() $/;"	f	class:ygw::http::HttpRequest	signature:()
 InitBodyParam	http/http.h	/^            void InitBodyParam();$/;"	p	class:ygw::http::HttpRequest	access:public	signature:()
 InitCookies	http/http.cc	/^        void HttpRequest::InitCookies() $/;"	f	class:ygw::http::HttpRequest	signature:()
@@ -908,6 +930,8 @@ PBToJsonString	util.cc	/^        std::string PBToJsonString(const google::protob
 PBToJsonString	util.h	/^		std::string PBToJsonString(const google::protobuf::Message& message);$/;"	p	namespace:ygw::util	signature:(const google::protobuf::Message& message)
 PTR_TO	http/parser/http11_parser.rl.cc	47;"	d	file:
 PTR_TO	http/parser/httpclient_parser.rl.cc	48;"	d	file:
+PrintHelp	sys/env.cc	/^        void Env::PrintHelp() $/;"	f	class:ygw::sys::Env	signature:()
+PrintHelp	sys/env.h	/^            void PrintHelp();$/;"	p	class:ygw::sys::Env	access:public	signature:()
 PrivateDecrypt	util/crypto_util.cc	/^        int32_t RSACipher::PrivateDecrypt(const void* from, int flen,$/;"	f	class:ygw::util::RSACipher	signature:(const void* from, int flen, std::string& to, int padding)
 PrivateDecrypt	util/crypto_util.cc	/^        int32_t RSACipher::PrivateDecrypt(const void* from, int flen,$/;"	f	class:ygw::util::RSACipher	signature:(const void* from, int flen, void* to, int padding)
 PrivateDecrypt	util/crypto_util.h	/^            int32_t PrivateDecrypt(const void* from, int flen,$/;"	p	class:ygw::util::RSACipher	access:public	signature:(const void* from, int flen, std::string& to, int padding = RSA_NO_PADDING)
@@ -916,7 +940,7 @@ PrivateEncrypt	util/crypto_util.cc	/^        int32_t RSACipher::PrivateEncrypt(c
 PrivateEncrypt	util/crypto_util.cc	/^        int32_t RSACipher::PrivateEncrypt(const void* from, int flen,$/;"	f	class:ygw::util::RSACipher	signature:(const void* from, int flen, void* to, int padding)
 PrivateEncrypt	util/crypto_util.h	/^            int32_t PrivateEncrypt(const void* from, int flen,$/;"	p	class:ygw::util::RSACipher	access:public	signature:(const void* from, int flen, std::string& to, int padding = RSA_NO_PADDING)
 PrivateEncrypt	util/crypto_util.h	/^            int32_t PrivateEncrypt(const void* from, int flen,$/;"	p	class:ygw::util::RSACipher	access:public	signature:(const void* from, int flen, void* to, int padding = RSA_NO_PADDING)
-ProcessInfo	daemon.h	/^        struct ProcessInfo {$/;"	s	namespace:ygw::sys
+ProcessInfo	sys/daemon.h	/^        struct ProcessInfo {$/;"	s	namespace:ygw::sys
 PublicDecrypt	util/crypto_util.cc	/^        int32_t RSACipher::PublicDecrypt(const void* from, int flen,$/;"	f	class:ygw::util::RSACipher	signature:(const void* from, int flen, std::string& to, int padding)
 PublicDecrypt	util/crypto_util.cc	/^        int32_t RSACipher::PublicDecrypt(const void* from, int flen,$/;"	f	class:ygw::util::RSACipher	signature:(const void* from, int flen, void* to, int padding)
 PublicDecrypt	util/crypto_util.h	/^            int32_t PublicDecrypt(const void* from, int flen,$/;"	p	class:ygw::util::RSACipher	access:public	signature:(const void* from, int flen, std::string& to, int padding = RSA_NO_PADDING)
@@ -996,8 +1020,8 @@ ReadUint32	bytearray.cc	/^        uint32_t ByteArray::ReadUint32() $/;"	f	class:
 ReadUint32	bytearray.h	/^            uint32_t ReadUint32();$/;"	p	class:ygw::container::ByteArray	access:public	signature:()
 ReadUint64	bytearray.cc	/^        uint64_t ByteArray::ReadUint64() $/;"	f	class:ygw::container::ByteArray	signature:()
 ReadUint64	bytearray.h	/^            uint64_t ReadUint64();$/;"	p	class:ygw::container::ByteArray	access:public	signature:()
-RealDaemon	daemon.cc	/^        static int RealDaemon(int argc, char** argv,$/;"	f	namespace:ygw::sys	signature:(int argc, char** argv, std::function<int(int argc, char** argv)> main_cb)
-RealStart	daemon.cc	/^        static int RealStart(int argc, char** argv,$/;"	f	namespace:ygw::sys	signature:(int argc, char** argv, std::function<int(int argc, char** argv)> main_cb)
+RealDaemon	sys/daemon.cc	/^        static int RealDaemon(int argc, char** argv,$/;"	f	namespace:ygw::sys	signature:(int argc, char** argv, std::function<int(int argc, char** argv)> main_cb)
+RealStart	sys/daemon.cc	/^        static int RealStart(int argc, char** argv,$/;"	f	namespace:ygw::sys	signature:(int argc, char** argv, std::function<int(int argc, char** argv)> main_cb)
 Realpath	util.cc	/^        bool FSUtil::Realpath(const std::string& path, std::string& rpath) $/;"	f	class:ygw::util::FSUtil	signature:(const std::string& path, std::string& rpath)
 Realpath	util.h	/^            static bool Realpath(const std::string& path, std::string& rpath);$/;"	p	class:ygw::util::FSUtil	access:public	signature:(const std::string& path, std::string& rpath)
 Reconnect	socket.cc	/^        bool Socket::Reconnect(uint64_t timeout_ms)$/;"	f	class:ygw::socket::Socket	signature:(uint64_t timeout_ms)
@@ -1022,6 +1046,8 @@ Refresh	base/timer.cc	/^        bool Timer::Refresh() $/;"	f	class:ygw::timer::T
 Refresh	base/timer.h	/^            bool Refresh();$/;"	p	class:ygw::timer::Timer	access:public	signature:()
 ReleasePtr	http/http_connection.cc	/^        void HttpConnectionPool::ReleasePtr(HttpConnection* ptr, HttpConnectionPool* pool) $/;"	f	class:ygw::http::HttpConnectionPool	signature:(HttpConnection* ptr, HttpConnectionPool* pool)
 ReleasePtr	http/http_connection.h	/^            static void ReleasePtr(HttpConnection* ptr, HttpConnectionPool* pool);$/;"	p	class:ygw::http::HttpConnectionPool	access:private	signature:(HttpConnection* ptr, HttpConnectionPool* pool)
+RemoveHelp	sys/env.cc	/^        void Env::RemoveHelp(const std::string& key) $/;"	f	class:ygw::sys::Env	signature:(const std::string& key)
+RemoveHelp	sys/env.h	/^            void RemoveHelp(const std::string& key);$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& key)
 Reset	base/fiber.cc	/^        void Fiber::Reset(std::function<void()> cb)$/;"	f	class:ygw::scheduler::Fiber	signature:(std::function<void()> cb)
 Reset	base/fiber.h	/^            void Reset(std::function<void()> cb);$/;"	p	class:ygw::scheduler::Fiber	access:public	signature:(std::function<void()> cb)
 Reset	base/scheduler.h	/^                void Reset() $/;"	f	class:ygw::scheduler::Scheduler::FiberAndThread	access:public	signature:()
@@ -1101,6 +1127,8 @@ SetCookie	http/http.h	/^            void SetCookie(const std::string& key, const
 SetCookies	http/http.h	/^            void SetCookies(const MapType& v) { cookies_ = v; }$/;"	f	class:ygw::http::HttpRequest	access:public	signature:(const MapType& v)
 SetDefault	http/servlet.h	/^            void SetDefault(Servlet::ptr v) { default_ = v;}$/;"	f	class:ygw::http::ServletDispatch	access:public	signature:(Servlet::ptr v)
 SetEndcode	stream/zlib_stream.h	/^            void SetEndcode(bool v) { encode_ = v;}$/;"	f	class:ygw::stream::ZlibStream	access:public	signature:(bool v)
+SetEnv	sys/env.cc	/^        bool Env::SetEnv(const std::string& key, const std::string& val) $/;"	f	class:ygw::sys::Env	signature:(const std::string& key, const std::string& val)
+SetEnv	sys/env.h	/^            bool SetEnv(const std::string& key, const std::string& val);$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& key, const std::string& val)
 SetError	http/http_parser.h	/^            void SetError(int v) { error_ = v; }$/;"	f	class:ygw::http::HttpResponseParser	access:public	signature:(int v)
 SetError	http/http_parser.h	/^            void SetError(int v) { error_ = v;}$/;"	f	class:ygw::http::HttpRequestParser	access:public	signature:(int v)
 SetFormatter	log.cc	/^        void LogAppender::SetFormatter(LogFormatter::ptr val) $/;"	f	class:ygw::log::LogAppender	signature:(LogFormatter::ptr val)
@@ -1202,7 +1230,8 @@ Start	tcp_server.cc	/^        bool TcpServer::Start() $/;"	f	class:ygw::tcp::Tcp
 Start	tcp_server.h	/^            virtual bool Start();$/;"	p	class:ygw::tcp::TcpServer	access:public	signature:()
 StartAccept	tcp_server.cc	/^        void TcpServer::StartAccept(ygw::socket::Socket::ptr sock) $/;"	f	class:ygw::tcp::TcpServer	signature:(ygw::socket::Socket::ptr sock)
 StartAccept	tcp_server.h	/^            virtual void StartAccept(ygw::socket::Socket::ptr sock);$/;"	p	class:ygw::tcp::TcpServer	access:protected	signature:(ygw::socket::Socket::ptr sock)
-StartDaemon	daemon.h	/^        int StartDaemon(int argc, char** argv$/;"	p	namespace:ygw::sys	signature:(int argc, char** argv , std::function<int(int argc, char** argv)> main_cb , bool is_daemon)
+StartDaemon	sys/daemon.cc	/^        int StartDaemon(int argc, char** argv$/;"	f	namespace:ygw::sys	signature:(int argc, char** argv , std::function<int(int argc, char** argv)> main_cb , bool is_daemon)
+StartDaemon	sys/daemon.h	/^        int StartDaemon(int argc, char** argv$/;"	p	namespace:ygw::sys	signature:(int argc, char** argv , std::function<int(int argc, char** argv)> main_cb , bool is_daemon)
 State	base/fiber.h	/^            enum State {$/;"	g	class:ygw::scheduler::Fiber	access:public
 StatusServlet	http/servlet/status_servlet.cc	/^        StatusServlet::StatusServlet()$/;"	f	class:ygw::http::StatusServlet	signature:()
 StatusServlet	http/servlet/status_servlet.h	/^            StatusServlet();$/;"	p	class:ygw::http::StatusServlet	access:public	signature:()
@@ -1279,8 +1308,6 @@ ToString	address.h	/^            std::string ToString() const;$/;"	p	class:ygw::
 ToString	bytearray.cc	/^        std::string ByteArray::ToString() const $/;"	f	class:ygw::container::ByteArray	signature:() const
 ToString	bytearray.h	/^            std::string ToString() const;$/;"	p	class:ygw::container::ByteArray	access:public	signature:() const
 ToString	config.h	/^            virtual std::string ToString() = 0;$/;"	p	class:ygw::config::ConfigVarBase	access:public	signature:()
-ToString	daemon.cc	/^        std::string ProcessInfo::ToString() const $/;"	f	class:ygw::sys::ProcessInfo	signature:() const
-ToString	daemon.h	/^            std::string ToString() const;$/;"	p	struct:ygw::sys::ProcessInfo	access:public	signature:() const
 ToString	email/email.cc	/^        std::string EMailEntity::ToString() const $/;"	f	class:ygw::smtp::EMailEntity	signature:() const
 ToString	email/email.h	/^            std::string ToString() const;$/;"	p	class:ygw::smtp::EMailEntity	access:public	signature:() const
 ToString	http/http.cc	/^        std::string HttpRequest::ToString() const$/;"	f	class:ygw::http::HttpRequest	signature:() const
@@ -1295,6 +1322,8 @@ ToString	log.cc	/^        const char* LogLevel::ToString(LogLevel::Level level) 
 ToString	log.h	/^            static const char* ToString(LogLevel::Level level);$/;"	p	class:ygw::log::LogLevel	access:public	signature:(LogLevel::Level level)
 ToString	socket.cc	/^        std::string Socket::ToString() const $/;"	f	class:ygw::socket::Socket	signature:() const
 ToString	socket.h	/^			virtual std::string ToString() const;$/;"	p	class:ygw::socket::Socket	access:public	signature:() const
+ToString	sys/daemon.cc	/^        std::string ProcessInfo::ToString() const $/;"	f	class:ygw::sys::ProcessInfo	signature:() const
+ToString	sys/daemon.h	/^            std::string ToString() const;$/;"	p	struct:ygw::sys::ProcessInfo	access:public	signature:() const
 ToString	tcp_server.cc	/^        std::string TcpServer::ToString(const std::string& prefix) $/;"	f	class:ygw::tcp::TcpServer	signature:(const std::string& prefix)
 ToString	tcp_server.h	/^            virtual std::string ToString(const std::string& prefix = "");$/;"	p	class:ygw::tcp::TcpServer	access:public	signature:(const std::string& prefix = ”)
 ToString	util/json_util.cc	/^        std::string JsonUtil::ToString(const Json::Value& json) {$/;"	f	class:ygw::util::JsonUtil	signature:(const Json::Value& json)
@@ -1496,7 +1525,7 @@ __YGW_BYTEARRAY_H__	bytearray.h	14;"	d
 __YGW_CONFIG_H__	config.h	12;"	d
 __YGW_CONFIG_SERVLET_H__	http/servlet/config_servlet.h	14;"	d
 __YGW_CRYPTO_UTIL_H__	util/crypto_util.h	15;"	d
-__YGW_DAEMON_H__	daemon.h	11;"	d
+__YGW_DAEMON_H__	sys/daemon.h	11;"	d
 __YGW_ENDIAN_H__	endian.h	14;"	d
 __YGW_FIBER_H__	base/fiber.h	14;"	d
 __YGW_HASH_UTIL_H__	util/hash_util.h	14;"	d
@@ -1516,6 +1545,7 @@ __YGW_SOCKET_H__	socket.h	14;"	d
 __YGW_SOCKET_STREAM_H__	stream/socket_stream.h	14;"	d
 __YGW_STATUS_SERVLET_H__	http/servlet/status_servlet.h	15;"	d
 __YGW_STREAM_H__	stream/stream.h	15;"	d
+__YGW_SYS_ENV_H__	sys/env.h	11;"	d
 __YGW_TCP_SERVER_H__	tcp_server.h	12;"	d
 __YGW_THREAD_H__	base/thread.h	11;"	d
 __YGW_TIMER_H__	base/timer.h	12;"	d
@@ -1541,6 +1571,7 @@ addr_	address.h	/^            sockaddr_un addr_;$/;"	m	class:ygw::socket::UnixAd
 appenders_	log.cc	/^            std::vector<LogAppenderDefine> appenders_;$/;"	m	class:ygw::log::LogDefine	file:	access:public
 appenders_	log.h	/^            std::list<LogAppender::ptr> appenders_;$/;"	m	class:ygw::log::Logger	access:private
 args	tcp_server.h	/^            std::map<std::string, std::string> args;$/;"	m	struct:ygw::tcp::TcpServerConf	access:public
+args_	sys/env.h	/^            std::map<std::string, std::string> args_;$/;"	m	class:ygw::sys::Env	access:private
 authed_	email/smtp.h	/^            bool authed_ = false;$/;"	m	class:ygw::smtp::SmtpClient	access:private
 auto_stop_	base/scheduler.h	/^            bool auto_stop_ = false;$/;"	m	class:ygw::scheduler::Scheduler	access:protected
 base64decode	util/hash_util.cc	/^        std::string base64decode(const std::string &src) $/;"	f	namespace:ygw::util	signature:(const std::string &src)
@@ -1609,6 +1640,7 @@ ctx_	socket.h	/^			std::shared_ptr<SSL_CTX> ctx_;$/;"	m	class:ygw::socket::SSLSo
 cur_	bytearray.h	/^            Node* cur_;$/;"	m	class:ygw::container::ByteArray	access:private
 cur_count_	util.h	/^            uint32_t cur_count_;$/;"	m	class:ygw::util::SpeedLimit	access:private
 cur_sec_	util.h	/^            uint32_t cur_sec_;$/;"	m	class:ygw::util::SpeedLimit	access:private
+cwd_	sys/env.h	/^            std::string cwd_;$/;"	m	class:ygw::sys::Env	access:private
 data	http/parser/http11_parser.h	/^  void *data;$/;"	m	struct:http_parser	access:public
 data	http/parser/httpclient_parser.h	/^  void *data;$/;"	m	struct:httpclient_parser	access:public
 data_	http/http_parser.h	/^            HttpRequest::ptr data_;$/;"	m	class:ygw::http::HttpRequestParser	access:private
@@ -1635,6 +1667,7 @@ error_	http/http_parser.h	/^            int error_;$/;"	m	class:ygw::http::HttpR
 error_	http/http_parser.h	/^            int error_;$/;"	m	class:ygw::http::HttpResponseParser	access:private
 event_	log.h	/^            LogEvent::ptr event_;$/;"	m	class:ygw::log::LogEventWrap	access:private
 events_	iomanager.h	/^                Event events_ = Event::kNone;$/;"	m	class:ygw::scheduler::IOManager::FdContext	access:public
+exe_	sys/env.h	/^            std::string exe_;$/;"	m	class:ygw::sys::Env	access:private
 extension	util.cc	/^            const char* extension;$/;"	m	struct:ygw::util::table_entry	file:	access:public
 family_	socket.h	/^			int family_;$/;"	m	class:ygw::socket::Socket	access:protected
 fcntl	hook.cc	/^    int fcntl(int fd, int cmd, ... \/* arg *\/ )$/;"	f	signature:(int fd, int cmd, ... )
@@ -1667,7 +1700,7 @@ fragment_	http/uri.h	/^            std::string fragment_;$/;"	m	class:ygw::http:
 free_	stream/zlib_stream.h	/^            bool free_;$/;"	m	class:ygw::stream::ZlibStream	access:private
 from_email_address_	email/email.h	/^            std::string from_email_address_;$/;"	m	class:ygw::smtp::EMail	access:private
 from_email_passwd_	email/email.h	/^            std::string from_email_passwd_;$/;"	m	class:ygw::smtp::EMail	access:private
-g_daemon_restart_interval	daemon.cc	/^        static ygw::config::ConfigVar<uint32_t>::ptr g_daemon_restart_interval = $/;"	m	namespace:ygw::sys	file:
+g_daemon_restart_interval	sys/daemon.cc	/^        static ygw::config::ConfigVar<uint32_t>::ptr g_daemon_restart_interval = $/;"	m	namespace:ygw::sys	file:
 g_fiber_stack_size	base/fiber.cc	/^        static config::ConfigVar<uint32_t>::ptr g_fiber_stack_size = $/;"	m	namespace:ygw::scheduler	file:
 g_http_request_buffer_size	http/http_parser.cc	/^        static ygw::config::ConfigVar<uint64_t>::ptr g_http_request_buffer_size = $/;"	m	namespace:ygw::http	file:
 g_http_request_max_body_size	http/http_parser.cc	/^        static ygw::config::ConfigVar<uint64_t>::ptr g_http_request_max_body_size = $/;"	m	namespace:ygw::http	file:
@@ -1675,7 +1708,6 @@ g_http_response_buffer_size	http/http_parser.cc	/^        static ygw::config::Co
 g_http_response_max_body_size	http/http_parser.cc	/^        static ygw::config::ConfigVar<uint64_t>::ptr g_http_response_max_body_size = $/;"	m	namespace:ygw::http	file:
 g_http_server_config	http/http_server.cc	/^        ConfigVar<ygw::http::HttpServerConfig>::ptr g_http_server_config = $/;"	m	namespace:ygw::config	file:
 g_log_defines	log.cc	/^        ygw::config::ConfigVar<std::set<LogDefine> >::ptr g_log_defines =$/;"	m	namespace:ygw::log	file:
-g_loger	daemon.cc	/^        static ygw::log::Logger::ptr g_loger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::sys	file:
 g_logger	address.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::socket	file:
 g_logger	base/fiber.cc	/^        static log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::scheduler	file:
 g_logger	base/scheduler.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::scheduler	file:
@@ -1689,6 +1721,8 @@ g_logger	http/http_parser.cc	/^        static ygw::log::Logger::ptr g_logger = Y
 g_logger	http/http_server.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::http	file:
 g_logger	iomanager.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::scheduler	file:
 g_logger	socket.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::socket	file:
+g_logger	sys/daemon.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::sys	file:
+g_logger	sys/env.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::sys	file:
 g_logger	tcp_server.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::tcp	file:
 g_logger	util.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::util	file:
 g_tcp_connect_timeout	hook.cc	/^        static ygw::config::ConfigVar<int>::ptr g_tcp_connect_timeout =$/;"	m	namespace:ygw::hook	file:
@@ -1704,6 +1738,7 @@ header_done	http/parser/httpclient_parser.h	/^  element_cb header_done;$/;"	m	st
 headers_	email/email.h	/^            std::map<std::string, std::string> headers_;$/;"	m	class:ygw::smtp::EMailEntity	access:private
 headers_	http/http.h	/^            MapType headers_;$/;"	m	class:ygw::http::HttpRequest	access:private
 headers_	http/http.h	/^            MapType headers_;$/;"	m	class:ygw::http::HttpResponse	access:private
+helps_	sys/env.h	/^            std::vector<std::pair<std::string, std::string>> helps_;$/;"	m	class:ygw::sys::Env	access:private
 hexstring_from_data	util/hash_util.cc	/^        std::string hexstring_from_data(const std::string &data) $/;"	f	namespace:ygw::util	signature:(const std::string &data)
 hexstring_from_data	util/hash_util.cc	/^        std::string hexstring_from_data(const void *data, size_t len) $/;"	f	namespace:ygw::util	signature:(const void *data, size_t len)
 hexstring_from_data	util/hash_util.cc	/^        void hexstring_from_data(const void *data, size_t len, char *output) $/;"	f	namespace:ygw::util	signature:(const void *data, size_t len, char *output)
@@ -1915,8 +1950,8 @@ loggers_	log.h	/^            std::map<std::string, Logger::ptr> loggers_;$/;"	m	
 m_string	log.cc	/^                std::string m_string;$/;"	m	class:ygw::log::TabFormatItem	file:	access:private
 m_string	log.cc	/^            std::string m_string;$/;"	m	class:ygw::log::StringFormatItem	file:	access:private
 m_value	util/hash_util.cc	/^            char m_value;$/;"	m	struct:ygw::util::xorStruct	file:	access:public
-main_id	daemon.h	/^            pid_t main_id = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
-main_start_time	daemon.h	/^            uint64_t main_start_time = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
+main_id	sys/daemon.h	/^            pid_t main_id = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
+main_start_time	sys/daemon.h	/^            uint64_t main_start_time = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
 manager_	base/timer.h	/^            TimerManager* manager_ = nullptr;$/;"	m	class:ygw::timer::Timer	access:private
 mark	http/parser/http11_parser.h	/^  size_t mark;$/;"	m	struct:http_parser	access:public
 mark	http/parser/httpclient_parser.h	/^  size_t mark;$/;"	m	struct:httpclient_parser	access:public
@@ -1958,6 +1993,7 @@ mutex_	iomanager.h	/^            RWMutexType mutex_;$/;"	m	class:ygw::scheduler:
 mutex_	log.h	/^            MutexType mutex_;$/;"	m	class:ygw::log::LogAppender	access:protected
 mutex_	log.h	/^            MutexType mutex_;$/;"	m	class:ygw::log::Logger	access:private
 mutex_	log.h	/^            MutexType mutex_;$/;"	m	class:ygw::log::LoggerManager	access:private
+mutex_	sys/env.h	/^            RWMutexType mutex_;$/;"	m	class:ygw::sys::Env	access:private
 name	tcp_server.h	/^            std::string name;$/;"	m	struct:ygw::tcp::TcpServerConf	access:public
 name_	base/scheduler.h	/^            std::string name_;$/;"	m	class:ygw::scheduler::Scheduler	access:private
 name_	base/thread.h	/^            std::string name_;$/;"	m	class:ygw::thread::Thread	access:private
@@ -2089,8 +2125,8 @@ override	stream/zlib_stream.h	/^            virtual int Write(ygw::container::By
 override	stream/zlib_stream.h	/^            virtual void Close() override;$/;"	m	class:ygw::stream::ZlibStream	access:public
 owner_	stream/socket_stream.h	/^            bool owner_;$/;"	m	class:ygw::stream::SocketStream	access:protected
 params_	http/http.h	/^            MapType params_;$/;"	m	class:ygw::http::HttpRequest	access:private
-parent_id	daemon.h	/^            pid_t parent_id = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
-parent_start_time	daemon.h	/^            uint64_t parent_start_time = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
+parent_id	sys/daemon.h	/^            pid_t parent_id = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
+parent_start_time	sys/daemon.h	/^            uint64_t parent_start_time = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
 parser_	http/http_parser.h	/^            HttpClientParser parser_;$/;"	m	class:ygw::http::HttpResponseParser	access:private
 parser_	http/http_parser.h	/^            HttpParser parser_;$/;"	m	class:ygw::http::HttpRequestParser	access:private
 parser_param_flag_	http/http.h	/^            uint8_t parser_param_flag_;$/;"	m	class:ygw::http::HttpRequest	access:private
@@ -2105,6 +2141,7 @@ previouse_time_	base/timer.h	/^            uint64_t previouse_time_ = 0;$/;"	m	c
 prikey_	util/crypto_util.h	/^            RSA* prikey_;$/;"	m	class:ygw::util::RSACipher	access:private
 prikey_str_	util/crypto_util.h	/^            std::string prikey_str_;$/;"	m	class:ygw::util::RSACipher	access:private
 process_worker	tcp_server.h	/^            std::string process_worker;$/;"	m	struct:ygw::tcp::TcpServerConf	access:public
+program_	sys/env.h	/^            std::string program_;$/;"	m	class:ygw::sys::Env	access:private
 protocol_	socket.h	/^			int protocol_;$/;"	m	class:ygw::socket::Socket	access:protected
 ptr	address.h	/^            typedef std::shared_ptr<IPv6Address> ptr;$/;"	t	class:ygw::socket::IPv6Address	access:public
 ptr	bytearray.h	/^                char* ptr;$/;"	m	struct:ygw::container::ByteArray::Node	access:public
@@ -2154,7 +2191,7 @@ request_method	http/parser/http11_parser.h	/^  element_cb request_method;$/;"	m	
 request_path	http/parser/http11_parser.h	/^  element_cb request_path;$/;"	m	struct:http_parser	access:public
 request_uri	http/parser/http11_parser.h	/^  element_cb request_uri;$/;"	m	struct:http_parser	access:public
 response	http/http_connection.h	/^            HttpResponse::ptr response;$/;"	m	struct:ygw::http::HttpResult	access:public
-restart_count	daemon.h	/^            uint32_t restart_count = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
+restart_count	sys/daemon.h	/^            uint32_t restart_count = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
 result	email/smtp.h	/^            int result;$/;"	m	struct:ygw::smtp::SmtpResult	access:public
 result	http/http_connection.h	/^            int result;$/;"	m	struct:ygw::http::HttpResult	access:public
 root_	bytearray.h	/^            Node* root_;$/;"	m	class:ygw::container::ByteArray	access:private
@@ -2247,8 +2284,10 @@ stream	stream/stream.h	/^    namespace stream {$/;"	n	namespace:ygw
 stream	stream/zlib_stream.cc	/^    namespace stream {$/;"	n	namespace:ygw	file:
 stream	stream/zlib_stream.h	/^    namespace stream {$/;"	n	namespace:ygw
 string_stream_	log.h	/^            std::stringstream string_stream_;$/;"	m	class:ygw::log::LogEvent	access:private
-sys	daemon.cc	/^    namespace sys {$/;"	n	namespace:ygw	file:
-sys	daemon.h	/^    namespace sys {$/;"	n	namespace:ygw
+sys	sys/daemon.cc	/^    namespace sys {$/;"	n	namespace:ygw	file:
+sys	sys/daemon.h	/^    namespace sys {$/;"	n	namespace:ygw
+sys	sys/env.cc	/^    namespace sys {$/;"	n	namespace:ygw	file:
+sys	sys/env.h	/^    namespace sys {$/;"	n	namespace:ygw
 t_fiber	base/fiber.cc	/^        static thread_local Fiber* t_fiber = nullptr;$/;"	m	namespace:ygw::scheduler	file:
 t_hook_enable	hook.cc	/^        static thread_local bool t_hook_enable = false;$/;"	m	namespace:ygw::hook	file:
 t_scheduler	base/scheduler.cc	/^        static thread_local Scheduler* t_scheduler = nullptr;  \/\/ÂΩìÂâçÂçèÁ®ãË∞ÉÂ∫¶Âô®ÊåáÈíà$/;"	m	namespace:ygw::scheduler	file:
@@ -2354,8 +2393,6 @@ ygw	bytearray.cc	/^namespace ygw {$/;"	n	file:
 ygw	bytearray.h	/^namespace ygw {$/;"	n
 ygw	config.cc	/^namespace ygw {$/;"	n	file:
 ygw	config.h	/^namespace ygw {$/;"	n
-ygw	daemon.cc	/^namespace ygw {$/;"	n	file:
-ygw	daemon.h	/^namespace ygw {$/;"	n
 ygw	email/email.cc	/^namespace ygw {$/;"	n	file:
 ygw	email/email.h	/^namespace ygw {$/;"	n
 ygw	email/smtp.cc	/^namespace ygw {$/;"	n	file:
@@ -2395,6 +2432,10 @@ ygw	stream/stream.cc	/^namespace ygw {$/;"	n	file:
 ygw	stream/stream.h	/^namespace ygw {$/;"	n
 ygw	stream/zlib_stream.cc	/^namespace ygw {$/;"	n	file:
 ygw	stream/zlib_stream.h	/^namespace ygw {$/;"	n
+ygw	sys/daemon.cc	/^namespace ygw {$/;"	n	file:
+ygw	sys/daemon.h	/^namespace ygw {$/;"	n
+ygw	sys/env.cc	/^namespace ygw {$/;"	n	file:
+ygw	sys/env.h	/^namespace ygw {$/;"	n
 ygw	tcp_server.cc	/^namespace ygw {$/;"	n	file:
 ygw	tcp_server.h	/^namespace ygw {$/;"	n
 ygw	util.cc	/^namespace ygw {$/;"	n	file:
@@ -3971,21 +4012,59 @@ ygw::stream::ZlibStream::override	stream/zlib_stream.h	/^            virtual voi
 ygw::stream::ZlibStream::zstream_	stream/zlib_stream.h	/^            z_stream zstream_;$/;"	m	class:ygw::stream::ZlibStream	access:private
 ygw::stream::ZlibStream::~ZlibStream	stream/zlib_stream.cc	/^        ZlibStream::~ZlibStream() $/;"	f	class:ygw::stream::ZlibStream	signature:()
 ygw::stream::ZlibStream::~ZlibStream	stream/zlib_stream.h	/^            ~ZlibStream();$/;"	p	class:ygw::stream::ZlibStream	access:public	signature:()
-ygw::sys	daemon.cc	/^    namespace sys {$/;"	n	namespace:ygw	file:
-ygw::sys	daemon.h	/^    namespace sys {$/;"	n	namespace:ygw
-ygw::sys::ProcessInfo	daemon.h	/^        struct ProcessInfo {$/;"	s	namespace:ygw::sys
-ygw::sys::ProcessInfo::ToString	daemon.cc	/^        std::string ProcessInfo::ToString() const $/;"	f	class:ygw::sys::ProcessInfo	signature:() const
-ygw::sys::ProcessInfo::ToString	daemon.h	/^            std::string ToString() const;$/;"	p	struct:ygw::sys::ProcessInfo	access:public	signature:() const
-ygw::sys::ProcessInfo::main_id	daemon.h	/^            pid_t main_id = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
-ygw::sys::ProcessInfo::main_start_time	daemon.h	/^            uint64_t main_start_time = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
-ygw::sys::ProcessInfo::parent_id	daemon.h	/^            pid_t parent_id = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
-ygw::sys::ProcessInfo::parent_start_time	daemon.h	/^            uint64_t parent_start_time = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
-ygw::sys::ProcessInfo::restart_count	daemon.h	/^            uint32_t restart_count = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
-ygw::sys::RealDaemon	daemon.cc	/^        static int RealDaemon(int argc, char** argv,$/;"	f	namespace:ygw::sys	signature:(int argc, char** argv, std::function<int(int argc, char** argv)> main_cb)
-ygw::sys::RealStart	daemon.cc	/^        static int RealStart(int argc, char** argv,$/;"	f	namespace:ygw::sys	signature:(int argc, char** argv, std::function<int(int argc, char** argv)> main_cb)
-ygw::sys::StartDaemon	daemon.h	/^        int StartDaemon(int argc, char** argv$/;"	p	namespace:ygw::sys	signature:(int argc, char** argv , std::function<int(int argc, char** argv)> main_cb , bool is_daemon)
-ygw::sys::g_daemon_restart_interval	daemon.cc	/^        static ygw::config::ConfigVar<uint32_t>::ptr g_daemon_restart_interval = $/;"	m	namespace:ygw::sys	file:
-ygw::sys::g_loger	daemon.cc	/^        static ygw::log::Logger::ptr g_loger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::sys	file:
+ygw::sys	sys/daemon.cc	/^    namespace sys {$/;"	n	namespace:ygw	file:
+ygw::sys	sys/daemon.h	/^    namespace sys {$/;"	n	namespace:ygw
+ygw::sys	sys/env.cc	/^    namespace sys {$/;"	n	namespace:ygw	file:
+ygw::sys	sys/env.h	/^    namespace sys {$/;"	n	namespace:ygw
+ygw::sys::Env	sys/env.h	/^        class Env {$/;"	c	namespace:ygw::sys
+ygw::sys::Env::Add	sys/env.cc	/^        void Env::Add(const std::string& key, const std::string& val)$/;"	f	class:ygw::sys::Env	signature:(const std::string& key, const std::string& val)
+ygw::sys::Env::Add	sys/env.h	/^            void Add(const std::string& key, const std::string& val);$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& key, const std::string& val)
+ygw::sys::Env::AddHelp	sys/env.cc	/^        void Env::AddHelp(const std::string& key, const std::string& desc) $/;"	f	class:ygw::sys::Env	signature:(const std::string& key, const std::string& desc)
+ygw::sys::Env::AddHelp	sys/env.h	/^            void AddHelp(const std::string& key, const std::string& desc);$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& key, const std::string& desc)
+ygw::sys::Env::Del	sys/env.cc	/^        void Env::Del(const std::string& key) $/;"	f	class:ygw::sys::Env	signature:(const std::string& key)
+ygw::sys::Env::Del	sys/env.h	/^            void Del(const std::string& key);$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& key)
+ygw::sys::Env::Get	sys/env.cc	/^        std::string Env::Get(const std::string& key, const std::string& default_value) $/;"	f	class:ygw::sys::Env	signature:(const std::string& key, const std::string& default_value)
+ygw::sys::Env::Get	sys/env.h	/^            std::string Get(const std::string& key, const std::string& default_value = "");$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& key, const std::string& default_value = ”)
+ygw::sys::Env::GetAbsolutePath	sys/env.cc	/^        std::string Env::GetAbsolutePath(const std::string& path) const $/;"	f	class:ygw::sys::Env	signature:(const std::string& path) const
+ygw::sys::Env::GetAbsolutePath	sys/env.h	/^            std::string GetAbsolutePath(const std::string& path) const;$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& path) const
+ygw::sys::Env::GetAbsoluteWorkPath	sys/env.cc	/^        std::string Env::GetAbsoluteWorkPath(const std::string& path) const $/;"	f	class:ygw::sys::Env	signature:(const std::string& path) const
+ygw::sys::Env::GetAbsoluteWorkPath	sys/env.h	/^            std::string GetAbsoluteWorkPath(const std::string& path) const;$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& path) const
+ygw::sys::Env::GetConfigPath	sys/env.cc	/^        std::string Env::GetConfigPath() $/;"	f	class:ygw::sys::Env	signature:()
+ygw::sys::Env::GetConfigPath	sys/env.h	/^            std::string GetConfigPath();$/;"	p	class:ygw::sys::Env	access:public	signature:()
+ygw::sys::Env::GetCwd	sys/env.h	/^            const std::string& GetCwd() const { return cwd_;}$/;"	f	class:ygw::sys::Env	access:public	signature:() const
+ygw::sys::Env::GetEnv	sys/env.cc	/^        std::string Env::GetEnv(const std::string& key, const std::string& default_value) $/;"	f	class:ygw::sys::Env	signature:(const std::string& key, const std::string& default_value)
+ygw::sys::Env::GetEnv	sys/env.h	/^            std::string GetEnv(const std::string& key, const std::string& default_value = "");$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& key, const std::string& default_value = ”)
+ygw::sys::Env::GetExe	sys/env.h	/^            const std::string& GetExe() const { return exe_;}$/;"	f	class:ygw::sys::Env	access:public	signature:() const
+ygw::sys::Env::Has	sys/env.cc	/^        bool Env::Has(const std::string& key) $/;"	f	class:ygw::sys::Env	signature:(const std::string& key)
+ygw::sys::Env::Has	sys/env.h	/^            bool Has(const std::string& key);$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& key)
+ygw::sys::Env::Init	sys/env.cc	/^        bool Env::Init(int argc, char** argv) $/;"	f	class:ygw::sys::Env	signature:(int argc, char** argv)
+ygw::sys::Env::PrintHelp	sys/env.cc	/^        void Env::PrintHelp() $/;"	f	class:ygw::sys::Env	signature:()
+ygw::sys::Env::PrintHelp	sys/env.h	/^            void PrintHelp();$/;"	p	class:ygw::sys::Env	access:public	signature:()
+ygw::sys::Env::RemoveHelp	sys/env.cc	/^        void Env::RemoveHelp(const std::string& key) $/;"	f	class:ygw::sys::Env	signature:(const std::string& key)
+ygw::sys::Env::RemoveHelp	sys/env.h	/^            void RemoveHelp(const std::string& key);$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& key)
+ygw::sys::Env::SetEnv	sys/env.cc	/^        bool Env::SetEnv(const std::string& key, const std::string& val) $/;"	f	class:ygw::sys::Env	signature:(const std::string& key, const std::string& val)
+ygw::sys::Env::SetEnv	sys/env.h	/^            bool SetEnv(const std::string& key, const std::string& val);$/;"	p	class:ygw::sys::Env	access:public	signature:(const std::string& key, const std::string& val)
+ygw::sys::Env::args_	sys/env.h	/^            std::map<std::string, std::string> args_;$/;"	m	class:ygw::sys::Env	access:private
+ygw::sys::Env::cwd_	sys/env.h	/^            std::string cwd_;$/;"	m	class:ygw::sys::Env	access:private
+ygw::sys::Env::exe_	sys/env.h	/^            std::string exe_;$/;"	m	class:ygw::sys::Env	access:private
+ygw::sys::Env::helps_	sys/env.h	/^            std::vector<std::pair<std::string, std::string>> helps_;$/;"	m	class:ygw::sys::Env	access:private
+ygw::sys::Env::mutex_	sys/env.h	/^            RWMutexType mutex_;$/;"	m	class:ygw::sys::Env	access:private
+ygw::sys::Env::program_	sys/env.h	/^            std::string program_;$/;"	m	class:ygw::sys::Env	access:private
+ygw::sys::ProcessInfo	sys/daemon.h	/^        struct ProcessInfo {$/;"	s	namespace:ygw::sys
+ygw::sys::ProcessInfo::ToString	sys/daemon.cc	/^        std::string ProcessInfo::ToString() const $/;"	f	class:ygw::sys::ProcessInfo	signature:() const
+ygw::sys::ProcessInfo::ToString	sys/daemon.h	/^            std::string ToString() const;$/;"	p	struct:ygw::sys::ProcessInfo	access:public	signature:() const
+ygw::sys::ProcessInfo::main_id	sys/daemon.h	/^            pid_t main_id = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
+ygw::sys::ProcessInfo::main_start_time	sys/daemon.h	/^            uint64_t main_start_time = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
+ygw::sys::ProcessInfo::parent_id	sys/daemon.h	/^            pid_t parent_id = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
+ygw::sys::ProcessInfo::parent_start_time	sys/daemon.h	/^            uint64_t parent_start_time = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
+ygw::sys::ProcessInfo::restart_count	sys/daemon.h	/^            uint32_t restart_count = 0;$/;"	m	struct:ygw::sys::ProcessInfo	access:public
+ygw::sys::RealDaemon	sys/daemon.cc	/^        static int RealDaemon(int argc, char** argv,$/;"	f	namespace:ygw::sys	signature:(int argc, char** argv, std::function<int(int argc, char** argv)> main_cb)
+ygw::sys::RealStart	sys/daemon.cc	/^        static int RealStart(int argc, char** argv,$/;"	f	namespace:ygw::sys	signature:(int argc, char** argv, std::function<int(int argc, char** argv)> main_cb)
+ygw::sys::StartDaemon	sys/daemon.cc	/^        int StartDaemon(int argc, char** argv$/;"	f	namespace:ygw::sys	signature:(int argc, char** argv , std::function<int(int argc, char** argv)> main_cb , bool is_daemon)
+ygw::sys::StartDaemon	sys/daemon.h	/^        int StartDaemon(int argc, char** argv$/;"	p	namespace:ygw::sys	signature:(int argc, char** argv , std::function<int(int argc, char** argv)> main_cb , bool is_daemon)
+ygw::sys::g_daemon_restart_interval	sys/daemon.cc	/^        static ygw::config::ConfigVar<uint32_t>::ptr g_daemon_restart_interval = $/;"	m	namespace:ygw::sys	file:
+ygw::sys::g_logger	sys/daemon.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::sys	file:
+ygw::sys::g_logger	sys/env.cc	/^        static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");$/;"	m	namespace:ygw::sys	file:
 ygw::tcp	tcp_server.cc	/^    namespace tcp {$/;"	n	namespace:ygw	file:
 ygw::tcp	tcp_server.h	/^    namespace tcp { $/;"	n	namespace:ygw
 ygw::tcp::TcpServer	tcp_server.h	/^        class TcpServer : public std::enable_shared_from_this<TcpServer>$/;"	c	namespace:ygw::tcp	inherits:std::enable_shared_from_this,able::Noncopyable
