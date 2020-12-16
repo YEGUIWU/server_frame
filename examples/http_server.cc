@@ -14,7 +14,7 @@
 #include <iostream>
 static ygw::log::Logger::ptr g_logger = YGW_LOG_ROOT();
 
-void run()
+void Run()
 {
     ygw::http::HttpServer::ptr server(new ygw::http::HttpServer);
     ygw::socket::Address::ptr addr = ygw::socket::Address::LookupAnyIPAddress("0.0.0.0:8020");
@@ -52,6 +52,6 @@ void run()
 int main(int argc, char** argv)
 {
     ygw::scheduler::IOManager iom(2);
-    iom.Schedule(run);
+    iom.Schedule(Run);
     return 0;
 }

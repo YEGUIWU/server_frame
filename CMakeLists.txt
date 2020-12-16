@@ -92,6 +92,7 @@ ygw_add_executable(test_daemon "tests/test_daemon.cc" server_frame "${LIBS}")
 ygw_add_executable(test_env "tests/test_env.cc" server_frame "${LIBS}")
 # examples
 ygw_add_executable(echo_server "examples/echo_server.cc" server_frame "${LIBS}")
+# project
 ygw_add_executable(http_server "examples/http_server.cc" server_frame "${LIBS}")
 
 

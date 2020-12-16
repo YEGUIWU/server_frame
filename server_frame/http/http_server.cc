@@ -104,6 +104,29 @@ namespace ygw {
             bool is_file_path = (S_IFREG == (S_IFREG & st.st_mode));
             bool is_dir_path = (S_IFDIR == (S_IFDIR & st.st_mode));
 
+            // index.html
+            std::cout << cur_path << std::endl;
+            std::cout << obj_path << std::endl;
+            if (is_dir_path)
+            {
+                std::string index_path = obj_path + "/index.html";
+                //if (!access(index_path.data(), F_OK))
+                int ret = stat(index_path.data(), &st); 
+                if (!ret)
+                {
+                    if (S_IFREG == (S_IFREG & st.st_mode))
+                    {
+                        is_file_path = true;
+                        is_dir_path = false;
+                        obj_path = index_path;
+                    }
+                }
+                else
+                {
+                    std::cout << strerror(errno) << std::endl;
+                }
+            }
+
             if (is_dir_path)
             {
                 std::string body;
