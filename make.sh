@@ -1,5 +1,5 @@
 #!/bin/bash
 cd build
 cmake ..
-make -j2
+make -j8
 cd ..
