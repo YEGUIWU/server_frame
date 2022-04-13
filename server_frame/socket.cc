@@ -458,7 +458,7 @@ namespace ygw {
                 break;
             }
             socklen_t addrlen = result->GetAddrLen();
-            if (getpeername(sockfd_, result->GetAddr(), &addrlen))
+            if (!getpeername(sockfd_, result->GetAddr(), &addrlen)) // return 0 is successful
             {
                 YGW_LOG_ERROR(g_logger) << "getpeername error sockfd=" << sockfd_
                     << " errno=" << errno << " errstr=" << strerror(errno);
@@ -498,7 +498,7 @@ namespace ygw {
             }
 
             socklen_t addrlen = result->GetAddrLen();
-            if (getsockname(sockfd_, result->GetAddr(), &addrlen))
+            if (!getsockname(sockfd_, result->GetAddr(), &addrlen))
             {
                 YGW_LOG_ERROR(g_logger) << "getsockname error sockfd=" << sockfd_
                     << " errno=" << errno << " errstr=" << strerror(errno);
