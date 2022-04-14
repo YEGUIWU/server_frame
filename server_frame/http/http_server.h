@@ -1,14 +1,11 @@
-/*
- * ====================================================
- * Copyright (c) 2020-2100
- *     FileName: http/http_server.h
- *       Author: Ye Gui Wu
- *        Email: yeguiwu@qq.com
- *      Version: 1.0
- *     Compiler: gcc
- *  Create Date: 2020-09-20
- *  Description: 
- * ====================================================
+/**
+ * @file http_server.h
+ * @brief http服务器
+ * @author YeGuiWu
+ * @email yeguiwu@qq.com
+ * @version 1.0
+ * @date 2022-04-14
+ * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.xyz
  */
 #ifndef __YGE_HTTP_SERVER_H__
 #define __YGE_HTTP_SERVER_H__

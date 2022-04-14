@@ -1,14 +1,11 @@
-/*
- * ====================================================
- * Copyright (c) 2020-2100
- *     FileName: bytearray.h
- *       Author: Ye Gui Wu
- *        Email: yeguiwu@qq.com
- *      Version: 1.0
- *     Compiler: gcc
- *  Create Date: 2020-09-16
- *  Description: 二进制数组(序列化/反序列化)
- * ====================================================
+/**
+ * @file bytearray.h
+ * @brief 二进制数组(序列化/反序列化)
+ * @author YeGuiWu
+ * @email yeguiwu@qq.com
+ * @version 1.0
+ * @date 2022-04-14
+ * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.xyz
  */
 #ifndef __YGW_BYTEARRAY_H__
 #define __YGW_BYTEARRAY_H__

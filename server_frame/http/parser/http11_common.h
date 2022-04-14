@@ -1,4 +1,12 @@
-#ifndef _http11_common_h
+/**
+ * @file http11_common.h
+ * @brief ragel生成的http11 common
+ * @author YeGuiWu
+ * @email yeguiwu@qq.com
+ * @version 1.0
+ * @date 2022-04-14
+ * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.xyz
+ */
 #define _http11_common_h
 
 #include <sys/types.h>

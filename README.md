@@ -11,5 +11,5 @@ sudo apt-get install graphviz
 * http有限状态机
 ~~~bash`
 sudo apt-get install ragel
-ragel -G2 -C XXX.rl
+ragel -G2 -C XXX.rl XXX.cc
 ~~~

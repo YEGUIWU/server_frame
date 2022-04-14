@@ -1,4 +1,12 @@
-
+/**
+ * @file http11_parser.h
+ * @brief ragel生成的http11解析器
+ * @author YeGuiWu
+ * @email yeguiwu@qq.com
+ * @version 1.0
+ * @date 2022-04-14
+ * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.xyz
+ */
 #ifndef http11_parser_h
 #define http11_parser_h
 

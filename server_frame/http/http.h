@@ -1,14 +1,11 @@
-/*
- * ====================================================
- * Copyright (c) 2020-2100
- *     FileName: http/http.h
- *       Author: Ye Gui Wu
- *        Email: yeguiwu@qq.com
- *      Version: 1.0
- *     Compiler: gcc
- *  Create Date: 2020-09-18
- *  Description: HTTP定义封装
- * ====================================================
+/**
+ * @file http.h
+ * @brief http模块
+ * @author YeGuiWu
+ * @email yeguiwu@qq.com
+ * @version 1.0
+ * @date 2022-04-14
+ * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.xyz
  */
 #ifndef __YGW_HTTP_HTTP_H__
 #define __YGW_HTTP_HTTP_H__

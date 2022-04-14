@@ -1,16 +1,12 @@
-/*
- * ====================================================
- * Copyright (c) 2020-2100
- *     FileName: server_frame/mutex.h
- *       Author: Ye Gui Wu
- *        Email: yeguiwu@qq.com
- *      Version: 1.0
- *     Compiler: gcc
- *  Create Date: 2020-05-04
- *  Description: 常用互斥量、信号量封装
- * ====================================================
+/**
+ * @file mutex.h
+ * @brief 常用互斥量、信号量的封装
+ * @author YeGuiWu
+ * @email yeguiwu@qq.com
+ * @version 1.0
+ * @date 2022-04-14
+ * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.xyz
  */
-#ifndef __YGW_MUTEX_H__
 #define __YGW_MUTEX_H__
 #include <cstdint>
 #include <atomic>

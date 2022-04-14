@@ -1,14 +1,11 @@
-/*
- * ====================================================
- * Copyright (c) 2020-2100
- *     FileName: config_servlet.h
- *       Author: Ye Gui Wu
- *        Email: yeguiwu@qq.com
- *      Version: 1.0
- *     Compiler: gcc
- *  Create Date: 2020-09-20
- *  Description: 
- * ====================================================
+/**
+ * @file http/servlet/config_servlet.h
+ * @brief 配置servlet
+ * @author YeGuiWu
+ * @email yeguiwu@qq.com
+ * @version 1.0
+ * @date 2022-04-14
+ * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.xyz
  */
 #ifndef __YGW_CONFIG_SERVLET_H__
 #define __YGW_CONFIG_SERVLET_H__
