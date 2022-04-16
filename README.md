@@ -14,6 +14,15 @@ sudo apt-get install ragel
 ragel -G2 -C XXX.rl XXX.cc
 ~~~
 
+* google test安装
+~~~bash
+git clone git@github.com:google/googletest.git
+cd googletest
+mkdir build && cd build
+cmake ..
+make && make install
+~~~
+
 * 测试工具安装
 ~~~bash
 wget http://blog.s135.com/soft/linux/webbench/webbench-1.5.tar.gz  
