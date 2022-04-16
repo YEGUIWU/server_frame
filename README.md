@@ -13,3 +13,22 @@ sudo apt-get install graphviz
 sudo apt-get install ragel
 ragel -G2 -C XXX.rl XXX.cc
 ~~~
+
+* 测试工具安装
+~~~bash
+wget http://blog.s135.com/soft/linux/webbench/webbench-1.5.tar.gz  
+tar zxvf webbench-1.5.tar.gz  
+cd webbench-1.5  
+make
+sudo make install
+~~~
+
+~~~bash
+sudo apt-get install apache2-utils
+~~~
+
+* 测试命令
+~~~bash
+webbench -c 10000 -t 5 http://172.19.150.194:8020/
+ab -n 50000 -c 1000 http://172.19.150.194:8020/index.html
+~~~
