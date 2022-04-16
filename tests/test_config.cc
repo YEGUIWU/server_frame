@@ -273,13 +273,13 @@ int main(int argc, char* argv[])
     //test_yaml();
     //test_config();
     //test_class();
-    //test_log();
+    test_log();
 
-    ygw::sys::EnvManager::GetInstance()->Init(argc, argv);
-    test_visit();
-    std::cout << "------------------------------------------------------" << std::endl;
-    test_loadconf();
-    test_visit();
+    //ygw::sys::EnvManager::GetInstance()->Init(argc, argv);
+    //test_visit();
+    //std::cout << "------------------------------------------------------" << std::endl;
+    //test_loadconf();
+    //test_visit();
 
 
     return 0;

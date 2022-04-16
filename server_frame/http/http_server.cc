@@ -105,8 +105,8 @@ namespace ygw {
             bool is_dir_path = (S_IFDIR == (S_IFDIR & st.st_mode));
 
             // index.html
-            std::cout << cur_path << std::endl;
-            std::cout << obj_path << std::endl;
+            //std::cout << cur_path << std::endl;
+            //std::cout << obj_path << std::endl;
             if (is_dir_path)
             {
                 std::string index_path = obj_path + "/index.html";

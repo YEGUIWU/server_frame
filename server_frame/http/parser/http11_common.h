@@ -7,11 +7,12 @@
  * @date 2022-04-14
  * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.xyz
  */
-#define _http11_common_h
+#ifndef __http11_common__
+#define __http11_common__
 
 #include <sys/types.h>
 
 typedef void (*element_cb)(void *data, const char *at, size_t length);
 typedef void (*field_cb)(void *data, const char *field, size_t flen, const char *value, size_t vlen);
 
-#endif
+#endif // __http11_common__

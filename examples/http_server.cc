@@ -16,6 +16,8 @@ static ygw::log::Logger::ptr g_logger = YGW_LOG_ROOT();
 
 void Run()
 {
+    ygw::config::Config::LoadFromYaml(YAML::LoadFile("./bin/conf/log.yml"));
+
     ygw::http::HttpServer::ptr server(new ygw::http::HttpServer);
     ygw::socket::Address::ptr addr = ygw::socket::Address::LookupAnyIPAddress("0.0.0.0:8020");
     YAML::Node conf = YAML::LoadFile("./bin/conf/http_server.yml");

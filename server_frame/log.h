@@ -26,8 +26,8 @@
 #include "base/thread.h"
 
 /**
- ** @brief 使用流式方式将日志级别level的日志写入到logger
- **/
+ * @brief 使用流式方式将日志级别level的日志写入到logger
+ */
 #define YGW_LOG_LEVEL(logger, level) \
     if (logger->GetLevel() <= level) \
     ygw::log::LogEventWrap(ygw::log::LogEvent::ptr(new ygw::log::LogEvent(logger, level, \
@@ -35,33 +35,33 @@
                     ygw::util::GetFiberId(), time(0), ygw::thread::Thread::GetThisName()))).GetStringStream()
 
 /**
- ** @brief 使用流式方式将日志级别debug的日志写入到logger
- **/
+ * @brief 使用流式方式将日志级别debug的日志写入到logger
+ */
 #define YGW_LOG_DEBUG(logger) YGW_LOG_LEVEL(logger, ygw::log::LogLevel::kDebug)
 
 /**
- ** @brief 使用流式方式将日志级别info的日志写入到logger
- **/
+ * @brief 使用流式方式将日志级别info的日志写入到logger
+ */
 #define YGW_LOG_INFO(logger) YGW_LOG_LEVEL(logger, ygw::log::LogLevel::kInfo)
 
 /**
- ** @brief 使用流式方式将日志级别warn的日志写入到logger
- **/
+ * @brief 使用流式方式将日志级别warn的日志写入到logger
+ */
 #define YGW_LOG_WARN(logger) YGW_LOG_LEVEL(logger, ygw::log::LogLevel::kWarn)
 
 /**
- ** @brief 使用流式方式将日志级别error的日志写入到logger
- **/
+ * @brief 使用流式方式将日志级别error的日志写入到logger
+ */
 #define YGW_LOG_ERROR(logger) YGW_LOG_LEVEL(logger, ygw::log::LogLevel::kError)
 
 /**
- ** @brief 使用流式方式将日志级别fatal的日志写入到logger
- **/
+ * @brief 使用流式方式将日志级别fatal的日志写入到logger
+ */
 #define YGW_LOG_FATAL(logger) YGW_LOG_LEVEL(logger, ygw::log::LogLevel::kFatal)
 
 /**
- ** @brief 使用格式化方式将日志级别level的日志写入到logger
- **/
+ * @brief 使用格式化方式将日志级别level的日志写入到logger
+ */
 #define YGW_LOG_FMT_LEVEL(logger, level, fmt, ...) \
     if(logger->GetLevel() <= level) \
     ygw::log::LogEventWrap(ygw::log::LogEvent::ptr(new ygw::log::LogEvent(logger, level, \
@@ -69,38 +69,38 @@
                     ygw::util::GetFiberId(), time(0), "hello"))).GetEvent()->Format(fmt, __VA_ARGS__)
 
 /**
- ** @brief 使用格式化方式将日志级别debug的日志写入到logger
- **/
+ * @brief 使用格式化方式将日志级别debug的日志写入到logger
+ */
 #define YGW_LOG_FMT_DEBUG(logger, fmt, ...) YGW_LOG_FMT_LEVEL(logger, ygw::log::LogLevel::kDebug, fmt, __VA_ARGS__)
 
 /**
- ** @brief 使用格式化方式将日志级别info的日志写入到logger
- **/
+ * @brief 使用格式化方式将日志级别info的日志写入到logger
+ */
 #define YGW_LOG_FMT_INFO(logger, fmt, ...)  YGW_LOG_FMT_LEVEL(logger, ygw::log::LogLevel::kInfo, fmt, __VA_ARGS__)
 
 /**
- ** @brief 使用格式化方式将日志级别warn的日志写入到logger
- **/
+ * @brief 使用格式化方式将日志级别warn的日志写入到logger
+ */
 #define YGW_LOG_FMT_WARN(logger, fmt, ...)  YGW_LOG_FMT_LEVEL(logger, ygw::log::LogLevel::kWarn, fmt, __VA_ARGS__)
 
 /**
- ** @brief 使用格式化方式将日志级别error的日志写入到logger
- **/
+ * @brief 使用格式化方式将日志级别error的日志写入到logger
+ */
 #define YGW_LOG_FMT_ERROR(logger, fmt, ...) YGW_LOG_FMT_LEVEL(logger, ygw::log::LogLevel::kError, fmt, __VA_ARGS__)
 
 /**
- ** @brief 使用格式化方式将日志级别fatal的日志写入到logger
- **/
+ * @brief 使用格式化方式将日志级别fatal的日志写入到logger
+ */
 #define YGW_LOG_FMT_FATAL(logger, fmt, ...) YGW_LOG_FMT_LEVEL(logger, ygw::log::LogLevel::kFatal, fmt, __VA_ARGS__)
 
 /**
- ** @brief 获取主日志器
- **/
+ * @brief 获取主日志器
+ */
 #define YGW_LOG_ROOT() ygw::log::LogManager::GetInstance()->GetRoot()
 
 /**
- ** @brief 获取name的日志器
- **/
+ * @brief 获取name的日志器
+ */
 #define YGW_LOG_NAME(name) ygw::log::LogManager::GetInstance()->GetLogger(name)
 
 namespace ygw {

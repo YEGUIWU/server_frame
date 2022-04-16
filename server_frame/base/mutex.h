@@ -7,6 +7,7 @@
  * @date 2022-04-14
  * @copyright Copyright (c) 2020年 guiwu.ye All rights reserved www.yeguiwu.xyz
  */
+#ifndef __YGW_MUTEX_H__
 #define __YGW_MUTEX_H__
 #include <cstdint>
 #include <atomic>

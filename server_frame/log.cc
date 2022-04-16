@@ -486,6 +486,7 @@ namespace ygw {
         void StdoutLogAppender::Log(Logger::ptr logger,
                 LogLevel::Level level, LogEvent::ptr event)
         {
+            //std::cout << "test: " << level << " " << level_ << std::endl;
             if (level >= level_)
             {
                 MutexType::Lock lock(mutex_);
@@ -964,14 +965,18 @@ namespace ygw {
                     for (std::size_t x = 0; x < n["appenders"].size(); ++x)
                     {
                         auto a = n["appenders"][x];
+
                         if (!a["type"].IsDefined())
                         {
                             std::cout << "log config error: appender type is null, " << a
                                 << std::endl;
                             continue;
                         }
+
+
                         std::string type = a["type"].as<std::string>();
                         log::LogAppenderDefine lad;
+                        lad.level_ = ld.level_;
                         if (type == "FileLogAppender")
                         {
                             lad.type_ = 1;
@@ -986,6 +991,10 @@ namespace ygw {
                             {
                                 lad.formatter_ = a["formatter"].as<std::string>();
                             }
+                            else
+                            {
+                                lad.formatter_ = "%d{%Y-%m-%d %H:%M:%S}%T%t%T%N%T%F%T[%p]%T[%c]%T%f:%l%T%m%n";
+                            }
                         }
                         else if (type == "StdoutLogAppender")
                         {
@@ -993,6 +1002,10 @@ namespace ygw {
                             if (a["formatter"].IsDefined())
                             {
                                 lad.formatter_ = a["formatter"].as<std::string>();
+                            }
+                            else
+                            {
+                                lad.formatter_ = "%d{%Y-%m-%d %H:%M:%S}%T%t%T%N%T%F%T[%p]%T[%c]%T%f:%l%T%m%n";
                             }
                         }
                         else
