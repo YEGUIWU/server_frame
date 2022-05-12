@@ -37,7 +37,7 @@ namespace ygw {
             int ssl = 0;
             std::string id;
             /// 服务器类型，http, ws, rock
-            std::string type = "http";
+            std::string type = "tcp";
             std::string name;
             std::string cert_file;
             std::string key_file;
@@ -83,8 +83,10 @@ namespace ygw {
              * @param[in] worker socket客户端工作的协程调度器
              * @param[in] accept_worker 服务器socket执行接收socket连接的协程调度器
              */
-            TcpServer(ygw::scheduler::IOManager* worker = ygw::scheduler::IOManager::GetThis()
-                    ,ygw::scheduler::IOManager* io_woker = ygw::scheduler::IOManager::GetThis()
+            //TcpServer(ygw::scheduler::IOManager* worker = ygw::scheduler::IOManager::GetThis()
+            //        ,ygw::scheduler::IOManager* io_woker = ygw::scheduler::IOManager::GetThis()
+            //        ,ygw::scheduler::IOManager* accept_worker = ygw::scheduler::IOManager::GetThis());
+            TcpServer(ygw::scheduler::IOManager* io_woker = ygw::scheduler::IOManager::GetThis()
                     ,ygw::scheduler::IOManager* accept_worker = ygw::scheduler::IOManager::GetThis());
 
             /**
@@ -182,7 +184,7 @@ namespace ygw {
             /// 监听Socket数组
             std::vector<ygw::socket::Socket::ptr> socks_;
             /// 新连接的Socket工作的调度器
-            scheduler::IOManager* worker_;
+            //scheduler::IOManager* worker_;
             scheduler::IOManager* io_worker_;
             /// 服务器Socket接收连接的调度器
             scheduler::IOManager* accept_worker_;

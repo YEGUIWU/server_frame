@@ -29,10 +29,9 @@ namespace ygw {
         static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");
 
         HttpServer::HttpServer(bool keepalive
-                ,ygw::scheduler::IOManager* worker
                 ,ygw::scheduler::IOManager* io_worker
                 ,ygw::scheduler::IOManager* accept_worker)
-            :TcpServer(worker, io_worker, accept_worker)
+            :TcpServer(io_worker, accept_worker)
             ,is_keepalive_(keepalive) 
             ,root_path_(ygw::sys::EnvManager::GetInstance()->GetAbsolutePath(""))
         {

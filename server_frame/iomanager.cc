@@ -142,7 +142,8 @@ namespace ygw {
         IOManager::IOManager(size_t threads, bool use_caller, const std::string& name)
             :Scheduler(threads, use_caller, name) 
         {
-            epfd_ = epoll_create(5000);
+            //TODO epoll_create config
+            epfd_ = epoll_create(10000);
             YGW_ASSERT(epfd_ > 0);
 
             int rt = pipe(tickle_fds_);

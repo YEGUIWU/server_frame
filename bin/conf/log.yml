@@ -1,12 +1,12 @@
 logs:
     - name: root
-      level: info
+      level: error 
       appenders:
           - type: FileLogAppender
             file: ./tmp/root.log
           - type: StdoutLogAppender
     - name: system
-      level: info
+      level: error 
       appenders:
           - type: FileLogAppender
             file: ./tmp/system.log

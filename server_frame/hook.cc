@@ -73,6 +73,7 @@ namespace ygw {
 #define XX(name) name ## _f = (name ## _func)dlsym(RTLD_NEXT, #name);
                 HOOK_FUNC(XX);
 #undef XX
+            is_inited = true;
         }
 
         //---------------------------------

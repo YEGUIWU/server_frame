@@ -153,11 +153,6 @@ namespace ygw {
 
         static void OnTimer(std::weak_ptr<void> weak_cond, std::function<void()> cb) 
         {
-            //std::shared_ptr<void> tmp = weak_cond.lock();
-            //if (tmp) 
-            //{
-            //    cb();
-            //}
             if (weak_cond.lock()) 
             {
                 cb();

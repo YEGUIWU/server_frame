@@ -22,11 +22,9 @@ namespace ygw {
 
         static ygw::log::Logger::ptr g_logger = YGW_LOG_NAME("system");
 
-        TcpServer::TcpServer(ygw::scheduler::IOManager* worker,
-                ygw::scheduler::IOManager* io_worker,
+        TcpServer::TcpServer(ygw::scheduler::IOManager* io_worker,
                 ygw::scheduler::IOManager* accept_worker)
-            :worker_(worker)
-            ,io_worker_(io_worker)
+            : io_worker_(io_worker)
             ,accept_worker_(accept_worker)
             ,recv_timeout_(g_tcp_server_read_timeout->GetValue())
             ,name_("ygw/1.0.0")
@@ -100,6 +98,7 @@ namespace ygw {
 
         void TcpServer::StartAccept(ygw::socket::Socket::ptr sock) 
         {
+            //std::cout << "accept" << std::endl;
             while (!is_stop_) 
             {
                 ygw::socket::Socket::ptr client = sock->Accept();
@@ -172,7 +171,7 @@ namespace ygw {
             std::stringstream ss;
             ss << prefix << "[type=" << type_
                 << " name=" << name_ << " ssl=" << ssl_
-                << " worker=" << (worker_ ? worker_->GetName() : "")
+                //<< " worker=" << (worker_ ? worker_->GetName() : "")
                 << " accept=" << (accept_worker_ ? accept_worker_->GetName() : "")
                 << " recv_timeout=" << recv_timeout_ << "]" << std::endl;
             std::string pfx = prefix.empty() ? "    " : prefix;

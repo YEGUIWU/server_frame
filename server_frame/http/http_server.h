@@ -64,7 +64,6 @@ namespace ygw {
              * @param[in] accept_worker 接收连接调度器
              */
             HttpServer(bool keepalive = false
-                    ,ygw::scheduler::IOManager* worker = ygw::scheduler::IOManager::GetThis()
                     ,ygw::scheduler::IOManager* io_worker = ygw::scheduler::IOManager::GetThis()
                     ,ygw::scheduler::IOManager* accept_worker = ygw::scheduler::IOManager::GetThis());
 

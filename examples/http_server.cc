@@ -18,6 +18,7 @@ void Run()
 {
     ygw::config::Config::LoadFromYaml(YAML::LoadFile("./bin/conf/log.yml"));
 
+    //ygw::http::HttpServer::ptr server(new ygw::http::HttpServer(true));
     ygw::http::HttpServer::ptr server(new ygw::http::HttpServer);
     ygw::socket::Address::ptr addr = ygw::socket::Address::LookupAnyIPAddress("0.0.0.0:8020");
     YAML::Node conf = YAML::LoadFile("./bin/conf/http_server.yml");
@@ -53,7 +54,8 @@ void Run()
 }
 int main(int argc, char** argv)
 {
-    ygw::scheduler::IOManager iom(2);
+    //ygw::scheduler::IOManager iom(1, true, "main");
+    ygw::scheduler::IOManager iom(7);
     iom.Schedule(Run);
     return 0;
 }
